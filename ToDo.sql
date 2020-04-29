@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 13-Abr-2020 às 02:49
+-- Tempo de geração: 15-Abr-2020 às 23:56
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.10
 
@@ -188,6 +188,26 @@ INSERT INTO `instituicao_ensino` (`id_instituicao`, `nome_instituicao`, `sigla_i
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(3, '2014_10_12_100000_create_password_resets_table', 1),
+(4, '2020_04_13_215849_create_verificas_table', 2);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `nivel_acesso`
 --
 
@@ -203,6 +223,18 @@ CREATE TABLE `nivel_acesso` (
 INSERT INTO `nivel_acesso` (`id_nivel`, `nivel`) VALUES
 (1, 'Usuário '),
 (2, 'Avaliador');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -912,7 +944,8 @@ CREATE TABLE `usuarios` (
   `registro` int(11) NOT NULL COMMENT 'Esse campo se refere ao RGM/CPF do usuário',
   `senha` varchar(200) NOT NULL,
   `nivel` int(10) NOT NULL,
-  `id_situacao_user` int(10) NOT NULL DEFAULT 2,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `id_situacao` int(10) NOT NULL DEFAULT 2,
   `id_area` int(10) DEFAULT NULL,
   `id_instituicao` int(10) DEFAULT NULL,
   `id_regiao_cidade` int(10) DEFAULT NULL,
@@ -924,8 +957,21 @@ CREATE TABLE `usuarios` (
 -- Extraindo dados da tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `id_situacao_user`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`) VALUES
-(1, 'matheus', 'matheus@email.com', 20867000, '$2y$10$rcUvJ.nxPYXtKf/1qGR13u199jqmZkTQBmybTkqWfoBKmusuS5D6e', 1, 2, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `email_verified_at`, `id_situacao`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`) VALUES
+(12, 'Matheus Moura', 'Matheusmpinho@Outlook.com', 20867000, '$2y$10$oUSCR9yl9V/s5g3kynVwnezl1U9i8Z8bPDFGJGdBdU9te17eje0xC', 1, '2000-01-27 02:00:00', 2, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `verifica`
+--
+
+CREATE TABLE `verifica` (
+  `user_id` int(11) NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Índices para tabelas despejadas
@@ -973,10 +1019,22 @@ ALTER TABLE `instituicao_ensino`
   ADD PRIMARY KEY (`id_instituicao`);
 
 --
+-- Índices para tabela `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `nivel_acesso`
 --
 ALTER TABLE `nivel_acesso`
   ADD PRIMARY KEY (`id_nivel`);
+
+--
+-- Índices para tabela `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
 
 --
 -- Índices para tabela `postagens`
@@ -1020,7 +1078,7 @@ ALTER TABLE `usuarios`
   ADD UNIQUE KEY `email_usuarios` (`email`),
   ADD UNIQUE KEY `usuario` (`usuario`),
   ADD UNIQUE KEY `registro_usuarios` (`registro`),
-  ADD KEY `id_situacao_user` (`id_situacao_user`),
+  ADD KEY `id_situacao_user` (`id_situacao`),
   ADD KEY `id_nivel` (`nivel`),
   ADD KEY `id_area` (`id_area`),
   ADD KEY `id_instituicao` (`id_instituicao`),
@@ -1067,6 +1125,12 @@ ALTER TABLE `instituicao_ensino`
   MODIFY `id_instituicao` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT de tabela `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de tabela `nivel_acesso`
 --
 ALTER TABLE `nivel_acesso`
@@ -1106,7 +1170,7 @@ ALTER TABLE `situacao_usuario`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Restrições para despejos de tabelas
@@ -1150,7 +1214,7 @@ ALTER TABLE `regiao_cidade`
 -- Limitadores para a tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_situacao_user`) REFERENCES `situacao_usuario` (`id_situacao_usuario`),
+  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_situacao`) REFERENCES `situacao_usuario` (`id_situacao_usuario`),
   ADD CONSTRAINT `usuarios_ibfk_2` FOREIGN KEY (`nivel`) REFERENCES `nivel_acesso` (`id_nivel`),
   ADD CONSTRAINT `usuarios_ibfk_3` FOREIGN KEY (`id_area`) REFERENCES `area_estudo` (`id_area`),
   ADD CONSTRAINT `usuarios_ibfk_4` FOREIGN KEY (`id_instituicao`) REFERENCES `instituicao_ensino` (`id_instituicao`),

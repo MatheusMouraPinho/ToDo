@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
 
 //pagina inicial na view/auth/login
 Route::get('/', function () {
@@ -28,8 +27,14 @@ Route::get('/registro', 'HomeController@registro');
 
 Route::get('/log_in', 'HomeController@log_in'); 
 
+Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
+
+Route::get('/redirect', 'HomeController@redirect');
+
+Auth::routes(['verify' => true]);
+
 //rotas só para quem esta logado
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth', 'verified']], function() {
 
     Route::get('/home', 'HomeController@home');
 

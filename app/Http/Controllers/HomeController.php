@@ -51,4 +51,12 @@ class HomeController extends Controller
         
     }
 
+    public function redirect() {
+		
+        Auth::logout();
+        //seria bom colocar um aviso depois
+        return view('auth.login');
+        
+    }
+
 }

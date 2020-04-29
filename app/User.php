@@ -5,9 +5,17 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\VerifyEmail;
+use App\Notifications\ResetPassword;
 
-class User extends Authenticatable
-{
+
+class User extends Authenticatable implements MustVerifyEmail
+{   
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmail); //substituir notificão verificação de email
+    }
+
     use Notifiable;
 
     /**
@@ -34,7 +42,10 @@ class User extends Authenticatable
     public $timestamps = false; //retira data de criação/modif que é padrão no insert
 
     public function getAuthPassword() //função pra usar "senha" como password
-{
+    {
     return $this->senha;
-}
+    }
+
+
+
 }
