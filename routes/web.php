@@ -13,6 +13,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
+//pagina inicial na view/auth/login
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
+});
+
+//HomeController.php fica em app/http/controllers
+
+//'nome mascara da pagina' e 'controlador@nomeFunção' 
+
+Route::get('/registro', 'HomeController@registro');  
+
+Route::get('/log_in', 'HomeController@log_in'); 
+
+//rotas só para quem esta logado
+Route::group(['middleware' => ['auth']], function() {
+
+    Route::get('/home', 'HomeController@home');
+
+    Route::get('/pagina', 'HomeController@pagina'); 
+
+    Route::get('/logout', 'HomeController@logout');
+
 });

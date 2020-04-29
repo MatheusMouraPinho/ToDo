@@ -16,17 +16,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'usuario', 'registro', 'email',  'senha', 'nivel',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
 
     /**
      * The attributes that should be cast to native types.
@@ -36,4 +28,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $table = 'usuarios'; //tabela que ira puxar os dados pra login
+
+    public $timestamps = false; //retira data de criação/modif que é padrão no insert
+
+    public function getAuthPassword() //função pra usar "senha" como password
+{
+    return $this->senha;
+}
 }
