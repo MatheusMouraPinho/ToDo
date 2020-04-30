@@ -28,8 +28,10 @@ class HomeController extends Controller
         return view('auth.register'); //retorna da pasta view ('pasta.arquivo');
     }
 
-    public function log_in()
+    public function logout()
     {
+        Auth::logout();
+
         return view('auth.login');
     }
       
@@ -43,20 +45,5 @@ class HomeController extends Controller
         return view('otherpage');
     }
 
-    public function logout() {
-		
-        Auth::logout();
-        //seria bom colocar um aviso depois
-        return view('auth.logout');
-        
-    }
-
-    public function redirect() {
-		
-        Auth::logout();
-        //seria bom colocar um aviso depois
-        return view('auth.login');
-        
-    }
 
 }

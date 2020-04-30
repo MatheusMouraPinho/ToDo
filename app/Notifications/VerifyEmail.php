@@ -20,14 +20,14 @@ class VerifyEmail extends VerifyEmailBase
             return call_user_func(static::$toMailCallback, $notifiable);
         }
         return (new MailMessage)
-            ->greeting(Lang::get('Ola!'))
-            ->subject(Lang::get('Comfirmar Verificação'))
-            ->line(Lang::get('Por favor Comfirme seu cadastro para ter acesso ao nosso site.'))
+            ->greeting(Lang::get('Olá!'))
+            ->subject(Lang::get('Confirmar Verificação'))
+            ->line(Lang::get('Por favor Confirme seu cadastro para ter acesso ao nosso site.'))
             ->action(
-                Lang::get('Comfirmar Verificação'),
+                Lang::get('Confirmar Verificação'),
                 $this->verificationUrl($notifiable)
             )
-            ->line(Lang::get('Se não foi você não criou a conta não sera necessario a confirmação.'))
+            ->line(Lang::get('Se não foi você não criou a conta não será necessário a confirmação.'))
             ->salutation(Lang::get('Repositorio De Ideias ToDo.'));
     }
 }

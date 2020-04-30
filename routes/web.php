@@ -25,11 +25,9 @@ Route::get('/', function () {
 
 Route::get('/registro', 'HomeController@registro');  
 
-Route::get('/log_in', 'HomeController@log_in'); 
+Route::get('/logout1', 'HomeController@logout');
 
 Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
-
-Route::get('/redirect', 'HomeController@redirect');
 
 Auth::routes(['verify' => true]);
 
@@ -40,6 +38,6 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
 
     Route::get('/pagina', 'HomeController@pagina'); 
 
-    Route::get('/logout', 'HomeController@logout');
+    Route::get('/logout2', 'HomeController@logout');
 
 });
