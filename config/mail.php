@@ -12,8 +12,8 @@ return [
         "address" => "from@example.com",
         "name" => "Example"
     ),
-    "username" => "618397557ceb35",
-    "password" => "e1cc627b74fade",
+    "username" => "68f8e26538bc93",
+    "password" => "cfaabb7d895b78",
     "sendmail" => "/usr/sbin/sendmail -bs"
   ];
 
