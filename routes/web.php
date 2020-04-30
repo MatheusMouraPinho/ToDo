@@ -40,4 +40,8 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
 
     Route::get('/logout2', 'HomeController@logout');
 
+    Route::get('/conta', 'UserController@index')->name('conta');
+
+    Route::post('atualizar-perfil', 'UserController@update')->name('profile.update');
+
 });
