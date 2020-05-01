@@ -50,7 +50,7 @@
         </div>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="{{ url('/logout2') }}"> logout </a>
+        <a class="nav-link" href="{{ url('/logout') }}"> logout </a>
      <!--  </li>
       <li class="nav-item">
         <a class="nav-link active">  <?php // echo "Bem vindo ", $user, "!" ?> </a>
