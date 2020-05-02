@@ -25,23 +25,26 @@ Route::get('/', function () {
 
 Route::get('/registro', 'HomeController@registro');  
 
-Route::get('/logout1', 'HomeController@logout');
-
 Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 
 Auth::routes(['verify' => true]);
 
 //rotas só para quem esta logado
-Route::group(['middleware' => ['auth', 'verified']], function() {
+Route::group(['middleware' => ['auth']], function() {
 
-    Route::get('/home', 'HomeController@home');
+    Route::get('/logout', 'HomeController@logout');
 
-    Route::get('/pagina', 'HomeController@pagina'); 
+    Route::get('/home', 'HomeController@home')->middleware('verified'); //middleware email verificado
 
-    Route::get('/logout2', 'HomeController@logout');
+    Route::get('/pagina', 'HomeController@pagina')->middleware('verified'); 
+
+    Route::get('/adm', 'AdminController@admin')->middleware('admin');//middleware nivel adm
+
+    Route::get('/ava', 'AdminController@ava')->middleware('avaliador');//middleware nivel avaliador
 
     Route::get('/conta', 'UserController@index')->name('conta');
 
     Route::post('atualizar-perfil', 'UserController@update')->name('profile.update');
 
 });
+

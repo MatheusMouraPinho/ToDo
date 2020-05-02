@@ -47,6 +47,16 @@ class User extends Authenticatable implements MustVerifyEmail
     return $this->senha;
     }
 
+    const ADMIN_TYPE = '3';
+    const AVALIADOR_TYPE = '2';
+    const USUARIO_TYPE = '1';
 
+    public function admin()    {        
+        return $this->nivel == self::ADMIN_TYPE;  //função pra definir adm
+    }
+
+    public function Avaliador()    {        
+        return $this->nivel == self::AVALIADOR_TYPE;  //ainda não utilizado
+    }
 
 }

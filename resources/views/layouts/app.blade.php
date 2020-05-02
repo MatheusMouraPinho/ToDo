@@ -54,7 +54,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="{{ url('/conta') }}">Minha conta</a>
-              <a class="dropdown-item" href="{{ url('/logout2') }}"> Sair </a>
+              <a class="dropdown-item" href="{{ url('/logout') }}"> Sair </a>
             </div>
           </li>
         </ul>

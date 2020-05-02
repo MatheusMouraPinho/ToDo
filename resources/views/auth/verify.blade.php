@@ -23,7 +23,7 @@
                         <button type="submit" class="btn btn-link p-0 m-0 align-baseline">clique aqui para solicitar outro</button>.
                     </form>
                     <br><br>
-                    <a href="{{ url('/logout1') }}"> Não é você? </a>
+                    <a href="{{ url('/logout') }}"> Não é você? </a>
                 </div>
             </div>
         </div>
