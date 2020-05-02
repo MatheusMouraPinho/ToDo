@@ -6,6 +6,7 @@ use Auth;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 
 class UserController extends Controller
@@ -90,31 +91,15 @@ class UserController extends Controller
                         ->orderBy('nome_area', 'asc')
                         ->get()
         ];
-
-        //$situacao = $dados['situacao']->situacao_postagem;
         
 
-        $post = [
-            'situacao' => DB::table('situacao_postagem')
-                                ->join('postagens','situacao_postagem.id_situacao_postagem', '=', 'postagens.id_situacao_postagem' )
-                                ->select('situacao_postagem.*', 'postagens.id_situacao_postagem')
-                                ->get(),
-            'titulo' => DB::table('postagens')
-                            ->where('id_usuarios', $dados['id'])
-                            ->get(),
-            'id' => DB::table('postagens')
-                            ->where('id_usuarios', $user_id)
-                            ->value('id_postagem'),
-                
+        $post = [                
             'avaliacao' => DB::table('postagens')
                             ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
                             ->where('id_usuario', $user_id)
                             ->select('avaliacao_postagem.*', 'postagens.id_usuarios', 'postagens.id_postagem')
                             ->get()
         ];
-
-        //dd($dados['areas']);
-
         
         return view('conta', compact('dados', 'post'));
     }
@@ -198,9 +183,9 @@ class UserController extends Controller
         if($request->hasFile('img_usuarios') && $request->file('img_usuarios')->isValid()) {
             if($user->img_usuarios)
                 $name = $user->img_usuarios;
-            else 
+            else
                 $name = $user->id.Str::kebab($user->usuario);
-
+            
             $extenstion = $request->img_usuarios->extension();
             $nameFile = "{$name}.{$extenstion}";
 
