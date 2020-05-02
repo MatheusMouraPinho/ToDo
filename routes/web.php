@@ -40,6 +40,10 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/adm', 'AdminController@admin')->middleware('admin');//middleware nivel adm
 
+    Route::post('/alt', 'AdminController@alt')->middleware('admin');
+
+    Route::post('/del', 'AdminController@del')->middleware('admin');
+
     Route::get('/ava', 'AdminController@ava')->middleware('avaliador');//middleware nivel avaliador
 
     Route::get('/conta', 'UserController@index')->name('conta');
