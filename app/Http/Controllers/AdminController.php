@@ -40,4 +40,20 @@ class AdminController extends Controller
 
         return redirect('adm');
     }
+    
+    public function alterar()
+    {  
+        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $id_sql = $_POST ['alterar'];
+        $tipo = $_POST ['tipo'];
+
+        if($tipo =='Admin'){$result = '3';}
+        else if($tipo == 'Avaliador'){ $result = '2';}
+        else{ $result = '1';}
+
+        $sql = "UPDATE usuarios SET nivel = '$result' WHERE id ='$id_sql'";
+        mysqli_query($conn, $sql);
+
+        return redirect('adm');
+    }
 }

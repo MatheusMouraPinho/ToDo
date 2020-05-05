@@ -16,14 +16,14 @@
                         </div>
                     @endif
 
-                    Ola! <?php  echo $user?> ,Antes de prosseguir, verifique seu e-mail para um link de verificação.
+                    Ola! <?php  echo $user?>, Antes de prosseguir, verifique seu e-mail para um link de verificação.
                     Se você não recebeu o email,
                     <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                         @csrf
                         <button type="submit" class="btn btn-link p-0 m-0 align-baseline">clique aqui para solicitar outro</button>.
                     </form>
                     <br><br>
-                    <a href="{{ url('/logout') }}"> Não é você? </a>
+                    <a href="{{ url('/logout') }}"> Utilizar outra conta </a>
                 </div>
             </div>
         </div>

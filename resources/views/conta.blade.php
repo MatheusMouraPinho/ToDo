@@ -1,4 +1,4 @@
-<?
+<?php
 
 use Symfony\Component\Console\Input\Input;
 
@@ -175,7 +175,7 @@ use Symfony\Component\Console\Input\Input;
                 </tr>
               </thead>
               <tbody>
-                <? $i = 0?>            
+                <?php $i = 0?>            
                 @foreach($dados['posts'] as $posts)
                   <tr>
                     <td>{{ $posts->id_postagem }}</td>
@@ -262,7 +262,7 @@ use Symfony\Component\Console\Input\Input;
                       </div>
                     </div>
                   </div>
-                  <? $i = $i + 1?>
+                  <?php $i = $i + 1?>
                   <!-- Fim área de detalhes de ideias postadas-->
 
                 @endforeach

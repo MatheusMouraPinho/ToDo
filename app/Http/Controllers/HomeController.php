@@ -40,10 +40,5 @@ class HomeController extends Controller
         return view('home'); 
     }
 
-    public function pagina()
-    {
-        return view('otherpage');
-    }
-
 
 }
