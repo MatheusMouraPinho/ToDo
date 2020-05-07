@@ -84,20 +84,3 @@
     </div>
 </body>
 </html>
-
-
-<!--
-<div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <form class="form-inline my-2 my-lg-0" action="{{ url('/home') }}">
-            <button class="btn btn-outline-success my-2 my-sm-0">Home</button>
-          </form>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Digite o nome da ideia" aria-label="Search" style="width: 400px">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Procurar</button>
-          </form>
-          <div style="width: 500px" class="form-inline my-2 my-lg-0">
-            <form class="form-inline my-2 my-lg-0">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Crie uma ideia</button>
-            </form>
-          </div>
