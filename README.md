@@ -26,23 +26,6 @@ php artisan config:clear
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
-Utilizar o site https://mailtrap.io e pegar as credenciais pra editar o arquivo config/mail.php e substituir o codigo
+Utilizar o site https://mailtrap.io como caixa de email e pegar o username e password pra editar o arquivo config/mail.php.
 
-Exemplo:
-
-return [
-  "driver" => "smtp",
-  "host" => "smtp.mailtrap.io",
-  "port" => 2525,
-  "from" => array(
-      "address" => "from@example.com",
-      "name" => "Example"
-  ),
-  "username" => "o site gera isso",          <----
-  "password" => "o site gera isso",          <----
-  "sendmail" => "/usr/sbin/sendmail -bs"
-];
-----------------------------------------------------------------------------------------------------------------------------------------
-Utilizar o comando para armazenar as imagens:
-
-php artisan storage:link
+Utilizar o comando para armazenar as imagens: php artisan storage:link
