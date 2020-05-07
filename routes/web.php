@@ -41,7 +41,11 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() {
 
         Route::post('/del', 'AdminController@del')->middleware('admin');
 
+    Route::get('/adm2', 'AdminController@admin2')->middleware('admin');
+        
         Route::post('/alterar', 'AdminController@alterar')->middleware('admin');
+
+    Route::get('/adm3', 'AdminController@admin3')->middleware('admin');
 
     Route::get('/ava', 'AdminController@ava')->middleware('avaliador');//middleware nivel avaliador
 

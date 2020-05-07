@@ -14,6 +14,16 @@ class AdminController extends Controller
         return view('adm');
     }
 
+    public function admin2()
+    {
+        return view('adm2');
+    }
+
+    public function admin3()
+    {
+        return view('adm3');
+    }
+
     public function ava()
     {
         return view('ava');
@@ -54,6 +64,6 @@ class AdminController extends Controller
         $sql = "UPDATE usuarios SET nivel = '$result' WHERE id ='$id_sql'";
         mysqli_query($conn, $sql);
 
-        return redirect('adm');
+        return redirect('adm2');
     }
 }
