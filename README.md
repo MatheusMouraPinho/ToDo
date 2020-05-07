@@ -21,7 +21,9 @@ composer require appzcoder/crud-generator --dev
 Caso o site não mude ao alterar, substituir ou apagar algo:  
 
 php artisan view:clear
+
 php artisan cache:clear
+
 php artisan config:clear
 
 ----------------------------------------------------------------------------------------------------------------------------------------
