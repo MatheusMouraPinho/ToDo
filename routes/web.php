@@ -31,27 +31,31 @@ Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/logout', 'HomeController@logout')->middleware('auth');
 
-Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() {
+Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() { //grupo middleware
 
-    Route::get('/home', 'HomeController@home'); //middleware email verificado 
-
-    Route::get('/adm', 'AdminController@admin')->middleware('admin');//middleware nivel adm
-
-        Route::post('/alt', 'AdminController@alt')->middleware('admin');
-
-        Route::post('/del', 'AdminController@del')->middleware('admin');
-
-    Route::get('/adm2', 'AdminController@admin2')->middleware('admin');
-        
-        Route::post('/alterar', 'AdminController@alterar')->middleware('admin');
-
-    Route::get('/adm3', 'AdminController@admin3')->middleware('admin');
+    Route::get('/home', 'HomeController@home');
 
     Route::get('/ava', 'AdminController@ava')->middleware('avaliador');//middleware nivel avaliador
 
     Route::get('/conta', 'UserController@index')->name('conta');
 
     Route::post('atualizar-perfil', 'UserController@update')->name('profile.update');
+
+});
+
+Route::group(['middleware' => ['auth', 'verified', 'Altorizado', 'admin']], function() {
+
+    Route::get('/adm', 'AdminController@admin');
+        Route::post('/alt', 'AdminController@alt');
+        Route::post('/del', 'AdminController@del');
+
+    Route::get('/adm2', 'AdminController@admin2');
+        Route::post('/alterar', 'AdminController@alterar');
+
+    Route::get('/adm3', 'AdminController@admin3');
+        Route::post('/rem_den', 'AdminController@rem_den');
+        Route::post('/barrar', 'AdminController@barrar');
+        Route::post('/del_post', 'AdminController@del_post');
 
 });
 

@@ -66,4 +66,31 @@ class AdminController extends Controller
 
         return redirect('adm2');
     }
+
+    public function rem_den()
+    {  
+        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $id_sql = $_POST ['id'];
+
+        $sql = "DELETE FROM denuncias WHERE id ='$id_sql'";
+        mysqli_query($conn, $sql);
+
+        return redirect('adm3');
+    }
+
+    public function del_post()
+    {  
+        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $id1 = $_POST ['id_denuncia'];
+        $id2 = $_POST ['id_postagem'];
+
+        $sql = "DELETE FROM denuncias WHERE id ='$id1'";
+        mysqli_query($conn, $sql);
+
+        $sql = "DELETE FROM postagens WHERE id_postagem ='$id2'";
+        mysqli_query($conn, $sql);
+
+        return redirect('adm3');
+    }
+    
 }

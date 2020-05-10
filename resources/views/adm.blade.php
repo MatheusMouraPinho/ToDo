@@ -26,7 +26,7 @@ $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a class="nav-item nav-link active"  href="{{ url('/adm') }}">Cadastros</a>
     <a class="nav-item nav-link"  href="{{ url('/adm2') }}">Nivel de acesso</a>
-    <a class="nav-item nav-link"  href="{{ url('/adm3') }}">Reports</a>
+    <a class="nav-item nav-link"  href="{{ url('/adm3') }}">Denuncias</a>
   </div>
 </nav>
 <br>

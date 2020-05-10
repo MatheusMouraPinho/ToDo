@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@extends('layouts.modal')
 
 <?php  
 $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
@@ -26,11 +27,11 @@ $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a class="nav-item nav-link"  href="{{ url('/adm') }}">Cadastros</a>
     <a class="nav-item nav-link active"  href="{{ url('/adm2') }}">Nivel de acesso</a>
-    <a class="nav-item nav-link"  href="{{ url('/adm3') }}">Reports</a>
+    <a class="nav-item nav-link"  href="{{ url('/adm3') }}">Denuncias</a>
   </div>
 </nav>
 <br>
-<div class="col-12">
+<div class="row justify-content-md-center">
 <form class="form-inline my-12 my-lg-0">
     <input class="form-control mr-sm-2" type="search" placeholder="To Do" aria-label="Search" style="width: 400px">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Procurar</button>
@@ -52,7 +53,7 @@ $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
             <?php while($rows = mysqli_fetch_assoc($result2)){ 
                 $setup = $rows['nivel'];
-                $id = $rows['id']; ?>
+                $id_usuario = $rows['id']; ?>
             <tbody>
                 <tr>
                     <td><?php echo $rows['id']; ?></td>
@@ -63,7 +64,7 @@ $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
                                 }else if ($setup == 3) { echo "Admin";}
                         ?>
                     </td>
-                    <td><button type="button"  data-toggle="modal" data-target="#ModalCentralizado">
+                    <td><button type="button"  data-toggle="modal" data-target="#modal_adm2">
                     icon
                     </button></td>
                 </tr>
@@ -112,35 +113,3 @@ $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
 
 @endsection
-
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="ModalCentralizado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="TituloModalCentralizado">Título do modal</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form action="{{ url('/alterar') }}" method="POST">
-        @csrf
-        <div class="modal-body">
-            <input type='hidden' name="alterar" value="<?php echo $id ?>"/>
-
-            <label for="tipo" class="bold subdados">Tipo</label>
-            <select name="tipo" class="select" class="btn btn-primary">
-                <option>Usuario</option><option>Avaliador</option><option>Admin</option>
-            </select>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-            <button type="submit" class="btn btn-primary">Salvar mudanças</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
