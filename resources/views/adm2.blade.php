@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@extends('layouts.modal')
 
 <?php  
 $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
@@ -19,6 +18,11 @@ $inicio = ($quantidade*$pagina)-$quantidade;
 $sql = "SELECT * FROM usuarios WHERE id_situacao = '1' LIMIT $inicio, $quantidade ";
 $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
+$modal = "adm2"; 
+if ($total_pesquisa == 0){ $modal = false;} //se não ouver rows de usuarios o modal é desabilitado
+
+$pagina_anterior = $pagina - 1; //paginação
+$pagina_posterior = $pagina + 1;
 ?>
 
 
@@ -41,42 +45,40 @@ $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 <div class="row">
     <table class="col-12" id="table_conta">
         <caption>Alterar nivel de acesso</caption>
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">RGM/CPF</th>
-                    <th scope="col">Tipo</th>
-                    <th scope="col">Alterar</th>
-                </tr>
-            </thead>
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">RGM/CPF</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Alterar</th>
+            </tr>
+        </thead>
 
-            <?php while($rows = mysqli_fetch_assoc($result2)){ 
-                $setup = $rows['nivel'];
-                $id_usuario = $rows['id']; ?>
-            <tbody>
-                <tr>
-                    <td><?php echo $rows['id']; ?></td>
-                    <td><?php echo $rows['usuario']; ?></td>
-                    <td><?php echo $rows['registro']; ?></td>
-                    <td><?php   if ($setup == 1) { echo "Usuario";    
-                                }else if ($setup == 2) { echo "Avaliador";
-                                }else if ($setup == 3) { echo "Admin";}
-                        ?>
-                    </td>
-                    <td><button type="button"  data-toggle="modal" data-target="#modal_adm2">
-                    icon
-                    </button></td>
-                </tr>
-            </tbody>
-            <?php } ?>
-        </table>    
+        <?php while($rows = mysqli_fetch_assoc($result2)){ 
+            $setup = $rows['nivel'];
+            $id_usuario = $rows['id']; 
+            ?>
+            
+        <tbody>
+            <tr>
+                <td><?php echo $rows['id']; ?></td>
+                <td><?php echo $rows['usuario']; ?></td>
+                <td><?php echo $rows['registro']; ?></td>
+                <td><?php   if ($setup == 1) { echo "Usuario";    
+                            }else if ($setup == 2) { echo "Avaliador";
+                            }else if ($setup == 3) { echo "Admin";}
+                    ?>
+                </td>
+                <td><a type="button"  data-toggle="modal" data-target="#modal_adm2">
+                <img width="40px" src="{{asset('img/edit.png')}}">
+                </a></td>
+            </tr>
+        </tbody>
+        <?php } ?>
+    </table>    
 </div>
 <br>
-<?php //paginação
-    $pagina_anterior = $pagina - 1;
-    $pagina_posterior = $pagina + 1;
-?>
 
 <nav class="text-center">
     <ul class="pagination">
@@ -113,3 +115,32 @@ $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
 
 @endsection
+
+<!-- Modal -->
+<div class="modal fade" id="modal_adm2" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Teste</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{{ url('/alterar') }}" method="POST">
+        @csrf
+        <div class="modal-body">
+            <input type='hidden' name="alterar" value="<?php echo $id_usuario ?>"/>
+
+            <label for="tipo" class="bold subdados">Tipo</label>
+            <select name="tipo" class="select" class="btn btn-primary">
+                <option>Usuario</option><option>Avaliador</option><option>Admin</option>
+            </select>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary">Salvar mudanças</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -18,6 +18,8 @@ $inicio = ($quantidade*$pagina)-$quantidade;
 $sql = "SELECT * FROM usuarios WHERE id_situacao = '2' AND email_verified_at IS NOT NULL LIMIT $inicio, $quantidade ";
 $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
+$pagina_anterior = $pagina - 1; //paginação
+$pagina_posterior = $pagina + 1;
 ?>
 
 
@@ -61,11 +63,11 @@ $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
                 </td>
                 <form action="{{ url('/alt') }}" method="POST">
                     @csrf
-                    <td><button name="alt" value="<?php echo $rows['id']; ?>">Icon</button></td>
+                    <td><button class="no-border-button" name="alt" value="<?php echo $rows['id']; ?>"><img width="40px" src="{{asset('img/correct.png')}}"></button></td>
                 </form>
                 <form action="{{ url('/del') }}" method="POST">
                     @csrf
-                    <td><button name="del" value="<?php echo $rows['id']; ?>">Icon</button></td>
+                    <td><button class="no-border-button" name="del" value="<?php echo $rows['id']; ?>"><img width="40px" src="{{asset('img/denie.png')}}"></button></td>
                 </form>
             </tr>
         </tbody>
@@ -73,11 +75,6 @@ $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
     </table>    
 </div>
 <br>
-
-<?php //paginação
-    $pagina_anterior = $pagina - 1;
-    $pagina_posterior = $pagina + 1;
-?>
 
 <nav class="text-center">
     <ul class="pagination">

@@ -53,9 +53,7 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado', 'admin']], func
         Route::post('/alterar', 'AdminController@alterar');
 
     Route::get('/adm3', 'AdminController@admin3');
-        Route::post('/rem_den', 'AdminController@rem_den');
-        Route::post('/barrar', 'AdminController@barrar');
-        Route::post('/del_post', 'AdminController@del_post');
+        Route::post('/option', 'AdminController@option');
 
 });
 
