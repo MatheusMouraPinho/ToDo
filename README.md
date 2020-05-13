@@ -2,7 +2,7 @@
 
 baixar o projeto:
 
-no local xampp/htdocs (ou a pasta que vc quiser) usar no git bash " git clone git@github.com:MatheusMouraPinho/ToDo.git " ira baixar os arquivos ja com o git do github.
+no local xampp/htdocs usar no git bash "git clone git@github.com:MatheusMouraPinho/ToDo.git" ira baixar os arquivos ja com o git.
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
