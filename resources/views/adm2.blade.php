@@ -23,6 +23,8 @@ if ($total_pesquisa == 0){ $modal = false;} //se não ouver rows de usuarios o m
 
 $pagina_anterior = $pagina - 1; //paginação
 $pagina_posterior = $pagina + 1;
+
+$i = 1; //id base tabelas
 ?>
 
 
@@ -58,39 +60,12 @@ $pagina_posterior = $pagina + 1;
             $setup = $rows['nivel'];
             $id_usuario = $rows['id'];
             $nome = $rows['usuario'];
+            $alterar = "";
         ?>
-        <!-- Modal -->
-        <div class="modal fade" id="modal<?php echo $id_usuario ?>" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="{{ url('/alterar') }}" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <p class="text-center"><h5>Alterar o acesso de <?php echo $nome ?></h5></p>
-                        <br>
-                        <input type='hidden' name="alterar" value="<?php echo $id_usuario ?>"/>
-                        <label for="tipo" class="bold subdados">Tipo</label>
-                        <select name="tipo" class="select" class="btn btn-primary">
-                            <option>Usuario</option><option>Avaliador</option><option>Admin</option>
-                        </select>
-                    </div>
-                    <div class="modal-footer-custom">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary">Salvar mudanças</button>
-                    </div>
-                </form>
-                </div>
-            </div>
-        </div>
-        <!-- Modal -->
+        @include('layouts.modal')
         <tbody>
             <tr>
-                <td><?php echo $rows['id']; ?></td>
+                <td><?php echo $i ?></td>
                 <td><?php echo $rows['usuario']; ?></td>
                 <td><?php echo $rows['registro']; ?></td>
                 <td><?php   if ($setup == 1) { echo "Usuario";    
@@ -103,7 +78,7 @@ $pagina_posterior = $pagina + 1;
                 </a></td>
             </tr>
         </tbody>
-        <?php } ?>
+        <?php $i++; } ?>
     </table>    
 </div>
 <br>

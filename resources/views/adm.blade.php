@@ -20,6 +20,8 @@ $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
 $pagina_anterior = $pagina - 1; //paginação
 $pagina_posterior = $pagina + 1;
+
+$i = 1; //id base tabelas
 ?>
 
 
@@ -49,10 +51,11 @@ $pagina_posterior = $pagina + 1;
         </thead>
 
         <?php while($rows = mysqli_fetch_assoc($result2)){ 
-            $setup = $rows['nivel']; ?>
+            $setup = $rows['nivel']; 
+        ?>
         <tbody>
             <tr>
-                <td><?php echo $rows['id']; ?></td>
+                <td><?php echo $i ?></td>
                 <td><?php echo $rows['email_verified_at']; ?></td>
                 <td><?php echo $rows['usuario']; ?></td>
                 <td><?php echo $rows['registro']; ?></td>
@@ -71,7 +74,7 @@ $pagina_posterior = $pagina + 1;
                 </form>
             </tr>
         </tbody>
-        <?php } ?>
+        <?php $i++; } ?>
     </table>    
 </div>
 <br>
