@@ -26,6 +26,8 @@ if ($total_pesquisa > 0){ $modal = "adm3";} //se aver rows de denuncias o modal 
 
 $pagina_anterior = $pagina - 1; //paginação
 $pagina_posterior = $pagina + 1;
+
+$i = 1; //id base tabelas
 ?>
 
 
@@ -56,53 +58,17 @@ $pagina_posterior = $pagina + 1;
           $motivo1 = $rows['spam'];
           $motivo2 = $rows['copia'];
           $id_denuncia = $rows['id'];
+          $opçoes = "";
+          $post = "";
           ?>
         <tbody>
             <tr>
-              <td><?php echo $rows['id']; ?></td>
+              <td><?php echo $i ?></td>
               <?php if($rows = mysqli_fetch_assoc($result2)){
                $nome_post = $rows['titulo_postagem'];
                $id_post = $rows['id_postagem'];
               ?>
-              <!--modal -->
-                <div class="modal fade" id="modal<?php echo $id_post ?>" tabindex="-1" role="dialog" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                      <h5 class="modal-title"><?php echo $nome_post ?><?php echo $id_denuncia ?><?php echo $id_post ?></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <br>
-                      <form action="{{ url('/option') }}" method="POST">
-                        @csrf
-                        <div class="container">
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="Radio" name="option" value="barrar" required>
-                            <label class="form-check-label">Barrar Post</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="Radio" name="option" value="rem_den" required>
-                            <label class="form-check-label">Remover Denuncias</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="Radio" name="option" value="del_post" required>
-                            <label class="form-check-label">Deletar Post</label>
-                          </div>
-                        </div>
-                        <br>
-                        <div class="modal-footer">
-                            <input type='hidden' name="id_denuncia" value="<?php echo $id_denuncia ?>"/>
-                            <input type='hidden' name="id_postagem" value="<?php echo $id_post ?>"/>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-primary">Confirmar</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              <!--modal -->
+              @include('layouts.modal')
               <td><?php echo $rows['titulo_postagem']; ?></td>
               <?php } ?>
               <td>
@@ -111,14 +77,15 @@ $pagina_posterior = $pagina + 1;
                   }else echo "Copia";
                 ?>
               </td>
-              <td><button class="no-border-button" type="button"><img width="40px" src="{{asset('img/lupe.png')}}"></button>
-              </td>
+              <td><button class="no-border-button" data-toggle="modal" data-target="#post<?php echo $id_post ?>">
+                <img width="40px" src="{{asset('img/lupe.png')}}">
+              </button></td>
               <td><a type="button"  data-toggle="modal" data-target="#modal<?php echo $id_post ?>">
                     <img width="40px" src="{{asset('img/options.png')}}">
               </a></td>
             </tr>
         </tbody>
-        <?php } ?>
+        <?php $i++; } ?>
     </table>    
 </div>
 

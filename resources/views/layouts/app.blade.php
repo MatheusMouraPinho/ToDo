@@ -34,12 +34,12 @@
       </button>
       <div class="collapse navbar-collapse justify-content-md-center" id="navbarNavDropdown">
         <ul class="navbar-nav">
-          <li class="nav-item active">
+          <li style="padding-left:1em" class="nav-item active">
             <form class="form-inline my-2 my-lg-0" action="{{ url('/home') }}">
               <button class="btn btn-outline-success my-2 my-sm-0">Home</button>
             </form>
           </li>
-          <li class="nav-item">
+          <li style="padding-left:1em" class="nav-item">
             <form class="form-inline my-2 my-lg-0">
               <input class="form-control mr-sm-2" type="search" placeholder="Digite o nome da ideia" aria-label="Search" style="width: 400px">
               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Procurar</button>

@@ -17,17 +17,7 @@
   outline: 0;
 }
 
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1040;
-  width: 100vw;
-  height: 100vh;
-  background-color: #000;
-}
-
-.modal-header-custom {
+.modal-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -35,4 +25,22 @@
   border-bottom: 1px solid #000000;
   border-top-left-radius: calc(0.3rem - 1px);
   border-top-right-radius: calc(0.3rem - 1px);
+}
+
+.modal-footer-custom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.75rem;
+  border-bottom-right-radius: calc(0.3rem - 1px);
+  border-bottom-left-radius: calc(0.3rem - 1px);
+  font-size: 0.9em;
+}
+
+.modal-body-white {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 1rem;
+  background-color: #fff;
 }
