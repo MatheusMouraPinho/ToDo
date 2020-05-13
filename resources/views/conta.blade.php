@@ -1,7 +1,7 @@
-<?
+<?php
 
 use Symfony\Component\Console\Input\Input;
-
+$nivel = Auth::user()->nivel; ?> 
 ?>
 
 <!-- indicar a pagina:   {{ url('/pagina123') }}    -->
@@ -33,40 +33,43 @@ use Symfony\Component\Console\Input\Input;
 <body>
   <!-- ||Cabeçalho||  -->
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" id="menu">
-      <img width="150px" src="{{asset('img/logo.png')}}">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded" id="menu">
+      <img class="navbar-brand" width="150px" src="{{asset('img/logo.png')}}">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+      <div class="collapse navbar-collapse justify-content-md-center" id="navbarNavDropdown">
+        <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="{{ url('/home') }}">Home <span class="sr-only">(current)</span></a>
+            <form class="form-inline my-2 my-lg-0" action="{{ url('/home') }}">
+              <button class="btn btn-outline-success my-2 my-sm-0">Home</button>
+            </form>
           </li>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Digite o nome da ideia" aria-label="Search" style="width: 400px">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Procurar</button>
-          </form>
-          <div style="width: 480px" class="form-inline my-2 my-lg-0">
+          <li class="nav-item">
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Digite o nome da ideia" aria-label="Search" style="width: 400px">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Procurar</button>
+            </form>
+          </li>
+          <li class="nav-item">
             <form class="form-inline my-2 my-lg-0">
               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Crie uma ideia</button>
             </form>
-          </div>
-          <div class="configuracoes">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Configurações
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ url('/conta') }}">Minha conta</a>
-                <a class="dropdown-item" href="{{ url('/logout') }}"> Sair </a>
-              </div>
-            </li>
-        </div>
+          </li>
         </ul>
-      </div>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Configurações </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <?php if(3 == $nivel){?>
+              <a class="dropdown-item" href="{{ url('/adm') }}">Admin Painel</a>
+              <?php }?>
+              <a class="dropdown-item" href="{{ url('/conta') }}">Minha conta</a>
+              <a class="dropdown-item" href="{{ url('/logout') }}"> Sair </a>
+            </div>
+          </li>
+        </ul>
+      <div>
     </nav> 
   </header>
   <!--||Fim Cabeçalho||-->
@@ -178,7 +181,7 @@ use Symfony\Component\Console\Input\Input;
                 </tr>
               </thead>
               <tbody>
-                <? $i = 0?>            
+                <?php $i = 0?>            
                 @foreach($dados['posts'] as $posts)
                   <tr>
                     <td>{{ $posts->id_postagem }}</td>
@@ -261,8 +264,7 @@ use Symfony\Component\Console\Input\Input;
                               
                             </div>
                             <div class="popup-aval">
-                              <span class="popup_sub bold" style="margin-bottom: 10px">Comentários:</span>
-                              
+                              <span class="popup_sub bold">Comentários:</span>   
                               <div style="margin-bottom: 50px">
                                 <form action="">
                                   <textarea required class="comentario" maxlength="255" cols="60" rows="2" placeholder="Digite aqui seu comentário"></textarea>
@@ -300,7 +302,7 @@ use Symfony\Component\Console\Input\Input;
                                     </div>                                    
                                   @endif
                                   @for($g=0; $g<sizeof($post['reply_coment']); $g++)
-                                    @if($post['reply_coment'][$g]->id_comentario === $post['comentarios'][$f]->id_comentarios && $post['comentarios'][$f]->id_postagem === $posts->id_postagem)
+                                    @if($post['reply_coment'][$g]->id_comentarios === $post['comentarios'][$f]->id_comentarios && $post['comentarios'][$f]->id_postagem === $posts->id_postagem)
                                       <div class="popup_coment_enc" id="respostas">
                                         <div class="header-coment">
                                           @if($post['reply_coment'][$g]->img_usuarios === null)
@@ -339,7 +341,7 @@ use Symfony\Component\Console\Input\Input;
                       </div>
                     </div>
                   </div>
-                  <? $i = $i + 1?>
+                  <?php $i = $i + 1?>
                   <!-- Fim área de detalhes de ideias postadas-->
                 @endforeach
               </tbody>

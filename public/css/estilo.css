@@ -356,7 +356,7 @@ ul {
 .popup_sub {
   display: inline-block;
   font-size: 1.3em;
-  margin-right: 8px;
+  margin: 8px 0px 0px 0px;
   width: 80px;
   text-align: right;
 }
@@ -668,7 +668,7 @@ input[type='file'] {
 }
 
 .comentario {
-  margin: 0px auto 0px 5px;
+  margin: 0px 0px 0px 5px;
   width: 100%;
   padding: 10px;
   line-height: 1.5;
@@ -679,8 +679,8 @@ input[type='file'] {
 }
 
 .button_coment {
-  left: 10px;
-  margin-bottom: 10px;
+  left: 15px;
+  margin: 10px;
   position: relative;
   float: right;
   width: 100px;

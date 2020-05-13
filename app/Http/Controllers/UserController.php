@@ -105,7 +105,7 @@ class UserController extends Controller
             'reply_coment' => DB::table('subcomentarios')
                                 ->join('postagens', 'postagens.id_postagem', '=', 'subcomentarios.id_postagem')
                                 ->where('postagens.id_usuarios', $user_id)
-                                ->join('usuarios', 'subcomentarios.id_usuario', '=', 'usuarios.id')
+                                ->join('usuarios', 'subcomentarios.id_usuarios', '=', 'usuarios.id')
                                 ->select('subcomentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
                                 ->orderBy('data_comentarios', 'asc')
                                 ->get()
