@@ -29,8 +29,6 @@ class AdminController extends Controller
         return view('ava');
     }
 
-    
-
     public function alt()
     {  
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
@@ -93,9 +91,9 @@ class AdminController extends Controller
             return redirect('adm3');
         }
         if($_POST['option'] =='barrar'){
-            return redirect('adm3');
+            $id1 = $_POST ['id_denuncia'];
+            $id2 = $_POST ['id_postagem'];
+            echo $id1 . " e " .  $id2;
         }
-    
     }
-    
 }

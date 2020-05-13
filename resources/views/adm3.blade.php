@@ -19,7 +19,7 @@ $sql = "SELECT * FROM denuncias WHERE spam > '0' or copia > '0' LIMIT $inicio, $
 $result = mysqli_query($conn, $sql);//pesquisa limitada com paginação
 
 
-$sql2 = "SELECT * FROM postagens LEFT JOIN denuncias ON (postagens.id_postagem = denuncias.id_postagem) ";
+$sql2 = "SELECT * FROM postagens LEFT JOIN denuncias ON (postagens.id_postagem = denuncias.id_postagem) WHERE denuncias.spam > '0' or denuncias.copia > '0' ";
 $result2 = mysqli_query($conn, $sql2);//pega os dados das postagens
 
 if ($total_pesquisa > 0){ $modal = "adm3";} //se aver rows de denuncias o modal é ativado
@@ -64,6 +64,45 @@ $pagina_posterior = $pagina + 1;
                $nome_post = $rows['titulo_postagem'];
                $id_post = $rows['id_postagem'];
               ?>
+              <!--modal -->
+                <div class="modal fade" id="modal<?php echo $id_post ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                      <h5 class="modal-title"><?php echo $nome_post ?><?php echo $id_denuncia ?><?php echo $id_post ?></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <br>
+                      <form action="{{ url('/option') }}" method="POST">
+                        @csrf
+                        <div class="container">
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="Radio" name="option" value="barrar" required>
+                            <label class="form-check-label">Barrar Post</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="Radio" name="option" value="rem_den" required>
+                            <label class="form-check-label">Remover Denuncias</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="Radio" name="option" value="del_post" required>
+                            <label class="form-check-label">Deletar Post</label>
+                          </div>
+                        </div>
+                        <br>
+                        <div class="modal-footer">
+                            <input type='hidden' name="id_denuncia" value="<?php echo $id_denuncia ?>"/>
+                            <input type='hidden' name="id_postagem" value="<?php echo $id_post ?>"/>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-primary">Confirmar</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              <!--modal -->
               <td><?php echo $rows['titulo_postagem']; ?></td>
               <?php } ?>
               <td>
@@ -74,7 +113,7 @@ $pagina_posterior = $pagina + 1;
               </td>
               <td><button class="no-border-button" type="button"><img width="40px" src="{{asset('img/lupe.png')}}"></button>
               </td>
-              <td><a type="button"  data-toggle="modal" data-target="#modal_adm3">
+              <td><a type="button"  data-toggle="modal" data-target="#modal<?php echo $id_post ?>">
                     <img width="40px" src="{{asset('img/options.png')}}">
               </a></td>
             </tr>
@@ -117,60 +156,3 @@ $pagina_posterior = $pagina + 1;
     </ul>
 </nav>
 @endsection
-
-<!-- Modal-->
-<div class="modal fade" id="modal_adm3" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-      <h5 class="modal-title"><?php echo $nome_post ?></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <br>
-      <form action="{{ url('/option') }}" method="POST">
-        @csrf
-        <div class="container">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="Radio" name="option" value="barrar" required>
-            <label class="form-check-label">Barrar Post</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="Radio" name="option" value="rem_den" required>
-            <label class="form-check-label">Remover Denuncias</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="Radio" name="option" value="del_post" required>
-            <label class="form-check-label">Deletar Post</label>
-          </div>
-        </div>
-        <br>
-        <div class="modal-footer">
-            <input type='hidden' name="id_denuncia" value="<?php echo $id_denuncia ?>"/>
-            <input type='hidden' name="id_postagem" value="<?php echo $id_post ?>"/>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-            <button type="submit" class="btn btn-primary">Confirmar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- antigo
-<form action="{{ url('/barrar') }}" method="POST">
-    @csrf
-    <td><button name="id" value="<?php echo $rows['id_postagem']; ?>">To Do</button></td>
-</form>
-<form action="{{ url('/del_post') }}" method="POST">
-    @csrf
-    <td><button class="no-border-button" name="id_postagem" value="<?php echo $rows['id_postagem']; ?>"><img width="40px" src="{{asset('img/options.png')}}"></button>
-      <input type='hidden' name="id_denuncia" value="<?php echo $rows['id']; ?>"/>
-    </td>
-</form>
-<form action="{{ url('/rem_den') }}" method="POST">
-    @csrf
-    <td><button class="no-border-button" name="id" value="<?php echo $rows['id']; ?>"><img width="40px" src="{{asset('img/denie.png')}}"></button></td>
-</form>
