@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 13-Maio-2020 às 02:07
+-- Tempo de geração: 13-Maio-2020 às 20:48
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.10
 
@@ -151,8 +151,9 @@ CREATE TABLE `comentarios` (
 --
 
 INSERT INTO `comentarios` (`id_comentarios`, `id_usuarios`, `id_postagem`, `conteudo_comentarios`, `data_comentarios`, `likes_comentarios`) VALUES
-(1, 17, 10, 'dsfdfsdfsd', '2020-05-11 05:19:00', 0),
-(2, 17, 10, 'fdgdf', '2020-05-27 00:00:00', 0);
+(6, 17, 22, 'Legal gostei', '2020-05-13 00:00:00', 0),
+(7, 17, 22, 'Legal gostei Denovo', '2020-05-13 00:00:00', 0),
+(8, 12, 22, 'comentario aleatorio aqui', '2020-05-13 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -172,7 +173,9 @@ CREATE TABLE `denuncias` (
 --
 
 INSERT INTO `denuncias` (`id`, `id_postagem`, `spam`, `copia`) VALUES
-(9, 10, NULL, 1);
+(10, 16, NULL, 2),
+(11, 17, 3, NULL),
+(12, 11, 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -290,8 +293,13 @@ CREATE TABLE `postagens` (
 --
 
 INSERT INTO `postagens` (`id_postagem`, `id_usuarios`, `id_situacao_postagem`, `id_categoria`, `titulo_postagem`, `descricao_postagem`, `likes_postagem`, `data_postagem`) VALUES
-(8, 12, 2, 1, 'titulo sem ideia', 'sem ideiasem ideiasem ideiasem ideiasem ideiasem ideiasem ideiasem ideiasem ideia', 0, '2020-05-04 00:00:00'),
-(10, 17, 2, 1, 'sdfvd', 'sdfsdgs', 0, '2020-04-16 00:00:00');
+(11, 12, 2, 1, 'Titulo da postagem ', 'descrição Teste Teste testeTeste Teste testeTeste Teste testeTeste Teste teste', 1, '2020-05-04 00:00:00'),
+(13, 17, 2, 1, 'big data sobre eleição', 'textotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotexto', 0, '2020-05-13 00:00:00'),
+(14, 12, 2, 1, 'Ideia sem ideias', ' ideias ideias ideias ideias ideias ideias ideias ideias ideias ideias ideias ideias', 0, '2020-05-04 00:00:00'),
+(15, 12, 1, 1, 'agronegócio inteligente', 'preenche linha preenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linha', 1, '2020-05-13 00:00:00'),
+(16, 17, 1, 1, 'agronegócio inteligente', 'preenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linha', 1, '2020-05-30 00:00:00'),
+(17, 12, 2, 1, 'sem ideia ja', 'semsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsem', 0, '2020-05-13 00:00:00'),
+(22, 12, 2, 1, 'ideia arduino', 'descriçãodescriçãodescriçãodescriçãodescriçãodescriçãodescrição', 12, '2020-05-13 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -992,7 +1000,7 @@ CREATE TABLE `subcomentarios` (
 --
 
 INSERT INTO `subcomentarios` (`id_subcomentarios`, `id_usuarios`, `id_postagem`, `id_comentarios`, `conteudo_comentarios`, `data_comentarios`, `likes_comentarios`) VALUES
-(1, 17, 10, 2, 'fdgdfgdf', '2020-05-27 00:00:00', 0);
+(3, 12, 22, 7, 'Não entendi porque você comentou denovo', '2020-05-13 00:00:00', 2);
 
 -- --------------------------------------------------------
 
@@ -1021,10 +1029,11 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `email_verified_at`, `id_situacao`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`) VALUES
-(12, 'Matheus Moura', 'Matheusmpinho@Outlook.com', 20867000, '$2y$10$AiicmE0//gW6e4zhmzXvOe8Wb1Gusmj9FcnbWG/tu.UgdTp02IYgW', 3, '2000-01-27 02:00:00', 1, 2, 10, NULL, 0x31326d6174686575732d6d6f7572612e706e67, NULL),
+(12, 'Matheus Moura', 'Matheusmpinho@Outlook.com', 20867000, '$2y$10$7BQz0/fw70SWWsKQichlYeJSJU37V/Hy5gsEtqIfjcpohmPYJhbxi', 3, '2000-01-27 02:00:00', 1, 2, 10, 457, 0x31326d6174686575732d6d6f7572612e706e672e706e67, NULL),
 (17, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', 22132066, '$2y$10$ALTvEgYoQTL8Op5xn7oK9eR6XtmgMqbRTDXgs3xm3KIeJVXscwLVm', 3, '2020-04-30 23:23:51', 1, 2, 10, 398, 0x31376a6f6e617468616e2d646961732e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e706e672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a706567, 12981489308),
 (20, 'Nome', '1@1.com', 20867001, '$2y$10$QXHJgUcvF4HGP/9R4Xusq.ZnF015YPCCGhNaANQ4oe36DaJKsXteG', 1, '2020-05-05 05:28:34', 1, NULL, NULL, NULL, NULL, NULL),
-(21, 'Teste', 'teste@teste.com', 20867006, '1231231415', 2, '2020-05-05 03:00:00', 2, NULL, NULL, NULL, NULL, NULL);
+(21, 'Teste', 'teste@teste.com', 20867006, '1231231415', 2, '2020-05-05 03:00:00', 2, NULL, NULL, NULL, NULL, NULL),
+(23, 'jose antonio', 'jose@jose.com', 60887000, '$2y$10$RRXj1Ee1iieA4yQE1dgm8.xzIMIr9Mzck.kupmrr5EczWtkdF0rqe', 1, '2020-05-13 21:23:57', 2, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1193,13 +1202,13 @@ ALTER TABLE `categoria_postagem`
 -- AUTO_INCREMENT de tabela `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id_comentarios` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_comentarios` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `denuncias`
 --
 ALTER TABLE `denuncias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `img_postagem`
@@ -1229,7 +1238,7 @@ ALTER TABLE `nivel_acesso`
 -- AUTO_INCREMENT de tabela `postagens`
 --
 ALTER TABLE `postagens`
-  MODIFY `id_postagem` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_postagem` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de tabela `regiao_cidade`
@@ -1259,13 +1268,13 @@ ALTER TABLE `situacao_usuario`
 -- AUTO_INCREMENT de tabela `subcomentarios`
 --
 ALTER TABLE `subcomentarios`
-  MODIFY `id_subcomentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_subcomentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Restrições para despejos de tabelas
