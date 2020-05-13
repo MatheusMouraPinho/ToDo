@@ -50,24 +50,16 @@ class UserController extends Controller
             'img' => Auth::user()->img_usuarios,
 
             'posts' => DB::table('postagens')
+                    ->join('categoria_postagem','categoria_postagem.id_categoria', '=', 'postagens.id_categoria' )
+                    ->join('situacao_postagem','situacao_postagem.id_situacao_postagem', '=', 'postagens.id_situacao_postagem' )
                     ->where('id_usuarios', $user_id)
+                    ->select('categoria_postagem.*', 'postagens.*', 'situacao_postagem.*')
+                    ->orderBy('postagens.id_postagem', 'asc')
                     ->paginate(5),
 
             'date' => DB::table('postagens')
                     ->where('id_usuarios', $user_id)
                     ->pluck('data_postagem'),
-
-            'categoria' => DB::table('categoria_postagem')
-                        ->join('postagens','categoria_postagem.id_categoria', '=', 'postagens.id_categoria' )
-                        ->where('id_usuarios', $user_id)
-                        ->select('categoria_postagem.*', 'postagens.id_categoria')
-                        ->get(),
-
-            'situacao' => DB::table('situacao_postagem')
-                        ->join('postagens','situacao_postagem.id_situacao_postagem', '=', 'postagens.id_situacao_postagem' )
-                        ->where('id_usuarios', $user_id)
-                        ->select('situacao_postagem.*', 'postagens.id_situacao_postagem')
-                        ->get(),
 
             'avaliador' => DB::table('postagens')
                         ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
@@ -89,7 +81,9 @@ class UserController extends Controller
             'areas' => DB::table('area_estudo')
                         ->select('id_area', 'nome_area')
                         ->orderBy('nome_area', 'asc')
-                        ->get()
+                        ->get(),
+
+            'img_post' => DB::table('img_postagem')
         ];
         
 
@@ -98,8 +92,26 @@ class UserController extends Controller
                             ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
                             ->where('id_usuario', $user_id)
                             ->select('avaliacao_postagem.*', 'postagens.id_usuarios', 'postagens.id_postagem')
-                            ->get()
+                            ->get(),
+            
+            'comentarios' => DB::table('comentarios')
+                                ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
+                                ->where('postagens.id_usuarios', $user_id)
+                                ->join('usuarios', 'comentarios.id_usuarios', '=', 'usuarios.id')
+                                ->select('comentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
+                                ->orderBy('data_comentarios', 'asc')
+                                ->get(),
+
+            'reply_coment' => DB::table('subcomentarios')
+                                ->join('postagens', 'postagens.id_postagem', '=', 'subcomentarios.id_postagem')
+                                ->where('postagens.id_usuarios', $user_id)
+                                ->join('usuarios', 'subcomentarios.id_usuario', '=', 'usuarios.id')
+                                ->select('subcomentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
+                                ->orderBy('data_comentarios', 'asc')
+                                ->get()
         ];
+
+        //dd($post['reply_coment']);
         
         return view('conta', compact('dados', 'post'));
     }
@@ -146,8 +158,7 @@ class UserController extends Controller
      */
     public function edit()
     {
-        $id = Auth::user()->id;
-        return view('layouts.edit');
+
     }
 
     /**
@@ -193,7 +204,8 @@ class UserController extends Controller
 
             $upload = $request->img_usuarios->storeAs('users', $nameFile);
 
-            
+            Storage::disk('public')->delete('users/'.Auth::user()->img_usuarios);
+
             if(!$upload)
                 return redirect()
                                 ->back()

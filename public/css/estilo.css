@@ -215,11 +215,17 @@
   }
 }
 
+.link-home {
+  display: block;
+
+}
+
 #area_principal {
   margin-top: 80px;
-} 
+}
 
 #area-dados {
+  position: static;
   width: 400px;
   background-color: darkgray;
   float: left;
@@ -227,6 +233,11 @@
   margin: 20px auto 30px 35px;
   padding: 10px;
   border-radius: 20px;
+}
+
+.area_ideias {
+  width: 55%;
+  float: right;
 }
 
 .margin {
@@ -250,10 +261,9 @@
 }
 
 #table_conta {
-  width: 65%;
+  width: 63%;
   height: 200px;
   border: 1px solid black;
-  float: right;
   margin: 20px 22px 0px auto;
   border: 5px solid #8d9094;
 }
@@ -299,16 +309,22 @@ td div {
 
 .card-footer {
   background-color: rgb(221, 221, 221);
-  width: 65%;
+  width: 63%;
   height: 50px;
   float: right;
   margin: 0px 22px 0px auto;
   border: 1px solid #525558;
   text-align: center;
+  display: inline;
+  position: static;
+  bottom: 200px;
 }
 
 tbody tr:hover {
   background-color: rgb(221, 221, 221);
+  -moz-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.03);
 }
 
 .both {
@@ -401,7 +417,26 @@ ul {
   display: inline-block;
   border: 1px solid black;
   border-radius: 5px;
-  margin-left: 90px;
+  margin: 0px 5px 10px 5px;
+  width: 100%;
+  background-color: white;
+  padding: 5px;
+}
+
+.popup_coment_enc {
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 0px 5px 10px 75px;
+  width: 85%;
+  background-color: white;
+  padding: 5px;
+}
+.popup_avaliador {
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 0px 5px 10px 90px;
   width: 80%;
   background-color: white;
   padding: 5px;
@@ -461,7 +496,7 @@ ul {
 
 /* Esconde o input */
 input[type='file'] {
-  display: none
+  display: none;
 }
 
 /* Aparência que terá o seletor de arquivo */
@@ -513,12 +548,140 @@ input[type='file'] {
   border: 2px inset #B3FF00;
 }
 
+.img-dados-coment {
+  width: 35x;
+  height: 35px;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
 .password {
   display: inline-block;
   margin-left: 85px;
 }
 
-#password {
+.configuracoes {
+  position: relative;
+  width: 10%;
+  float: right;
+}
+
+.preenche {
+  position: static;
+  width: 80%;
 
 }
 
+.right {
+  position: fixed;
+  width: 10%;
+  right: 55px;
+}
+
+.popup-like {
+  display: inline;
+  position: relative;
+  width: 10%;
+  float: left;
+  text-align: left;
+  right: auto;
+  left: -400px;
+  top: 4px;
+}
+
+.num-like {
+  position: relative;
+  display: inline-block;
+  width: 20%;
+  top: 3px;
+}
+
+.data-post {
+  position: relative;
+  text-align: right;
+  float: left;
+  left: 70px;
+}
+
+.likes_coment {
+  width: 50px;
+  float: right;
+  margin: 0;
+  height: 28px;
+}
+
+.likes_coment:hover {
+  width: 15%;
+  color: #3498db;
+  height: 28px;
+}
+
+.conteudo-coment {
+  position: relative;
+  display: inline;
+  margin: 2px 0em;
+  padding: 5px;
+}
+
+.data-coment {
+  position: relative;
+  top: 5px;
+  float: right;
+}
+
+.user {
+  display: inline;
+  width: 300px;
+
+}
+
+.footer-coment {
+  width: 100%;
+}
+
+
+.mostrar { 
+  position: relative;
+  display: inline-block;
+  margin: 5px;
+  top: 5px;
+  float: left;
+}
+
+.curtir {
+  position: relative;
+  display: inline-block;
+  margin: 5px;
+  top: 5px;
+  float: left;
+}
+
+.mostrar:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#comentarios {
+  display: block;
+  width: 100%;
+  display: none;
+}
+
+.comentario {
+  margin: 0px auto 0px 5px;
+  width: 100%;
+  padding: 10px;
+  line-height: 1.5;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 5px 5px 5px #999;
+    
+}
+
+.button_coment {
+  left: 10px;
+  margin-bottom: 10px;
+  position: relative;
+  float: right;
+  width: 100px;
+}

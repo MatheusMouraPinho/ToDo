@@ -47,16 +47,18 @@
               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Crie uma ideia</button>
             </form>
           </div>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Configurações
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{{ url('/conta') }}">Minha conta</a>
-              <a class="dropdown-item" href="{{ url('/logout') }}"> Sair </a>
-            </div>
-          </li>
+          <div class="configuracoes">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Configurações
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ url('/conta') }}">Minha conta</a>
+                <a class="dropdown-item" href="{{ url('/logout') }}"> Sair </a>
+              </div>
+            </li>
+        </div>
         </ul>
       </div>
     </nav> 

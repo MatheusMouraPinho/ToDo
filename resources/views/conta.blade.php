@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\Input;
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -18,6 +18,8 @@ use Symfony\Component\Console\Input\Input;
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script type="text/javascript" src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/funcao.js') }}"></script>
     
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -29,7 +31,6 @@ use Symfony\Component\Console\Input\Input;
 
 </head>
 <body>
-  
   <!-- ||Cabeçalho||  -->
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="menu">
@@ -37,31 +38,33 @@ use Symfony\Component\Console\Input\Input;
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-  
+
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
             <a class="nav-link" href="{{ url('/home') }}">Home <span class="sr-only">(current)</span></a>
           </li>
-          <form class="form-inline my-2 my-lg-0" action="">
+          <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Digite o nome da ideia" aria-label="Search" style="width: 400px">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Procurar</button>
           </form>
-          <div style="width: 485px" class="form-inline my-2 my-lg-0">
-            <form action="">
+          <div style="width: 480px" class="form-inline my-2 my-lg-0">
+            <form class="form-inline my-2 my-lg-0">
               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Crie uma ideia</button>
             </form>
           </div>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Configurações
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{{ url('/conta') }}">Minha conta</a>
-              <a class="dropdown-item" href="{{ url('/logout') }}"> Sair </a>
-            </div>
-          </li>
+          <div class="configuracoes">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Configurações
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ url('/conta') }}">Minha conta</a>
+                <a class="dropdown-item" href="{{ url('/logout') }}"> Sair </a>
+              </div>
+            </li>
+        </div>
         </ul>
       </div>
     </nav> 
@@ -69,7 +72,7 @@ use Symfony\Component\Console\Input\Input;
   <!--||Fim Cabeçalho||-->
 
       <div id="area_principal">
-
+        
         @if(session('success'))
           <div class="alert alert-success">
             {{ session('success') }}
@@ -145,7 +148,7 @@ use Symfony\Component\Console\Input\Input;
       <!-- Área de ideias do usuario -->
         @if(empty($dados['posts'][0]))
 
-          <div id="area_ideias">
+          <div class="area_ideias">
             <table id="table_conta">
               <caption>Minhas Ideias</caption>
               <tbody>  
@@ -181,7 +184,7 @@ use Symfony\Component\Console\Input\Input;
                     <td>{{ $posts->id_postagem }}</td>
                     <td>{{ date('d/m/Y', strtotime($posts->data_postagem)) }}</td>
                     <td>{{ $posts->titulo_postagem }}</td>
-                    <td> {{ $dados['situacao'][$i]->situacao_postagem}} </td>
+                    <td> {{ $posts->situacao_postagem}} </td>
                     <td>
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#popup{{$posts->id_postagem }}">
                         Visualizar
@@ -190,6 +193,7 @@ use Symfony\Component\Console\Input\Input;
                     </tr> 
                   
               
+                  
                   <!-- Área de detalhes de ideias postadas -->
 
                   <div class="painel-dados">
@@ -210,7 +214,7 @@ use Symfony\Component\Console\Input\Input;
                             </div>
                             <div>
                               <span class="popup_sub bold">Categoria:</span>
-                              <p class="popup_coment">{{$dados['categoria'][$i]->categoria_postagem}}</p>
+                              <p class="popup_coment">{{$dados['posts'][$i]->categoria_postagem}}</p>
                             </div>
                             <div class="popup_img">
                               <span class="popup_sub bold">Imagens:</span>
@@ -227,36 +231,109 @@ use Symfony\Component\Console\Input\Input;
                                       <span class="bold">Inovação: </span>{{ $post['avaliacao'][$c]->inovacao_avaliacao }}
                                     </p>
                                     <p class="popup_avali">
-                                      <span class="bold">Potencial de avaliação: </span>{{ $post['avaliacao'][$c]->potencial_avaliacao }}
+                                      <span class="bold">Potencial de Mercado: </span>{{ $post['avaliacao'][$c]->potencial_avaliacao }}
                                     </p>
                                     <p class="popup_avali">
                                       <span class="bold">Complexidade: </span>{{ $post['avaliacao'][$c]->complexidade_avaliacao }}
                                     </p>
-                                    <p class="popup_coment_aval">
+                                    <p class="popup_avaliador">
                                       <span class="bold">Avaliador: {{ $dados['avaliador'][$c]->usuario }}</span> 
                                       <span class="underline">{{ date('d/m/Y', strtotime($post['avaliacao'][0]->data_avaliacao))}}</span><br>{{ $post['avaliacao'][$c]->comentario_avaliacao }}
                                     </p>
                                   @endif
-                                    @for($c=0; $c<sizeof($post['avaliacao']); $c++)
-                                      @if($post['avaliacao'][$c]->id_postagem !== $posts->id_postagem)
-                                        <p class="popup_coment">Pendente</p>
-                                      @endif
-                                    @endfor
+
+                                  <!-- Verifica se a avaliação está pendente ou não -->
+                                  <?php $cont = 0;?>
+                                  @for($d=0;$d<sizeof($post['avaliacao']);$d++)
+                                    @if($post['avaliacao'][$d]->id_postagem !== $posts->id_postagem)
+                                      <?php 
+                                        $cont+= 1 ;
+                                      ?>
+                                    @endif
+                                  @endfor
                                 @endfor
+                                @if($cont === sizeof($post['avaliacao']))
+                                  <p class="popup_coment">Pendente</p>
+                                @endif
                               @else
                                 <p class="popup_coment">Pendente</p>
                               @endif
                               
                             </div>
-                            <div class="popup_comen">
-                              <span class="popup_sub bold">Comentários:</span>
-                              <p class="popup_coment">Ainda não há comentários</p>
+                            <div class="popup-aval">
+                              <span class="popup_sub bold" style="margin-bottom: 10px">Comentários:</span>
+                              
+                              <div style="margin-bottom: 50px">
+                                <form action="">
+                                  <textarea required class="comentario" maxlength="255" cols="60" rows="2" placeholder="Digite aqui seu comentário"></textarea>
+                                  <input type="submit" name="" class="btn btn-primary button_coment" value="Enviar">
+                                </form>
+                              </div>
+                              @if(!empty($post['comentarios'][0]))  
+                                @for($f=0; $f<sizeof($post['comentarios']); $f++)
+                                  @if($post['comentarios'][$f]->id_postagem === $posts->id_postagem)
+                                    <div class="popup_coment_aval">
+                                      <div class="header-coment">
+                                        @if($post['comentarios'][$f]->img_usuarios === null)
+                                          <img class="img-dados-coment" src="{{asset('img/semuser.png')}}">
+                                        @else
+                                          <img  alt="{{ Auth::user()->img_usuarios }}" name="img_usuarios" class="img-dados-coment" src="{{url('storage/users/'.Auth::user()->img_usuarios)}}">
+                                        @endif
+                                        <span class="bold "><a href="" class="user">{{ $post['comentarios'][$f]->usuario}}</a></span> 
+                                        <span class="underline data-coment">{{ date('d/m/Y', strtotime($post['comentarios'][$f]->data_comentarios))}}</span>
+                                      </div>
+                                      <p class="conteudo-coment">{{ $post['comentarios'][$f]->conteudo_comentarios }}</p>
+                                      <div class="footer-coment">
+                                        <span class="mostrar">Responder</span> 
+                                        <a href="#" class="curtir">Curtir</a>                                 
+                                        <div class="likes_coment">  
+                                          <img width="30px" src="{{ asset('img/like.png') }}">
+                                          <p class="num-like">{{ $post['comentarios'][$f]->likes_comentarios }}</p>
+                                        </div>
+                                        <div id="comentarios">
+                                          <form action="" method="POST">
+                                            <input maxlength="255" style="width: 100%" type="text" class="btn-popup mr-sm-2" placeholder="Digite aqui sua resposta">
+                                          </form>
+                                        </div>
+                                      </div>
+                                      
+                                    </div>                                    
+                                  @endif
+                                  @for($g=0; $g<sizeof($post['reply_coment']); $g++)
+                                    @if($post['reply_coment'][$g]->id_comentario === $post['comentarios'][$f]->id_comentarios && $post['comentarios'][$f]->id_postagem === $posts->id_postagem)
+                                      <div class="popup_coment_enc" id="respostas">
+                                        <div class="header-coment">
+                                          @if($post['reply_coment'][$g]->img_usuarios === null)
+                                            <img class="img-dados-coment" src="{{asset('img/semuser.png')}}">
+                                          @else
+                                            <img  alt="{{ Auth::user()->img_usuarios }}" name="img_usuarios" class="img-dados-coment" src="{{url('storage/users/'.Auth::user()->img_usuarios)}}">
+                                          @endif
+                                          <span class="bold "><a href="" class="user">{{ $post['reply_coment'][$g]->usuario}}</a></span> 
+                                          <span class="underline data-coment">{{ date('d/m/Y', strtotime($post['reply_coment'][$g]->data_comentarios))}}</span>
+                                        </div>
+                                        <p class="conteudo-coment">{{ $post['reply_coment'][$g]->conteudo_comentarios }}</p>
+                                        <div class="footer-coment">
+                                          <a href="#" class="curtir">Curtir</a>    
+                                          <div class="likes_coment"> 
+                                            <img width="30px" src="{{ asset('img/like.png') }}">
+                                            <p class="num-like">{{ $post['reply_coment'][$g]->likes_comentarios }}</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    @endif
+                                  @endfor
+                                @endfor
+                              @endif
+                            </div>           
+                            <div class="modal-footer seila">
+                              <p class="data-post seila">
+                                Postado em {{date('d/m/Y', strtotime($posts->data_postagem))}} às  {{date('H:i:s', strtotime($posts->data_postagem))}} horas
+                              </p>
+                              <div class="popup-like">
+                                <img width="30px" src="{{ asset('img/like.png') }}">
+                                <p class="num-like">{{ $posts->likes_postagem }}</p>
+                              </div>          
                             </div>
-                            
-                            <div class="modal-footer">
-                              <p>Postado em {{date('d/m/Y', strtotime($posts->data_postagem))}} às  {{date('H:i:s', strtotime($posts->data_postagem))}} horas</p>
-                            </div>
-
                           </div>
                         </div>
                       </div>
@@ -264,15 +341,13 @@ use Symfony\Component\Console\Input\Input;
                   </div>
                   <? $i = $i + 1?>
                   <!-- Fim área de detalhes de ideias postadas-->
-
                 @endforeach
               </tbody>
             </table>
               <div class="card-footer" style="padding: 8px">
                 <p id="contagem-ideias">
-                  {{ $dados['posts']->count() }} de {{ $dados['posts']->total() }} ideias
+                  {{ $dados['posts']->links() }}
                 </p>
-                {{ $dados['posts']->links() }}
               </div>
           </div>
         @endif
@@ -299,7 +374,7 @@ use Symfony\Component\Console\Input\Input;
                         <img width="200px" alt="{{ Auth::user()->img_usuarios }}" name="img_usuarios" class="img" src="{{url('storage/users/'.Auth::user()->img_usuarios)}}">
                       @endif
                       <label class="form-control-range">
-                        <input type="file" name="img_usuarios">
+                        <input type="file" name="img_usuarios"/>
                         <a name="img_usuarios" class="get-file">Alterar imagem de perfil</a>
                       </label>
                     </div>
@@ -322,7 +397,7 @@ use Symfony\Component\Console\Input\Input;
 
                     <div class="popup-title">
                       <label for="telefone_usuario" class="bold subdados ">Telefone</label>
-                      <input id="telefone" type="text" class="btn-popup mr-sm-2" value="{{ $dados['telefone'] }}" name="telefone_usuario" placeholder="Ex: (11) 11111-1111" onkeypress="$(this).mask('(00) 0000-00009')"/>
+                      <input minlength="10" data-mask="00/00/0000" maxlength="11" id="telefone_usuario" type="text" class="btn-popup mr-sm-2 phones" value="{{ $dados['telefone'] }}" name="telefone_usuario" placeholder="Ex: (11) 11111-1111"/>
                     </div>
 
                     <hr>
@@ -363,20 +438,16 @@ use Symfony\Component\Console\Input\Input;
                       </select>
                     </div>
                     <div class="modal-footer">
-                      <input type="submit" class="btn btn-primary dropright" value="Salvar Alterações">
+                      <input onload="mostrarConteudo()" data-toggle="modal" data-target="#hiddenDiv" type="submit" class="btn btn-primary dropright" value="Salvar Alterações">
                     </div>  
                   </form>
                 </div>
-
               </div>
             </div>
           </div>
         </div>
       </div>
       <!-- Fim área de detalhes de ideias postadas-->
-
-      
-
       </div>
 </body>
 </html>
