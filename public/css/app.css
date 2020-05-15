@@ -53,7 +53,17 @@ article,
 aside,
 figcaption,
 figure,
-footer,
+footer{
+	clear: both;
+	background-color:rgba(0, 0, 0, 0.5);
+	text-align: center;
+	font-size:20px;
+  color: #fff;
+  position:absolute;
+  bottom:0;
+  width:100%;
+}
+
 header,
 hgroup,
 main,
@@ -2696,6 +2706,7 @@ fieldset:disabled a.btn {
   color: #fff;
   background-color: #3490dc;
   border-color: #3490dc;
+  border-color: #000000;
 }
 
 .btn-primary:hover {
@@ -3310,12 +3321,12 @@ fieldset:disabled a.btn {
 
 .btn-link {
   font-weight: 400;
-  color: #3490dc;
+  color: #fffafa;
   text-decoration: none;
 }
 
 .btn-link:hover {
-  color: #1d68a7;
+  color: #f7f6f3;
   text-decoration: underline;
 }
 
@@ -3349,7 +3360,7 @@ fieldset:disabled a.btn {
 
 .btn-block {
   display: block;
-  width: 100%;
+  width: 73%;
 }
 
 .btn-block + .btn-block {
@@ -4956,13 +4967,13 @@ input[type=button].btn-block {
 
 .card {
   position: relative;
-  display: flex;
+  display: block;
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  padding: 20px 0 0px 0;
   border-radius: 0.25rem;
 }
 
@@ -4985,6 +4996,8 @@ input[type=button].btn-block {
   flex: 1 1 auto;
   min-height: 1px;
   padding: 1.25rem;
+  color: #fffafa;
+  margin-right: 55px;
 }
 
 .card-title {
@@ -5011,8 +5024,10 @@ input[type=button].btn-block {
 .card-header {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  border-color: #000000;
+  color: #fffafa;
+  width: 26%;
+  font-weight: bold;
 }
 
 .card-header:first-child {

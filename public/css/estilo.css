@@ -322,6 +322,9 @@ td div {
 
 tbody tr:hover {
   background-color: rgb(221, 221, 221);
+  -moz-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.03);
 }
 
 .both {
