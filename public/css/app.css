@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito);
+
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -53,17 +55,7 @@ article,
 aside,
 figcaption,
 figure,
-footer{
-	clear: both;
-	background-color:rgba(0, 0, 0, 0.5);
-	text-align: center;
-	font-size:20px;
-  color: #fff;
-  position:absolute;
-  bottom:0;
-  width:100%;
-}
-
+footer,
 header,
 hgroup,
 main,
@@ -2706,7 +2698,6 @@ fieldset:disabled a.btn {
   color: #fff;
   background-color: #3490dc;
   border-color: #3490dc;
-  border-color: #000000;
 }
 
 .btn-primary:hover {
@@ -3321,12 +3312,12 @@ fieldset:disabled a.btn {
 
 .btn-link {
   font-weight: 400;
-  color: #fffafa;
+  color: #3490dc;
   text-decoration: none;
 }
 
 .btn-link:hover {
-  color: #f7f6f3;
+  color: #1d68a7;
   text-decoration: underline;
 }
 
@@ -3360,7 +3351,7 @@ fieldset:disabled a.btn {
 
 .btn-block {
   display: block;
-  width: 73%;
+  width: 100%;
 }
 
 .btn-block + .btn-block {
@@ -4967,13 +4958,13 @@ input[type=button].btn-block {
 
 .card {
   position: relative;
-  display: block;
+  display: flex;
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #fff;
   background-clip: border-box;
-  padding: 20px 0 0px 0;
+  border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
 }
 
@@ -4996,8 +4987,6 @@ input[type=button].btn-block {
   flex: 1 1 auto;
   min-height: 1px;
   padding: 1.25rem;
-  color: #fffafa;
-  margin-right: 55px;
 }
 
 .card-title {
@@ -5024,10 +5013,8 @@ input[type=button].btn-block {
 .card-header {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
-  border-color: #000000;
-  color: #fffafa;
-  width: 26%;
-  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 .card-header:first-child {
@@ -10894,4 +10881,3 @@ a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
-

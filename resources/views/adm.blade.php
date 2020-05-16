@@ -45,7 +45,7 @@ $i = 1; //id base tabelas
                 <th scope="col">Nome</th>
                 <th scope="col">RGM/CPF</th>
                 <th scope="col">Tipo</th>
-                <th scope="col">Altorizar</th>
+                <th scope="col">Autorizar</th>
                 <th scope="col">Deletar</th>
             </tr>
         </thead>

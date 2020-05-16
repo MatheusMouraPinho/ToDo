@@ -35,9 +35,9 @@
       <div class="collapse navbar-collapse justify-content-md-center" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li style="padding-left:1em" class="nav-item active">
-            <form class="form-inline my-2 my-lg-0" action="{{ url('/home') }}">
-              <button class="btn btn-outline-success my-2 my-sm-0">Home</button>
-            </form>
+            <div class="form-inline my-2 my-lg-0">
+              <a class="btn btn-outline-success my-2 my-sm-0"  href="{{ url('/home') }}">Home</a>
+            </div>
           </li>
           <li style="padding-left:1em" class="nav-item">
             <form class="form-inline my-2 my-lg-0">

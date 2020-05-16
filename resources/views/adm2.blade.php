@@ -60,9 +60,36 @@ $i = 1; //id base tabelas
             $setup = $rows['nivel'];
             $id_usuario = $rows['id'];
             $nome = $rows['usuario'];
-            $alterar = "";
         ?>
-        @include('layouts.modal')
+        <!-- Modal -->
+        <div class="modal fade" id="modal<?php echo $id_usuario ?>" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ url('/alterar') }}" method="POST">
+                    @csrf
+                    <div class="modal-body-white">
+                        <p class="text-center"><h5>Alterar o acesso de: <?php echo $nome ?></h5></p>
+                        <br>
+                        <input type='hidden' name="alterar" value="<?php echo $id_usuario ?>"/>
+                        <label for="tipo" class="bold subdados">Tipo</label>
+                        <select name="tipo" class="select" class="btn btn-primary">
+                            <option>Usuario</option><option>Avaliador</option><option>Admin</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Salvar mudanças</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
         <tbody>
             <tr>
                 <td><?php echo $i ?></td>

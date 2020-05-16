@@ -85,6 +85,12 @@ class AdminController extends Controller
             $sql = "DELETE FROM denuncias WHERE id ='$id1'";
             mysqli_query($conn, $sql);
 
+            $sql = "DELETE FROM subcomentarios WHERE id_postagem ='$id2'";
+            mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM comentarios WHERE id_postagem ='$id2'";
+            mysqli_query($conn, $sql);
+
             $sql = "DELETE FROM postagens WHERE id_postagem ='$id2'";
             mysqli_query($conn, $sql);
 

@@ -58,31 +58,69 @@ $i = 1; //id base tabelas
           $motivo1 = $rows['spam'];
           $motivo2 = $rows['copia'];
           $id_denuncia = $rows['id'];
-          $opçoes = "";
-          $post = "";
           ?>
         <tbody>
             <tr>
               <td><?php echo $i ?></td>
-              <?php if($rows = mysqli_fetch_assoc($result2)){
-               $nome_post = $rows['titulo_postagem'];
-               $id_post = $rows['id_postagem'];
-              ?>
-              @include('layouts.modal')
-              <td><?php echo $rows['titulo_postagem']; ?></td>
-              <?php } ?>
-              <td>
-                <?php 
-                  if ($motivo1 > $motivo2) { echo "Spam";    
-                  }else echo "Copia";
+                <?php if($rows = mysqli_fetch_assoc($result2)){
+                $nome_post = $rows['titulo_postagem'];
+                $id_post = $rows['id_postagem'];
                 ?>
-              </td>
-              <td><button class="no-border-button" data-toggle="modal" data-target="#post<?php echo $id_post ?>">
-                <img width="40px" src="{{asset('img/lupe.png')}}">
-              </button></td>
-              <td><a type="button"  data-toggle="modal" data-target="#modal<?php echo $id_post ?>">
-                    <img width="40px" src="{{asset('img/options.png')}}">
-              </a></td>
+                <!-- Modal --> 
+                <div class="modal fade" id="modal<?php echo $id_post ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="{{ url('/option') }}" method="POST">
+                            @csrf
+                            <div class="modal-body-white">
+                                <p><h4>Opções:</h4></p>
+                                <br>
+                                <h5>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" id="radio1" type="radio" name="option" value="barrar" required>
+                                    <label class="form-check-label" for="radio1">Barrar Post</label>
+                                </div>
+                                <br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" id="radio2" type="radio" name="option" value="rem_den" required>
+                                    <label class="form-check-label" for="radio2">Remover denuncias</label>
+                                </div>
+                                <br>
+                                <div class="form-check form-check-inline">
+                                <input class="form-check-input" id="radio3" type="radio" name="option" value="del_post" required>
+                                    <label class="form-check-label" for="radio3">Deletar o Post</label>
+                                </div>
+                                </h5>
+                            </div>
+                            <div class="modal-footer">
+                                <input type='hidden' name="id_denuncia" value="<?php echo $id_denuncia ?>"/>
+                                <input type='hidden' name="id_postagem" value="<?php echo $id_post ?>"/>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-primary">Confirmar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Modal --> 
+                <td><?php echo $rows['titulo_postagem']; ?></td>
+              <?php } ?>
+                <td>
+                    <?php 
+                    if ($motivo1 > $motivo2) { echo "Spam";    
+                    }else echo "Copia";
+                    ?>
+                </td>
+                <td><button class="no-border-button" data-toggle="modal" data-target="#post<?php echo $id_post ?>">
+                    <img width="40px" src="{{asset('img/lupe.png')}}">
+                </button></td>
+                <td><a type="button"  data-toggle="modal" data-target="#modal<?php echo $id_post ?>">
+                        <img width="40px" src="{{asset('img/options.png')}}">
+                </a></td>
             </tr>
         </tbody>
         <?php $i++; } ?>
