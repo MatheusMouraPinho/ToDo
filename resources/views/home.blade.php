@@ -44,11 +44,24 @@ if(isset($_GET['tipo'])){
     $tipo = "1";
 }
 
-$sql = "SELECT * FROM postagens WHERE id_categoria = $tipo ORDER BY $filtro DESC LIMIT $inicio, $quantidade ";
+if(isset($_GET['periodo'])){
+    $var3 = $_GET['periodo'];
+
+    if($var3 == "1"){
+        $periodo = "";
+    }else{
+        $periodo = ""; 
+    }
+}else{
+    $periodo = "data_postagem"; 
+}
+
+$sql = "SELECT * FROM postagens WHERE data_postagem >= $periodo AND id_categoria = $tipo ORDER BY $filtro DESC LIMIT $inicio, $quantidade ";
 $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
 $pagina_anterior = $pagina - 1; //paginação
 $pagina_posterior = $pagina + 1;
+
 ?>
 
 
@@ -56,56 +69,41 @@ $pagina_posterior = $pagina + 1;
 
 <div class="row justify-content-md-center">
     <form method="GET">
-        <div> 
-            <div class="row justify-content-md-center">
-                
-                    <button name="filtro" value="novo" <?php if($filtro == "data_postagem"){?> class="btn btn-outline-secondary" <?php }else{?> class="btn btn-primary" <?php }?>>Novos</button> 
-                    <button name="filtro" value="popu" <?php if($filtro == "likes_postagem"){?> class="btn btn-outline-secondary" <?php }else{?> class="btn btn-primary" <?php }?>  >populares</button> 
-                    <button name="filtro" value="melh" class="btn btn-primary">Melhores Avaliados(To Do)</button> 
-                
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?php if($tipo == "1"){ echo "ideias"; }else{ echo "Sugestões"; }?> 
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <button class="dropdown-item" name="tipo" value="1">Ideias</button>
-                        <button class="dropdown-item" name="tipo" value="2">Sugestões</button>
-                    </div>
+        <div class="row contorno"> 
+            <button name="filtro" value="novo" <?php if($filtro == "data_postagem"){?> class="btn btn-outline-primary-custom" <?php }else{?> class="btn btn-primary" <?php }?>>Novos</button> 
+            <button name="filtro" value="popu" <?php if($filtro == "likes_postagem"){?> class="btn btn-outline-primary-custom" <?php }else{?> class="btn btn-primary" <?php }?>  >populares</button> 
+            <button name="filtro" value="melh" class="btn btn-primary">Melhores Avaliados(To Do)</button> 
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <?php if($tipo == "1"){ echo "ideias"; }else{ echo "Sugestões"; }?> 
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button class="dropdown-item" name="tipo" value="1">Ideias</button>
+                    <button class="dropdown-item" name="tipo" value="2">Sugestões</button>
                 </div>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Ultima semana (To Do)
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item">Ultimo Mês</a>
-                    </div>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Periodo (To Do)
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button class="dropdown-item" name="periodo" value="1">Ultima Semana</button>
+                    <button class="dropdown-item" name="periodo" value="2">Ultima Mes</button>
                 </div>
-            </div> 
+            </div>
         </div>  
     </form>
-    <?php while($rows = mysqli_fetch_assoc($result2)){  ?>
-        <table class="col-12" id="table_conta">
-            <thead>
-                <tr>
-                    <th scope="col"><h2><b><?php echo $rows['titulo_postagem']; ?><b></h2></th>
-                    <th scope="col">likes</th>
-                    <th scope="col">Data</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><?php echo $rows['descricao_postagem']; ?></td>
-                    <td><?php echo $rows['likes_postagem']; ?></td>
-                    <td><?php echo $rows['data_postagem']; ?></td>
-                </tr>
-            </tbody>
-        </table> 
-        <br> 
-    <?php } ?>  
 </div>
-<br>
-
-
+<?php while($rows = mysqli_fetch_assoc($result2)){ $situation = $rows['id_situacao_postagem']; ?>
+    <div class="card-home">
+        <div class="title-home"><h2><b><?php echo $rows['titulo_postagem']; ?></b></h2></div>
+        <div class="desc-home"><?php echo mb_strimwidth($rows['descricao_postagem'], 0, 70, "..."); ?></div>
+        <div class="like-home"><?php echo $rows['likes_postagem'] . " <b>Likes</b>"; ?></div>
+        <div class="link-home"> <a href="#">Visualizar Ideia</a> </div>
+        <div class="situation-home"><?php if ($situation == 1) { echo "Avaliado";}else echo "Pendente"; ?></div>
+        <div class="data-home"><?php echo $rows['data_postagem']; ?></div>
+    </div> 
+<?php } ?>
 
 <nav class="text-center">
     <ul class="pagination">

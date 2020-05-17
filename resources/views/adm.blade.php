@@ -22,6 +22,10 @@ $pagina_anterior = $pagina - 1; //paginação
 $pagina_posterior = $pagina + 1;
 
 $i = 1; //id base tabelas
+
+if ($total_pesquisa > 0 ){ //se tiver rows
+    $check = TRUE;
+}
 ?>
 
 
@@ -38,79 +42,90 @@ $i = 1; //id base tabelas
 <div class="row">
     <table class="col-12" id="table_conta">
         <caption>Cadastros Pendentes</caption>
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Data</th>
-                <th scope="col">Nome</th>
-                <th scope="col">RGM/CPF</th>
-                <th scope="col">Tipo</th>
-                <th scope="col">Autorizar</th>
-                <th scope="col">Deletar</th>
-            </tr>
-        </thead>
-
-        <?php while($rows = mysqli_fetch_assoc($result2)){ 
-            $setup = $rows['nivel']; 
-        ?>
-        <tbody>
-            <tr>
-                <td><?php echo $i ?></td>
-                <td><?php echo $rows['email_verified_at']; ?></td>
-                <td><?php echo $rows['usuario']; ?></td>
-                <td><?php echo $rows['registro']; ?></td>
-                <td><?php   if ($setup == 1) { echo "Usuario";    
-                            }else if ($setup == 2) { echo "Avaliador";
-                            }else if ($setup == 3) { echo "Admin";}
-                    ?>
-                </td>
-                <form action="{{ url('/alt') }}" method="POST">
-                    @csrf
-                    <td><button class="no-border-button" name="alt" value="<?php echo $rows['id']; ?>"><img width="40px" src="{{asset('img/correct.png')}}"></button></td>
-                </form>
-                <form action="{{ url('/del') }}" method="POST">
-                    @csrf
-                    <td><button class="no-border-button" name="del" value="<?php echo $rows['id']; ?>"><img width="40px" src="{{asset('img/denie.png')}}"></button></td>
-                </form>
-            </tr>
-        </tbody>
-        <?php $i++; } ?>
+        <?php if(isset($check)){$style = TRUE ?>
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">RGM/CPF</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Autorizar</th>
+                    <th scope="col">Deletar</th>
+                </tr>
+            </thead>
+            <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel']; ?>
+                <tbody>
+                    <tr>
+                        <td><?php echo $i ?></td>
+                        <td><?php echo $rows['email_verified_at']; ?></td>
+                        <td><?php echo $rows['usuario']; ?></td>
+                        <td><?php echo $rows['registro']; ?></td>
+                        <td><?php   if ($setup == 1) { echo "Usuario";    
+                                    }else if ($setup == 2) { echo "Avaliador";
+                                    }else if ($setup == 3) { echo "Admin";}
+                            ?>
+                        </td>
+                        <form action="{{ url('/alt') }}" method="POST">
+                            @csrf
+                            <td><button class="no-border-button" name="alt" value="<?php echo $rows['id']; ?>"><img width="40px" src="{{asset('img/correct.png')}}"></button></td>
+                        </form>
+                        <form action="{{ url('/del') }}" method="POST">
+                            @csrf
+                            <td><button class="no-border-button" name="del" value="<?php echo $rows['id']; ?>"><img width="40px" src="{{asset('img/denie.png')}}"></button></td>
+                        </form>
+                    </tr>
+                </tbody>
+            <?php $i++; }?>
+        <?php }else{?>
+            <tbody>  
+                <tr>
+                    <td rowspan="10">
+                        <div><br>
+                            <img width="500px" height="200" src="{{asset('img/clock.png')}}"><br><br>
+                            <p><h4><b>Nenhum cadastro disponivel para gerenciamento</h4></b></p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        <?php } ?>
     </table>    
 </div>
 <br>
 
-<nav class="text-center">
-    <ul class="pagination">
-        <li class="page-item">
-            <?php
-            if($pagina_anterior != 0){ ?>
-                <a class="page-link" href="?pagina=<?php echo $pagina_anterior; ?>" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            <?php }else{ ?>
-                <a class="page-link" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-        <?php }  ?>
-        </li>
-        <?php 
-        for($i = 1; $i < $num_pagina + 1; $i++){ ?>
-            <li class="page-item"><a class="page-link" href="?pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
-        <?php } ?>
-        <li>
-            <?php
-            if($pagina_posterior <= $num_pagina){ ?>
-                <a class="page-link" href="?pagina=<?php echo $pagina_posterior; ?>" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            <?php }else{ ?>
-                <a class="page-link" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-        <?php }  ?>
-        </li>
-    </ul>
-</nav>
-
+<?php if(isset($check)){ ?>
+    <nav class="text-center">
+        <ul class="pagination">
+            <li class="page-item">
+                <?php
+                if($pagina_anterior != 0){ ?>
+                    <a class="page-link" href="?pagina=<?php echo $pagina_anterior; ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                <?php }else{ ?>
+                    <a class="page-link" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+            <?php }  ?>
+            </li>
+            <?php 
+            for($i = 1; $i < $num_pagina + 1; $i++){ ?>
+                <li class="page-item"><a class="page-link" href="?pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+            <?php } ?>
+            <li>
+                <?php
+                if($pagina_posterior <= $num_pagina){ ?>
+                    <a class="page-link" href="?pagina=<?php echo $pagina_posterior; ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                <?php }else{ ?>
+                    <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+            <?php }  ?>
+            </li>
+        </ul>
+    </nav>
+<?php } ?>
 
 @endsection

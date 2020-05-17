@@ -1,6 +1,13 @@
-<?php $nivel = Auth::user()->nivel; ?> 
+<?php $nivel = Auth::user()->nivel; 
 
-<!-- idicar a pagina:   {{ url('/pagina123') }}    -->
+if (isset($style)){?> 
+  <style>
+  tbody tr:hover {
+    background-color: rgb(221, 221, 221);
+  }
+  </style>
+<?php }?>
+
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>

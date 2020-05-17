@@ -28,6 +28,10 @@ $pagina_anterior = $pagina - 1; //paginação
 $pagina_posterior = $pagina + 1;
 
 $i = 1; //id base tabelas
+
+if ($total_pesquisa > 0 ){ //se tiver rows
+    $check = TRUE;
+}
 ?>
 
 
@@ -44,120 +48,132 @@ $i = 1; //id base tabelas
 <div class="row">
     <table class="col-12" id="table_conta">
         <caption>Denuncias</caption>
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nome da ideia</th>
-                <th scope="col">Motivo</th>
-                <th scope="col">Visualizar ideia</th>
-                <th scope="col">Opções</th>
-            </tr>
-        </thead>
+        <?php if(isset($check)){ $style = TRUE ?>
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nome da ideia</th>
+                    <th scope="col">Motivo</th>
+                    <th scope="col">Visualizar ideia</th>
+                    <th scope="col">Opções</th>
+                </tr>
+            </thead>
 
-        <?php while($rows = mysqli_fetch_assoc($result)){ 
-          $motivo1 = $rows['spam'];
-          $motivo2 = $rows['copia'];
-          $id_denuncia = $rows['id'];
-          ?>
-        <tbody>
-            <tr>
-              <td><?php echo $i ?></td>
-                <?php if($rows = mysqli_fetch_assoc($result2)){
-                $nome_post = $rows['titulo_postagem'];
-                $id_post = $rows['id_postagem'];
-                ?>
-                <!-- Modal --> 
-                <div class="modal fade" id="modal<?php echo $id_post ?>" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
+            <?php while($rows = mysqli_fetch_assoc($result)){ $motivo1 = $rows['spam']; $motivo2 = $rows['copia']; $id_denuncia = $rows['id'];?>
+                <tbody>
+                    <tr>
+                    <td><?php echo $i ?></td>
+                        <?php if($rows = mysqli_fetch_assoc($result2)){
+                        $nome_post = $rows['titulo_postagem'];
+                        $id_post = $rows['id_postagem'];
+                        ?>
+                        <!-- Modal --> 
+                        <div class="modal fade" id="modal<?php echo $id_post ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="{{ url('/option') }}" method="POST">
+                                    @csrf
+                                    <div class="modal-body-white">
+                                        <p><h4>Opções:</h4></p>
+                                        <br>
+                                        <h5>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" id="radio1" type="radio" name="option" value="barrar" required>
+                                            <label class="form-check-label" for="radio1">Barrar Post</label>
+                                        </div>
+                                        <br>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" id="radio2" type="radio" name="option" value="rem_den" required>
+                                            <label class="form-check-label" for="radio2">Remover denuncias</label>
+                                        </div>
+                                        <br>
+                                        <div class="form-check form-check-inline">
+                                        <input class="form-check-input" id="radio3" type="radio" name="option" value="del_post" required>
+                                            <label class="form-check-label" for="radio3">Deletar o Post</label>
+                                        </div>
+                                        </h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type='hidden' name="id_denuncia" value="<?php echo $id_denuncia ?>"/>
+                                        <input type='hidden' name="id_postagem" value="<?php echo $id_post ?>"/>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <form action="{{ url('/option') }}" method="POST">
-                            @csrf
-                            <div class="modal-body-white">
-                                <p><h4>Opções:</h4></p>
-                                <br>
-                                <h5>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" id="radio1" type="radio" name="option" value="barrar" required>
-                                    <label class="form-check-label" for="radio1">Barrar Post</label>
-                                </div>
-                                <br>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" id="radio2" type="radio" name="option" value="rem_den" required>
-                                    <label class="form-check-label" for="radio2">Remover denuncias</label>
-                                </div>
-                                <br>
-                                <div class="form-check form-check-inline">
-                                <input class="form-check-input" id="radio3" type="radio" name="option" value="del_post" required>
-                                    <label class="form-check-label" for="radio3">Deletar o Post</label>
-                                </div>
-                                </h5>
-                            </div>
-                            <div class="modal-footer">
-                                <input type='hidden' name="id_denuncia" value="<?php echo $id_denuncia ?>"/>
-                                <input type='hidden' name="id_postagem" value="<?php echo $id_post ?>"/>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                <button type="submit" class="btn btn-primary">Confirmar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- Modal --> 
-                <td><?php echo $rows['titulo_postagem']; ?></td>
-              <?php } ?>
-                <td>
-                    <?php 
-                    if ($motivo1 > $motivo2) { echo "Spam";    
-                    }else echo "Copia";
-                    ?>
-                </td>
-                <td><button class="no-border-button" data-toggle="modal" data-target="#post<?php echo $id_post ?>">
-                    <img width="40px" src="{{asset('img/lupe.png')}}">
-                </button></td>
-                <td><a type="button"  data-toggle="modal" data-target="#modal<?php echo $id_post ?>">
-                        <img width="40px" src="{{asset('img/options.png')}}">
-                </a></td>
-            </tr>
-        </tbody>
-        <?php $i++; } ?>
+                        <!-- Modal --> 
+                        <td><?php echo $rows['titulo_postagem']; ?></td>
+                    <?php } ?>
+                        <td>
+                            <?php 
+                            if ($motivo1 > $motivo2) { echo "Spam";    
+                            }else echo "Copia";
+                            ?>
+                        </td>
+                        <td><button class="no-border-button" data-toggle="modal" data-target="#post<?php echo $id_post ?>">
+                            <img width="40px" src="{{asset('img/lupe.png')}}">
+                        </button></td>
+                        <td><a type="button"  data-toggle="modal" data-target="#modal<?php echo $id_post ?>">
+                                <img width="40px" src="{{asset('img/options.png')}}">
+                        </a></td>
+                    </tr>
+                </tbody>
+            <?php $i++; } ?>
+        <?php }else{?>
+            <tbody>  
+                <tr>
+                    <td rowspan="10">
+                        <div><br>
+                            <img width="500px" height="200" src="{{asset('img/clock.png')}}"><br><br>
+                            <p><h4><b>Nenhuma denuncia disponivel para apuração</h4></b></p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        <?php } ?>
     </table>    
 </div>
-
 <br>
-<nav class="text-center">
-    <ul class="pagination">
-        <li class="page-item">
-            <?php
-            if($pagina_anterior != 0){ ?>
-                <a class="page-link" href="?pagina=<?php echo $pagina_anterior; ?>" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            <?php }else{ ?>
-                <a class="page-link" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-        <?php }  ?>
-        </li>
-        <?php 
-        for($i = 1; $i < $num_pagina + 1; $i++){ ?>
-            <li class="page-item"><a class="page-link" href="?pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
-        <?php } ?>
-        <li>
-            <?php
-            if($pagina_posterior <= $num_pagina){ ?>
-                <a class="page-link" href="?pagina=<?php echo $pagina_posterior; ?>" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            <?php }else{ ?>
-                <a class="page-link" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-        <?php }  ?>
-        </li>
-    </ul>
-</nav>
+
+<?php if(isset($check)){ ?>
+    <nav class="text-center">
+        <ul class="pagination">
+            <li class="page-item">
+                <?php
+                if($pagina_anterior != 0){ ?>
+                    <a class="page-link" href="?pagina=<?php echo $pagina_anterior; ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                <?php }else{ ?>
+                    <a class="page-link" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+            <?php }  ?>
+            </li>
+            <?php 
+            for($i = 1; $i < $num_pagina + 1; $i++){ ?>
+                <li class="page-item"><a class="page-link" href="?pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+            <?php } ?>
+            <li>
+                <?php
+                if($pagina_posterior <= $num_pagina){ ?>
+                    <a class="page-link" href="?pagina=<?php echo $pagina_posterior; ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                <?php }else{ ?>
+                    <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+            <?php }  ?>
+            </li>
+        </ul>
+    </nav>
+<?php }?>
+
 @endsection

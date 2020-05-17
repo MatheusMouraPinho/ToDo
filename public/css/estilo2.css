@@ -44,3 +44,67 @@
   padding: 1rem;
   background-color: #fff;
 }
+
+.contorno {
+  background-color: #a9a9a9;
+  background-clip: border-box;
+  padding: 0.45rem;
+  border: 2px solid #00000020;
+  border-radius: 0.25rem;
+  margin: 22px 22px 10px auto;
+}
+
+.btn-outline-primary-custom {
+  color: #000000;
+  border-color: #000000;
+  background-color: #ffffff;
+}
+
+.card-home {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word;
+  background-color: #a9a9a9;
+  border-radius: 0.25rem;
+  height: 200px;
+  border: 2px solid #646464;
+  margin: 60px 22px 30px auto;
+}
+
+.title-home {
+  position: relative;
+  top:5%;
+  left: 1%;
+}
+
+.link-home {
+  position: relative;
+  top: 48%;
+  left: 1%;
+}
+
+.desc-home {
+  position: relative;
+  opacity: 0.6;
+  top:20%;
+  left: 1%;
+}
+
+.like-home {
+  position: absolute;
+  top: 8%;
+  left: 93%;
+}
+
+.situation-home {
+  position: absolute;
+  top:70%;
+  right: 3%;
+}
+
+.data-home {
+  position: absolute;
+  top: 83%;
+  right: 1%;
+}
