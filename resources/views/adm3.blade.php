@@ -81,22 +81,20 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                     <div class="modal-body-white">
                                         <p><h4>Opções:</h4></p>
                                         <br>
-                                        <h5>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" id="radio1" type="radio" name="option" value="barrar" required>
-                                            <label class="form-check-label" for="radio1">Barrar Post</label>
-                                        </div>
-                                        <br>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" id="radio2" type="radio" name="option" value="rem_den" required>
-                                            <label class="form-check-label" for="radio2">Remover denuncias</label>
-                                        </div>
-                                        <br>
-                                        <div class="form-check form-check-inline">
-                                        <input class="form-check-input" id="radio3" type="radio" name="option" value="del_post" required>
-                                            <label class="form-check-label" for="radio3">Deletar o Post</label>
-                                        </div>
-                                        </h5>
+                                        <h6>
+                                            <label class="radio-custom">Remover denuncias
+                                                <input type="radio" id="radio1" type="radio" name="option" value="rem_den" required>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="radio-custom">Barrar Postagem
+                                                <input type="radio" id="radio2" type="radio" name="option" value="barrar" required>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="radio-custom">Deletar o Postagem
+                                                <input type="radio" id="radio3" type="radio" name="option" value="del_post" required>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </h6>
                                     </div>
                                     <div class="modal-footer">
                                         <input type='hidden' name="id_denuncia" value="<?php echo $id_denuncia ?>"/>
