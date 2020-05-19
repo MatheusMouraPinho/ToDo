@@ -41,6 +41,7 @@
   position: absolute;
   top: 80%;
   left: 2%;
+  color: blue;
 }
 
 .desc-home {
@@ -58,7 +59,7 @@
 .situation-home {
   position: absolute;
   top:67%;
-  right: 2%;
+  right: 1%;
 }
 
 .data-home {

@@ -46,6 +46,8 @@ class HomeController extends Controller
             $var = $_POST['filtro'];
             if($var == "popu"){
                 $filtro = "likes_postagem"; 
+            }elseif($var == "melh"){
+                $filtro = "media";
             }else{
                 $filtro = "data_postagem";
             }

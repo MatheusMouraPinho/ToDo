@@ -46,9 +46,9 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
         <div class="row contorno"> 
             <button name="filtro" value="novo" <?php if($filtro == "data_postagem"){?> class="btn btn-outline-primary-custom" <?php }else{?> class="btn btn-primary" <?php }?>>Novos</button> 
             <button name="filtro" value="popu" <?php if($filtro == "likes_postagem"){?> class="btn btn-outline-primary-custom" <?php }else{?> class="btn btn-primary" <?php }?>>populares</button> 
-            <button name="filtro" value="melh" class="btn btn-primary">Melhores Avaliados(To Do)</button> 
+            <button name="filtro" value="melh" <?php if($filtro == "media"){?> class="btn btn-outline-primary-custom" <?php }else{?> class="btn btn-primary" <?php }?>>Melhores Avaliados</button> 
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?php if($tipo == "1"){ echo "ideias"; }else{ echo "Sugestões"; }?> 
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -57,12 +57,12 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
                 </div>
             </div>
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?php echo $setup ?>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <button class="dropdown-item" name="periodo" value="1">Ultima Semana</button>
-                    <button class="dropdown-item" name="periodo" value="2">Ultima Mês</button>
+                    <button class="dropdown-item" name="periodo" value="2">Ultimo Mês</button>
                     <button class="dropdown-item" name="periodo" value="3">Ultimo Ano</button>
                     <button class="dropdown-item" name="periodo" value="4">Todas as postagens</button>
                 </div>
@@ -78,15 +78,16 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
 <?php }?>
 
 
-<?php while($rows = mysqli_fetch_assoc($result2)){ $situation = $rows['id_situacao_postagem']; ?>
+<?php while($rows = mysqli_fetch_assoc($result2)){ $situation = $rows['id_situacao_postagem']; $id_post = $rows['id_postagem'];?>
     <div class="card-home">
         <div class="title-home"><h2><b><?php echo $rows['titulo_postagem']; ?></b></h2></div>
         <div class="desc-home"><?php echo mb_strimwidth($rows['descricao_postagem'], 0, 70, "..."); ?></div>
         <div class="like-home"><?php echo "<f><b>" . $rows['likes_postagem'] . " Likes" . "</b></f>"; ?></div>
-        <div class="link-home"> <a style = "text-decoration:underline" href="#">Visualizar Ideia</a> </div>
-        <div class="situation-home"><b><?php if ($situation == 1) { echo "<f3>". "Avaliado" . "</f3>";}else echo "<f4>" . "Pendente" . "</f4>"; ?></b></f2></div>
+        <div class="link-home"> <a style = "text-decoration:underline" type="button"  data-toggle="modal" data-target="#post<?php echo $id_post ?>">Visualizar Ideia</a> </div>
+        <div class="situation-home"><b><?php if ($situation == 1) { echo "<f3> Media: ". number_format((float)$rows['media'], 2, '.', ''). "</f3>";}else{ echo "<f4>" . "Pendente" . "</f4>";} ?></b></f2></div>
         <div class="data-home"><f2><?php echo date('d/m/Y', strtotime($rows['data_postagem'])); ?></f2></div>
-    </div> 
+    </div>
+    @include('layouts.post')
 <?php } ?>
 
 <nav class="text-center">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 13-Maio-2020 às 20:48
+-- Tempo de geração: 19-Maio-2020 às 08:18
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.10
 
@@ -285,21 +285,22 @@ CREATE TABLE `postagens` (
   `titulo_postagem` varchar(50) NOT NULL,
   `descricao_postagem` varchar(255) NOT NULL,
   `likes_postagem` int(10) NOT NULL DEFAULT 0,
-  `data_postagem` datetime NOT NULL
+  `data_postagem` datetime NOT NULL,
+  `media` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `postagens`
 --
 
-INSERT INTO `postagens` (`id_postagem`, `id_usuarios`, `id_situacao_postagem`, `id_categoria`, `titulo_postagem`, `descricao_postagem`, `likes_postagem`, `data_postagem`) VALUES
-(11, 12, 2, 1, 'Titulo da postagem ', 'descrição Teste Teste testeTeste Teste testeTeste Teste testeTeste Teste teste', 1, '2020-05-04 00:00:00'),
-(13, 17, 2, 1, 'big data sobre eleição', 'textotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotexto', 0, '2020-05-13 00:00:00'),
-(14, 12, 2, 1, 'Ideia sem ideias', ' ideias ideias ideias ideias ideias ideias ideias ideias ideias ideias ideias ideias', 0, '2020-05-04 00:00:00'),
-(15, 12, 1, 1, 'agronegócio inteligente', 'preenche linha preenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linha', 1, '2020-05-13 00:00:00'),
-(16, 17, 1, 1, 'agronegócio inteligente', 'preenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linha', 1, '2020-05-30 00:00:00'),
-(17, 12, 2, 1, 'sem ideia ja', 'semsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsem', 0, '2020-05-13 00:00:00'),
-(22, 12, 2, 1, 'ideia arduino', 'descriçãodescriçãodescriçãodescriçãodescriçãodescriçãodescrição', 12, '2020-05-13 00:00:00');
+INSERT INTO `postagens` (`id_postagem`, `id_usuarios`, `id_situacao_postagem`, `id_categoria`, `titulo_postagem`, `descricao_postagem`, `likes_postagem`, `data_postagem`, `media`) VALUES
+(11, 12, 2, 1, 'Titulo da postagem ', 'descrição Teste Teste testeTeste Teste testeTeste Teste testeTeste Teste teste', 1, '2020-05-04 00:00:00', NULL),
+(13, 17, 2, 1, 'big data sobre eleição', 'textotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotexto', 0, '2020-05-13 00:00:00', NULL),
+(14, 12, 2, 1, 'Ideia sem ideias', ' ideias ideias ideias ideias ideias ideias ideias ideias ideias ideias ideias ideias', 0, '2020-05-04 00:00:00', NULL),
+(15, 12, 1, 1, 'agronegócio inteligente', 'preenche linha preenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linha', 1, '2020-05-13 00:00:00', 5),
+(16, 17, 2, 1, 'agronegócio inteligente', 'preenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linha', 2, '2020-05-30 00:00:00', NULL),
+(17, 12, 2, 1, 'sem ideia ja', 'semsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsem', 0, '2020-05-13 00:00:00', NULL),
+(22, 12, 1, 1, 'ideia arduino', 'descriçãodescriçãodescriçãodescriçãodescriçãodescriçãodescrição', 12, '2020-05-13 00:00:00', 8.22);
 
 -- --------------------------------------------------------
 
@@ -1029,7 +1030,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `email_verified_at`, `id_situacao`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`) VALUES
-(12, 'Matheus Moura', 'Matheusmpinho@Outlook.com', 20867000, '$2y$10$7BQz0/fw70SWWsKQichlYeJSJU37V/Hy5gsEtqIfjcpohmPYJhbxi', 3, '2000-01-27 02:00:00', 1, 2, 10, 457, 0x31326d6174686575732d6d6f7572612e706e672e706e67, NULL),
+(12, 'Matheus Moura', 'Matheusmpinho@Outlook.com', 20867000, '$2y$10$rZ0C2fvYHoHI0xA7LOuCFu4FiJqIs1B6GEnAUqUPvf6aq/JZMeOOa', 3, '2000-01-27 02:00:00', 1, 2, 10, 457, 0x31326d6174686575732d6d6f7572612e706e672e706e67, NULL),
 (17, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', 22132066, '$2y$10$ALTvEgYoQTL8Op5xn7oK9eR6XtmgMqbRTDXgs3xm3KIeJVXscwLVm', 3, '2020-04-30 23:23:51', 1, 2, 10, 398, 0x31376a6f6e617468616e2d646961732e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e706e672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a706567, 12981489308),
 (20, 'Nome', '1@1.com', 20867001, '$2y$10$QXHJgUcvF4HGP/9R4Xusq.ZnF015YPCCGhNaANQ4oe36DaJKsXteG', 1, '2020-05-05 05:28:34', 1, NULL, NULL, NULL, NULL, NULL),
 (21, 'Teste', 'teste@teste.com', 20867006, '1231231415', 2, '2020-05-05 03:00:00', 2, NULL, NULL, NULL, NULL, NULL),

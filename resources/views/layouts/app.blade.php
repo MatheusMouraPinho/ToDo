@@ -42,24 +42,24 @@ if (isset($style)){?>
       <ul class="navbar-nav">
         <li style="padding-left:2em" class="nav-item active">
           <div class="form-inline my-2 my-lg-0">
-            <a class="btn btn-secondary my-2 my-sm-0"  href="{{ url('/home') }}">Home</a>
+            <a class="btn btn-primary my-2 my-sm-0"  href="{{ url('/home') }}">Home</a>
           </div>
         </li>
         <li style="padding-left:2em" class="nav-item">
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Digite o nome da ideia" aria-label="Search" style="width: 400px">
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Procurar</button>
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Procurar</button>
           </form>
         </li>
         <li style="padding-left:2em" class="nav-item">
           <form class="form-inline my-2 my-lg-0">
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Crie uma ideia</button>
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Crie uma ideia</button>
           </form>
         </li>
         <?php if($nivel > 1){?>
           <li class="nav-item">
             <form class="form-inline my-2 my-lg-0">
-              <button class="btn btn btn-secondary my-2 my-sm-0" type="submit">Criar uma Sugestão</button>
+              <button class="btn btn btn-primary my-2 my-sm-0" type="submit">Criar uma Sugestão</button>
             </form>
         </li>
         <?php }?>

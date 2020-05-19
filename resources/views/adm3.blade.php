@@ -58,15 +58,18 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                     <th scope="col">Opções</th>
                 </tr>
             </thead>
-
             <?php while($rows = mysqli_fetch_assoc($result)){ $motivo1 = $rows['spam']; $motivo2 = $rows['copia']; $id_denuncia = $rows['id'];?>
+                <?php if($rows = mysqli_fetch_assoc($result2)){ $nome_post = $rows['titulo_postagem'];$id_post = $rows['id_postagem'];?>
                 <tbody>
                     <tr>
-                    <td><?php echo $i ?></td>
-                        <?php if($rows = mysqli_fetch_assoc($result2)){
-                        $nome_post = $rows['titulo_postagem'];
-                        $id_post = $rows['id_postagem'];
-                        ?>
+                        <td><?php echo $i ?></td>
+                        <td><?php echo $rows['titulo_postagem']; ?></td>
+                        <td>
+                            <?php 
+                            if ($motivo1 > $motivo2) { echo "Spam";    
+                            }else echo "Copia";
+                            ?>
+                        </td>
                         <!-- Modal --> 
                         <div class="modal fade" id="modal<?php echo $id_post ?>" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -105,23 +108,17 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                 </form>
                             </div>
                         </div>
-                        <!-- Modal --> 
-                        <td><?php echo $rows['titulo_postagem']; ?></td>
-                    <?php } ?>
-                        <td>
-                            <?php 
-                            if ($motivo1 > $motivo2) { echo "Spam";    
-                            }else echo "Copia";
-                            ?>
-                        </td>
+                        <!-- Fim Modal -->
                         <td><button class="no-border-button" data-toggle="modal" data-target="#post<?php echo $id_post ?>">
                             <img width="40px" src="{{asset('img/lupe.png')}}">
                         </button></td>
+                        @include('layouts.post')
                         <td><a type="button"  data-toggle="modal" data-target="#modal<?php echo $id_post ?>">
                                 <img width="40px" src="{{asset('img/options.png')}}">
                         </a></td>
                     </tr>
                 </tbody>
+                <?php } ?>
             <?php $i++; } ?>
         <?php }else{?>
             <tbody>  

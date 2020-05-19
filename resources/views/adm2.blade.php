@@ -90,7 +90,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                     </div>
                 </div>
             </div>
-            <!-- Modal -->
+            <!-- Fim Modal -->
             <tbody>
                 <tr>
                     <td><?php echo $i ?></td>
