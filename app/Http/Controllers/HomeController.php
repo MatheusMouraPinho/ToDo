@@ -32,7 +32,7 @@ class HomeController extends Controller
     {
         Auth::logout();
 
-        return view('auth.login');
+        return redirect('/');
     }
       
     public function home()

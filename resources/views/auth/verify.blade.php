@@ -24,7 +24,7 @@
                     </form>
                     para solicitar outro.
                     <br><br>
-                    <a id="nv" href="{{ url('/redirect') }}"> Não é você? </a>
+                    <a id="nv" href="{{ url('/logout') }}">Sair</a>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19-Maio-2020 às 08:18
+-- Tempo de geração: 20-Maio-2020 às 04:02
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.10
 
@@ -164,18 +164,17 @@ INSERT INTO `comentarios` (`id_comentarios`, `id_usuarios`, `id_postagem`, `cont
 CREATE TABLE `denuncias` (
   `id` int(11) NOT NULL,
   `id_postagem` int(11) DEFAULT NULL,
-  `spam` int(11) DEFAULT NULL,
-  `copia` int(11) DEFAULT NULL
+  `id_motivo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `denuncias`
 --
 
-INSERT INTO `denuncias` (`id`, `id_postagem`, `spam`, `copia`) VALUES
-(10, 16, NULL, 2),
-(11, 17, 3, NULL),
-(12, 11, 3, NULL);
+INSERT INTO `denuncias` (`id`, `id_postagem`, `id_motivo`) VALUES
+(1, 11, 1),
+(2, 16, 2),
+(3, 11, 3);
 
 -- --------------------------------------------------------
 
@@ -238,6 +237,26 @@ CREATE TABLE `migrations` (
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (3, '2014_10_12_100000_create_password_resets_table', 1),
 (4, '2020_04_13_215849_create_verificas_table', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `motivo_denuncia`
+--
+
+CREATE TABLE `motivo_denuncia` (
+  `id` int(11) NOT NULL,
+  `motivo` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `motivo_denuncia`
+--
+
+INSERT INTO `motivo_denuncia` (`id`, `motivo`) VALUES
+(1, 'Spam'),
+(2, 'Copia'),
+(3, 'Conteúdo Inadequado');
 
 -- --------------------------------------------------------
 
@@ -1032,9 +1051,10 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `email_verified_at`, `id_situacao`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`) VALUES
 (12, 'Matheus Moura', 'Matheusmpinho@Outlook.com', 20867000, '$2y$10$rZ0C2fvYHoHI0xA7LOuCFu4FiJqIs1B6GEnAUqUPvf6aq/JZMeOOa', 3, '2000-01-27 02:00:00', 1, 2, 10, 457, 0x31326d6174686575732d6d6f7572612e706e672e706e67, NULL),
 (17, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', 22132066, '$2y$10$ALTvEgYoQTL8Op5xn7oK9eR6XtmgMqbRTDXgs3xm3KIeJVXscwLVm', 3, '2020-04-30 23:23:51', 1, 2, 10, 398, 0x31376a6f6e617468616e2d646961732e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e706e672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a706567, 12981489308),
-(20, 'Nome', '1@1.com', 20867001, '$2y$10$QXHJgUcvF4HGP/9R4Xusq.ZnF015YPCCGhNaANQ4oe36DaJKsXteG', 1, '2020-05-05 05:28:34', 1, NULL, NULL, NULL, NULL, NULL),
+(20, 'Nome', '1@1.com', 20867001, '$2y$10$QXHJgUcvF4HGP/9R4Xusq.ZnF015YPCCGhNaANQ4oe36DaJKsXteG', 1, NULL, 2, NULL, NULL, NULL, NULL, NULL),
 (21, 'Teste', 'teste@teste.com', 20867006, '1231231415', 2, '2020-05-05 03:00:00', 2, NULL, NULL, NULL, NULL, NULL),
-(23, 'jose antonio', 'jose@jose.com', 60887000, '$2y$10$RRXj1Ee1iieA4yQE1dgm8.xzIMIr9Mzck.kupmrr5EczWtkdF0rqe', 1, '2020-05-13 21:23:57', 2, NULL, NULL, NULL, NULL, NULL);
+(23, 'jose antonio', 'jose@jose.com', 60887000, '$2y$10$RRXj1Ee1iieA4yQE1dgm8.xzIMIr9Mzck.kupmrr5EczWtkdF0rqe', 1, '2020-05-13 21:23:57', 2, NULL, NULL, NULL, NULL, NULL),
+(24, 'Vinicius Vieira', 'vinicius_vieira_pereira@hotmail.com', 20541929, '$2y$10$Boy1Hsp7VHD0pHy9XombaODQSyRmS2Wb7RPxFOFYc0jAOjtGEyr4G', 3, '2020-05-19 03:00:00', 1, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1087,7 +1107,8 @@ ALTER TABLE `comentarios`
 --
 ALTER TABLE `denuncias`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_postagem` (`id_postagem`);
+  ADD KEY `id_postagem` (`id_postagem`),
+  ADD KEY `id_motivo` (`id_motivo`);
 
 --
 -- Índices para tabela `img_postagem`
@@ -1106,6 +1127,12 @@ ALTER TABLE `instituicao_ensino`
 -- Índices para tabela `migrations`
 --
 ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `motivo_denuncia`
+--
+ALTER TABLE `motivo_denuncia`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1209,7 +1236,7 @@ ALTER TABLE `comentarios`
 -- AUTO_INCREMENT de tabela `denuncias`
 --
 ALTER TABLE `denuncias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `img_postagem`
@@ -1228,6 +1255,12 @@ ALTER TABLE `instituicao_ensino`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de tabela `motivo_denuncia`
+--
+ALTER TABLE `motivo_denuncia`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `nivel_acesso`
@@ -1275,7 +1308,7 @@ ALTER TABLE `subcomentarios`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Restrições para despejos de tabelas
@@ -1300,7 +1333,8 @@ ALTER TABLE `comentarios`
 -- Limitadores para a tabela `denuncias`
 --
 ALTER TABLE `denuncias`
-  ADD CONSTRAINT `denuncias_ibfk_1` FOREIGN KEY (`id_postagem`) REFERENCES `postagens` (`id_postagem`);
+  ADD CONSTRAINT `denuncias_ibfk_1` FOREIGN KEY (`id_postagem`) REFERENCES `postagens` (`id_postagem`),
+  ADD CONSTRAINT `denuncias_ibfk_2` FOREIGN KEY (`id_motivo`) REFERENCES `motivo_denuncia` (`id`);
 
 --
 -- Limitadores para a tabela `img_postagem`

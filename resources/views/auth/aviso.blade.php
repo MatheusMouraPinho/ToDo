@@ -13,7 +13,7 @@
                     Olá! <?php  echo $user?>, estamos analisando os seus dados, aguarde a confirmação
                     do seu cadastro para acessar o nosso Site!
                     <br><br>
-                    <a id="nv" href="{{ url('/logout') }}"> Utilizar outra conta </a>
+                    <a id="nv" href="{{ url('/logout') }}"> Sair </a>
                 </div>
             </div>
         </div>

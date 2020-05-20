@@ -5,7 +5,7 @@ $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
 
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
-$sql = "SELECT * FROM denuncias WHERE spam > '0' or copia > '0' ";
+$sql = "SELECT * FROM denuncias";
 $resultado = mysqli_query($conn, $sql);//pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($resultado); //conta o total de rows
 
@@ -15,11 +15,11 @@ $num_pagina = ceil($total_pesquisa/$quantidade);
 
 $inicio = ($quantidade*$pagina)-$quantidade;
 
-$sql = "SELECT * FROM denuncias WHERE spam > '0' or copia > '0' LIMIT $inicio, $quantidade";
+$sql = "SELECT * FROM denuncias LIMIT $inicio, $quantidade";
 $result = mysqli_query($conn, $sql);//pesquisa limitada com paginação
 
 
-$sql2 = "SELECT * FROM postagens LEFT JOIN denuncias ON (postagens.id_postagem = denuncias.id_postagem) WHERE denuncias.spam > '0' or denuncias.copia > '0' ";
+$sql2 = "SELECT * FROM postagens LEFT JOIN denuncias ON (postagens.id_postagem = denuncias.id_postagem)";
 $result2 = mysqli_query($conn, $sql2);//pega os dados das postagens
 
 if ($total_pesquisa > 0){ $modal = "adm3";} //se aver rows de denuncias o modal é ativado
@@ -58,7 +58,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                     <th scope="col">Opções</th>
                 </tr>
             </thead>
-            <?php while($rows = mysqli_fetch_assoc($result)){ $motivo1 = $rows['spam']; $motivo2 = $rows['copia']; $id_denuncia = $rows['id'];?>
+            <?php while($rows = mysqli_fetch_assoc($result)){ $id_denuncia = $rows['id'];?>
                 <?php if($rows = mysqli_fetch_assoc($result2)){ $nome_post = $rows['titulo_postagem'];$id_post = $rows['id_postagem'];?>
                 <tbody>
                     <tr>
@@ -66,8 +66,9 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <td><?php echo $rows['titulo_postagem']; ?></td>
                         <td>
                             <?php 
-                            if ($motivo1 > $motivo2) { echo "Spam";    
-                            }else echo "Copia";
+                            if ($rows['id_motivo'] == 1 ) { echo "Spam";    
+                            }elseif($rows['id_motivo'] == 2 ){ echo "Copia";
+                            }else{ echo "Conteudo Inadequado";}
                             ?>
                         </td>
                         <!-- Modal --> 
