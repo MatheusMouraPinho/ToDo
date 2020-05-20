@@ -1,6 +1,13 @@
-<?php $nivel = Auth::user()->nivel; ?> 
+<?php $nivel = Auth::user()->nivel; 
 
-<!-- idicar a pagina:   {{ url('/pagina123') }}    -->
+if (isset($style)){?> 
+  <style>
+  tbody tr:hover {
+    background-color: rgb(221, 221, 221);
+  }
+  </style>
+<?php }?>
+
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -26,49 +33,54 @@
 </head>
 <body>
   <!-- ||Nav Bar||  -->
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded" id="menu">
-      <img class="navbar-brand" width="150px" src="{{asset('img/logo.png')}}">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-md-center" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li style="padding-left:1em" class="nav-item active">
-            <form class="form-inline my-2 my-lg-0" action="{{ url('/home') }}">
-              <button class="btn btn-outline-success my-2 my-sm-0">Home</button>
-            </form>
-          </li>
-          <li style="padding-left:1em" class="nav-item">
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Digite o nome da ideia" aria-label="Search" style="width: 400px">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Procurar</button>
-            </form>
-          </li>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <img class="navbar-brand" width="150px" src="{{asset('img/logo.png')}}">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-md-center" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li style="padding-left:2em" class="nav-item active">
+          <div class="form-inline my-2 my-lg-0">
+            <a class="btn btn-primary my-2 my-sm-0"  href="{{ url('/home') }}">Home</a>
+          </div>
+        </li>
+        <li style="padding-left:2em" class="nav-item">
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Digite o nome da ideia" aria-label="Search" style="width: 400px">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Procurar</button>
+          </form>
+        </li>
+        <li style="padding-left:2em" class="nav-item">
+          <form class="form-inline my-2 my-lg-0">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Crie uma ideia</button>
+          </form>
+        </li>
+        <?php if($nivel > 1){?>
           <li class="nav-item">
             <form class="form-inline my-2 my-lg-0">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Crie uma ideia</button>
+              <button class="btn btn btn-primary my-2 my-sm-0" type="submit">Criar uma Sugestão</button>
             </form>
-          </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Configurações </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <?php if(3 == $nivel){?>
-              <a class="dropdown-item" href="{{ url('/adm') }}">Admin Painel</a>
-              <?php }?>
-              <a class="dropdown-item" href="{{ url('/conta') }}">Minha conta</a>
-              <a class="dropdown-item" href="{{ url('/logout') }}"> Sair </a>
-            </div>
-          </li>
-        </ul>
-      <div>
-    </nav> 
-  </header>
+        </li>
+        <?php }?>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Configurações </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <?php if(3 == $nivel){?>
+            <a class="dropdown-item" href="{{ url('/adm') }}">Admin Painel</a>
+            <?php }?>
+            <a class="dropdown-item" href="{{ url('/conta') }}">Minha conta</a>
+            <a class="dropdown-item" href="{{ url('/logout') }}"> Sair </a>
+          </div>
+        </li>
+      </ul>
+    <div>
+  </nav> 
   <!--||Fim Nav bar||-->
 
-    <div id="area_principal">
+    <div>
       <!-- Puxa o arquivo home dentro da div-->
       <div class="container my-4">
       <br>

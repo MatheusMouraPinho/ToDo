@@ -32,7 +32,7 @@ class HomeController extends Controller
     {
         Auth::logout();
 
-        return view('auth.login');
+        return redirect('/');
     }
       
     public function home()
@@ -40,5 +40,44 @@ class HomeController extends Controller
         return view('home'); 
     }
 
+    public function filtro()
+    {
+        if(isset($_POST['filtro'])){
+            $var = $_POST['filtro'];
+            if($var == "popu"){
+                $filtro = "likes_postagem"; 
+            }elseif($var == "melh"){
+                $filtro = "media";
+            }else{
+                $filtro = "data_postagem";
+            }
+            return redirect('home')->with(['filtro' =>  $filtro]);
+        }
+        
+        if(isset($_POST['tipo'])){
+            $var2 = $_POST['tipo'];
+            if($var2 == "1"){
+                $tipo = "1"; 
+            }else{
+                $tipo = "2";
+            }
+            return redirect('home')->with(['tipo' =>  $tipo]);
+        }
 
+        if(isset($_POST['periodo'])){
+            $var3 = $_POST['periodo'];
+            if($var3 == "1"){
+                $periodo = "DATE(NOW()) - INTERVAL 7 DAY";
+            }elseif($var3 == "2"){
+                $periodo = "DATE(NOW()) - INTERVAL 30 DAY"; 
+            }elseif($var3 == "3"){
+                $periodo = "DATE(NOW()) - INTERVAL 365 DAY"; 
+            }else{
+                $periodo = "data_postagem";
+            }
+            return redirect('home')->with(['periodo' =>  $periodo]);
+        }
+
+    }
+    
 }

@@ -173,7 +173,7 @@ $nivel = Auth::user()->nivel;
       <!-- Área de ideias do usuario -->
         @if(empty($dados['posts'][0]))
 
-          <div class="area_ideias">
+          <div id="area_ideias">
             <table id="table_conta">
               <caption>Ideias Postadas</caption>
               <tbody>  

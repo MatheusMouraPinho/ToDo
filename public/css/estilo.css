@@ -320,10 +320,6 @@ td div {
   bottom: 200px;
 }
 
-tbody tr:hover {
-  background-color: rgb(221, 221, 221);
-}
-
 .both {
   font-size: 1.3em;
   caption-side: bottom;
@@ -503,7 +499,6 @@ p {
   display: inline-block;
   width: 80px;
   text-align: right;
-  vertical-align: ;
 }
 
 /* Esconde o input */

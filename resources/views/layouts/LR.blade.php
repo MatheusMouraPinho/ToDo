@@ -20,7 +20,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/estilo3.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/estiloAuth.css') }}" rel="stylesheet">
 </head>
     <div id="fundo">
          <div>

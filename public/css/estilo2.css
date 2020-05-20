@@ -4,6 +4,122 @@
   background: none;
 }
 
+.contorno {
+  background-color: #a9a9a9;
+  background-clip: border-box;
+  padding: 0.45rem;
+  border: 2px solid #00000020;
+  border-radius: 0.25rem;
+  margin: 10px 22px 8px auto;
+}
+
+.btn-outline-primary-custom {
+  color: #000000;
+  border-color: #000000;
+  background-color: #ffffff;
+}
+
+.card-home {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word;
+  background-color: #a9a9a9;
+  border-radius: 0.25rem;
+  height: 200px;
+  border: 2px solid #646464;
+  margin: 60px 22px 30px auto;
+}
+
+.title-home {
+  position: absolute;
+  top:5%;
+  left: 1%;
+}
+
+.link-home {
+  position: absolute;
+  top: 80%;
+  left: 2%;
+  color: blue;
+}
+
+.desc-home {
+  position: absolute;
+  top:38%;
+  left: 1%;
+}
+
+.like-home {
+  position: absolute;
+  top: 8%;
+  right: 1%;
+}
+
+.situation-home {
+  position: absolute;
+  top:67%;
+  right: 1%;
+}
+
+.data-home {
+  position: absolute;
+  top: 83%;
+  right: 1%;
+}
+
+.aviso-home {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  word-wrap: break-word;
+  background-color: #a9a9a9;
+  border-radius: 1.55rem;
+  height: 350px;
+  border: 2px solid #646464;
+  margin: 60px 22px 30px auto;
+}
+
+.aviso-center {
+  position: absolute;
+  top: 30%;
+  left: 25%;
+}
+
+.aviso-text {
+  position: absolute;
+  top: 45%;
+  left: 40%;
+}
+f{ /* borda like*/
+  border-radius: 0.45rem;
+  color: #000000;
+  padding: 0.15rem;
+  border: 2px solid #000000;
+  background-color: #2db92d; 
+}
+
+f2{ /* borda data*/
+  border-radius: 0.50rem;
+  color: #ffffff;
+  padding: 0.20rem;
+  background-color: #575757; 
+}
+
+f3{ /* borda situação avaliado */
+  border-radius: 0.50rem;
+  color: #000000;
+  padding: 0.18rem;
+  background-color: #0066cc; 
+}
+
+f4{ /* borda situação pendente */
+  border-radius: 0.50rem;
+  color: #000000;
+  padding: 0.18rem;
+  background-color: #d1ce22; 
+}
+
 .modal-content-white {
   position: relative;
   display: flex;
@@ -43,4 +159,57 @@
   flex: 1 1 auto;
   padding: 1rem;
   background-color: #fff;
+}
+
+.radio-custom {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.radio-custom input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+.container input:checked ~ .checkmark {
+  background-color: grey;
+  border: 1px solid #000000;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.container .checkmark:after {
+ 	top: 8px;
+	left: 8px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: black;
 }

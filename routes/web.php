@@ -35,6 +35,7 @@ Route::get('/logout', 'HomeController@logout')->middleware('auth');
 Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() { //grupo middleware
 
     Route::get('/home', 'HomeController@home');
+        Route::post('/filtro', 'HomeController@filtro');
 
     Route::get('/ava', 'AdminController@ava')->middleware('avaliador');//middleware nivel avaliador
 
