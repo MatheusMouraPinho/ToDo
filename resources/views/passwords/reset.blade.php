@@ -4,10 +4,10 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card-login">
-                <div class="card-cabeca">Alterar senha</div>
+            <div class="card">
+                <div class="card-header">Alterar senha</div> 
 
-                <div class="card-corpo">
+                <div class="card-body">
                 <form action="/password/reset" method="post">
                         @csrf
 
@@ -51,7 +51,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primaria">
+                                <button type="submit" class="btn btn-primary">
                                     {{ __('Mudar Senha') }}
                                 </button>
                             </div>

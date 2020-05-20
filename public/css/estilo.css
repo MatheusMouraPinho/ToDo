@@ -322,9 +322,6 @@ td div {
 
 tbody tr:hover {
   background-color: rgb(221, 221, 221);
-  -moz-transform: scale(1.1);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.03);
 }
 
 .both {
@@ -383,10 +380,16 @@ ul {
   display: inline-block;
   border: 1px solid black;
   border-radius: 5px;
-  width: 79%;
+  width: 78%;
   background-color: white;
   height: 200px;
   padding: 5px;
+  margin-left: 5px;
+  resize: none;
+}
+
+p {
+  word-wrap: break-word;
 }
 
 .popup_img {
@@ -417,21 +420,30 @@ ul {
   display: inline-block;
   border: 1px solid black;
   border-radius: 5px;
-  margin: 0px 5px 10px 5px;
+  margin: 0px 5px 0px 5px;
   width: 100%;
   background-color: white;
   padding: 5px;
+}
+
+.popup_coment_aval:hover {
+  background-color: #e9e9e9;
 }
 
 .popup_coment_enc {
   display: inline-block;
   border: 1px solid black;
   border-radius: 5px;
-  margin: 0px 5px 10px 75px;
-  width: 85%;
+  margin: 0px 5px 10px 28px;
+  width: 95%;
   background-color: white;
   padding: 5px;
 }
+
+.popup_coment_enc:hover {
+  background-color: #e9e9e9;
+}
+
 .popup_avaliador {
   display: inline-block;
   border: 1px solid black;
@@ -549,10 +561,11 @@ input[type='file'] {
 }
 
 .img-dados-coment {
-  width: 35x;
+  width: 20x;
   height: 35px;
   border-radius: 50%;
   border: 1px solid black;
+  margin: 0px 0px 4px 3px;
 }
 
 .password {
@@ -611,7 +624,6 @@ input[type='file'] {
 }
 
 .likes_coment:hover {
-  width: 15%;
   color: #3498db;
   height: 28px;
 }
@@ -619,20 +631,39 @@ input[type='file'] {
 .conteudo-coment {
   position: relative;
   display: inline;
-  margin: 2px 0em;
+  margin: 2px 2px;
   padding: 5px;
+  text-align: left;
 }
 
 .data-coment {
   position: relative;
   top: 5px;
-  float: right;
+  float: right !important;
+  margin: 0px;
 }
 
 .user {
-  display: inline;
-  width: 300px;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  width: 170px;
+  background-color: transparent;
+  border: 0px;
+  text-align: left;
+  margin: 0px;
+}
 
+.user:hover{
+  text-decoration: underline;  
+
+}
+
+#perfil {
+  display: inline-block;
+  margin: 0px;
 }
 
 .footer-coment {
@@ -646,6 +677,19 @@ input[type='file'] {
   margin: 5px;
   top: 5px;
   float: left;
+}
+
+.exibir {
+  position: relative;
+  display: inline-block;
+  margin: 5px;
+  top: 5px;
+  float: left;
+}
+
+.exibir:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .curtir {
@@ -665,6 +709,7 @@ input[type='file'] {
   display: block;
   width: 100%;
   display: none;
+  
 }
 
 .comentario {
@@ -675,7 +720,31 @@ input[type='file'] {
   border-radius: 5px;
   border: 1px solid #ccc;
   box-shadow: 5px 5px 5px #999;
-    
+  resize: none;  
+}
+
+.respondendo {
+  margin: 0px 0px;
+  display: inline-block;
+}
+
+.link {
+  color: #5ba9dd;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  display: inline-block;
+  width: 150px;
+  background-color: transparent;
+  border: 0px;
+  text-align: left;
+  margin: 0px;
+}
+
+.link:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .button_coment {
@@ -684,4 +753,54 @@ input[type='file'] {
   position: relative;
   float: right;
   width: 100px;
+}
+
+.transparente {
+  background-color: transparent;
+  border: 1px solid black;
+}
+
+.transparente:hover {
+  background-color: #e9e9e9;
+}
+
+.transparente:active {
+  background-color: rgb(221, 221, 221);
+}
+
+#edit_desc {
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 78%;
+  background-color: white;
+  height: 100px;
+  padding: 5px;
+  margin-left: 5px;
+  resize: none;
+}
+
+.tim {
+  border: 0;
+  padding: 0;
+  display: inline;
+  background: none;
+  text-decoration: underline;
+  color: blue;
+}
+
+.tim:hover {
+  cursor: pointer;
+}
+
+.dropdown1 {
+  position: relative;
+  display: inline-block;
+  float: right;
+}
+
+.linha {
+  height: 20px;
+  border-left: 2px solid black;
+  margin-left: 35px;
 }

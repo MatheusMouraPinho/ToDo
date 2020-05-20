@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 13-Maio-2020 às 02:07
+-- Tempo de geração: 20-Maio-2020 às 18:11
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.10
 
@@ -143,16 +143,18 @@ CREATE TABLE `comentarios` (
   `id_postagem` int(10) NOT NULL,
   `conteudo_comentarios` varchar(255) NOT NULL,
   `data_comentarios` datetime NOT NULL,
-  `likes_comentarios` int(11) NOT NULL DEFAULT 0
+  `likes_comentarios` int(11) NOT NULL DEFAULT 0,
+  `edit_comentarios` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `comentarios`
 --
 
-INSERT INTO `comentarios` (`id_comentarios`, `id_usuarios`, `id_postagem`, `conteudo_comentarios`, `data_comentarios`, `likes_comentarios`) VALUES
-(1, 17, 10, 'dsfdfsdfsd', '2020-05-11 05:19:00', 0),
-(2, 17, 10, 'fdgdf', '2020-05-27 00:00:00', 0);
+INSERT INTO `comentarios` (`id_comentarios`, `id_usuarios`, `id_postagem`, `conteudo_comentarios`, `data_comentarios`, `likes_comentarios`, `edit_comentarios`) VALUES
+(6, 17, 22, 'Legal gostei', '2020-05-13 00:00:00', 0, NULL),
+(7, 17, 22, 'Legal gostei Denovo', '2020-05-13 00:00:00', 0, NULL),
+(8, 12, 22, 'comentario aleatorio aqui', '2020-05-13 00:00:00', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -163,16 +165,17 @@ INSERT INTO `comentarios` (`id_comentarios`, `id_usuarios`, `id_postagem`, `cont
 CREATE TABLE `denuncias` (
   `id` int(11) NOT NULL,
   `id_postagem` int(11) DEFAULT NULL,
-  `spam` int(11) DEFAULT NULL,
-  `copia` int(11) DEFAULT NULL
+  `id_motivo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `denuncias`
 --
 
-INSERT INTO `denuncias` (`id`, `id_postagem`, `spam`, `copia`) VALUES
-(9, 10, NULL, 1);
+INSERT INTO `denuncias` (`id`, `id_postagem`, `id_motivo`) VALUES
+(1, 11, 1),
+(2, 16, 2),
+(3, 11, 3);
 
 -- --------------------------------------------------------
 
@@ -219,6 +222,42 @@ INSERT INTO `instituicao_ensino` (`id_instituicao`, `nome_instituicao`, `sigla_i
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `like_comentarios`
+--
+
+CREATE TABLE `like_comentarios` (
+  `id_likes` int(11) NOT NULL,
+  `id_comentarios` int(11) NOT NULL,
+  `id_usuarios` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `like_postagens`
+--
+
+CREATE TABLE `like_postagens` (
+  `id_like` int(11) NOT NULL,
+  `id_postagens` int(11) NOT NULL,
+  `id_usuarios` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `like_subcomentarios`
+--
+
+CREATE TABLE `like_subcomentarios` (
+  `id_like` int(11) NOT NULL,
+  `id_usuarios` int(11) NOT NULL,
+  `id_subcomentarios` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `migrations`
 --
 
@@ -235,6 +274,26 @@ CREATE TABLE `migrations` (
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (3, '2014_10_12_100000_create_password_resets_table', 1),
 (4, '2020_04_13_215849_create_verificas_table', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `motivo_denuncia`
+--
+
+CREATE TABLE `motivo_denuncia` (
+  `id` int(11) NOT NULL,
+  `motivo` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `motivo_denuncia`
+--
+
+INSERT INTO `motivo_denuncia` (`id`, `motivo`) VALUES
+(1, 'Spam'),
+(2, 'Copia'),
+(3, 'Conteúdo Inadequado');
 
 -- --------------------------------------------------------
 
@@ -282,16 +341,22 @@ CREATE TABLE `postagens` (
   `titulo_postagem` varchar(50) NOT NULL,
   `descricao_postagem` varchar(255) NOT NULL,
   `likes_postagem` int(10) NOT NULL DEFAULT 0,
-  `data_postagem` datetime NOT NULL
+  `data_postagem` datetime NOT NULL,
+  `media` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `postagens`
 --
 
-INSERT INTO `postagens` (`id_postagem`, `id_usuarios`, `id_situacao_postagem`, `id_categoria`, `titulo_postagem`, `descricao_postagem`, `likes_postagem`, `data_postagem`) VALUES
-(8, 12, 2, 1, 'titulo sem ideia', 'sem ideiasem ideiasem ideiasem ideiasem ideiasem ideiasem ideiasem ideiasem ideia', 0, '2020-05-04 00:00:00'),
-(10, 17, 2, 1, 'sdfvd', 'sdfsdgs', 0, '2020-04-16 00:00:00');
+INSERT INTO `postagens` (`id_postagem`, `id_usuarios`, `id_situacao_postagem`, `id_categoria`, `titulo_postagem`, `descricao_postagem`, `likes_postagem`, `data_postagem`, `media`) VALUES
+(11, 12, 2, 1, 'Titulo da postagem ', 'descrição Teste Teste testeTeste Teste testeTeste Teste testeTeste Teste teste', 1, '2020-05-04 00:00:00', NULL),
+(13, 17, 2, 1, 'big data sobre eleição', 'textotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotexto', 0, '2020-05-13 00:00:00', NULL),
+(14, 12, 2, 1, 'Ideia sem ideias', ' ideias ideias ideias ideias ideias ideias ideias ideias ideias ideias ideias ideias', 0, '2020-05-04 00:00:00', NULL),
+(15, 12, 1, 1, 'agronegócio inteligente', 'preenche linha preenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linha', 1, '2020-05-13 00:00:00', 5),
+(16, 17, 2, 1, 'agronegócio inteligente', 'preenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linha', 2, '2020-05-30 00:00:00', NULL),
+(17, 12, 2, 1, 'sem ideia ja', 'semsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsem', 0, '2020-05-13 00:00:00', NULL),
+(22, 12, 1, 1, 'ideia arduino', 'descriçãodescriçãodescriçãodescriçãodescriçãodescriçãodescrição', 12, '2020-05-13 00:00:00', 8.22);
 
 -- --------------------------------------------------------
 
@@ -984,15 +1049,17 @@ CREATE TABLE `subcomentarios` (
   `id_comentarios` int(11) NOT NULL,
   `conteudo_comentarios` varchar(255) NOT NULL,
   `data_comentarios` datetime NOT NULL,
-  `likes_comentarios` int(11) NOT NULL DEFAULT 0
+  `likes_comentarios` int(11) NOT NULL DEFAULT 0,
+  `edit_subcomentarios` datetime DEFAULT NULL,
+  `id_resposta` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `subcomentarios`
 --
 
-INSERT INTO `subcomentarios` (`id_subcomentarios`, `id_usuarios`, `id_postagem`, `id_comentarios`, `conteudo_comentarios`, `data_comentarios`, `likes_comentarios`) VALUES
-(1, 17, 10, 2, 'fdgdfgdf', '2020-05-27 00:00:00', 0);
+INSERT INTO `subcomentarios` (`id_subcomentarios`, `id_usuarios`, `id_postagem`, `id_comentarios`, `conteudo_comentarios`, `data_comentarios`, `likes_comentarios`, `edit_subcomentarios`, `id_resposta`) VALUES
+(3, 12, 22, 7, 'Não entendi porque você comentou denovo', '2020-05-13 00:00:00', 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1021,10 +1088,12 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `email_verified_at`, `id_situacao`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`) VALUES
-(12, 'Matheus Moura', 'Matheusmpinho@Outlook.com', 20867000, '$2y$10$AiicmE0//gW6e4zhmzXvOe8Wb1Gusmj9FcnbWG/tu.UgdTp02IYgW', 3, '2000-01-27 02:00:00', 1, 2, 10, NULL, 0x31326d6174686575732d6d6f7572612e706e67, NULL),
-(17, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', 22132066, '$2y$10$ALTvEgYoQTL8Op5xn7oK9eR6XtmgMqbRTDXgs3xm3KIeJVXscwLVm', 3, '2020-04-30 23:23:51', 1, 2, 10, 398, 0x31376a6f6e617468616e2d646961732e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e706e672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a706567, 12981489308),
-(20, 'Nome', '1@1.com', 20867001, '$2y$10$QXHJgUcvF4HGP/9R4Xusq.ZnF015YPCCGhNaANQ4oe36DaJKsXteG', 1, '2020-05-05 05:28:34', 1, NULL, NULL, NULL, NULL, NULL),
-(21, 'Teste', 'teste@teste.com', 20867006, '1231231415', 2, '2020-05-05 03:00:00', 2, NULL, NULL, NULL, NULL, NULL);
+(12, 'Matheus Moura', 'Matheusmpinho@Outlook.com', 20867000, '$2y$10$rZ0C2fvYHoHI0xA7LOuCFu4FiJqIs1B6GEnAUqUPvf6aq/JZMeOOa', 3, '2000-01-27 02:00:00', 1, 2, 10, 457, 0x31326d6174686575732d6d6f7572612e706e672e706e67, NULL),
+(17, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', 22132066, '$2y$10$HvEA4OD5DyLyimmbxUihv.yxLpRGMJjm//L1kqnoLduRrL0dJrzTC', 3, '2020-04-30 23:23:51', 1, 2, 10, 398, 0x31376a6f6e617468616e2d646961732e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e706e672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a706567, 12981489308),
+(20, 'Nome', '1@1.com', 20867001, '$2y$10$QXHJgUcvF4HGP/9R4Xusq.ZnF015YPCCGhNaANQ4oe36DaJKsXteG', 1, NULL, 2, NULL, NULL, NULL, NULL, NULL),
+(21, 'Teste', 'teste@teste.com', 20867006, '1231231415', 2, '2020-05-05 03:00:00', 2, NULL, NULL, NULL, NULL, NULL),
+(23, 'jose antonio', 'jose@jose.com', 60887000, '$2y$10$RRXj1Ee1iieA4yQE1dgm8.xzIMIr9Mzck.kupmrr5EczWtkdF0rqe', 1, '2020-05-13 21:23:57', 2, NULL, NULL, NULL, NULL, NULL),
+(24, 'Vinicius Vieira', 'vinicius_vieira_pereira@hotmail.com', 20541929, '$2y$10$Boy1Hsp7VHD0pHy9XombaODQSyRmS2Wb7RPxFOFYc0jAOjtGEyr4G', 3, '2020-05-19 03:00:00', 1, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1077,7 +1146,8 @@ ALTER TABLE `comentarios`
 --
 ALTER TABLE `denuncias`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_postagem` (`id_postagem`);
+  ADD KEY `id_postagem` (`id_postagem`),
+  ADD KEY `id_motivo` (`id_motivo`);
 
 --
 -- Índices para tabela `img_postagem`
@@ -1093,9 +1163,39 @@ ALTER TABLE `instituicao_ensino`
   ADD PRIMARY KEY (`id_instituicao`);
 
 --
+-- Índices para tabela `like_comentarios`
+--
+ALTER TABLE `like_comentarios`
+  ADD PRIMARY KEY (`id_likes`),
+  ADD KEY `id_comentarios` (`id_comentarios`),
+  ADD KEY `id_usuarios` (`id_usuarios`);
+
+--
+-- Índices para tabela `like_postagens`
+--
+ALTER TABLE `like_postagens`
+  ADD PRIMARY KEY (`id_like`),
+  ADD KEY `id_usuarios` (`id_usuarios`),
+  ADD KEY `id_postagens` (`id_postagens`);
+
+--
+-- Índices para tabela `like_subcomentarios`
+--
+ALTER TABLE `like_subcomentarios`
+  ADD PRIMARY KEY (`id_like`),
+  ADD KEY `id_usuarios` (`id_usuarios`),
+  ADD KEY `id_subcomentarios` (`id_subcomentarios`);
+
+--
 -- Índices para tabela `migrations`
 --
 ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `motivo_denuncia`
+--
+ALTER TABLE `motivo_denuncia`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1193,13 +1293,13 @@ ALTER TABLE `categoria_postagem`
 -- AUTO_INCREMENT de tabela `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id_comentarios` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_comentarios` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de tabela `denuncias`
 --
 ALTER TABLE `denuncias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `img_postagem`
@@ -1214,10 +1314,34 @@ ALTER TABLE `instituicao_ensino`
   MODIFY `id_instituicao` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT de tabela `like_comentarios`
+--
+ALTER TABLE `like_comentarios`
+  MODIFY `id_likes` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `like_postagens`
+--
+ALTER TABLE `like_postagens`
+  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `like_subcomentarios`
+--
+ALTER TABLE `like_subcomentarios`
+  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de tabela `motivo_denuncia`
+--
+ALTER TABLE `motivo_denuncia`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `nivel_acesso`
@@ -1229,7 +1353,7 @@ ALTER TABLE `nivel_acesso`
 -- AUTO_INCREMENT de tabela `postagens`
 --
 ALTER TABLE `postagens`
-  MODIFY `id_postagem` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_postagem` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de tabela `regiao_cidade`
@@ -1259,13 +1383,13 @@ ALTER TABLE `situacao_usuario`
 -- AUTO_INCREMENT de tabela `subcomentarios`
 --
 ALTER TABLE `subcomentarios`
-  MODIFY `id_subcomentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_subcomentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Restrições para despejos de tabelas
@@ -1290,13 +1414,36 @@ ALTER TABLE `comentarios`
 -- Limitadores para a tabela `denuncias`
 --
 ALTER TABLE `denuncias`
-  ADD CONSTRAINT `denuncias_ibfk_1` FOREIGN KEY (`id_postagem`) REFERENCES `postagens` (`id_postagem`);
+  ADD CONSTRAINT `denuncias_ibfk_1` FOREIGN KEY (`id_postagem`) REFERENCES `postagens` (`id_postagem`),
+  ADD CONSTRAINT `denuncias_ibfk_2` FOREIGN KEY (`id_motivo`) REFERENCES `motivo_denuncia` (`id`);
 
 --
 -- Limitadores para a tabela `img_postagem`
 --
 ALTER TABLE `img_postagem`
   ADD CONSTRAINT `img_postagem_ibfk_1` FOREIGN KEY (`id_postagem`) REFERENCES `postagens` (`id_postagem`);
+
+--
+-- Limitadores para a tabela `like_comentarios`
+--
+ALTER TABLE `like_comentarios`
+  ADD CONSTRAINT `like_comentarios_ibfk_1` FOREIGN KEY (`id_comentarios`) REFERENCES `comentarios` (`id_comentarios`),
+  ADD CONSTRAINT `like_comentarios_ibfk_2` FOREIGN KEY (`id_usuarios`) REFERENCES `usuarios` (`id`);
+
+--
+-- Limitadores para a tabela `like_postagens`
+--
+ALTER TABLE `like_postagens`
+  ADD CONSTRAINT `like_postagens_ibfk_1` FOREIGN KEY (`id_usuarios`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `like_postagens_ibfk_2` FOREIGN KEY (`id_usuarios`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `like_postagens_ibfk_3` FOREIGN KEY (`id_postagens`) REFERENCES `postagens` (`id_postagem`);
+
+--
+-- Limitadores para a tabela `like_subcomentarios`
+--
+ALTER TABLE `like_subcomentarios`
+  ADD CONSTRAINT `like_subcomentarios_ibfk_1` FOREIGN KEY (`id_usuarios`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `like_subcomentarios_ibfk_2` FOREIGN KEY (`id_subcomentarios`) REFERENCES `subcomentarios` (`id_subcomentarios`);
 
 --
 -- Limitadores para a tabela `postagens`

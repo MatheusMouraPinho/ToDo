@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PerfilController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,18 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() { 
     Route::get('/conta', 'UserController@index')->name('conta');
 
     Route::post('atualizar-perfil', 'UserController@update')->name('profile.update');
+
+    Route::post('/comentario', 'ComentController@create')->name('comentario');
+
+    Route::post('/resposta', 'ComentController@store')->name('resposta');
+
+    Route::post('/editar-comentario', 'ComentController@update')->name('edit.coment');
+
+    Route::post('deletar-comentario', 'ComentController@destroy')->name('apagar-coment');
+
+    Route::get('/perfil', 'UserController@perfil')->name('perfil');
+
+    Route::post('/denunciar', 'AdminController@denunciar')->name('denunciar');
 
 });
 

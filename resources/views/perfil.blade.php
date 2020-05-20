@@ -5,6 +5,8 @@ $nivel = Auth::user()->nivel;
 
 
 
+// echo tempo_corrido("m/d/Y H:i:s");
+
 ?>
 
 <!-- indicar a pagina:   {{ url('/pagina123') }}    -->
@@ -22,7 +24,25 @@ $nivel = Auth::user()->nivel;
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script type="text/javascript" src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/funcao.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/funcoes.js') }}"></script>
+
+    {{-- <script>
+      function add_like(id_comentario){
+        alert('seila_'+id_comentario);
+        $.post('add_like.php', {comentario_id: id_comentario}, function(dados){
+          alert('entrou');
+            if(dados == 'sucesso') {
+              
+                get_like(id_comentario);
+            }else{
+                alert('Não foi possivel votar');
+            }
+        })
+}
+    </script> --}}
+
+
     
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -93,7 +113,7 @@ $nivel = Auth::user()->nivel;
 
 
         <div class="container my-4">
-          <h2 id="h1conta">Minha Conta</h2>
+          <h2 id="h1conta">Perfil</h2>
         </div>
 
         <!--||Área de dados do usuário||-->
@@ -103,7 +123,7 @@ $nivel = Auth::user()->nivel;
               @if($dados['img'] === null)
                 <img width="150px" class="img-dados" src="{{asset('img/semuser.png')}}">
               @else
-              <img  alt="{{ Auth::user()->img_usuarios }}" name="img_usuarios" class="img-dados" src="{{url('storage/users/'.Auth::user()->img_usuarios)}}">
+              <img  alt="{{ $dados['img'] }}" name="img_usuarios" class="img-dados" src="{{url('storage/users/'.$dados['img'])}}">
               @endif
             <h3>{{ $dados['nome'] }}</h3>
             
@@ -144,7 +164,6 @@ $nivel = Auth::user()->nivel;
                 
                                           
               </p>
-                <a href="" data-toggle="modal" data-target="#popup{{$dados['id'] }}">Editar perfil</a>
                 
               </div>
             </div>
@@ -154,9 +173,9 @@ $nivel = Auth::user()->nivel;
       <!-- Área de ideias do usuario -->
         @if(empty($dados['posts'][0]))
 
-          <div id="area_ideias">
+          <div class="area_ideias">
             <table id="table_conta">
-              <caption>Minhas Ideias</caption>
+              <caption>Ideias Postadas</caption>
               <tbody>  
                 <tr>
                   <td rowspan="10">
@@ -173,7 +192,7 @@ $nivel = Auth::user()->nivel;
         @else
           <div id="area_ideias">
             <table id="table_conta">
-              <caption>Minhas Ideias</caption>
+              <caption>Ideias Postadas</caption>
               <thead>
                 <tr>
                   <th>ID</th>
@@ -304,7 +323,7 @@ $nivel = Auth::user()->nivel;
                                           <div class="dropdown-menu dropdown-primary">
                                             @if($post['comentarios'][$f]->id === Auth::user()->id)
                                               <a id="edit" class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['comentarios'][$f]->id_comentarios }}_edit1">Editar</a>
-                                              <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['comentarios'][$f]->id_comentarios}}_apagar2">Apagar</a>
+                                              <a class="dropdown-item" data-toggle="modal" style="cursor: pointer" data-target="#popup{{$post['comentarios'][$f]->id_comentarios }}_apagar">Apagar</a>
                                             @else
                                               <a class="dropdown-item" href="{{ url('/adm') }}">Denunciar</a>
                                             @endif
@@ -378,11 +397,11 @@ $nivel = Auth::user()->nivel;
                                         </div>
                                       </div>
                                       
-                                    </div> 
+                                    </div>   
                                     
-                                    <!--  Modal para apagar comentários -->
+                                    <!--  Modal para edição de comentários -->
                                   <div class="painel-dados">
-                                    <div class="modal fade id" id="popup{{$post['comentarios'][$f]->id_comentarios}}_apagar2" role="dialog">
+                                    <div class="modal fade id" id="popup{{$post['comentarios'][$f]->id_comentarios }}_apagar" role="dialog">
                                       <div class="modal-dialog">
                                         <div class="modal-content">
                                           <div class="modal-header">
@@ -394,14 +413,14 @@ $nivel = Auth::user()->nivel;
                                               <form action="{{route('apagar-coment')}}" method="POST">
                                                 @csrf
                                                 <input name="id_comentario" type="hidden" value="{{ $post['comentarios'][$f]->id_comentarios }}">
-                                                <input data-toggle="modal" type="submit" class="btn btn-primary dropright" value="Apagar comentário">
+                                                <input data-toggle="modal" data-target="#hiddenDiv" type="submit" class="btn btn-primary dropright" value="Apagar comentário">
                                               </form>
                                             </div> 
                                           </div>
                                         </div>
                                       </div>
                                     </div>
-                                  </div>         
+                                  </div>                       
                                   @endif
                                   @for($g=0; $g<sizeof($post['reply_coment']); $g++)
                                     @if($post['reply_coment'][$g]->id_comentarios === $post['comentarios'][$f]->id_comentarios && $post['comentarios'][$f]->id_postagem === $posts->id_postagem)
@@ -428,7 +447,7 @@ $nivel = Auth::user()->nivel;
                                             <div class="dropdown-menu dropdown-primary">
                                               @if($post['reply_coment'][$g]->id === Auth::user()->id)
                                                 <a class="dropdown-item" data-toggle="modal" style="cursor: pointer" data-target="#popup{{$post['reply_coment'][$g]->id_subcomentarios }}_edit">Editar</a>
-                                                <a class="dropdown-item" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['reply_coment'][$g]->id_subcomentarios }}_apagar1">Apagar</a>
+                                                <a class="dropdown-item" data-toggle="modal" style="cursor: pointer" data-target="#popup{{$post['reply_coment'][$g]->id_subcomentarios }}_apagar">Apagar</a>
                                               @else
                                                 {{-- <form id="denunciar" action="{{ route('denunciar') }}" method="POST">
                                                   @csrf
@@ -510,9 +529,9 @@ $nivel = Auth::user()->nivel;
                                         </div>
                                       </div>
 
-                                      <!--  Modal para apagar subcomentários -->
+                                      <!--  Modal para apagar comentários -->
                                       <div class="painel-dados">
-                                        <div class="modal fade id" id="popup{{$post['reply_coment'][$g]->id_subcomentarios}}_apagar1" role="dialog">
+                                        <div class="modal fade id" id="popup{{$post['reply_coment'][$g]->id_subcomentarios}}_apagar" role="dialog">
                                           <div class="modal-dialog">
                                             <div class="modal-content">
                                               <div class="modal-header">
@@ -525,7 +544,7 @@ $nivel = Auth::user()->nivel;
                                                     @csrf
                                                     <input name="id_subcomentario" type="hidden" value="{{ $post['reply_coment'][$g]->id_subcomentarios }}">
                                                     <input name="id_comentario" type="hidden" value="{{ $post['reply_coment'][$g]->id_comentarios }}">
-                                                    <input data-toggle="modal" type="submit" class="btn btn-primary dropright" value="Apagar comentário">
+                                                    <input data-toggle="modal" data-target="#hiddenDiv" type="submit" class="btn btn-primary dropright" value="Apagar comentário">
                                                   </form>
                                                 </div> 
                                               </div>
@@ -536,7 +555,7 @@ $nivel = Auth::user()->nivel;
                                     @endif
                                   @endfor
 
-                                                         
+                                           
                                 
                                 @endfor
                               @endif
@@ -570,100 +589,7 @@ $nivel = Auth::user()->nivel;
 
       <!-- Fim área de ideias do usuario -->
 
-      <!-- Área de detalhes de ideias postadas -->
-
-      <div class="painel-dados">
-        <div class="modal fade id" id="popup{{$dados['id']}}" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-              </div>
-              <div class="modal-body">
-                <form action="{{route('profile.update')}}" method="POST" enctype="multipart/form-data">
-                  @csrf
-                  <div class="form-group">
-                    <div class="popup-title">
-                      @if($dados['img'] === null)
-                        <img width="150px" name="img_usuarios" class="img" src="{{asset('img/semuser.png')}}">  
-                      @else
-                        <img width="200px" alt="{{ Auth::user()->img_usuarios }}" name="img_usuarios" class="img" src="{{url('storage/users/'.Auth::user()->img_usuarios)}}">
-                      @endif
-                      <label class="form-control-range">
-                        <input type="file" name="img_usuarios"/>
-                        <a name="img_usuarios" class="get-file">Alterar imagem de perfil</a>
-                      </label>
-                    </div>
-
-                    <div class="popup-title">
-                      <label for="usuario" class="bold subdados">Usuário</label>
-                      <input type="text" class="btn-popup mr-sm-2" value="{{ Auth::user()->usuario }}" placeholder="Usuário" name="usuario">
-                    </div>
-
-                    <div class="popup-title">
-                      <label for="email" class="bold subdados">E-mail</label>
-                      <input type="text" class="btn-popup mr-sm-2" value="{{ Auth::user()->email }}" name="email" placeholder="E-mail" readonly>
-                    </div>
-
-                    <div class="popup-title">
-                      <label for="senha" class="bold subdados">Senha</label>
-                      <input type="password" class="btn-popup mr-sm-2" value="{{ Auth::user()->senha }}" name="senha" placeholder="Senha" readonly>
-                      <a href="{{ url('/password/reset') }}" class="password">Alterar senha</a>
-                    </div>
-
-                    <div class="popup-title">
-                      <label for="telefone_usuario" class="bold subdados ">Telefone</label>
-                      <input onkeypress="return onlynumber();" minlength="10" maxlength="11" id="telefone_usuario" type="text" class="btn-popup mr-sm-2 phones" value="{{ $dados['telefone'] }}" name="telefone_usuario" placeholder="Ex: (11) 11111-1111"/>
-                    </div>
-
-                    <hr>
-
-                    <div class="popup-title">
-                      <label for="id_instituicao" class="bold subdados">Instituição de Ensino</label>
-                      <select name="id_instituicao" class="select">
-                      <option value="">{{ $dados['instituicao'] }}</option>
-                        @for($a = 0; $a<sizeof($dados['instituicoes']);$a++)
-                          <option value="{{ $dados['instituicoes'][$a]->id_instituicao }}">
-                            {{ $dados['instituicoes'][$a]->nome_instituicao }}
-                          </option>
-                        @endfor
-                      </select>
-                    </div>
-
-                    <div class="popup-title">
-                      <label for="id_area" class="bold subdados">Área</label>
-                      <select name="id_area" class="select" title="Selecione uma opção" class="btn btn-primary">
-                        <option value="">{{$dados['area']}}</option>
-                          @for($a = 0; $a<sizeof($dados['areas']);$a++)
-                            <option value="{{ $dados['areas'][$a]->id_area }}">
-                              {{ $dados['areas'][$a]->nome_area }}
-                            </option>
-                          @endfor
-                      </select>
-                    </div>
-
-                    <div class="popup-title">
-                      <label for="id_regiao_cidade" class="bold subdados">Região</label>
-                      <select name="id_regiao_cidade" class="select">
-                        <option value="">{{$dados['cidade']}}</option>
-                        @for($a = 0; $a<sizeof($dados['cidades']);$a++)
-                          <option value="{{ $dados['cidades'][$a]->id_regiao_cidade }}">
-                            {{ $dados['cidades'][$a]->nome_cidade }}
-                          </option>
-                        @endfor
-                      </select>
-                    </div>
-                    <div class="modal-footer">
-                      <input data-toggle="modal" type="submit" class="btn btn-primary dropright" value="Salvar Alterações">
-                    </div>  
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Fim área de detalhes de ideias postadas-->
+      
 
     </div>
 </body>

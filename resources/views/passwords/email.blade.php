@@ -4,10 +4,10 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card-login">
-                <div class="card-cabeca offset-md-4">Redefinição de Senha</div>
+            <div class="card">
+                <div class="card-header">Redefinição de Senha</div>
 
-                <div class="card-corpo">
+                <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -33,8 +33,8 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primaria">
-                                    Enviar link para redefinir sua senha
+                                <button type="submit" class="btn btn-primary">
+                                Enviar link para redefinir sua senha
                                 </button>
                             </div>
                         </div>

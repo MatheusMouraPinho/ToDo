@@ -99,23 +99,137 @@ class UserController extends Controller
                                 ->where('postagens.id_usuarios', $user_id)
                                 ->join('usuarios', 'comentarios.id_usuarios', '=', 'usuarios.id')
                                 ->select('comentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
-                                ->orderBy('data_comentarios', 'asc')
+                                ->orderBy('comentarios.data_comentarios', 'desc')
                                 ->get(),
 
             'reply_coment' => DB::table('subcomentarios')
                                 ->join('postagens', 'postagens.id_postagem', '=', 'subcomentarios.id_postagem')
                                 ->where('postagens.id_usuarios', $user_id)
+                                ->where('subcomentarios.id_resposta', '=', null)
                                 ->join('usuarios', 'subcomentarios.id_usuarios', '=', 'usuarios.id')
                                 ->select('subcomentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
-                                ->orderBy('data_comentarios', 'asc')
-                                ->get()
+                                ->orderBy('subcomentarios.data_comentarios', 'desc')
+                                ->get(),
+
+            'reply_reply' => DB::table('subcomentarios')
+                            ->where('id_resposta', '!=', null)
+                            ->orderBy('subcomentarios.data_comentarios', 'desc')
+                            ->get(),
+
         ];
 
-        //dd($post['reply_coment']);
+
         
         return view('conta', compact('dados', 'post'));
     }
+
+
+    public function perfil(Request $request) {
+        $data = $request->all();
+        $dados_user = DB::table('usuarios')
+                    ->where('id', $data['id_usuario'])
+                    ->get();
+
+        foreach($dados_user as $dados_usr) {
+
+            $dados = [
+                'id' => $dados_usr->id,
+                'nome' => $dados_usr->usuario,
+                'email' => $dados_usr->email,
+                'rgm' => $dados_usr->registro,
+                'telefone' => $dados_usr->telefone_usuario,
+                'instituicao' => DB::table('instituicao_ensino')
+                                    ->where('id_instituicao', $dados_usr->id_instituicao)
+                                    ->value('nome_instituicao'),
+
+                'cidade' => DB::table('regiao_cidade')
+                                    ->where('id_regiao_cidade',$dados_usr->id_regiao_cidade)
+                                    ->value('nome_cidade'),
+
+                'area' => DB::table('area_estudo')
+                                    ->where('id_area', $dados_usr->id_area)
+                                    ->value('nome_area'),
+
+                'uf' => DB::select('SELECT uf_regiao_estado from regiao_estado where id_regiao_estado = (
+                    SELECT id_estado from regiao_cidade where id_regiao_cidade = :cidade
+                    )' , ['cidade' => $dados_usr->id_regiao_cidade]),
+
+                'img' => $dados_usr->img_usuarios,
+
+                'posts' => DB::table('postagens')
+                        ->join('categoria_postagem','categoria_postagem.id_categoria', '=', 'postagens.id_categoria' )
+                        ->join('situacao_postagem','situacao_postagem.id_situacao_postagem', '=', 'postagens.id_situacao_postagem' )
+                        ->where('id_usuarios', $dados_usr->id)
+                        ->select('categoria_postagem.*', 'postagens.*', 'situacao_postagem.*')
+                        ->orderBy('postagens.id_postagem', 'asc')
+                        ->paginate(5),
+
+                'date' => DB::table('postagens')
+                        ->where('id_usuarios', $dados_usr->id)
+                        ->pluck('data_postagem'),
+
+                'avaliador' => DB::table('postagens')
+                            ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
+                            ->where('id_usuario', $dados_usr->id)
+                            ->join('usuarios', 'usuarios.id', '=', 'avaliacao_postagem.id_avaliador')
+                            ->select('usuarios.usuario')
+                            ->get(),
+
+                'cidades' => DB::table('regiao_cidade')
+                                ->select('nome_cidade', 'id_regiao_cidade')
+                                ->orderBy('nome_cidade' ,'asc')
+                                ->get(),
+
+                'instituicoes' => DB::table('instituicao_ensino')
+                                ->select('nome_instituicao', 'id_instituicao')
+                                ->orderBy('nome_instituicao', 'asc')
+                                ->get(),
+
+                'areas' => DB::table('area_estudo')
+                            ->select('id_area', 'nome_area')
+                            ->orderBy('nome_area', 'asc')
+                            ->get(),
+
+                'img_post' => DB::table('img_postagem')
+            ];
+
+            $post = [                
+                'avaliacao' => DB::table('postagens')
+                                ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
+                                ->where('id_usuario', $dados_usr->id)
+                                ->select('avaliacao_postagem.*', 'postagens.id_usuarios', 'postagens.id_postagem')
+                                ->get(),
+                
+                'comentarios' => DB::table('comentarios')
+                                    ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
+                                    ->where('postagens.id_usuarios', $dados_usr->id)
+                                    ->join('usuarios', 'comentarios.id_usuarios', '=', 'usuarios.id')
+                                    ->select('comentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
+                                    ->orderBy('data_comentarios', 'desc')
+                                    ->get(),
     
+                'reply_coment' => DB::table('subcomentarios')
+                                    ->join('postagens', 'postagens.id_postagem', '=', 'subcomentarios.id_postagem')
+                                    ->where('postagens.id_usuarios', $dados_usr->id)
+                                    ->where('subcomentarios.id_resposta', '=', null)
+                                    ->join('usuarios', 'subcomentarios.id_usuarios', '=', 'usuarios.id')
+                                    ->select('subcomentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
+                                    ->orderBy('data_comentarios', 'desc')
+                                    ->get(),
+    
+                'reply_reply' => DB::table('subcomentarios')
+                                ->where('id_resposta', '!=', null)
+                                ->orderBy('data_comentarios', 'desc')
+                                ->get()
+            ];
+        }
+
+        if($data['id_usuario'] == Auth::user()->id) {
+            return view('conta', compact('dados', 'post'));
+        }
+
+        return view('perfil', compact('dados', 'post'));
+    }
    
 
     /**
