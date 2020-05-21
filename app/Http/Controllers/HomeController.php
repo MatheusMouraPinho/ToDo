@@ -29,9 +29,9 @@ class HomeController extends Controller
     }
 
     public function logout()
-    {
+    {   session_start();
+        session_destroy();
         Auth::logout();
-
         return redirect('/');
     }
       
@@ -78,6 +78,25 @@ class HomeController extends Controller
             return redirect('home')->with(['periodo' =>  $periodo]);
         }
 
+        if(isset($_POST['avalia'])){
+            $var2 = $_POST['avalia'];
+            if($var2 == "1"){
+                $avalia = "1"; 
+            }elseif($var2 == "2"){
+                $avalia = "2";
+            }else{
+                $avalia = "1 OR 2";
+            }
+            return redirect('home')->with(['avalia' =>  $avalia]);
+        }
+
+    }
+
+    public function reset()
+    {   
+        session_start();
+        session_destroy();
+        return redirect('home'); 
     }
     
 }

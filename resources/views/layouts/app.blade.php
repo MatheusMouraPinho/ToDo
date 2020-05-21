@@ -52,16 +52,12 @@ if (isset($style)){?>
           </form>
         </li>
         <li style="padding-left:2em" class="nav-item">
-          <form class="form-inline my-2 my-lg-0">
-            <button class="btn btn-primary my-2 my-sm-0" type="submit">Crie uma ideia</button>
-          </form>
+          <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target=".bd-example-modal-lg">Crie uma ideia</button>
         </li>
         <?php if($nivel > 1){?>
           <li class="nav-item">
-            <form class="form-inline my-2 my-lg-0">
-              <button class="btn btn btn-primary my-2 my-sm-0" type="submit">Criar uma Sugestão</button>
-            </form>
-        </li>
+            <button class="btn btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target=".bd-example-modal-lg">Criar uma Sugestão</button>
+          </li>
         <?php }?>
       </ul>
       <ul class="navbar-nav ml-auto">
@@ -80,20 +76,35 @@ if (isset($style)){?>
   </nav> 
   <!--||Fim Nav bar||-->
 
-    <div>
-      <!-- Puxa o arquivo home dentro da div-->
-      <div class="container my-4">
-      <br>
-      @yield('content')
-      </div>
-
-      <!--||Footer||-->
-      <div class="card">
-          <div class="card-body text-center">
-          Rodapé
-          </div>
-      </div>
-      <!--||Fim Footer||-->
+  <div>
+    <!-- Puxa o arquivo home dentro da div-->
+    <div class="container my-4">
+    <br>
+    @yield('content')
     </div>
+    <!--||Footer||-->
+    <div class="card">
+        <div class="card-body text-center">
+        Rodapé
+        </div>
+    </div>
+    <!--||Fim Footer||-->
+  </div>
+
+  <!--Modal Criação post-->
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+      <div class="modal-content">
+        ...
+      </div>
+    </div>
+  </div>
+  <!--Modal Criação post-->
+  
 </body>
 </html>

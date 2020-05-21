@@ -36,8 +36,7 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() { 
 
     Route::get('/home', 'HomeController@home');
         Route::post('/filtro', 'HomeController@filtro');
-
-    Route::get('/ava', 'AdminController@ava')->middleware('avaliador');//middleware nivel avaliador
+        Route::get('/reset', 'HomeController@reset');
 
     Route::get('/conta', 'UserController@index')->name('conta');
 

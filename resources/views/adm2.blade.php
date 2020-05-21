@@ -136,7 +136,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                     <a class="page-link" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
-            <?php }  ?>
+                <?php }  ?>
             </li>
             <?php 
             for($i = 1; $i < $num_pagina + 1; $i++){ ?>
@@ -152,7 +152,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                     <a class="page-link" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
-            <?php }  ?>
+                <?php }  ?>
             </li>
         </ul>
     </nav>

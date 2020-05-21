@@ -1,32 +1,46 @@
 @extends('layouts.app')
 
 
-<?php  
+<?php  session_start();
 $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
 
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
-$filtro = Session::get('filtro');
-$tipo = Session::get('tipo');
-$periodo = Session::get('periodo');
+if(NULL !== Session::get('filtro')){
+    $_SESSION['filtro'] = Session::get('filtro');
+}
+if(NULL !== Session::get('tipo')){
+    $_SESSION['tipo'] = Session::get('tipo');
+}
+if(NULL !== Session::get('periodo')){
+    $_SESSION['periodo'] = Session::get('periodo');
+}
+if(NULL !== Session::get('avalia')){
+    $_SESSION['avalia'] = Session::get('avalia');
+}
+
+if(isset($_SESSION['filtro'])){$filtro = $_SESSION['filtro'];}
+if(isset($_SESSION['tipo'])){$tipo = $_SESSION['tipo'];}
+if(isset($_SESSION['periodo'])){$periodo = $_SESSION['periodo'];}
+if(isset($_SESSION['avalia'])){$avalia = $_SESSION['avalia'];}
 
 if(!isset($filtro)){$filtro = "data_postagem";}
 if(!isset($tipo)){$tipo = "1";}
 if(!isset($periodo)){ $periodo = "data_postagem";}
+if(!isset($avalia)){ $avalia = "1 OR 2";}
 
-$sql = "SELECT * FROM postagens WHERE data_postagem >= $periodo AND id_categoria = $tipo ORDER BY $filtro DESC";
+$sql = "SELECT * FROM postagens WHERE data_postagem >= $periodo AND id_categoria = $tipo AND (id_situacao_postagem = $avalia) ORDER BY $filtro DESC";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
-$quantidade = 3; //quantidade de rows
+$quantidade = 4; //quantidade de rows
 
 $num_pagina = ceil($total_pesquisa/$quantidade);
 
 $inicio = ($quantidade*$pagina)-$quantidade;
 
-$sql = "SELECT * FROM postagens WHERE data_postagem >= $periodo AND id_categoria = $tipo ORDER BY $filtro DESC LIMIT $inicio, $quantidade ";
+$sql = "SELECT * FROM postagens WHERE data_postagem >= $periodo AND id_categoria = $tipo AND (id_situacao_postagem = $avalia) ORDER BY $filtro DESC LIMIT $inicio, $quantidade ";
 $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
-
 
 $pagina_anterior = $pagina - 1; //paginação
 $pagina_posterior = $pagina + 1;
@@ -49,11 +63,21 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
             <button name="filtro" value="melh" <?php if($filtro == "media"){?> class="btn btn-outline-primary-custom" <?php }else{?> class="btn btn-primary" <?php }?>>Melhores Avaliados</button> 
             <div class="dropdown">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <?php if($tipo == "1"){ echo "ideias"; }else{ echo "Sugestões"; }?> 
+                    <?php if($tipo == "1"){ echo "Ideias"; }else{ echo "Sugestões"; }?> 
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <button class="dropdown-item" name="tipo" value="1">Ideias</button>
-                    <button class="dropdown-item" name="tipo" value="2">Sugestões</button>
+                    <?php if($tipo != "1"){?><button class="dropdown-item" name="tipo" value="1">Ideias</button><?php } ?>
+                    <?php if($tipo != "2"){?><button class="dropdown-item" name="tipo" value="2">Sugestões</button><?php } ?>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <?php if($avalia == "1"){ echo "Avaliados"; }elseif($avalia == "2"){ echo "Pendentes"; }else{echo "Todos";}?> 
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <?php if($avalia != "1"){?><button class="dropdown-item" name="avalia" value="1">Avaliados</button><?php } ?>
+                    <?php if($avalia != "2"){?><button class="dropdown-item" name="avalia" value="2">Pendentes</button><?php } ?>
+                    <?php if($avalia != "1 OR 2"){?><button class="dropdown-item" name="avalia" value="3">Todos</button><?php } ?>
                 </div>
             </div>
             <div class="dropdown">
@@ -61,12 +85,13 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
                     <?php echo $setup ?>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <button class="dropdown-item" name="periodo" value="1">Ultima Semana</button>
-                    <button class="dropdown-item" name="periodo" value="2">Ultimo Mês</button>
-                    <button class="dropdown-item" name="periodo" value="3">Ultimo Ano</button>
-                    <button class="dropdown-item" name="periodo" value="4">Todas as postagens</button>
+                    <?php if($setup != "Ultima Semana"){?><button class="dropdown-item" name="periodo" value="1">Ultima Semana</button><?php } ?>
+                    <?php if($setup != "Ultimo Mês"){?><button class="dropdown-item" name="periodo" value="2">Ultimo Mês</button><?php } ?>
+                    <?php if($setup != "Ultimo Ano"){?><button class="dropdown-item" name="periodo" value="3">Ultimo Ano</button><?php } ?>
+                    <?php if($setup != "Todas as Postagens"){?><button class="dropdown-item" name="periodo" value="4">Todas as postagens</button><?php } ?>
                 </div>
             </div>
+            <a href="/reset"><img width="45px" src="{{asset('img/reset.png')}}"></a>
         </div>  
     </form>
 </div>
@@ -102,7 +127,7 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
                 <a class="page-link" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
-        <?php }  ?>
+            <?php }  ?>
         </li>
         <?php 
         for($i = 1; $i < $num_pagina + 1; $i++){ ?>
@@ -118,7 +143,7 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
                 <a class="page-link" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
-        <?php }  ?>
+            <?php }  ?>
         </li>
     </ul>
 </nav>
