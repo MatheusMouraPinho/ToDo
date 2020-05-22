@@ -1,11 +1,15 @@
 @extends('layouts.app')
 
-<?php  
+<?php  session_start();
 $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
 
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
-$sql = "SELECT * FROM usuarios WHERE id_situacao = '1' ";
+if(NULL !== Session::get('pesquisa2')){   $_SESSION['pesquisa2'] = Session::get('pesquisa2');}
+if(isset($_SESSION['pesquisa2'])){$pesquisa2 = $_SESSION['pesquisa2'];}
+if(!isset($pesquisa2)){ $pesquisa2 = NULL;}
+
+$sql = "SELECT * FROM usuarios WHERE id_situacao = '1' AND (usuario LIKE '%$pesquisa2%' OR registro LIKE '%$pesquisa2%') ";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
@@ -15,7 +19,7 @@ $num_pagina = ceil($total_pesquisa/$quantidade);
 
 $inicio = ($quantidade*$pagina)-$quantidade;
 
-$sql = "SELECT * FROM usuarios WHERE id_situacao = '1' LIMIT $inicio, $quantidade ";
+$sql = "SELECT * FROM usuarios WHERE id_situacao = '1' AND (usuario LIKE '%$pesquisa2%' OR registro LIKE '%$pesquisa2%') LIMIT $inicio, $quantidade ";
 $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
 $modal = "adm2"; 
@@ -42,11 +46,14 @@ if ($total_pesquisa > 0 ){ //se tiver rows
 </nav>
 <br>
 <div class="row justify-content-md-center">
-<form class="form-inline my-12 my-lg-0">
-    <input class="form-control mr-sm-2" type="search" placeholder="To Do" aria-label="Search" style="width: 400px">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Procurar</button>
+<form class="form-inline my-2 my-lg-0" method="POST" action="/pesquisa_user">
+    @csrf
+    <input class="form-control mr-sm-2" type="text" name="pesquisa_user" placeholder="Procure o usuario pelo Nome, RGM/CPF ou Tipo" aria-label="Search" style="width: 400px">
+    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Procurar</button>
 </form>
 </div>
+<br>
+<?php if(NULL !== $pesquisa2){?><div class="contorno-pequeno"><a href="/reset_search2"><img width="20px" src="{{asset('img/close.png')}}"></a> Resultados da Pesquisa "<?php echo $pesquisa2 ?>"</div><?php }?>
 <br>
 <div class="row">
     <table class="col-12" id="table_conta">

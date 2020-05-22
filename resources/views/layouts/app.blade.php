@@ -46,8 +46,9 @@ if (isset($style)){?>
           </div>
         </li>
         <li style="padding-left:2em" class="nav-item">
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Digite o nome da ideia" aria-label="Search" style="width: 400px">
+          <form class="form-inline my-2 my-lg-0" method="POST" action="/pesquisa">
+            @csrf
+            <input class="form-control mr-sm-2" type="text" name="pesquisa" placeholder="Procure pelo nome da postagem ou autor" aria-label="Search" style="width: 400px">
             <button class="btn btn-primary my-2 my-sm-0" type="submit">Procurar</button>
           </form>
         </li>

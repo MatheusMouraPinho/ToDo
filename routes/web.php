@@ -37,6 +37,8 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() { 
     Route::get('/home', 'HomeController@home');
         Route::post('/filtro', 'HomeController@filtro');
         Route::get('/reset', 'HomeController@reset');
+        Route::post('/pesquisa', 'HomeController@pesquisa');
+        Route::get('/reset_search', 'HomeController@reset_search');
 
     Route::get('/conta', 'UserController@index')->name('conta');
 
@@ -64,6 +66,8 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado', 'admin']], func
 
     Route::get('/adm2', 'AdminController@admin2');
         Route::post('/alterar', 'AdminController@alterar');
+        Route::post('/pesquisa_user', 'AdminController@pesquisa');
+        Route::get('/reset_search2', 'AdminController@reset_search');
 
     Route::get('/adm3', 'AdminController@admin3');
         Route::post('/option', 'AdminController@option');

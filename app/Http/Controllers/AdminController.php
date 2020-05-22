@@ -65,6 +65,20 @@ class AdminController extends Controller
         return redirect('adm2');
     }
 
+    public function pesquisa()
+    {   
+        if(isset($_POST['pesquisa_user'])){
+            $pesquisa2 = $_POST['pesquisa_user'];
+            return redirect('adm2')->with(['pesquisa2' =>  $pesquisa2]);
+        }
+    }
+
+    public function reset_search()
+    {   
+        session_start();
+        unset($_SESSION["pesquisa2"]);
+        return redirect('adm2'); 
+    }
 
     public function option(){  
         

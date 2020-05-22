@@ -40,6 +40,14 @@ class HomeController extends Controller
         return view('home'); 
     }
 
+    public function pesquisa()
+    {   
+        if(isset($_POST['pesquisa'])){
+            $pesquisa = $_POST['pesquisa'];
+            return redirect('home')->with(['pesquisa' =>  $pesquisa]);
+        }
+    }
+
     public function filtro()
     {
         if(isset($_POST['filtro'])){
@@ -58,8 +66,10 @@ class HomeController extends Controller
             $var2 = $_POST['tipo'];
             if($var2 == "1"){
                 $tipo = "1"; 
-            }else{
+            }elseif($var2 == "2"){
                 $tipo = "2";
+            }else{
+                $tipo = "1 OR 2";
             }
             return redirect('home')->with(['tipo' =>  $tipo]);
         }
@@ -95,7 +105,14 @@ class HomeController extends Controller
     public function reset()
     {   
         session_start();
-        session_destroy();
+        unset($_SESSION['filtro'], $_SESSION['tipo'], $_SESSION['periodo'], $_SESSION['avalia']);
+        return redirect('home'); 
+    }
+
+    public function reset_search()
+    {   
+        session_start();
+        unset($_SESSION["pesquisa"]);
         return redirect('home'); 
     }
     
