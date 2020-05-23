@@ -296,12 +296,12 @@ class UserController extends Controller
 
         if($data['id_regiao_cidade'] === null)
             unset($data['id_regiao_cidade']);
-
+    /*
         if ($data['senha'] != null)
             $data['senha'] = bcrypt($data['senha']);
         else 
             unset($data['senha']);
-
+    */
 
 
         $data['img_usuarios'] = $user->img_usuarios;

@@ -36,35 +36,56 @@
   background-color: #a9a9a9;
   border-radius: 0.25rem;
   height: 200px;
-  border: 2px solid #646464;
+  border: 3px solid #646464;
   margin: 50px 22px 30px auto;
+}
+
+.divisao {
+  border-left: 5px solid #646464;
+  height: 100%;
+  position: absolute;
+  left: 16%;
+}
+.text-home {
+  position: absolute;
+  top:3%;
+  left: 4%;
+}
+
+.img-autor {
+  position: absolute;
+  top:20%;
+  left: 3%;
+  border-radius: 50%;
+  border: 2px solid #646464;
+  width:10%;
 }
 
 .autor-home {
   position: absolute;
-  top:3%;
-  left: 1%;
+  bottom:5%;
+  left: 3%;
   color: black;
 }
 
 .title-home {
   position: absolute;
-  top:16%;
-  left: 1%;
+  top:13%;
+  left: 18%;
   font-family: "Arial Black";
 }
 
 .link-home {
   position: absolute;
   top: 80%;
-  left: 2%;
+  left: 18%;
   color: blue;
 }
 
 .desc-home {
   position: absolute;
   top:44%;
-  left: 1%;
+  left: 18%;
 }
 
 .like-home {
@@ -229,4 +250,27 @@ f4{ /* borda situação pendente */
 	height: 8px;
 	border-radius: 50%;
 	background: black;
+}
+
+.custom-footer {
+  margin-top: 50px;
+  background-color: #8f8f8f;
+}
+
+.space {
+  background-color: #757575;
+  padding: 1.00rem;
+}
+
+.space2 {
+  background-color: black;
+  color: white;
+}
+
+ff{
+  font-family: "Arial Black";
+}
+
+fw{
+  font-weight: 900;
 }

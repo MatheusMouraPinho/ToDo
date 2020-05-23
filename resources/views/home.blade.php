@@ -28,7 +28,7 @@ $sql = "SELECT * FROM postagens LEFT JOIN usuarios ON (postagens.id_usuarios = u
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
-$quantidade = 3; //quantidade de rows
+$quantidade = 4; //quantidade de rows
 
 $num_pagina = ceil($total_pesquisa/$quantidade);
 
@@ -101,9 +101,20 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
 <?php }?>
 <?php while($rows = mysqli_fetch_assoc($result2)){ $situation = $rows['id_situacao_postagem']; $id_post = $rows['id_postagem'];?>
     <div class="card-home">
-        <div class="autor-home"><h6>Postado por <a style="color:black;" href="#"><?php echo "@" . $rows['usuario']; ?></h6></a></div>
+        <form action="/perfil" method="POST">
+            @csrf
+            <input type="hidden" name="id_usuario" value="$rows['id']">
+            <div class="text-home"><h6>Postado por</h6></div>
+            <?php if($rows['img_usuarios'] == NULL){?>
+                <img class="img-autor" src="{{asset('img/semuser.png')}}">
+            <?php }else{?>
+                <img class="img-autor" src="{{asset('/storage/users/'.$rows['img_usuarios'])}}">
+            <?php }?>
+            <div class="autor-home justify-content-md-center"><button class="no-border-button" type="submit"><?php echo mb_strimwidth($rows['usuario'], 0, 16, "..."); ?></button></div>
+        </form>
+        <div class="divisao"></div>
         <div class="title-home"><h3><b><?php echo mb_strtoupper($rows['titulo_postagem']); ?></b></h3></div>
-        <div class="desc-home"><?php echo mb_strimwidth($rows['descricao_postagem'], 0, 70, "..."); ?></div>
+        <div class="desc-home"><?php echo mb_strimwidth($rows['descricao_postagem'], 0, 60, "..."); ?></div>
         <div class="like-home"><?php echo "<f><b>" . $rows['likes_postagem'] . " Likes" . "</b></f>"; ?></div>
         <div class="link-home"> <a style = "text-decoration:underline" type="button"  data-toggle="modal" data-target="#post<?php echo $id_post ?>">Visualizar Ideia</a> </div>
         <div class="situation-home"><b><?php if ($situation == 1) { echo "<f3> Media: ". number_format((float)$rows['media'], 2, '.', ''). "</f3>";}else{ echo "<f4>" . "Pendente" . "</f4>";} ?></b></f2></div>
@@ -111,7 +122,7 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
     </div>
     @include('layouts.post')
 <?php } ?>
-
+                                   
 <nav class="text-center">
     <ul class="pagination">
         <li class="page-item">

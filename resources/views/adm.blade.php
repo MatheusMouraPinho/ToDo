@@ -9,7 +9,7 @@ $sql = "SELECT * FROM usuarios WHERE id_situacao = '2' AND email_verified_at IS 
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
-$quantidade = 2; //quantidade de rows
+$quantidade = 5; //quantidade de rows
 
 $num_pagina = ceil($total_pesquisa/$quantidade);
 

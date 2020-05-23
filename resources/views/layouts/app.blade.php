@@ -83,14 +83,70 @@ if (isset($style)){?>
     <br>
     @yield('content')
     </div>
-    <!--||Footer||-->
-    <div class="card">
-        <div class="card-body text-center">
-        Rodapé
-        </div>
-    </div>
-    <!--||Fim Footer||-->
   </div>
+
+<!-- Footer -->
+<footer class="custom-footer">
+  <div class="space"></div>
+  <div class="container text-center text-md-left mt-5">
+    <div class="row mt-3">
+      <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+        <h6 class="text-uppercase font-weight-bold"><ff>Desenvolvimento</ff></h6>
+        <hr class="accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 130px;">
+        <p><fw>Site desenvolvido por alunos da Universidade Módulo - Campus MÓDULO Caraguatatuba, Ministrado pelo Professor Fabio Lippi.
+        </fw></p>
+      </div>
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+        <h6 class="text-uppercase font-weight-bold"><ff>RGM</ff></h6>
+        <hr class="accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 30px;">
+        <fw>
+          <p>20867000</p>
+          <hr class="accent-3 mb-3 mt-0 d-inline-block mx-auto" style="width: 80px;">
+          <p>20541929</p>
+          <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto" style="width: 80px;">
+          <p>22132066</p>
+          <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto" style="width: 80px;">
+          <p>20530625</p>
+        </fw>
+      </div>
+      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+        <h6 class="text-uppercase font-weight-bold"><ff>Integrantes</ff></h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 90px;">
+        <fw>
+          <p>Matheus Moura Pinho</p>
+          <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto" style="width: 150px;">
+          <p>Vinicius Vieira Pereira</p>
+          <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto" style="width: 150px;">
+          <p>Jonathan Gonçalves Dias</p>
+          <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto" style="width: 150px;">
+          <p>Mauricio Freire da Silva</p>
+        </fw>
+      </div>
+      <div class="col-md-4 col-lg-3 col-xl-4 mx-auto mb-md-0 mb-4">
+        <h6 class="text-uppercase font-weight-bold"><ff>Contato</ff></h6>
+        <hr class="accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <fw>
+          <p>Matheusmpinho@outlook.com</p>
+          <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto" style="width: 200px;">
+          <p>vinicius_vieira_pereira@hotmail.com</p>
+          <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto" style="width: 200px;">
+          <p>jonathangoncalves.dias2001@gmail.com</p>
+          <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto" style="width: 200px;">
+          <p>mauriciofreire520@gmail.com</p>
+        </fw>
+      </div>
+    </div>
+  </div>
+  <div class="space2">
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      <a href=""> RepositorioToDo.com</a>
+    </div>
+  </div>
+</footer>
+
+
+
+
 
   <!--Modal Criação post-->
   <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
