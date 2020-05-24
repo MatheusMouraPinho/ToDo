@@ -1,8 +1,8 @@
 # Repositorio de Ideias (ToDo)
 
-baixar o projeto:
+Baixar o projeto:
 
-no local xampp/htdocs usar no git bash "git clone git@github.com:MatheusMouraPinho/ToDo.git" ira baixar os arquivos ja com o git.
+No local xampp/htdocs usar no git bash o comando "git clone git@github.com:MatheusMouraPinho/ToDo.git".
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -15,16 +15,6 @@ php artisan ui bootstrap --auth
 npm install && npm run dev
 
 composer require appzcoder/crud-generator --dev
-
-----------------------------------------------------------------------------------------------------------------------------------------
-
-Caso o site não mude ao alterar, substituir ou apagar algo:  
-
-php artisan view:clear
-
-php artisan cache:clear
-
-php artisan config:clear
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
