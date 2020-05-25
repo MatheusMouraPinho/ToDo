@@ -1,53 +1,3 @@
-// function add_like(id_comentario){
-    
-//     $.post('../Helpers/Helper.php', {comentario_id: id_comentario}, function(dados){
-//         alert('funcionou mesmo?');
-//         if(dados == 'sucesso') {
-
-//             get_like(id_comentario);
-//         }else{
-//             alert('Não foi possivel votar');
-//         }
-//     })
-// }
-
-// function get_like(id_comentario) {
-//     $.post('Helpers/get_like.php', {comentario_id: id_comentario}, function(valor) {
-//         $('#id_comentario_'+id_comentario).text(valor);
-//     })
-// }
-
-// function un_like(id_comentario){
-//     $.post('Helpers/un_like.php', { id_comentario: id_comentario }, function(valor){
-//         if(valor == 'sucesso'){
-//             location.href="../views/conta.blade.php";
-//         }else{
-//             alert("Desculpe, ocorreu algum erro");
-//             location.href="/views/conta.blade.php";
-//         }
-//     })
-// }
-
-$(document).ready(function() {
-    $(".curtir").click(function() {
-        var id = this.id;
-        $.ajax({
-            url: 'Helpers/add_like.php',
-            type:'POST',
-            data:{id:id},
-            dataType:'json',
-
-            success:function(data){
-                var likes = data ['likes'];
-                var text = data['text'];
-
-                $("#likes_"+id).text(likes);
-                $("#"+id).text(text);
-            }
-        });
-    });
-});
-
 $(function(){
     $(".mostrar").click(function(){
         $(this).siblings("#comentarios").toggle("slow");   
@@ -65,4 +15,99 @@ function onlynumber(evt) {
        theEvent.returnValue = false;
        if(theEvent.preventDefault) theEvent.preventDefault();
     }
- }
+}
+
+$(document).ready(function(){
+    
+    // Quando o usuário clicar no curtir
+    $('.curtir').on('click', function(){
+        
+        var coment_id = $(this).data('id');
+        $btn_clicado = $(this);
+    
+    
+        if($btn_clicado.hasClass("fa-thumbs-o-up")){
+            action = 'like';
+        } else if ($btn_clicado.hasClass("fa-thumbs-up")) {
+            action = 'unlike';
+        }
+    
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    
+        $.ajax ({
+            type: 'post',
+            url: "/like",
+            data: {
+                'action': action,
+                'coment_id': coment_id 
+            },
+            success: function(data){
+                res = JSON.parse(data);
+    
+                if(action == 'like') {
+                    $btn_clicado.removeClass('fa-thumbs-o-up');
+                    $btn_clicado.addClass('fa-thumbs-up');
+                } else if(action = 'unlike') {
+                    $btn_clicado.removeClass('fa-thumbs-up');
+                    $btn_clicado.addClass('fa-thumbs-o-up');
+                }
+    
+                $btn_clicado.siblings('span.likes').text(res.likes);
+            }
+        })
+    });
+    
+    $('.subcurtir').on('click', function(){
+        var btn_like = $('#btn_like');
+        var subcoment_id = $(this).data('id');
+        $btn_clicado = $(this);
+        $btn_clicado.prop('disabled', true);
+        btn_like.prop('disabled', true);
+    
+    
+        if($btn_clicado.hasClass("fa-thumbs-o-up")){
+            action = 'like';
+        } else if ($btn_clicado.hasClass("fa-thumbs-up")) {
+            action = 'unlike';
+        }
+    
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+    
+        $.ajax ({
+            type: 'post',
+            url: "/like",
+            data: {
+                'action': action,
+                'subcoment_id': subcoment_id 
+            },
+            success: function(data){
+                res = JSON.parse(data);
+    
+                if(action == 'like') {
+                    $btn_clicado.removeClass('fa-thumbs-o-up');
+                    $btn_clicado.addClass('fa-thumbs-up');
+                } else if(action = 'unlike') {
+                    $btn_clicado.removeClass('fa-thumbs-up');
+                    $btn_clicado.addClass('fa-thumbs-o-up');
+                }
+    
+                $btn_clicado.siblings('span.likes').text(res.likes);
+                btn_like.prop('disabled', false);
+            }
+        })
+    });
+
+});
+
+
+
+
+

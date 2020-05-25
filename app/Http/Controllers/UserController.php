@@ -129,6 +129,7 @@ class UserController extends Controller
         $dados_user = DB::table('usuarios')
                     ->where('id', $data['id_usuario'])
                     ->get();
+        
 
         foreach($dados_user as $dados_usr) {
 

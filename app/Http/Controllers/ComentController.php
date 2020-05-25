@@ -87,15 +87,89 @@ class ComentController extends Controller
                 return redirect()
                                 ->back()
                                 ->with('error', 'Erro ao processar comentário');
-                                
+
             return back(); 
         }
             
-        
-
-        
-
     }
+
+
+    public function like(Request $request) {
+        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $id_user = Auth::user()->id;
+        if(isset($request->coment_id)) {
+            $coment_id = $request->coment_id;
+            $action = $request->action;
+
+            switch($action){
+                case 'like':
+                    $sql = "insert into like_comentarios(id_comentarios, id_usuarios)
+                            values($coment_id, $id_user)";
+                    $sql1 = "update comentarios set likes_comentarios = likes_comentarios+1 
+                            where id_comentarios = $coment_id";
+                    break;
+                case 'unlike':
+                    $sql = "delete from like_comentarios
+                    where id_usuarios=$id_user and id_comentarios=$coment_id";
+                    $sql1 = "update comentarios set likes_comentarios = likes_comentarios-1 
+                    where id_comentarios = $coment_id";
+                    break;
+                default:
+                    break;
+            }
+
+            mysqli_query($conn, $sql);
+            mysqli_query($conn, $sql1);
+
+            $sql_count = "select likes_comentarios from comentarios where id_comentarios = $coment_id";
+            $count_likes = mysqli_query($conn, $sql_count);
+            $likes = mysqli_fetch_array($count_likes);
+
+            $rating = [
+                'likes' => $likes[0]
+            ];
+
+            echo json_encode($rating);
+
+        }
+
+        else if(isset($request->subcoment_id)) {
+            $subcoment_id = $request->subcoment_id;
+            $action = $request->action;
+
+            switch($action){
+                case 'like':
+                    $sql = "insert into like_subcomentarios(id_subcomentarios, id_usuarios)
+                            values($subcoment_id, $id_user)";
+                    $sql1 = "update subcomentarios set likes_comentarios = likes_comentarios+1 
+                            where id_subcomentarios = $subcoment_id";
+                    break;
+                case 'unlike':
+                    $sql = "delete from like_subcomentarios
+                            where id_usuarios=$id_user and id_subcomentarios=$subcoment_id";
+                    $sql1 = "update subcomentarios set likes_comentarios = likes_comentarios-1 
+                            where id_subcomentarios = $subcoment_id";
+                    break;
+                default:
+                    break;
+            }
+
+            mysqli_query($conn, $sql);
+            mysqli_query($conn, $sql1);
+
+            $sql_count = "select likes_comentarios from subcomentarios where id_subcomentarios = $subcoment_id";
+            $count_likes = mysqli_query($conn, $sql_count);
+            $likes = mysqli_fetch_array($count_likes);
+
+            $rating = [
+                'likes' => $likes[0]
+            ];
+
+            echo json_encode($rating);
+
+        }
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -181,9 +255,22 @@ class ComentController extends Controller
 
         if(!empty($id['id_subcomentario'])){
             $id_subcomentario = $id['id_subcomentario'];
-            $delete = DB::delete('delete from like_comentarios where id_comentarios = ?', [$id_comentario]);
+            $delete = DB::delete('delete from like_subcomentarios where id_subcomentarios = ?', [$id_subcomentario]);
             $deletar = DB::delete('delete from subcomentarios where id_subcomentarios = ?', [$id_subcomentario]);
         }else{
+            $procurando['id_subcomentario'] = DB::table('subcomentarios')
+                            ->where('id_comentarios', $id_comentario)
+                            ->get();
+            if($procurando['id_subcomentario'] != null) {
+                for($c=0; $c<sizeof($procurando['id_subcomentario']);$c++){
+                    $procurando1['id_subcomentario'] = DB::table('like_subcomentarios')
+                            ->where('id_subcomentarios', $procurando['id_subcomentario'][$c]->id_subcomentarios)
+                            ->get();
+                    if($procurando1['id_subcomentario'] != null){
+                        $del_sublike = DB::delete('delete from like_subcomentarios where id_subcomentarios = ?', [$procurando['id_subcomentario'][$c]->id_subcomentarios]);
+                    }
+                }
+            }
             $delete = DB::delete('delete from like_comentarios where id_comentarios = ?', [$id_comentario]);
             $deletar = DB::delete('delete from subcomentarios where id_comentarios = ?', [$id_comentario]);
             $deletando = DB::delete('delete from comentarios where id_comentarios = ?', [$id_comentario]);

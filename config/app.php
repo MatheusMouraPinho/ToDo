@@ -193,7 +193,6 @@ return [
 
     'aliases' => [
 
-        'add_like' => App\Helpers\Helper::class,
         'Helper' => App\Helpers\Helper::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,

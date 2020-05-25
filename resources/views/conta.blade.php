@@ -17,12 +17,15 @@ $nivel = Auth::user()->nivel;
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Minha Conta - ToDo</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    
     <script type="text/javascript" src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/funcoes.js') }}"></script>
+    
     
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -31,51 +34,57 @@ $nivel = Auth::user()->nivel;
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/estilo.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/estilo2.css') }}" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/1618aca3df.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
 
 </head>
 <body>
-  <!-- ||Cabeçalho||  -->
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded" id="menu">
-      <img class="navbar-brand" width="150px" src="{{asset('img/logo.png')}}">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-md-center" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <form class="form-inline my-2 my-lg-0" action="{{ url('/home') }}">
-              <button class="btn btn-outline-success my-2 my-sm-0">Home</button>
-            </form>
-          </li>
+  <!-- ||Nav Bar||  -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <img class="navbar-brand" width="150px" src="{{asset('img/logo.png')}}">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-md-center" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li style="padding-left:2em" class="nav-item active">
+          <div class="form-inline my-2 my-lg-0">
+            <a class="btn btn-primary my-2 my-sm-0"  href="{{ url('/home') }}">Home</a>
+          </div>
+        </li>
+        <li style="padding-left:2em" class="nav-item">
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Digite o nome da ideia" aria-label="Search" style="width: 400px">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Procurar</button>
+          </form>
+        </li>
+        <li style="padding-left:2em" class="nav-item">
+          <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target=".bd-example-modal-lg">Crie uma ideia</button>
+        </li>
+        <?php if($nivel > 1){?>
           <li class="nav-item">
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Digite o nome da ideia" aria-label="Search" style="width: 400px">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Procurar</button>
-            </form>
+            <button class="btn btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target=".bd-example-modal-lg">Criar uma Sugestão</button>
           </li>
-          <li class="nav-item">
-            <form class="form-inline my-2 my-lg-0">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Crie uma ideia</button>
-            </form>
-          </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Configurações </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <?php if(3 == $nivel){?>
-              <a class="dropdown-item" href="{{ url('/adm') }}">Admin Painel</a>
-              <?php }?>
-              <a class="dropdown-item" href="{{ url('/conta') }}">Minha conta</a>
-              <a class="dropdown-item" href="{{ url('/logout') }}"> Sair </a>
-            </div>
-          </li>
-        </ul>
-      <div>
-    </nav> 
-  </header>
-  <!--||Fim Cabeçalho||-->
+        <?php }?>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Configurações </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <?php if(3 == $nivel){?>
+            <a class="dropdown-item" href="{{ url('/adm') }}">Admin Painel</a>
+            <?php }?>
+            <a class="dropdown-item" href="{{ url('/conta') }}">Minha conta</a>
+            <a class="dropdown-item" href="{{ url('/logout') }}"> Sair </a>
+          </div>
+        </li>
+      </ul>
+    <div>
+  </nav> 
+  <!--||Fim Nav bar||-->
 
       <div id="area_principal">
         
@@ -98,7 +107,7 @@ $nivel = Auth::user()->nivel;
 
         <!--||Área de dados do usuário||-->
         <div id="area-dados">
-            <div class="card-body text-center">
+          <div class="card-body text-center">
               
               @if($dados['img'] === null)
                 <img width="150px" class="img-dados" src="{{asset('img/semuser.png')}}">
@@ -108,47 +117,66 @@ $nivel = Auth::user()->nivel;
             <h3>{{ $dados['nome'] }}</h3>
             
             <p>{{ $dados['email'] }}</p>
+            
               <div id="conteudo-dados">
+                <div class="dados-pessoais">
+                  <p style="padding: 5px; margin: 0px;">RGM: {{ $dados['rgm'] }}</p>
+                </div>
 
-                <p>RGM: {{ $dados['rgm'] }}</p>
-
-                <p>E-mail para contato: {{ $dados['email'] }}</p>
+                <div class="dados-pessoais">
+                  <p style="padding: 5px; margin: 0px;">E-mail: {{ $dados['email'] }}</p>
+                </div>
 
                 @if(is_null($dados['telefone']))
-                  <p>Telefone: Não definido</p>
+                  <div class="dados-pessoais">
+                    <p style="padding: 5px; margin: 0px;">Telefone: Não definido</p>
+                  </div>
                 @else 
-                  <p  id="telefone">
-                    Telefone: {{ $dados['telefone'] }}
-                  </p>
+                  <div class="dados-pessoais">
+                    <p id="telefone" style="padding: 5px; margin: 0px;">
+                      Telefone: {{ $dados['telefone'] }}
+                    </p>
+                  </div>
                 @endif
 
                 @if(empty($dados['instituicao'][0]))
-                  <p>Instituição de Ensino: Não definido</p>
+                  <div class="dados-pessoais">
+                    <p style="padding: 5px; margin: 0px;">Instituição de Ensino: Não definido</p>
+                  </div>
                 @else 
-                  <p>Instituição de Ensino: {{ $dados['instituicao'] }}</p>
-                  
+                  <div class="dados-pessoais">
+                    <p style="padding: 5px; margin: 0px;">Instituição: {{ $dados['instituicao'] }}</p>
+                  </div>
                 @endif
 
                 @if(empty($dados['area'][0]))
-                  <p>Área: Não definido</p>
+                  <div class="dados-pessoais">
+                    <p style="padding: 5px; margin: 0px;">Área: Não definido</p>
+                  </div>
                 @else 
-                  <p>Área: {{ $dados['area'] }}</p>
+                  <div class="dados-pessoais">
+                    <p style="padding: 5px; margin: 0px;">Área: {{ $dados['area'] }}</p>
+                  </div>
                 @endif
 
                 @if(empty($dados['cidade'][0]))
-                  <p>Região: Não definido</p>
+                  <div class="dados-pessoais">
+                    <p style="padding: 5px; margin: 0px;">Região: Não definido</p>
+                  </div>
                 @else 
-                  <p>Região: {{ $dados['cidade'] }} - {{ $dados['uf'][0]->uf_regiao_estado }}</p>  
+                  <div class="dados-pessoais">
+                    <p style="padding: 5px; margin: 0px;">Região: {{ $dados['cidade'] }} - {{ $dados['uf'][0]->uf_regiao_estado }}</p> 
+                  </div> 
                 @endif 
 
                 
                                           
               </p>
-                <a href="" data-toggle="modal" data-target="#popup{{$dados['id'] }}">Editar perfil</a>
+                <a style="margin-left: 2%" href="" data-toggle="modal" data-target="#popup{{$dados['id'] }}">Editar perfil</a>
                 
               </div>
             </div>
-        </div>
+          </div>
       <!--||Fim área de dados||-->
 
       <!-- Área de ideias do usuario -->
@@ -189,7 +217,7 @@ $nivel = Auth::user()->nivel;
                   <tr>
                     <td>{{ $posts->id_postagem }}</td>
                     <td>{{ date('d/m/Y', strtotime($posts->data_postagem)) }}</td>
-                    <td>{{ $posts->titulo_postagem }}</td>
+                    <td class="abreviar">{{ $posts->titulo_postagem }}</td>
                     <td> {{ $posts->situacao_postagem}} </td>
                     <td>
                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#popup{{$posts->id_postagem }}">
@@ -287,7 +315,7 @@ $nivel = Auth::user()->nivel;
                                         @else
                                           <img  alt="{{ $post['comentarios'][$f]->img_usuarios }}" name="img_usuarios" class="img-dados-coment" src="{{asset('/storage/users/'.$post['comentarios'][$f]->img_usuarios)}}">
                                         @endif
-                                        <form id="perfil" action="{{ route('perfil') }}" method="GET">
+                                        <form id="perfil" action="{{ route('perfil') }}" method="get">
                                           @csrf
                                           <input type="hidden" name="id_usuario" value="{{ $post['comentarios'][$f]->id }}">
                                           <input class="bold user" type="submit" value="{{ $post['comentarios'][$f]->usuario}}">
@@ -296,14 +324,14 @@ $nivel = Auth::user()->nivel;
 
                                           <!--Trigger-->
                                          
-                                          <a class="btn-floating btn-lg black dropdown-toggle"type="button" id="dropdownMenu2" data-toggle="dropdown"
+                                          <a class="btn-floating btn-lg "type="button" id="dropdownMenu2" data-toggle="dropdown"
                                           aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
                                         
                                         
                                           <!--Menu-->
                                           <div class="dropdown-menu dropdown-primary">
                                             @if($post['comentarios'][$f]->id === Auth::user()->id)
-                                              <a id="edit" class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['comentarios'][$f]->id_comentarios }}_edit1">Editar</a>
+                                              <a id="edit" class="dropdown-item" onclick="ocultar_popup('popup{{$posts->id_postagem}}', 'popup{{$post['comentarios'][$f]->id_comentarios }}_edit1')" href="#" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['comentarios'][$f]->id_comentarios }}_edit1">Editar</a>
                                               <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['comentarios'][$f]->id_comentarios}}_apagar2">Apagar</a>
                                             @else
                                               <a class="dropdown-item" href="{{ url('/adm') }}">Denunciar</a>
@@ -321,9 +349,11 @@ $nivel = Auth::user()->nivel;
                                         <span class="mostrar">Responder</span>
                                         <?php $resultados = Helper::verifica_like_coment($post['comentarios'][$f]->id_comentarios);$id_comentario = $post['comentarios'][$f]->id_comentarios;?>
                                           @if($resultados == 0)
-                                            <a href="#" id="{{ $post['comentarios'][$f]->id_comentarios }}" class="curtir" onclick="add_like('.$id_comentario.')">Curtir</a> 
+                                            <span href="#" id="btn_like" class="curtir fa-thumbs-o-up fa" data-id="{{ $post['comentarios'][$f]->id_comentarios }}"></span> 
+                                            <span class="likes" id="likes_{{ $post['comentarios'][$f]->id_comentarios }}">{{ $post['comentarios'][$f]->likes_comentarios }}</span>
                                           @else 
-                                            <a href="#" class="curtir" onclick="un_like($id_comentarios)">Descurtir</a> 
+                                          <span href="#" id="btn_like" class="curtir fa-thumbs-up fa" data-id="{{ $post['comentarios'][$f]->id_comentarios }}"></span>
+                                          <span class="likes" id="likes_{{ $post['comentarios'][$f]->id_comentarios }}">{{ $post['comentarios'][$f]->likes_comentarios }}</span>
                                           @endif
 
                                         <!--  Modal de edição de comentários -->
@@ -356,17 +386,7 @@ $nivel = Auth::user()->nivel;
                                               </div>
                                             </div>
                                           </div>
-                                        
-                                        
-                                        
-
-
-                                        <div class="likes_coment">  
-                                          <img width="30px" src="{{ asset('img/like.png') }}">
-                                          <p class="num-like" id="likes_{{ $post['comentarios'][$f]->id_comentarios }}">
-                                            {{ $post['comentarios'][$f]->likes_comentarios }}
-                                          </p>
-                                        </div>
+                                  
                                         <div id="comentarios">
                                           <form action="{{ route('comentario') }}" method="POST">
                                             @csrf
@@ -410,7 +430,7 @@ $nivel = Auth::user()->nivel;
                                         
                                         
                                         <div class="header-coment">
-                                          <form id="perfil" action="{{ route('perfil') }}" method="GET">
+                                          <form id="perfil" action="{{ route('perfil') }}" method="get">
                                             @csrf
                                             <input type="hidden" name="id_usuario" value="{{ $post['comentarios'][$f]->id }}">
                                             <span>Em resposta a</span><input class="link" type="submit" value="<?='@'. $post['comentarios'][$f]->usuario ?>">
@@ -420,7 +440,7 @@ $nivel = Auth::user()->nivel;
 
                                             <!--Trigger-->
                                            
-                                            <a class="btn-floating btn-lg black dropdown-toggle"type="button" id="dropdownMenu3" data-toggle="dropdown"
+                                            <a class="btn-floating btn-lg black"type="button" id="dropdownMenu3" data-toggle="dropdown"
                                             aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
                                           
                                           
@@ -449,7 +469,7 @@ $nivel = Auth::user()->nivel;
                                             @else
                                               <img  alt="{{ $post['reply_coment'][$g]->img_usuarios }}" name="img_usuarios" class="img-dados-coment" src="{{asset('/storage/users/'.$post['reply_coment'][$g]->img_usuarios)}}">
                                             @endif
-                                            <form id="perfil" action="{{ route('perfil') }}" method="GET">
+                                            <form id="perfil" action="{{ route('perfil') }}" method="get">
                                               @csrf
                                               <input type="hidden" name="id_usuario" value="{{ $post['reply_coment'][$g]->id }}">
                                               <input alt="" class="bold user" type="submit" value="{{ $post['reply_coment'][$g]->usuario}}">
@@ -460,11 +480,15 @@ $nivel = Auth::user()->nivel;
                                         <p class="conteudo-coment te">{{ $post['reply_coment'][$g]->conteudo_comentarios }}</p>
                                         <div class="footer-coment">
                                           {{-- <span class="mostrar">Responder</span> --}}
-                                          <a href="#" class="curtir">Curtir</a>  
-                                          <div class="likes_coment"> 
-                                            <img width="30px" src="{{ asset('img/like.png') }}">
-                                            <p class="num-like">{{ $post['reply_coment'][$g]->likes_comentarios }}</p>
-                                          </div>
+                                          <?php $resultados = Helper::verifica_like_subcoment($post['reply_coment'][$g]->id_subcomentarios)?>
+                                          @if($resultados == 0)
+                                            <span href="#" id="{{ $post['reply_coment'][$g]->id_subcomentarios }}" class="subcurtir fa-thumbs-o-up fa" data-id="{{ $post['reply_coment'][$g]->id_subcomentarios }}"></span> 
+                                            <span class="likes" id="likes_{{ $post['reply_coment'][$g]->id_subcomentarios }}">{{ $post['reply_coment'][$g]->likes_comentarios }}</span>
+                                          @else 
+                                            <span href="#" id="{{ $post['reply_coment'][$g]->id_subcomentarios }}" class="subcurtir fa-thumbs-up fa" data-id="{{ $post['reply_coment'][$g]->id_subcomentarios }}"></span>
+                                            <span class="likes" id="likes_{{ $post['reply_coment'][$g]->id_subcomentarios }}">{{$post['reply_coment'][$g]->likes_comentarios }}</span>
+                                          @endif
+                                          
 
                                           <div id="comentarios">
                                             <form action="{{ route('comentario') }}" method="POST">
@@ -542,13 +566,14 @@ $nivel = Auth::user()->nivel;
                               @endif
                             </div>           
                             <div class="modal-footer" style="margin-top: 10px">
-                              <p class="data-post seila">
-                                Postado em {{date('d/m/Y', strtotime($posts->data_postagem))}} às  {{date('H:i:s', strtotime($posts->data_postagem))}} horas
-                              </p>
                               <div class="popup-like">
                                 <img width="30px" src="{{ asset('img/like.png') }}">
-                                <p class="num-like">{{ $posts->likes_postagem }}</p>
-                              </div>          
+                                <p class="num-like">{{$posts->likes_postagem}}</p>
+                              </div>   
+                              <p class="data-post">
+                                Postado em {{date('d/m/Y', strtotime($posts->data_postagem))}} às  {{date('H:i:s', strtotime($posts->data_postagem))}} horas
+                              </p>
+                                     
                             </div>
                           </div>
                         </div>
@@ -560,11 +585,12 @@ $nivel = Auth::user()->nivel;
                 @endforeach
               </tbody>
             </table>
-              <div class="card-footer" style="padding: 8px">
-                <p id="contagem-ideias">
-                  {{ $dados['posts']->links() }}
-                </p>
-              </div>
+              
+            <div class="card-footer" style="padding: 8px">
+              <p id="contagem-ideias">
+                {{ $dados['posts']->links() }}
+              </p>
+            </div>
           </div>
         @endif
 
@@ -612,15 +638,15 @@ $nivel = Auth::user()->nivel;
                     </div>
 
                     <div class="popup-title">
-                      <label for="telefone_usuario" class="bold subdados ">Telefone</label>
-                      <input onkeypress="return onlynumber();" minlength="10" maxlength="11" id="telefone_usuario" type="text" class="btn-popup mr-sm-2 phones" value="{{ $dados['telefone'] }}" name="telefone_usuario" placeholder="Ex: (11) 11111-1111"/>
+                      <label for="telefone_usuario" class="bold subdados ">Celular</label>
+                      <input onkeypress="return onlynumber();" minlength="10" maxlength="11" id="telefone_usuario" type="text" class="btn-popup mr-sm-2 phones" name="telefone_usuario" placeholder="Ex: (11) 11111-1111"/>
                     </div>
 
                     <hr>
 
                     <div class="popup-title">
-                      <label for="id_instituicao" class="bold subdados">Instituição de Ensino</label>
-                      <select name="id_instituicao" class="select">
+                      <label for="id_instituicao" class="bold subdados">Instituição</label>
+                      <select name="id_instituicao" class="select" title="Selecione uma opção">
                       <option value="">{{ $dados['instituicao'] }}</option>
                         @for($a = 0; $a<sizeof($dados['instituicoes']);$a++)
                           <option value="{{ $dados['instituicoes'][$a]->id_instituicao }}">
@@ -644,7 +670,7 @@ $nivel = Auth::user()->nivel;
 
                     <div class="popup-title">
                       <label for="id_regiao_cidade" class="bold subdados">Região</label>
-                      <select name="id_regiao_cidade" class="select">
+                      <select name="id_regiao_cidade" class="select" title="Selecione uma opção">
                         <option value="">{{$dados['cidade']}}</option>
                         @for($a = 0; $a<sizeof($dados['cidades']);$a++)
                           <option value="{{ $dados['cidades'][$a]->id_regiao_cidade }}">
@@ -662,10 +688,70 @@ $nivel = Auth::user()->nivel;
             </div>
           </div>
         </div>
+
+        <!-- Footer -->
+<footer class="custom-footer">
+  <div class="space"></div>
+  <div class="container text-center text-md-left mt-5">
+    <div class="row mt-3">
+      <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+        <h6 class="text-uppercase font-weight-bold"><ff>Desenvolvimento</ff></h6>
+        <hr class="accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 130px;">
+        <p><fw>Site desenvolvido por alunos da Universidade Módulo - Campus MÓDULO Caraguatatuba, Ministrado pelo Professor Fabio Lippi.
+        </fw></p>
+      </div>
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+        <h6 class="text-uppercase font-weight-bold"><ff>RGM</ff></h6>
+        <hr class="accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 30px;">
+        <fw>
+          <p>20867000</p>
+          <hr class="accent-3 mb-3 mt-0 d-inline-block mx-auto" style="width: 80px;">
+          <p>20541929</p>
+          <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto" style="width: 80px;">
+          <p>22132066</p>
+          <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto" style="width: 80px;">
+          <p>20530625</p>
+        </fw>
+      </div>
+      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+        <h6 class="text-uppercase font-weight-bold"><ff>Integrantes</ff></h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 90px;">
+        <fw>
+          <p>Matheus Moura Pinho</p>
+          <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto" style="width: 150px;">
+          <p>Vinicius Vieira Pereira</p>
+          <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto" style="width: 150px;">
+          <p>Jonathan Gonçalves Dias</p>
+          <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto" style="width: 150px;">
+          <p>Mauricio Freire da Silva</p>
+        </fw>
+      </div>
+      <div class="col-md-4 col-lg-3 col-xl-4 mx-auto mb-md-0 mb-4">
+        <h6 class="text-uppercase font-weight-bold"><ff>Contato</ff></h6>
+        <hr class="accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <fw>
+          <p>Matheusmpinho@outlook.com</p>
+          <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto" style="width: 200px;">
+          <p>vinicius_vieira_pereira@hotmail.com</p>
+          <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto" style="width: 200px;">
+          <p>jonathangoncalves.dias2001@gmail.com</p>
+          <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto" style="width: 200px;">
+          <p>mauriciofreire520@gmail.com</p>
+        </fw>
+      </div>
+    </div>
+  </div>
+  <div class="space2">
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      <a href=""> RepositorioToDo.com</a>
+    </div>
+  </div>
+</footer>
       </div>
       <!-- Fim área de detalhes de ideias postadas-->
 
     </div>
+
 </body>
 
 </html>

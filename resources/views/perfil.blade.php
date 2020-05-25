@@ -27,22 +27,6 @@ $nivel = Auth::user()->nivel;
     <script type="text/javascript" src="{{ asset('js/funcao.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/funcoes.js') }}"></script>
 
-    {{-- <script>
-      function add_like(id_comentario){
-        alert('seila_'+id_comentario);
-        $.post('add_like.php', {comentario_id: id_comentario}, function(dados){
-          alert('entrou');
-            if(dados == 'sucesso') {
-              
-                get_like(id_comentario);
-            }else{
-                alert('Não foi possivel votar');
-            }
-        })
-}
-    </script> --}}
-
-
     
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -54,48 +38,49 @@ $nivel = Auth::user()->nivel;
 
 </head>
 <body>
-  <!-- ||Cabeçalho||  -->
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded" id="menu">
-      <img class="navbar-brand" width="150px" src="{{asset('img/logo.png')}}">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-md-center" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <form class="form-inline my-2 my-lg-0" action="{{ url('/home') }}">
-              <button class="btn btn-outline-success my-2 my-sm-0">Home</button>
-            </form>
-          </li>
+  <!-- ||Nav Bar||  -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <img class="navbar-brand" width="150px" src="{{asset('img/logo.png')}}">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-md-center" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li style="padding-left:2em" class="nav-item active">
+          <div class="form-inline my-2 my-lg-0">
+            <a class="btn btn-primary my-2 my-sm-0"  href="{{ url('/home') }}">Home</a>
+          </div>
+        </li>
+        <li style="padding-left:2em" class="nav-item">
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Digite o nome da ideia" aria-label="Search" style="width: 400px">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Procurar</button>
+          </form>
+        </li>
+        <li style="padding-left:2em" class="nav-item">
+          <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target=".bd-example-modal-lg">Crie uma ideia</button>
+        </li>
+        <?php if($nivel > 1){?>
           <li class="nav-item">
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Digite o nome da ideia" aria-label="Search" style="width: 400px">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Procurar</button>
-            </form>
+            <button class="btn btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target=".bd-example-modal-lg">Criar uma Sugestão</button>
           </li>
-          <li class="nav-item">
-            <form class="form-inline my-2 my-lg-0">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Crie uma ideia</button>
-            </form>
-          </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Configurações </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <?php if(3 == $nivel){?>
-              <a class="dropdown-item" href="{{ url('/adm') }}">Admin Painel</a>
-              <?php }?>
-              <a class="dropdown-item" href="{{ url('/conta') }}">Minha conta</a>
-              <a class="dropdown-item" href="{{ url('/logout') }}"> Sair </a>
-            </div>
-          </li>
-        </ul>
-      <div>
-    </nav> 
-  </header>
-  <!--||Fim Cabeçalho||-->
+        <?php }?>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Configurações </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <?php if(3 == $nivel){?>
+            <a class="dropdown-item" href="{{ url('/adm') }}">Admin Painel</a>
+            <?php }?>
+            <a class="dropdown-item" href="{{ url('/conta') }}">Minha conta</a>
+            <a class="dropdown-item" href="{{ url('/logout') }}"> Sair </a>
+          </div>
+        </li>
+      </ul>
+    <div>
+  </nav> 
+  <!--||Fim Nav bar||-->
 
       <div id="area_principal">
         
@@ -128,38 +113,56 @@ $nivel = Auth::user()->nivel;
             <h3>{{ $dados['nome'] }}</h3>
             
             <p>{{ $dados['email'] }}</p>
-              <div id="conteudo-dados">
+            <div id="conteudo-dados">
+              <div class="dados-pessoais">
+                <p style="padding: 5px; margin: 0px;">RGM: {{ $dados['rgm'] }}</p>
+              </div>
 
-                <p>RGM: {{ $dados['rgm'] }}</p>
+              <div class="dados-pessoais">
+                <p style="padding: 5px; margin: 0px;">E-mail: {{ $dados['email'] }}</p>
+              </div>
 
-                <p>E-mail para contato: {{ $dados['email'] }}</p>
-
-                @if(is_null($dados['telefone']))
-                  <p>Telefone: Não definido</p>
-                @else 
-                  <p  id="telefone">
+              @if(is_null($dados['telefone']))
+                <div class="dados-pessoais">
+                  <p style="padding: 5px; margin: 0px;">Telefone: Não definido</p>
+                </div>
+              @else 
+                <div class="dados-pessoais">
+                  <p id="telefone" style="padding: 5px; margin: 0px;">
                     Telefone: {{ $dados['telefone'] }}
                   </p>
-                @endif
+                </div>
+              @endif
 
-                @if(empty($dados['instituicao'][0]))
-                  <p>Instituição de Ensino: Não definido</p>
-                @else 
-                  <p>Instituição de Ensino: {{ $dados['instituicao'] }}</p>
-                  
-                @endif
+              @if(empty($dados['instituicao'][0]))
+                <div class="dados-pessoais">
+                  <p style="padding: 5px; margin: 0px;">Instituição de Ensino: Não definido</p>
+                </div>
+              @else 
+                <div class="dados-pessoais">
+                  <p style="padding: 5px; margin: 0px;">Instituição: {{ $dados['instituicao'] }}</p>
+                </div>
+              @endif
 
-                @if(empty($dados['area'][0]))
-                  <p>Área: Não definido</p>
-                @else 
-                  <p>Área: {{ $dados['area'] }}</p>
-                @endif
+              @if(empty($dados['area'][0]))
+                <div class="dados-pessoais">
+                  <p style="padding: 5px; margin: 0px;">Área: Não definido</p>
+                </div>
+              @else 
+                <div class="dados-pessoais">
+                  <p style="padding: 5px; margin: 0px;">Área: {{ $dados['area'] }}</p>
+                </div>
+              @endif
 
-                @if(empty($dados['cidade'][0]))
-                  <p>Região: Não definido</p>
-                @else 
-                  <p>Região: {{ $dados['cidade'] }} - {{ $dados['uf'][0]->uf_regiao_estado }}</p>  
-                @endif 
+              @if(empty($dados['cidade'][0]))
+                <div class="dados-pessoais">
+                  <p style="padding: 5px; margin: 0px;">Região: Não definido</p>
+                </div>
+              @else 
+                <div class="dados-pessoais">
+                  <p style="padding: 5px; margin: 0px;">Região: {{ $dados['cidade'] }} - {{ $dados['uf'][0]->uf_regiao_estado }}</p> 
+                </div> 
+              @endif 
 
                 
                                           
@@ -306,7 +309,7 @@ $nivel = Auth::user()->nivel;
                                         @else
                                           <img  alt="{{ $post['comentarios'][$f]->img_usuarios }}" name="img_usuarios" class="img-dados-coment" src="{{asset('/storage/users/'.$post['comentarios'][$f]->img_usuarios)}}">
                                         @endif
-                                        <form id="perfil" action="{{ route('perfil') }}" method="GET">
+                                        <form id="perfil" action="{{ route('perfil') }}" method="get">
                                           @csrf
                                           <input type="hidden" name="id_usuario" value="{{ $post['comentarios'][$f]->id }}">
                                           <input class="bold user" type="submit" value="{{ $post['comentarios'][$f]->usuario}}">
@@ -429,7 +432,7 @@ $nivel = Auth::user()->nivel;
                                         
                                         
                                         <div class="header-coment">
-                                          <form id="perfil" action="{{ route('perfil') }}" method="GET">
+                                          <form id="perfil" action="{{ route('perfil') }}" method="get">
                                             @csrf
                                             <input type="hidden" name="id_usuario" value="{{ $post['comentarios'][$f]->id }}">
                                             <span>Em resposta a</span><input class="link" type="submit" value="<?='@'. $post['comentarios'][$f]->usuario ?>">
@@ -468,7 +471,7 @@ $nivel = Auth::user()->nivel;
                                             @else
                                               <img  alt="{{ $post['reply_coment'][$g]->img_usuarios }}" name="img_usuarios" class="img-dados-coment" src="{{asset('/storage/users/'.$post['reply_coment'][$g]->img_usuarios)}}">
                                             @endif
-                                            <form id="perfil" action="{{ route('perfil') }}" method="GET">
+                                            <form id="perfil" action="{{ route('perfil') }}" method="POST">
                                               @csrf
                                               <input type="hidden" name="id_usuario" value="{{ $post['reply_coment'][$g]->id }}">
                                               <input alt="" class="bold user" type="submit" value="{{ $post['reply_coment'][$g]->usuario}}">
@@ -486,7 +489,7 @@ $nivel = Auth::user()->nivel;
                                           </div>
 
                                           <div id="comentarios">
-                                            <form action="{{ route('comentario') }}" method="POST">
+                                            <form action="{{ route('comentario') }}" method="get">
                                               @csrf
                                               <input name="conteudo_resposta" maxlength="255" style="width: 100%" type="text" class="btn-popup mr-sm-2" placeholder="<?='Em resposta a '.'@'. $post['reply_coment'][$g]->usuario?>">
                                               <input type="hidden" name="id_coment" value="{{ $post['reply_coment'][$g]->id_comentarios }}">

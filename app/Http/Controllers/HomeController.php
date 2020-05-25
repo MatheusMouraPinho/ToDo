@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class HomeController extends Controller
 {
@@ -37,7 +38,40 @@ class HomeController extends Controller
       
     public function home()
     {
-        return view('home'); 
+        $post = [ 
+            'avaliador' => DB::table('postagens')
+                            ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
+                            ->join('usuarios', 'usuarios.id', '=', 'avaliacao_postagem.id_avaliador')
+                            ->select('usuarios.usuario')
+                            ->get(),
+            
+            'avaliacao' => DB::table('postagens')
+                            ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
+                            ->select('avaliacao_postagem.*', 'postagens.id_usuarios', 'postagens.id_postagem')
+                            ->get(),
+            
+            'comentarios' => DB::table('comentarios')
+                                ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
+                                ->join('usuarios', 'comentarios.id_usuarios', '=', 'usuarios.id')
+                                ->select('comentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
+                                ->orderBy('data_comentarios', 'desc')
+                                ->get(),
+
+            'reply_coment' => DB::table('subcomentarios')
+                                ->join('postagens', 'postagens.id_postagem', '=', 'subcomentarios.id_postagem')
+                                ->where('subcomentarios.id_resposta', '=', null)
+                                ->join('usuarios', 'subcomentarios.id_usuarios', '=', 'usuarios.id')
+                                ->select('subcomentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
+                                ->orderBy('data_comentarios', 'desc')
+                                ->get(),
+
+            'reply_reply' => DB::table('subcomentarios')
+                            ->where('id_resposta', '!=', null)
+                            ->orderBy('data_comentarios', 'desc')
+                            ->get()
+        ];
+
+        return view('home', compact('post')); 
     }
 
     public function pesquisa()
@@ -47,6 +81,7 @@ class HomeController extends Controller
             return redirect('home')->with(['pesquisa' =>  $pesquisa]);
         }
     }
+
 
     public function filtro()
     {

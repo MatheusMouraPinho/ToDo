@@ -42,49 +42,17 @@ class Helper
                 ->value('id_likes');  
         
         $user_liked = (empty($resultado)) ? 0 : 1;
-
         return $user_liked;
     }
 
-    function add_like($id_comentario) {
+    public static function verifica_like_subcoment($id_subcomentario) {
         $id_usuario = Auth::user()->id;
-        $insert = DB::table('like_comentarios')->insert(
-            ['id_usuario' => $id_usuario, 'id_comentario', $id_comentario]
-        );
-
-        if($insert){
-            $update = DB::table('comentarios')
-                    ->where('id_comentarios', $id_comentario)
-                    ->update(['likes_comentarios', 'likes_comentarios'+1]);
-            if($update){
-                return 'Sucesso no update';
-            }else{
-                return 'Erro no update';
-            }
-        }else{
-            return 'Erro no insert';
-        }
-    }
-
-    function unlike($id_comentarios) {
-        $id_usuario = Auth::user()->id;
-        $delete = DB::table('like_comentarios')
-                ->where('id_comentarios', 'id_comentarios', 'and')
+        $resultado = DB::table('like_subcomentarios')
+                ->where('id_subcomentarios', $id_subcomentario, 'and')
                 ->where('id_usuarios', $id_usuario)
-                ->delete();
-
-        if($delete){
-            $update = DB::table('comentarios')
-                    ->where('id_comentarios', $id_comentarios)
-                    ->update(['likes_comentarios', 'likes_comentarios'-1]);
-            if($update){
-                return 'Sucesso no update';
-            }else{
-                return 'Erro no update';
-            }
-        }else{
-            return 'Erro no delete';
-        }
-
+                ->value('id_like');  
+        
+        $user_liked = (empty($resultado)) ? 0 : 1;
+        return $user_liked;
     }
 }

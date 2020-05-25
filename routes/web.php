@@ -52,9 +52,11 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() { 
 
     Route::post('deletar-comentario', 'ComentController@destroy')->name('apagar-coment');
 
-    Route::get('/perfil', 'UserController@perfil')->name('perfil');
+    Route::GET('/perfil', 'UserController@perfil')->name('perfil');
 
     Route::post('/denunciar', 'AdminController@denunciar')->name('denunciar');
+
+    Route::post('/like', 'ComentController@like')->name('like');
 
 });
 
