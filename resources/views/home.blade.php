@@ -1,4 +1,8 @@
 @extends('layouts.app')
+
+<?php if($rows['id_categoria'] = "1" ){$categoria = "Ideia";}else{$categoria = "Sugestão";}?>
+
+
 <?php  session_start();
 $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
 
@@ -43,6 +47,7 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
 }elseif($periodo == "DATE(NOW()) - INTERVAL 365 DAY"){$setup = "Ultimo Ano";
 }else{$setup = "Todas as Postagens";}
 ?>
+
 
 
 @section('content')
@@ -119,6 +124,7 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
         <div class="data-home"><f2><?php echo date('d/m/Y', strtotime($rows['data_postagem'])); ?></f2></div>
     </div>
     @include('layouts.post')
+
 <?php } ?>
                                    
 <nav class="text-center">

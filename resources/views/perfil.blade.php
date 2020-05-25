@@ -21,12 +21,11 @@ $nivel = Auth::user()->nivel;
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
     <script type="text/javascript" src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/funcao.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/funcoes.js') }}"></script>
-
+    
     
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -35,6 +34,11 @@ $nivel = Auth::user()->nivel;
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/estilo.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/estilo2.css') }}" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/1618aca3df.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
 
 </head>
 <body>
@@ -318,15 +322,15 @@ $nivel = Auth::user()->nivel;
 
                                           <!--Trigger-->
                                          
-                                          <a class="btn-floating btn-lg black dropdown-toggle"type="button" id="dropdownMenu2" data-toggle="dropdown"
+                                          <a class="btn-floating btn-lg "type="button" id="dropdownMenu2" data-toggle="dropdown"
                                           aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
                                         
                                         
                                           <!--Menu-->
                                           <div class="dropdown-menu dropdown-primary">
                                             @if($post['comentarios'][$f]->id === Auth::user()->id)
-                                              <a id="edit" class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['comentarios'][$f]->id_comentarios }}_edit1">Editar</a>
-                                              <a class="dropdown-item" data-toggle="modal" style="cursor: pointer" data-target="#popup{{$post['comentarios'][$f]->id_comentarios }}_apagar">Apagar</a>
+                                              <a id="edit" class="dropdown-item" onclick="ocultar_popup('popup{{$posts->id_postagem}}', 'popup{{$post['comentarios'][$f]->id_comentarios }}_edit1')" href="#" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['comentarios'][$f]->id_comentarios }}_edit1">Editar</a>
+                                              <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['comentarios'][$f]->id_comentarios}}_apagar2">Apagar</a>
                                             @else
                                               <a class="dropdown-item" href="{{ url('/adm') }}">Denunciar</a>
                                             @endif
@@ -343,9 +347,11 @@ $nivel = Auth::user()->nivel;
                                         <span class="mostrar">Responder</span>
                                         <?php $resultados = Helper::verifica_like_coment($post['comentarios'][$f]->id_comentarios);$id_comentario = $post['comentarios'][$f]->id_comentarios;?>
                                           @if($resultados == 0)
-                                            <a href="#" id="{{ $post['comentarios'][$f]->id_comentarios }}" class="curtir" onclick="add_like('.$id_comentario.')">Curtir</a> 
+                                            <span href="#" id="btn_like" class="curtir fa-thumbs-o-up fa" data-id="{{ $post['comentarios'][$f]->id_comentarios }}"></span> 
+                                            <span class="likes" id="likes_{{ $post['comentarios'][$f]->id_comentarios }}">{{ $post['comentarios'][$f]->likes_comentarios }}</span>
                                           @else 
-                                            <a href="#" class="curtir" onclick="un_like($id_comentarios)">Descurtir</a> 
+                                          <span href="#" id="btn_like" class="curtir fa-thumbs-up fa" data-id="{{ $post['comentarios'][$f]->id_comentarios }}"></span>
+                                          <span class="likes" id="likes_{{ $post['comentarios'][$f]->id_comentarios }}">{{ $post['comentarios'][$f]->likes_comentarios }}</span>
                                           @endif
 
                                         <!--  Modal de edição de comentários -->
@@ -378,17 +384,7 @@ $nivel = Auth::user()->nivel;
                                               </div>
                                             </div>
                                           </div>
-                                        
-                                        
-                                        
-
-
-                                        <div class="likes_coment">  
-                                          <img width="30px" src="{{ asset('img/like.png') }}">
-                                          <p class="num-like" id="likes_{{ $post['comentarios'][$f]->id_comentarios }}">
-                                            {{ $post['comentarios'][$f]->likes_comentarios }}
-                                          </p>
-                                        </div>
+                                  
                                         <div id="comentarios">
                                           <form action="{{ route('comentario') }}" method="POST">
                                             @csrf
@@ -400,11 +396,11 @@ $nivel = Auth::user()->nivel;
                                         </div>
                                       </div>
                                       
-                                    </div>   
+                                    </div> 
                                     
-                                    <!--  Modal para edição de comentários -->
+                                    <!--  Modal para apagar comentários -->
                                   <div class="painel-dados">
-                                    <div class="modal fade id" id="popup{{$post['comentarios'][$f]->id_comentarios }}_apagar" role="dialog">
+                                    <div class="modal fade id" id="popup{{$post['comentarios'][$f]->id_comentarios}}_apagar2" role="dialog">
                                       <div class="modal-dialog">
                                         <div class="modal-content">
                                           <div class="modal-header">
@@ -416,14 +412,14 @@ $nivel = Auth::user()->nivel;
                                               <form action="{{route('apagar-coment')}}" method="POST">
                                                 @csrf
                                                 <input name="id_comentario" type="hidden" value="{{ $post['comentarios'][$f]->id_comentarios }}">
-                                                <input data-toggle="modal" data-target="#hiddenDiv" type="submit" class="btn btn-primary dropright" value="Apagar comentário">
+                                                <input data-toggle="modal" type="submit" class="btn btn-primary dropright" value="Apagar comentário">
                                               </form>
                                             </div> 
                                           </div>
                                         </div>
                                       </div>
                                     </div>
-                                  </div>                       
+                                  </div>         
                                   @endif
                                   @for($g=0; $g<sizeof($post['reply_coment']); $g++)
                                     @if($post['reply_coment'][$g]->id_comentarios === $post['comentarios'][$f]->id_comentarios && $post['comentarios'][$f]->id_postagem === $posts->id_postagem)
@@ -442,7 +438,7 @@ $nivel = Auth::user()->nivel;
 
                                             <!--Trigger-->
                                            
-                                            <a class="btn-floating btn-lg black dropdown-toggle"type="button" id="dropdownMenu3" data-toggle="dropdown"
+                                            <a class="btn-floating btn-lg black"type="button" id="dropdownMenu3" data-toggle="dropdown"
                                             aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
                                           
                                           
@@ -450,7 +446,7 @@ $nivel = Auth::user()->nivel;
                                             <div class="dropdown-menu dropdown-primary">
                                               @if($post['reply_coment'][$g]->id === Auth::user()->id)
                                                 <a class="dropdown-item" data-toggle="modal" style="cursor: pointer" data-target="#popup{{$post['reply_coment'][$g]->id_subcomentarios }}_edit">Editar</a>
-                                                <a class="dropdown-item" data-toggle="modal" style="cursor: pointer" data-target="#popup{{$post['reply_coment'][$g]->id_subcomentarios }}_apagar">Apagar</a>
+                                                <a class="dropdown-item" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['reply_coment'][$g]->id_subcomentarios }}_apagar1">Apagar</a>
                                               @else
                                                 {{-- <form id="denunciar" action="{{ route('denunciar') }}" method="POST">
                                                   @csrf
@@ -471,7 +467,7 @@ $nivel = Auth::user()->nivel;
                                             @else
                                               <img  alt="{{ $post['reply_coment'][$g]->img_usuarios }}" name="img_usuarios" class="img-dados-coment" src="{{asset('/storage/users/'.$post['reply_coment'][$g]->img_usuarios)}}">
                                             @endif
-                                            <form id="perfil" action="{{ route('perfil') }}" method="POST">
+                                            <form id="perfil" action="{{ route('perfil') }}" method="get">
                                               @csrf
                                               <input type="hidden" name="id_usuario" value="{{ $post['reply_coment'][$g]->id }}">
                                               <input alt="" class="bold user" type="submit" value="{{ $post['reply_coment'][$g]->usuario}}">
@@ -482,14 +478,18 @@ $nivel = Auth::user()->nivel;
                                         <p class="conteudo-coment te">{{ $post['reply_coment'][$g]->conteudo_comentarios }}</p>
                                         <div class="footer-coment">
                                           {{-- <span class="mostrar">Responder</span> --}}
-                                          <a href="#" class="curtir">Curtir</a>  
-                                          <div class="likes_coment"> 
-                                            <img width="30px" src="{{ asset('img/like.png') }}">
-                                            <p class="num-like">{{ $post['reply_coment'][$g]->likes_comentarios }}</p>
-                                          </div>
+                                          <?php $resultados = Helper::verifica_like_subcoment($post['reply_coment'][$g]->id_subcomentarios)?>
+                                          @if($resultados == 0)
+                                            <span href="#" id="{{ $post['reply_coment'][$g]->id_subcomentarios }}" class="subcurtir fa-thumbs-o-up fa" data-id="{{ $post['reply_coment'][$g]->id_subcomentarios }}"></span> 
+                                            <span class="likes" id="likes_{{ $post['reply_coment'][$g]->id_subcomentarios }}">{{ $post['reply_coment'][$g]->likes_comentarios }}</span>
+                                          @else 
+                                            <span href="#" id="{{ $post['reply_coment'][$g]->id_subcomentarios }}" class="subcurtir fa-thumbs-up fa" data-id="{{ $post['reply_coment'][$g]->id_subcomentarios }}"></span>
+                                            <span class="likes" id="likes_{{ $post['reply_coment'][$g]->id_subcomentarios }}">{{$post['reply_coment'][$g]->likes_comentarios }}</span>
+                                          @endif
+                                          
 
                                           <div id="comentarios">
-                                            <form action="{{ route('comentario') }}" method="get">
+                                            <form action="{{ route('comentario') }}" method="POST">
                                               @csrf
                                               <input name="conteudo_resposta" maxlength="255" style="width: 100%" type="text" class="btn-popup mr-sm-2" placeholder="<?='Em resposta a '.'@'. $post['reply_coment'][$g]->usuario?>">
                                               <input type="hidden" name="id_coment" value="{{ $post['reply_coment'][$g]->id_comentarios }}">
@@ -532,9 +532,9 @@ $nivel = Auth::user()->nivel;
                                         </div>
                                       </div>
 
-                                      <!--  Modal para apagar comentários -->
+                                      <!--  Modal para apagar subcomentários -->
                                       <div class="painel-dados">
-                                        <div class="modal fade id" id="popup{{$post['reply_coment'][$g]->id_subcomentarios}}_apagar" role="dialog">
+                                        <div class="modal fade id" id="popup{{$post['reply_coment'][$g]->id_subcomentarios}}_apagar1" role="dialog">
                                           <div class="modal-dialog">
                                             <div class="modal-content">
                                               <div class="modal-header">
@@ -547,7 +547,7 @@ $nivel = Auth::user()->nivel;
                                                     @csrf
                                                     <input name="id_subcomentario" type="hidden" value="{{ $post['reply_coment'][$g]->id_subcomentarios }}">
                                                     <input name="id_comentario" type="hidden" value="{{ $post['reply_coment'][$g]->id_comentarios }}">
-                                                    <input data-toggle="modal" data-target="#hiddenDiv" type="submit" class="btn btn-primary dropright" value="Apagar comentário">
+                                                    <input data-toggle="modal" type="submit" class="btn btn-primary dropright" value="Apagar comentário">
                                                   </form>
                                                 </div> 
                                               </div>
@@ -558,19 +558,20 @@ $nivel = Auth::user()->nivel;
                                     @endif
                                   @endfor
 
-                                           
+                                                         
                                 
                                 @endfor
                               @endif
                             </div>           
                             <div class="modal-footer" style="margin-top: 10px">
-                              <p class="data-post seila">
-                                Postado em {{date('d/m/Y', strtotime($posts->data_postagem))}} às  {{date('H:i:s', strtotime($posts->data_postagem))}} horas
-                              </p>
                               <div class="popup-like">
                                 <img width="30px" src="{{ asset('img/like.png') }}">
-                                <p class="num-like">{{ $posts->likes_postagem }}</p>
-                              </div>          
+                                <p class="num-like">{{$posts->likes_postagem}}</p>
+                              </div>   
+                              <p class="data-post">
+                                Postado em {{date('d/m/Y', strtotime($posts->data_postagem))}} às  {{date('H:i:s', strtotime($posts->data_postagem))}} horas
+                              </p>
+                                     
                             </div>
                           </div>
                         </div>

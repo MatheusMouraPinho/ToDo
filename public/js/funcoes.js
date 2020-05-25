@@ -1,7 +1,7 @@
 $(function(){
     $(".mostrar").click(function(){
         $(this).siblings("#comentarios").toggle("slow");   
-        
+
     }); 
 });
 
@@ -62,11 +62,9 @@ $(document).ready(function(){
     });
     
     $('.subcurtir').on('click', function(){
-        var btn_like = $('#btn_like');
+
         var subcoment_id = $(this).data('id');
         $btn_clicado = $(this);
-        $btn_clicado.prop('disabled', true);
-        btn_like.prop('disabled', true);
     
     
         if($btn_clicado.hasClass("fa-thumbs-o-up")){
@@ -106,6 +104,25 @@ $(document).ready(function(){
     });
 
 });
+
+function update() {
+    var input = document.getElementById('file'); //define o id do input
+    var infoArea = document.getElementById( 'file-name' );//define o id do resutado do script
+    var fileName = input.files[0].name; //nome do arquivo que foi selecionado no input
+    infoArea.textContent = 'File: ' + fileName; //define infoArea como texto que recebe fileName
+}
+function update2() {
+    var input = document.getElementById('file2');
+    var infoArea = document.getElementById( 'file-name2' );
+    var fileName = input.files[0].name;
+    infoArea.textContent = 'File: ' + fileName;
+}
+function update3() {
+    var input = document.getElementById('file3');
+    var infoArea = document.getElementById( 'file-name3' ); 
+    var fileName = input.files[0].name;
+    infoArea.textContent = 'File: ' + fileName;
+}
 
 
 
