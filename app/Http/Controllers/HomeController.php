@@ -151,4 +151,37 @@ class HomeController extends Controller
         return redirect('home'); 
     }
     
+    public function criaideia()
+    {   $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $id = $_POST['id_usuario'];
+        $title = $_POST['titulo'];
+        $descri = $_POST['descricao'];
+
+        $sql = "INSERT INTO postagens (id_usuarios, id_situacao_postagem, id_categoria, titulo_postagem, descricao_postagem, data_postagem) VALUES ('$id', 2, 1, '$title', '$descri', NOW())";
+        mysqli_query($conn, $sql);
+
+        $sql = "SELECT * FROM postagens WHERE id_usuarios = $id ORDER BY id_postagem DESC";
+        $result = mysqli_query($conn, $sql);
+        if($row = mysqli_fetch_assoc($result)){
+            $id_postagem = $row['id_postagem'];
+        }
+        
+        if($_FILES['img_post']['error'] == 0){
+            $img = addslashes(file_get_contents($_FILES['img_post']['tmp_name']));
+            $sql = "INSERT INTO img_postagem (id_postagem, img_post) VALUES ('$id_postagem', '$img')";
+            mysqli_query($conn, $sql);
+        }
+        if($_FILES['img_post2']['error'] == 0){
+            $img2 = addslashes(file_get_contents($_FILES['img_post2']['tmp_name']));
+            $sql = "INSERT INTO img_postagem (id_postagem, img_post) VALUES ('$id_postagem', '$img2')";
+            mysqli_query($conn, $sql);
+        }
+        if($_FILES['img_post3']['error'] == 0){
+            $img3 = addslashes(file_get_contents($_FILES['img_post3']['tmp_name']));
+            $sql = "INSERT INTO img_postagem (id_postagem, img_post) VALUES ('$id_postagem', '$img3')";
+            mysqli_query($conn, $sql);
+        }
+
+        return redirect('home');
+    }
 }

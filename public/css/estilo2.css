@@ -198,7 +198,7 @@ f4{ /* borda situação pendente */
   padding: 1rem;
   background-color: #fff;
 }
-
+/* radio */
 .radio-custom {
   display: block;
   position: relative;
@@ -251,7 +251,7 @@ f4{ /* borda situação pendente */
 	border-radius: 50%;
 	background: black;
 }
-
+/* fim radio */
 .custom-footer {
   margin-top: 50px;
   background-color: #8f8f8f;
@@ -273,4 +273,39 @@ ff{
 
 fw{
   font-weight: 900;
+}
+/* modal criação post */
+
+.titulo-modal{
+  position: relative;
+  left: 35%;
+  padding-top: 10px;
+  text-decoration:underline;
+}
+
+.alinhamento{
+  position: relative;
+  left: 8%;
+}
+
+.alinhamento-img{
+  position: relative;
+  left: 12%;
+}
+
+.alinhamento-img2{
+  position: relative;
+  left: 20%;
+}
+
+.alinhamento-img3{
+  position: relative;
+  left: 28%;
+}
+
+.descricao{
+  position: relative;
+  left: 27%;
+  bottom: 23px;
+  resize: none;
 }
