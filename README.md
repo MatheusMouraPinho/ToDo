@@ -21,3 +21,15 @@ composer require appzcoder/crud-generator --dev
 Utilizar o site https://mailtrap.io como caixa de email e pegar o username e password pra editar o arquivo config/mail.php.
 
 Utilizar o comando para armazenar as imagens: php artisan storage:link
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+Caso ocorra o erro "MSQL SERVER AS GONE AWAY"
+
+alterar my.ini(xampp Control->mysql config->my.ini): max_allowed_packet=500M (Definitiva)
+
+ou
+
+Via SQL: SET GLOBAL max_allowed_packet=1073741824 (Temporario ate o reinício do server)
+
+----------------------------------------------------------------------------------------------------------------------------------------
