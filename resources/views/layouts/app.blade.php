@@ -13,31 +13,29 @@ if (isset($style)){?>
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Repositório de Ideias - ToDo</title>
+  <title>Repositório de Ideias - ToDo</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="https://kit.fontawesome.com/1618aca3df.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
-    <script type="text/javascript" src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/funcoes.js') }}"></script>
+  <!-- Scripts -->
+  <script src="{{ asset('js/app.js') }}" defer></script>
+  <script src="https://kit.fontawesome.com/1618aca3df.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/funcoes.js') }}"></script>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+  <!-- Fonts -->
+  <link rel="dns-prefetch" href="//fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/estilo.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/estilo2.css') }}" rel="stylesheet">
-
-    
+  <!-- Styles -->
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/estilo.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/estilo2.css') }}" rel="stylesheet">
 </head>
 <body>
   <!-- ||Nav Bar||  -->
@@ -61,11 +59,11 @@ if (isset($style)){?>
           </form>
         </li>
         <li style="padding-left:2em" class="nav-item">
-          <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target=".bd-example-modal-lg">Crie uma ideia</button>
+          <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#modalideia">Crie uma ideia</button>
         </li>
         <?php if($nivel > 1){?>
           <li class="nav-item">
-            <button class="btn btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target=".bd-example-modal-lg">Criar uma Sugestão</button>
+            <button class="btn btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#modalsugestao">Criar uma Sugestão</button>
           </li>
         <?php }?>
       </ul>
@@ -163,7 +161,7 @@ if (isset($style)){?>
         </div>
         <form action="/criaideia" method="POST" enctype="multipart/form-data">
           @csrf
-          <div class="modal-body-white">
+          <div class="modal-body">
             <div class="row">
               <div class="titulo-modal"><h2><ff>CRIE UMA IDEIA</ff></h2></div>
             </div><br>
@@ -202,10 +200,10 @@ if (isset($style)){?>
                 </label>
               </div>
             </div>
-          </div><br>
-          <div class="modal-footer">
+          </div>
+          <div class="modal-footer-custom grey">
             <input type='hidden' name="id_usuario" value="<?php echo $id_user ?>"/>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
             <button type="submit" class="btn btn-primary">Enviar Ideia</button>
           </div>
         </form>
@@ -233,7 +231,5 @@ if (isset($style)){?>
       infoArea.textContent = 'File: ' + fileName;
     }
   </script>
-
-  
 </body>
 </html>

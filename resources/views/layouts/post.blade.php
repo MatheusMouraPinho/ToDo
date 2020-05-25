@@ -4,7 +4,7 @@
 <!-- Área de detalhes de ideias postadas -->
 
 <div class="painel-dados">
-    <div class="modal fade id" id="post<? echo $id_post ?>" role="dialog">
+    <div class="modal fade id" id="post<?php echo $id_post ?>" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">

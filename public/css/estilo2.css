@@ -309,3 +309,7 @@ fw{
   bottom: 23px;
   resize: none;
 }
+
+.grey {
+  background-color: #757575;
+}
