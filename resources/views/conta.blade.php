@@ -129,19 +129,19 @@ $nivel = Auth::user()->nivel;
 
                 @if(is_null($dados['telefone']))
                   <div class="dados-pessoais">
-                    <p style="padding: 5px; margin: 0px;">Telefone: Não definido</p>
+                    <p style="padding: 5px; margin: 0px;">Celular: <span class="font-italic">Não definido</span></p>
                   </div>
                 @else 
                   <div class="dados-pessoais">
                     <p id="telefone" style="padding: 5px; margin: 0px;">
-                      Telefone: {{ $dados['telefone'] }}
+                      Celular: {{ $dados['telefone'] }}
                     </p>
                   </div>
                 @endif
 
                 @if(empty($dados['instituicao'][0]))
                   <div class="dados-pessoais">
-                    <p style="padding: 5px; margin: 0px;">Instituição de Ensino: Não definido</p>
+                    <p style="padding: 5px; margin: 0px;">Instituição de Ensino: <span class="font-italic">Não definido</span></p>
                   </div>
                 @else 
                   <div class="dados-pessoais">
@@ -151,7 +151,7 @@ $nivel = Auth::user()->nivel;
 
                 @if(empty($dados['area'][0]))
                   <div class="dados-pessoais">
-                    <p style="padding: 5px; margin: 0px;">Área: Não definido</p>
+                    <p style="padding: 5px; margin: 0px;">Área: <span class="font-italic">Não definido</span></p>
                   </div>
                 @else 
                   <div class="dados-pessoais">
@@ -161,7 +161,7 @@ $nivel = Auth::user()->nivel;
 
                 @if(empty($dados['cidade'][0]))
                   <div class="dados-pessoais">
-                    <p style="padding: 5px; margin: 0px;">Região: Não definido</p>
+                    <p style="padding: 5px; margin: 0px;">Região: <span class="font-italic">Não definido</span></p>
                   </div>
                 @else 
                   <div class="dados-pessoais">

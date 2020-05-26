@@ -152,7 +152,8 @@ class HomeController extends Controller
     }
     
     public function criaideia()
-    {   $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+    {
+        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
         $id = $_POST['id_usuario'];
         $title = $_POST['titulo'];
         $descri = $_POST['descricao'];

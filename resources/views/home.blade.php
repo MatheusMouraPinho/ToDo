@@ -102,15 +102,15 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
 <?php }?>
 <?php while($rows = mysqli_fetch_assoc($result2)){ $situation = $rows['id_situacao_postagem']; $id_post = $rows['id_postagem'];?>
     <div class="card-home">
-        <form action="/perfil" method="POST">
+        <div class="text-home"><h6>Postado por</h6></div>
+        <?php if($rows['img_usuarios'] == NULL){?>
+            <img class="img-autor" src="{{asset('img/semuser.png')}}">
+        <?php }else{?>
+            <img class="img-autor" src="{{asset('/storage/users/'.$rows['img_usuarios'])}}">
+        <?php }?>
+        <form action="{{url('/perfil')}}" method="get">
             @csrf
-            <input type="hidden" name="id_usuario" value="$rows['id']">
-            <div class="text-home"><h6>Postado por</h6></div>
-            <?php if($rows['img_usuarios'] == NULL){?>
-                <img class="img-autor" src="{{asset('img/semuser.png')}}">
-            <?php }else{?>
-                <img class="img-autor" src="{{asset('/storage/users/'.$rows['img_usuarios'])}}">
-            <?php }?>
+            <input type="hidden" name="id_usuario" value="{{$rows['id']}}">
             <div class="autor-home justify-content-md-center"><button style="text-decoration:underline" class="no-border-button" type="submit"><?php echo mb_strimwidth($rows['usuario'], 0, 16, "..."); ?></button></div>
         </form>
         <div class="divisao"></div>

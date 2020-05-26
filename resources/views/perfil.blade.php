@@ -127,31 +127,31 @@ $nivel = Auth::user()->nivel;
               </div>
 
               @if(is_null($dados['telefone']))
-                <div class="dados-pessoais">
-                  <p style="padding: 5px; margin: 0px;">Telefone: Não definido</p>
-                </div>
-              @else 
-                <div class="dados-pessoais">
-                  <p id="telefone" style="padding: 5px; margin: 0px;">
-                    Telefone: {{ $dados['telefone'] }}
-                  </p>
-                </div>
-              @endif
+                  <div class="dados-pessoais">
+                    <p style="padding: 5px; margin: 0px;">Celular: <span class="font-italic">Não definido</span></p>
+                  </div>
+                @else 
+                  <div class="dados-pessoais">
+                    <p id="telefone" style="padding: 5px; margin: 0px;">
+                      Celular: {{ $dados['telefone'] }}
+                    </p>
+                  </div>
+                @endif
 
-              @if(empty($dados['instituicao'][0]))
-                <div class="dados-pessoais">
-                  <p style="padding: 5px; margin: 0px;">Instituição de Ensino: Não definido</p>
-                </div>
-              @else 
-                <div class="dados-pessoais">
-                  <p style="padding: 5px; margin: 0px;">Instituição: {{ $dados['instituicao'] }}</p>
-                </div>
-              @endif
+                @if(empty($dados['instituicao'][0]))
+                  <div class="dados-pessoais">
+                    <p style="padding: 5px; margin: 0px;">Instituição de Ensino: <span class="font-italic">Não definido</span></p>
+                  </div>
+                @else 
+                  <div class="dados-pessoais">
+                    <p style="padding: 5px; margin: 0px;">Instituição: {{ $dados['instituicao'] }}</p>
+                  </div>
+                @endif
 
-              @if(empty($dados['area'][0]))
-                <div class="dados-pessoais">
-                  <p style="padding: 5px; margin: 0px;">Área: Não definido</p>
-                </div>
+                @if(empty($dados['area'][0]))
+                  <div class="dados-pessoais">
+                    <p style="padding: 5px; margin: 0px;">Área: <span class="font-italic">Não definido</span></p>
+                  </div>
               @else 
                 <div class="dados-pessoais">
                   <p style="padding: 5px; margin: 0px;">Área: {{ $dados['area'] }}</p>
