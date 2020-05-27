@@ -395,7 +395,7 @@ ul {
   display: inline-block;
   border: 1px solid black;
   border-radius: 5px;
-  width: 78%;
+  width: 75%;
   background-color: white;
   height: 200px;
   padding: 5px;
@@ -409,12 +409,20 @@ p {
 
 .popup_img {
   margin-top: 10px;
+  width: 100%;
 }
 
 .popup_imgs {
   width: 120px;
   border: 1px solid black;
   border-radius: 5px;
+  margin: 0px;
+}
+
+@media (max-width: 540px) {
+  .popup_imgs {
+    width: 100px;
+  }
 }
 
 .popup_aval {
@@ -425,7 +433,7 @@ p {
   display: inline-block;
   border: 1px solid black;
   border-radius: 5px;
-  width: 26%;
+  width: 25%;
   background-color: white;
   text-align: center;
   padding: 2px;
@@ -733,7 +741,6 @@ input[type='file'] {
   display: block;
   width: 100%;
   display: none;
-  
 }
 
 .comentario {
@@ -745,6 +752,7 @@ input[type='file'] {
   border: 1px solid #ccc;
   box-shadow: 5px 5px 5px #999;
   resize: none;  
+  border: 1px solid black;
 }
 
 .respondendo {
@@ -876,3 +884,94 @@ input[type='file'] {
   }
 }
 
+.notas {
+  width: 50%;
+  display: inline-block;
+}
+
+.nota {
+  width: 50px;
+  border: 1px solid black;
+  border-radius: 5px;
+  height: 50%;
+  padding: 6px;
+}
+
+.sub {
+  width: 80%;
+  text-align: right;
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.sub_comentario {
+  width: 15%;
+  text-align: right;
+  font-weight: bold;
+  font-size: 1.3em;
+  margin-bottom: 0px;
+}
+
+.sub_media {
+  width: 15%;
+  text-align: right;
+  font-weight: bold;
+  font-size: 1.3em;
+  margin-bottom: 0px;
+}
+
+.media {
+  float: right;
+  width: 50%;
+  display: inline-block;
+  height: 150px;
+}
+
+#media {
+  width: 60%;
+  text-align: center;
+}
+
+.center_media {
+  margin-top: 60px;
+  
+}
+
+.coment_avaliador {
+  margin: 10px;
+}
+
+.comentarios {
+  width: 80%;
+  padding: 10px;
+  line-height: 1.5;
+  border-radius: 5px;
+  border: 1px solid black;
+  box-shadow: 5px 5px 5px #999;
+  resize: none;  
+}
+
+@media (max-width: 1000px) {
+  .notas {
+    width: 58%;
+  }
+  .sub {
+    width: 50%;
+  }
+  .media {
+    width: 42%;
+  }
+  .sub_media {
+    display: block;
+    width: 30%;
+  }
+  #media {
+    width: 100%;
+  }
+  .sub_comentario {
+    display: block;
+  }
+  .comentarios {
+    width: 100%;
+  }
+}

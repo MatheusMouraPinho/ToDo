@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use datetime;
 use DB;
 
 class AdminController extends Controller
@@ -189,5 +190,32 @@ class AdminController extends Controller
 
             return redirect('adm4');
         }
+    }
+        
+    public function avaliar(Request $request) {
+        $data = $request->all();
+        $datetime = new DateTime();
+        $datetime->format('d-m-Y H:i:s');
+        $data['data_postagem'] = $datetime;
+        $soma = $data['inovacao'] + $data['complexidade'] + $data['potencial'];
+        $media = $soma / 3;
+        if(!empty($data)) {
+            $insert = DB::insert('insert into avaliacao_postagem (
+                id_postagem, id_usuario, inovacao_avaliacao, complexidade_avaliacao, potencial_avaliacao, comentario_avaliacao, media_avaliacao, id_avaliador, data_avaliacao
+            )  
+            values (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+                $data['id_postagem'], $data['id_usuario'], $data['inovacao'], $data['complexidade'], $data['potencial'], $data['comentarios'], $media, $data['id_avaliador'], $data['data_postagem']
+            ]);
+
+            $update = DB::update('update postagens set media = ?, id_situacao_postagem = ? where id_postagem = ?', [$media, 1, $data['id_postagem']]);
+        }
+
+        if(!$insert or !$update ) {
+            return redirect()
+                            ->back()
+                            ->with('error', 'Erro ao processar avaliação');
+        }
+
+        return back();
     }
 }

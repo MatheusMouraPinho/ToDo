@@ -124,6 +124,22 @@ function update3() {
     infoArea.textContent = 'File: ' + fileName;
 }
 
+function id(valor_campo) {
+    return document.getElementById(valor_campo);
+}
+
+function getValor(valor_campo) {
+    var valor = document.getElementById(valor_campo).value.replace(',', '.');
+    return parseFloat(valor) * 100;
+}
+
+function calcular () {
+    var soma = getValor('inovacao') + getValor('complexidade') + getValor('potencial');
+    var media = soma / 3;
+    media = media / 100;
+    id('media').value = media.toFixed(2);
+}
+
 
 
 

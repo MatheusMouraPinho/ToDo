@@ -265,7 +265,7 @@ $nivel = Auth::user()->nivel;
                                       <span class="bold">Inovação: </span>{{ $post['avaliacao'][$c]->inovacao_avaliacao }}
                                     </p>
                                     <p class="popup_avali">
-                                      <span class="bold">Potencial de Mercado: </span>{{ $post['avaliacao'][$c]->potencial_avaliacao }}
+                                      <span class="bold">Potencial: </span>{{ $post['avaliacao'][$c]->potencial_avaliacao }}
                                     </p>
                                     <p class="popup_avali">
                                       <span class="bold">Complexidade: </span>{{ $post['avaliacao'][$c]->complexidade_avaliacao }}
@@ -296,7 +296,7 @@ $nivel = Auth::user()->nivel;
                             </div>
                             <div class="popup-aval">
                               <span class="popup_sub bold">Comentários:</span>   
-                              <div style="margin-bottom: 13%">
+                              <div style="margin-bottom: 15%">
                                 <form action="{{ route('comentario') }}" method="POST">
                                   @csrf
                                   <textarea required name="conteudo_comentarios" class="comentario" maxlength="255" cols="60" rows="2" placeholder="Digite aqui seu comentário"></textarea>

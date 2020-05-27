@@ -60,6 +60,7 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() { 
 
     Route::post('/like', 'ComentController@like')->name('like');
 
+
 });
 
 Route::group(['middleware' => ['auth', 'verified', 'Altorizado', 'admin']], function() {
@@ -78,5 +79,7 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado', 'admin']], func
     
     Route::get('/adm4', 'AdminController@admin4');
         Route::post('/option2', 'AdminController@option2');
+
+    Route::post('/avaliar', 'AdminController@avaliar');
 });
 

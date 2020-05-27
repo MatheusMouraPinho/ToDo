@@ -17,8 +17,8 @@ $id_user = Auth::user()->id;
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}" defer></script>
   <script src="https://kit.fontawesome.com/1618aca3df.js" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
   <script type="text/javascript" src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
   <script type="text/javascript" src="{{ asset('js/funcoes.js') }}"></script>
 
   <!-- Fonts -->
@@ -204,6 +204,8 @@ $id_user = Auth::user()->id;
     </div>
   </div>
   <!-- FIM Modal Criação post-->
+
+  
   <script>
     function update() {
       var input = document.getElementById('file'); //define o id do input
