@@ -5,7 +5,7 @@ $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
 
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
-$sql = "SELECT * FROM denuncias";
+$sql = "SELECT * FROM denuncias_comentarios";
 $resultado = mysqli_query($conn, $sql);//pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($resultado); //conta o total de rows
 
@@ -15,7 +15,7 @@ $num_pagina = ceil($total_pesquisa/$quantidade);
 
 $inicio = ($quantidade*$pagina)-$quantidade;
 
-$sql = "SELECT * FROM denuncias LEFT JOIN postagens ON (denuncias.id_postagem = postagens.id_postagem) LIMIT $inicio, $quantidade";
+$sql = "SELECT * FROM denuncias_comentarios LEFT JOIN comentarios ON (id_comentario = comentarios.id_comentarios) LEFT JOIN usuarios ON (id_usuarios = usuarios.id) LIMIT $inicio, $quantidade";
 $result = mysqli_query($conn, $sql);//pesquisa limitada com paginação
 
 $pagina_anterior = $pagina - 1; //paginação
@@ -34,31 +34,30 @@ if ($total_pesquisa > 0 ){ //se tiver rows
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a class="nav-item nav-link"  href="{{ url('/adm') }}">Cadastros</a>
     <a class="nav-item nav-link"  href="{{ url('/adm2') }}">Nivel de acesso</a>
-    <a class="nav-item nav-link active"  href="{{ url('/adm3') }}">Denuncias Postagens</a>
-    <a class="nav-item nav-link"  href="{{ url('/adm4') }}">Denuncias Comentarios</a>
+    <a class="nav-item nav-link"  href="{{ url('/adm3') }}">Denuncias Postagens</a>
+    <a class="nav-item nav-link active"  href="{{ url('/adm4') }}">Denuncias Comentarios</a>
   </div>
 </nav>
 <br>
 
 <div class="row">
     <table class="col-12" id="table_conta">
-        <caption>Denuncias Postagens</caption>
+        <caption>Denuncias Comentarios</caption>
         <?php if(isset($check)){ ?>
             <thead>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Nome da ideia</th>
+                    <th scope="col">Autor do comentario</th>
                     <th scope="col">Motivo</th>
-                    <th scope="col">Visualizar ideia</th>
+                    <th scope="col">Visualizar comentario</th>
                     <th scope="col">Opções</th>
                 </tr>
             </thead>
-            <?php while($rows = mysqli_fetch_assoc($result)){ $id_denuncia = $rows['id_denuncia'];
-                 $nome_post = $rows['titulo_postagem']; $id_post = $rows['id_postagem'];?>
+            <?php while($rows = mysqli_fetch_assoc($result)){ ?>
                 <tbody class="pisca">
                     <tr>
                         <td><?php echo $i ?></td>
-                        <td><?php echo $rows['titulo_postagem']; ?></td>
+                        <td><?php echo $rows['usuario'] ?></td>
                         <td>
                             <?php 
                             if ($rows['id_motivo'] == 1 ) { echo "Spam";    
@@ -66,8 +65,8 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                             }else{ echo "Conteudo Inadequado";}
                             ?>
                         </td>
-                        <!-- Modal --> 
-                        <div class="modal fade" id="modal<?php echo $id_post ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                        <!-- Modal visualizar -->
+                        <div class="modal fade" id="post<?php echo $rows['id_comentarios'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                 <div class="modal-header">
@@ -75,7 +74,34 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                     <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="{{ url('/option') }}" method="POST">
+                                <form action="{{ url('/alterar') }}" method="POST">
+                                    @csrf
+                                    <div class="modal-body-white">
+                                        <p class="text-center"><h5>Conteudo do Comentario de <?php echo $rows['usuario'] ?></h5></p>
+                                        <br>
+                                        <textarea style="resize: none" cols="60" rows="6" readonly><?php echo $rows['conteudo_comentarios'] ?></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fim Modal visualizar -->
+                        <td><a type="button" data-toggle="modal" data-target="#post<?php echo $rows['id_comentarios'] ?>">
+                            <img width="40px" src="{{asset('img/lupe.png')}}">
+                        </a></td>
+                        <!-- Modal Opções --> 
+                        <div class="modal fade" id="modal<?php echo $rows['id_comentarios'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="/option2" method="POST">
                                     @csrf
                                     <div class="modal-body-white">
                                         <p><h4>Opções:</h4></p>
@@ -85,36 +111,28 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                                 <input type="radio" id="radio1" type="radio" name="option" value="rem_den" required>
                                                 <span class="checkmark"></span>
                                             </label>
-                                            <label class="radio-custom">Barrar Postagem
-                                                <input type="radio" id="radio2" type="radio" name="option" value="barrar" required>
-                                                <span class="checkmark"></span>
-                                            </label>
-                                            <label class="radio-custom">Deletar o Postagem
-                                                <input type="radio" id="radio3" type="radio" name="option" value="del_post" required>
+                                            <label class="radio-custom">Deletar Comentario
+                                                <input type="radio" id="radio2" type="radio" name="option" value="del_comen" required>
                                                 <span class="checkmark"></span>
                                             </label>
                                         </h6>
                                     </div>
                                     <div class="modal-footer">
-                                        <input type='hidden' name="id_denuncia" value="<?php echo $id_denuncia ?>"/>
-                                        <input type='hidden' name="id_postagem" value="<?php echo $id_post ?>"/>
+                                        <input type='hidden' name="id_denuncia" value="<?php echo $rows['id_denunciacomentario'] ?>"/>
+                                        <input type='hidden' name="id_comentario" value="<?php echo $rows['id_comentario'] ?>"/>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                         <button type="submit" class="btn btn-primary">Confirmar</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
-                        <!-- Fim Modal -->
-                        <td><a type="button" data-toggle="modal" data-target="#post<?php echo $id_post ?>">
-                            <img width="40px" src="{{asset('img/lupe.png')}}">
-                        </a></td>
-                        @include('layouts.post')
-                        <td><a type="button" data-toggle="modal" data-target="#modal<?php echo $id_post ?>">
+                        <!-- Fim Modal Opções -->
+                        <td><a type="button" data-toggle="modal" data-target="#modal<?php echo $rows['id_comentarios'] ?>">
                                 <img width="40px" src="{{asset('img/options.png')}}">
                         </a></td>
                     </tr>
                 </tbody>
-            <?php $i++; } ?>
+            <?php $i++; }?>
         <?php }else{?>
             <tbody>  
                 <tr>

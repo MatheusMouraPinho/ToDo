@@ -1,8 +1,5 @@
 @extends('layouts.app')
 
-<?php if($rows['id_categoria'] = "1" ){$categoria = "Ideia";}else{$categoria = "Sugestão";}?>
-
-
 <?php  session_start();
 $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
 
@@ -25,6 +22,7 @@ if(!isset($filtro)){$filtro = "data_postagem";}
 if(!isset($tipo)){$tipo = "1 OR 2";}
 if(!isset($periodo)){ $periodo = "data_postagem";}
 if(!isset($avalia)){ $avalia = "1 OR 2";}
+if($filtro == "media"){$avalia = "1";}
 
 $sql = "SELECT * FROM postagens LEFT JOIN usuarios ON (postagens.id_usuarios = usuarios.id) WHERE data_postagem >= $periodo AND (id_categoria = $tipo) AND (id_situacao_postagem = $avalia) AND (postagens.titulo_postagem LIKE '%$pesquisa%' OR usuarios.usuario LIKE '%$pesquisa%') ORDER BY $filtro DESC";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows

@@ -22,9 +22,6 @@ $inicio = ($quantidade*$pagina)-$quantidade;
 $sql = "SELECT * FROM usuarios WHERE id_situacao = '1' AND (usuario LIKE '%$pesquisa2%' OR registro LIKE '%$pesquisa2%') LIMIT $inicio, $quantidade ";
 $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
-$modal = "adm2"; 
-if ($total_pesquisa == 0){ $modal = false;} //se não ouver rows de usuarios o modal é desabilitado
-
 $pagina_anterior = $pagina - 1; //paginação
 $pagina_posterior = $pagina + 1;
 
@@ -41,7 +38,8 @@ if ($total_pesquisa > 0 ){ //se tiver rows
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a class="nav-item nav-link"  href="{{ url('/adm') }}">Cadastros</a>
     <a class="nav-item nav-link active"  href="{{ url('/adm2') }}">Nivel de acesso</a>
-    <a class="nav-item nav-link"  href="{{ url('/adm3') }}">Denuncias</a>
+    <a class="nav-item nav-link"  href="{{ url('/adm3') }}">Denuncias Postagens</a>
+    <a class="nav-item nav-link"  href="{{ url('/adm4') }}">Denuncias Comentarios</a>
   </div>
 </nav>
 <br>
@@ -58,7 +56,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
 <div class="row">
     <table class="col-12" id="table_conta">
         <caption>Alterar nivel de acesso</caption>
-        <?php if(isset($check)){ $style = TRUE ?>
+        <?php if(isset($check)){ ?>
             <thead>
                 <tr>
                     <th scope="col">ID</th>
@@ -98,7 +96,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                 </div>
             </div>
             <!-- Fim Modal -->
-            <tbody>
+            <tbody class="pisca">
                 <tr>
                     <td><?php echo $i ?></td>
                     <td><?php echo $rows['usuario']; ?></td>

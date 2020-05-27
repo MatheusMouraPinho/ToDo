@@ -1,14 +1,7 @@
 <?php 
 $nivel = Auth::user()->nivel; 
 $id_user = Auth::user()->id;
-
-if (isset($style)){?> 
-  <style>
-  tbody tr:hover {
-    background-color: rgb(221, 221, 221);
-  }
-  </style>
-<?php }?>
+?>
 
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -149,7 +142,7 @@ if (isset($style)){?>
       </div>
     </div>
   </footer>
-  <!-- Footer -->
+  <!-- FIM Footer -->
   <!--Modal Criação post-->
   <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modalideia" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -204,7 +197,7 @@ if (isset($style)){?>
           <div class="modal-footer-custom grey">
             <input type='hidden' name="id_usuario" value="<?php echo $id_user ?>"/>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Enviar Ideia</button>
+            <button type="submit" class="btn btn-primary">Enviar Ideia</button><br>
           </div>
         </form>
       </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use DB;
 
 class AdminController extends Controller
 {
@@ -21,12 +22,45 @@ class AdminController extends Controller
 
     public function admin3()
     {
-        return view('adm3');
+        $post = [ 
+            'avaliador' => DB::table('postagens')
+                            ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
+                            ->join('usuarios', 'usuarios.id', '=', 'avaliacao_postagem.id_avaliador')
+                            ->select('usuarios.usuario')
+                            ->get(),
+            
+            'avaliacao' => DB::table('postagens')
+                            ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
+                            ->select('avaliacao_postagem.*', 'postagens.id_usuarios', 'postagens.id_postagem')
+                            ->get(),
+            
+            'comentarios' => DB::table('comentarios')
+                                ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
+                                ->join('usuarios', 'comentarios.id_usuarios', '=', 'usuarios.id')
+                                ->select('comentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
+                                ->orderBy('data_comentarios', 'desc')
+                                ->get(),
+
+            'reply_coment' => DB::table('subcomentarios')
+                                ->join('postagens', 'postagens.id_postagem', '=', 'subcomentarios.id_postagem')
+                                ->where('subcomentarios.id_resposta', '=', null)
+                                ->join('usuarios', 'subcomentarios.id_usuarios', '=', 'usuarios.id')
+                                ->select('subcomentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
+                                ->orderBy('data_comentarios', 'desc')
+                                ->get(),
+
+            'reply_reply' => DB::table('subcomentarios')
+                            ->where('id_resposta', '!=', null)
+                            ->orderBy('data_comentarios', 'desc')
+                            ->get()
+        ];
+
+        return view('adm3', compact('post'));
     }
 
-    public function ava()
-    {
-        return view('ava');
+    public function admin4()
+    {   
+        return view('adm4');
     }
 
     public function alt()
@@ -86,7 +120,7 @@ class AdminController extends Controller
             $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
             $id_sql = $_POST ['id_denuncia'];
 
-            $sql = "DELETE FROM denuncias WHERE id ='$id_sql'";
+            $sql = "DELETE FROM denuncias WHERE id_denuncia ='$id_sql'";
             mysqli_query($conn, $sql);
 
             return redirect('adm3');
@@ -96,10 +130,19 @@ class AdminController extends Controller
             $id1 = $_POST ['id_denuncia'];
             $id2 = $_POST ['id_postagem'];
 
-            $sql = "DELETE FROM denuncias WHERE id ='$id1'";
+            $sql = "SELECT * FROM comentarios WHERE id_postagem ='$id2'";
+            $result = mysqli_query($conn, $sql);
+            if($row = mysqli_fetch_assoc($result)){
+                $id_comen = $row['id_comentarios'];
+            }
+
+            $sql = "DELETE FROM denuncias WHERE id_denuncia ='$id1'";
             mysqli_query($conn, $sql);
 
             $sql = "DELETE FROM subcomentarios WHERE id_postagem ='$id2'";
+            mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM like_comentarios WHERE id_comentarios ='$id_comen'";
             mysqli_query($conn, $sql);
 
             $sql = "DELETE FROM comentarios WHERE id_postagem ='$id2'";
@@ -114,6 +157,37 @@ class AdminController extends Controller
             $id1 = $_POST ['id_denuncia'];
             $id2 = $_POST ['id_postagem'];
             echo $id1 . " e " .  $id2;
+        }
+    }
+
+    public function option2(){  
+        if($_POST['option'] == 'rem_den'){
+            $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+            $id_sql = $_POST ['id_denuncia'];
+
+            $sql = "DELETE FROM denuncias_comentarios WHERE id_denunciacomentario ='$id_sql'";
+            mysqli_query($conn, $sql);
+
+            return redirect('adm4');
+        }
+        if($_POST['option'] == 'del_comen'){
+            $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+            $id1 = $_POST ['id_denuncia'];
+            $id2 = $_POST ['id_comentario'];
+
+            $sql = "DELETE FROM denuncias_comentarios WHERE id_denunciacomentario ='$id1'";
+            mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM subcomentarios WHERE id_comentarios ='$id2'";
+            mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM like_comentarios WHERE id_comentarios ='$id2'";
+            mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM comentarios WHERE id_comentarios ='$id2'";
+            mysqli_query($conn, $sql);
+
+            return redirect('adm4');
         }
     }
 }

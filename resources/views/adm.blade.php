@@ -34,7 +34,8 @@ if ($total_pesquisa > 0 ){ //se tiver rows
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a class="nav-item nav-link active"  href="{{ url('/adm') }}">Cadastros</a>
     <a class="nav-item nav-link"  href="{{ url('/adm2') }}">Nivel de acesso</a>
-    <a class="nav-item nav-link"  href="{{ url('/adm3') }}">Denuncias</a>
+    <a class="nav-item nav-link"  href="{{ url('/adm3') }}">Denuncias Postagens</a>
+    <a class="nav-item nav-link"  href="{{ url('/adm4') }}">Denuncias Comentarios</a>
   </div>
 </nav>
 <br>
@@ -42,7 +43,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
 <div class="row">
     <table class="col-12" id="table_conta">
         <caption>Cadastros Pendentes</caption>
-        <?php if(isset($check)){$style = TRUE ?>
+        <?php if(isset($check)){ ?>
             <thead>
                 <tr>
                     <th scope="col">ID</th>
@@ -55,7 +56,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                 </tr>
             </thead>
             <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel']; ?>
-                <tbody>
+                <tbody class="pisca">
                     <tr>
                         <td><?php echo $i ?></td>
                         <td><?php echo $rows['email_verified_at']; ?></td>
