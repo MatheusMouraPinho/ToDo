@@ -3,7 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 20-Maio-2020 às 18:11
+-- Tempo de geração: 27-Maio-2020 às 02:38
+-- Versão do servidor: 10.4.8-MariaDB
+-- versão do PHP: 7.3.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -161,7 +163,7 @@ INSERT INTO `comentarios` (`id_comentarios`, `id_usuarios`, `id_postagem`, `cont
 --
 
 CREATE TABLE `denuncias` (
-  `id` int(11) NOT NULL,
+  `id_denuncia` int(11) NOT NULL,
   `id_postagem` int(11) DEFAULT NULL,
   `id_motivo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -170,10 +172,39 @@ CREATE TABLE `denuncias` (
 -- Extraindo dados da tabela `denuncias`
 --
 
-INSERT INTO `denuncias` (`id`, `id_postagem`, `id_motivo`) VALUES
-(1, 11, 1),
-(2, 16, 2),
-(3, 11, 3);
+INSERT INTO `denuncias` (`id_denuncia`, `id_postagem`, `id_motivo`) VALUES
+(16, 11, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `denuncias_comentarios`
+--
+
+CREATE TABLE `denuncias_comentarios` (
+  `id_denunciacomentario` int(11) NOT NULL,
+  `id_comentario` int(11) DEFAULT NULL,
+  `id_motivo` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `denuncias_comentarios`
+--
+
+INSERT INTO `denuncias_comentarios` (`id_denunciacomentario`, `id_comentario`, `id_motivo`) VALUES
+(11, 8, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `denuncias_subcomentarios`
+--
+
+CREATE TABLE `denuncias_subcomentarios` (
+  `id` int(11) NOT NULL,
+  `id_subcomentario` int(11) DEFAULT NULL,
+  `id_motivo` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -352,8 +383,6 @@ INSERT INTO `postagens` (`id_postagem`, `id_usuarios`, `id_situacao_postagem`, `
 (13, 17, 2, 1, 'big data sobre eleição', 'textotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotexto', 0, '2020-05-13 00:00:00', NULL),
 (14, 12, 2, 1, 'Ideia sem ideias', ' ideias ideias ideias ideias ideias ideias ideias ideias ideias ideias ideias ideias', 0, '2020-05-04 00:00:00', NULL),
 (15, 12, 1, 1, 'agronegócio inteligente', 'preenche linha preenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linha', 1, '2020-05-13 00:00:00', 5),
-(16, 17, 2, 1, 'agronegócio inteligente', 'preenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linha', 2, '2020-05-30 00:00:00', NULL),
-(17, 12, 2, 1, 'sem ideia ja', 'semsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsemsem', 0, '2020-05-13 00:00:00', NULL),
 (22, 12, 1, 1, 'ideia arduino', 'descriçãodescriçãodescriçãodescriçãodescriçãodescriçãodescrição', 12, '2020-05-13 00:00:00', 8.22);
 
 -- --------------------------------------------------------
@@ -1086,8 +1115,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `email_verified_at`, `id_situacao`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`) VALUES
-(12, 'Matheus Moura', 'Matheusmpinho@Outlook.com', 20867000, '$2y$10$rZ0C2fvYHoHI0xA7LOuCFu4FiJqIs1B6GEnAUqUPvf6aq/JZMeOOa', 3, '2000-01-27 02:00:00', 1, 2, 10, 457, 0x31326d6174686575732d6d6f7572612e706e672e706e67, NULL),
-(17, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', 22132066, '$2y$10$HvEA4OD5DyLyimmbxUihv.yxLpRGMJjm//L1kqnoLduRrL0dJrzTC', 3, '2020-04-30 23:23:51', 1, 2, 10, 398, 0x31376a6f6e617468616e2d646961732e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e706e672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a706567, 12981489308),
+(12, 'Matheus Moura', 'Matheusmpinho@Outlook.com', 20867000, '$2y$10$rZ0C2fvYHoHI0xA7LOuCFu4FiJqIs1B6GEnAUqUPvf6aq/JZMeOOa', 3, '2000-01-27 02:00:00', 1, 2, 10, 457, NULL, NULL),
+(17, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', 22132066, '$2y$10$HvEA4OD5DyLyimmbxUihv.yxLpRGMJjm//L1kqnoLduRrL0dJrzTC', 3, '2020-04-30 23:23:51', 1, 2, 10, 398, NULL, 12981489308),
 (20, 'Nome', '1@1.com', 20867001, '$2y$10$QXHJgUcvF4HGP/9R4Xusq.ZnF015YPCCGhNaANQ4oe36DaJKsXteG', 1, NULL, 2, NULL, NULL, NULL, NULL, NULL),
 (21, 'Teste', 'teste@teste.com', 20867006, '1231231415', 2, '2020-05-05 03:00:00', 2, NULL, NULL, NULL, NULL, NULL),
 (23, 'jose antonio', 'jose@jose.com', 60887000, '$2y$10$RRXj1Ee1iieA4yQE1dgm8.xzIMIr9Mzck.kupmrr5EczWtkdF0rqe', 1, '2020-05-13 21:23:57', 2, NULL, NULL, NULL, NULL, NULL),
@@ -1143,8 +1172,24 @@ ALTER TABLE `comentarios`
 -- Índices para tabela `denuncias`
 --
 ALTER TABLE `denuncias`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id_denuncia`),
   ADD KEY `id_postagem` (`id_postagem`),
+  ADD KEY `id_motivo` (`id_motivo`);
+
+--
+-- Índices para tabela `denuncias_comentarios`
+--
+ALTER TABLE `denuncias_comentarios`
+  ADD PRIMARY KEY (`id_denunciacomentario`),
+  ADD KEY `id_cometario` (`id_comentario`),
+  ADD KEY `id_motivo` (`id_motivo`);
+
+--
+-- Índices para tabela `denuncias_subcomentarios`
+--
+ALTER TABLE `denuncias_subcomentarios`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_subcomentario` (`id_subcomentario`),
   ADD KEY `id_motivo` (`id_motivo`);
 
 --
@@ -1291,13 +1336,25 @@ ALTER TABLE `categoria_postagem`
 -- AUTO_INCREMENT de tabela `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id_comentarios` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_comentarios` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de tabela `denuncias`
 --
 ALTER TABLE `denuncias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT de tabela `denuncias_comentarios`
+--
+ALTER TABLE `denuncias_comentarios`
+  MODIFY `id_denunciacomentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de tabela `denuncias_subcomentarios`
+--
+ALTER TABLE `denuncias_subcomentarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `img_postagem`
@@ -1315,7 +1372,7 @@ ALTER TABLE `instituicao_ensino`
 -- AUTO_INCREMENT de tabela `like_comentarios`
 --
 ALTER TABLE `like_comentarios`
-  MODIFY `id_likes` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_likes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `like_postagens`
@@ -1414,6 +1471,20 @@ ALTER TABLE `comentarios`
 ALTER TABLE `denuncias`
   ADD CONSTRAINT `denuncias_ibfk_1` FOREIGN KEY (`id_postagem`) REFERENCES `postagens` (`id_postagem`),
   ADD CONSTRAINT `denuncias_ibfk_2` FOREIGN KEY (`id_motivo`) REFERENCES `motivo_denuncia` (`id`);
+
+--
+-- Limitadores para a tabela `denuncias_comentarios`
+--
+ALTER TABLE `denuncias_comentarios`
+  ADD CONSTRAINT `denuncias_comentarios_ibfk_1` FOREIGN KEY (`id_comentario`) REFERENCES `comentarios` (`id_comentarios`),
+  ADD CONSTRAINT `denuncias_comentarios_ibfk_3` FOREIGN KEY (`id_motivo`) REFERENCES `motivo_denuncia` (`id`);
+
+--
+-- Limitadores para a tabela `denuncias_subcomentarios`
+--
+ALTER TABLE `denuncias_subcomentarios`
+  ADD CONSTRAINT `denuncias_subcomentarios_ibfk_1` FOREIGN KEY (`id_subcomentario`) REFERENCES `subcomentarios` (`id_subcomentarios`),
+  ADD CONSTRAINT `denuncias_subcomentarios_ibfk_2` FOREIGN KEY (`id_motivo`) REFERENCES `motivo_denuncia` (`id`);
 
 --
 -- Limitadores para a tabela `img_postagem`
