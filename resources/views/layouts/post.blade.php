@@ -65,14 +65,14 @@
                   @endfor
                 @endfor
                 @if($cont === sizeof($post['avaliacao']))
-                  @if($id_nivel == 1)
+                  @if($id_nivel == 1 && isset($rows['id']))
                     <a href="#" class="popup_coment" data-toggle="modal" data-target="#post<?php echo $id_post ?>_avaliar">Avaliar postagem</a>
                   @else
                     <p class="popup_coment">Pendente</p>
                   @endif
                 @endif
               @else
-                @if($id_nivel == 1)
+                @if($id_nivel == 1 && isset($rows['id']))
                   <a href="#" class="popup_coment" data-toggle="modal" data-target="#post<?php echo $id_post ?>_avaliar">Avaliar postagem</a>
                 @else
                   <p class="popup_coment">Pendente</p>
@@ -409,7 +409,7 @@
                     <textarea name="comentarios" class="comentarios" cols="80" rows="4" placeholder="Digite seu comentário..." required></textarea>
                 </div>
                 <input type="hidden" name="id_postagem" value="{{ $id_post }}">
-                <input type="hidden" name="id_usuario" value="{{ $rows['id'] }}">
+                <?php if(isset($rows['id'])){?><input type="hidden" name="id_usuario" value="{{ $rows['id'] }}"><?php }?>
                 <input type="hidden" name="id_avaliador" value="{{ Auth::user()->id }}">
             </div>
             <div class="modal-footer-custom grey">
