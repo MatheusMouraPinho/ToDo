@@ -52,13 +52,8 @@ $id_user = Auth::user()->id;
           </form>
         </li>
         <li style="padding-left:2em" class="nav-item">
-          <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#modalideia">Crie uma ideia</button>
+          <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#modalideia">Crie uma Postagem</button>
         </li>
-        <?php if($nivel > 1){?>
-          <li class="nav-item">
-            <button class="btn btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#modalsugestao">Criar uma Sugestão</button>
-          </li>
-        <?php }?>
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
@@ -152,16 +147,27 @@ $id_user = Auth::user()->id;
           <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="/criaideia" method="POST" enctype="multipart/form-data">
+        <form action="/cria" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="modal-body">
             <div class="row">
-              <div class="titulo-modal"><h2><ff>CRIE UMA IDEIA</ff></h2></div>
+              <div class="titulo-modal"><h2><ff>CRIE UMA POSTAGEM</ff></h2></div>
             </div><br>
             <div class="row">
               <div class="alinhamento">
-                <label><h5><b>Titulo da Ideia:</b></h5></label>
+                <label><h5><b>Titulo:</b></h5></label>
                 <input type="text" name="titulo" placeholder="Digite aqui..." required>
+                &nbsp;
+                <label><h5><b>Categoria:</b></h5></label>
+                <select class="Bselect" type="text" name="categoria" required> 
+                <?php if($nivel > 2){?>
+                  <option value="" disabled selected> Selecionar categoria </option>
+                  <option value="1"> Ideia </option>
+                  <option value="2"> Sugestão </option><?php 
+                }else{?> 
+                  <option value="1"> Ideia </option>
+                <?php }?>
+                </select>
               </div>
             </div><br>
             <div class="row">

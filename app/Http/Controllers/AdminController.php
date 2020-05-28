@@ -64,11 +64,6 @@ class AdminController extends Controller
         return view('adm4');
     }
 
-    public function admin5()
-    {   
-        return view('adm5');
-    }
-
     public function alt()
     {  
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");

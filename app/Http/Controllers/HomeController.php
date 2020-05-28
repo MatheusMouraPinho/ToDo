@@ -151,14 +151,15 @@ class HomeController extends Controller
         return redirect('home'); 
     }
     
-    public function criaideia()
+    public function cria()
     {
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
         $id = $_POST['id_usuario'];
         $title = $_POST['titulo'];
         $descri = $_POST['descricao'];
+        $categoria = $_POST['categoria'];
 
-        $sql = "INSERT INTO postagens (id_usuarios, id_situacao_postagem, id_categoria, titulo_postagem, descricao_postagem, data_postagem) VALUES ('$id', 2, 1, '$title', '$descri', NOW())";
+        $sql = "INSERT INTO postagens (id_usuarios, id_situacao_postagem, id_categoria, titulo_postagem, descricao_postagem, data_postagem) VALUES ('$id', 2, '$categoria', '$title', '$descri', NOW())";
         mysqli_query($conn, $sql);
 
         $sql = "SELECT * FROM postagens WHERE id_usuarios = $id ORDER BY id_postagem DESC";

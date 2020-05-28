@@ -278,7 +278,7 @@ fw{
 
 .titulo-modal{
   position: relative;
-  left: 35%;
+  left: 30%;
   padding-top: 10px;
   text-decoration:underline;
 }
@@ -286,6 +286,11 @@ fw{
 .alinhamento{
   position: relative;
   left: 8%;
+}
+
+.alinhamento2{
+  position: relative;
+  left: 10%;
 }
 
 .alinhamento-img{
@@ -317,3 +322,20 @@ fw{
 .pisca tr:hover {
   background-color: rgb(221, 221, 221);
 }
+
+.Bselect {
+  width: 170px;
+  height: 28px;
+  margin: 10px;
+}
+
+/*.faixa {
+  position: absolute;
+  border: 16px solid #646464;
+  height: 100%;
+  right: 12%;
+  width:1px;
+  word-wrap: break-word;
+  font-family: "Arial Black";
+  font-weight: 900;
+}*/

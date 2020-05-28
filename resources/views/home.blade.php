@@ -21,10 +21,11 @@ if(isset($_SESSION['avalia'])){$avalia = $_SESSION['avalia'];}
 
 if(!isset($pesquisa)){ $pesquisa = NULL;}
 if(!isset($filtro)){$filtro = "data_postagem";}
-if(!isset($tipo)){$tipo = "1 OR 2";}
+if(!isset($tipo)){$tipo = "1";}
 if(!isset($periodo)){ $periodo = "data_postagem";}
 if(!isset($avalia)){ $avalia = "1 OR 2";}
 if($filtro == "media"){$avalia = "1";}
+if($tipo == "2"){$avalia = "2";}
 
 $sql = "SELECT * FROM postagens LEFT JOIN usuarios ON (postagens.id_usuarios = usuarios.id) WHERE data_postagem >= $periodo AND (id_categoria = $tipo) AND (id_situacao_postagem = $avalia) AND (postagens.titulo_postagem LIKE '%$pesquisa%' OR usuarios.usuario LIKE '%$pesquisa%') ORDER BY $filtro DESC";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
@@ -57,16 +58,18 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
             <button name="filtro" value="novo" <?php if($filtro == "data_postagem"){?> class="btn btn-outline-primary-custom" <?php }else{?> class="btn btn-primary" <?php }?>>Novos</button> 
             <button name="filtro" value="popu" <?php if($filtro == "likes_postagem"){?> class="btn btn-outline-primary-custom" <?php }else{?> class="btn btn-primary" <?php }?>>Populares</button> 
             <button name="filtro" value="melh" <?php if($filtro == "media"){?> class="btn btn-outline-primary-custom" <?php }else{?> class="btn btn-primary" <?php }?>>Melhores Avaliados</button> 
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <?php if($avalia == "1"){ echo "Avaliados"; }elseif($avalia == "2"){ echo "Pendentes"; }else{echo "Avaliados/Pendentes";}?> 
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <?php if($avalia != "1"){?><button class="dropdown-item" name="avalia" value="1">Avaliados</button><?php }?>
-                    <?php if($avalia != "2"){?><button class="dropdown-item" name="avalia" value="2">Pendentes</button><?php }?>
-                    <?php if($avalia != "1 OR 2"){?><button class="dropdown-item" name="avalia" value="3">Avaliados/Pendentes</button><?php }?>
+            <?php if($tipo == "1"){?>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <?php if($avalia == "1"){ echo "Avaliados"; }elseif($avalia == "2"){ echo "Pendentes"; }else{echo "Todos";}?> 
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <?php if($avalia != "1"){?><button class="dropdown-item" name="avalia" value="1">Avaliados</button><?php }?>
+                        <?php if($avalia != "2"){?><button class="dropdown-item" name="avalia" value="2">Pendentes</button><?php }?>
+                        <?php if($avalia != "1 OR 2"){?><button class="dropdown-item" name="avalia" value="3">Todos</button><?php }?>
+                    </div>
                 </div>
-            </div>
+            <?php }?>
             <div class="dropdown">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?php if($tipo == "1"){ echo "Ideias"; }elseif($tipo == "2"){ echo "Sugestões"; }else{echo "Ideias/Sugestões";}?> 
@@ -74,7 +77,6 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <?php if($tipo != "1"){?><button class="dropdown-item" name="tipo" value="1">Ideias</button><?php }?>
                     <?php if($tipo != "2"){?><button class="dropdown-item" name="tipo" value="2">Sugestões</button><?php }?>
-                    <?php if($tipo != "1 OR 2"){?><button class="dropdown-item" name="tipo" value="3">Ideias/Sugestões</button><?php }?>
                 </div>
             </div>
             <div class="dropdown">
@@ -117,8 +119,12 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
         <div class="title-home"><h3><b><?php echo mb_strtoupper($rows['titulo_postagem']); ?></b></h3></div>
         <div class="desc-home"><?php echo mb_strimwidth($rows['descricao_postagem'], 0, 60, "..."); ?></div>
         <div class="like-home"><?php echo "<f><b>" . $rows['likes_postagem'] . " Likes" . "</b></f>"; ?></div>
-        <div class="link-home"> <a style="text-decoration:underline" type="button"  data-toggle="modal" data-target="#post<?php echo $id_post ?>">Visualizar Ideia</a> </div>
-        <div class="situation-home"><b><?php if ($situation == 1) { echo "<f3> Media: ". number_format((float)$rows['media'], 2, '.', ''). "</f3>";}else{ echo "<f4>" . "Pendente" . "</f4>";} ?></b></f2></div>
+        <div class="link-home"> <a style="text-decoration:underline" type="button"  data-toggle="modal" data-target="#post<?php echo $id_post ?>">Visualizar</a> </div>
+        <?php if($rows['id_categoria'] == 1){?>
+            <div class="situation-home"><b>
+                <?php if ($situation == 1) { echo "<f3> Media: ". number_format((float)$rows['media'], 2, '.', ''). "</f3>";}else{ echo "<f4>" . "Pendente" . "</f4>";} ?>
+            </b></div>
+        <?php }?>
         <div class="data-home"><f2><?php echo date('d/m/Y', strtotime($rows['data_postagem'])); ?></f2></div>
     </div>
     @include('layouts.post')

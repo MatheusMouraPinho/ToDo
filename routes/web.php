@@ -40,7 +40,7 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() { 
         Route::post('/pesquisa', 'HomeController@pesquisa');
         Route::get('/reset_search', 'HomeController@reset_search');
 
-    Route::post('/criaideia', 'HomeController@criaideia');
+    Route::post('/cria', 'HomeController@cria');
 
     Route::get('/conta', 'UserController@index')->name('conta');
 

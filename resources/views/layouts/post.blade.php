@@ -1,4 +1,4 @@
-<?php if($rows['id_categoria'] = "1" ){$categoria = "Ideia";}else{$categoria = "Sugestão";}?>
+<?php if($rows['id_categoria'] == '1' ){$categoria = "Ideia";}else{$categoria = "Sugestão";}?>
 
 <?php
     $nivel = Auth::user()->nivel;
@@ -34,52 +34,54 @@
               <img class="popup_imgs" src="{{asset('img/semimagem.jpg')}}">
               <img class="popup_imgs" src="{{asset('img/semimagem.jpg')}}">
             </div>
-            <div class="popup_aval">
-              <span class="popup_sub bold">Avaliação:</span>
-              @if(!empty($post['avaliacao'][0]))
-                @for($c=0; $c<sizeof($post['avaliacao']); $c++)
-                  @if($post['avaliacao'][$c]->id_postagem == $id_post)
-                    <p class="popup_avali">
-                      <span class="bold">Inovação: </span>{{ $post['avaliacao'][$c]->inovacao_avaliacao }}
-                    </p>
-                    <p class="popup_avali">
-                      <span class="bold">Potencial: </span>{{ $post['avaliacao'][$c]->potencial_avaliacao }}
-                    </p>
-                    <p class="popup_avali">
-                      <span class="bold">Complexidade: </span>{{ $post['avaliacao'][$c]->complexidade_avaliacao }}
-                    </p>
-                    <p class="popup_avaliador">
-                      <span class="bold">Avaliador: {{ $post['avaliador'][$c]->usuario }}</span> 
-                      <span class="underline">{{ date('d/m/Y', strtotime($post['avaliacao'][0]->data_avaliacao))}}</span><br>{{ $post['avaliacao'][$c]->comentario_avaliacao }}
-                    </p>
-                  @endif
-
-                  <!-- Verifica se a avaliação está pendente ou não -->
-                  <?php $cont = 0;?>
-                  @for($d=0;$d<sizeof($post['avaliacao']);$d++)
-                    @if($post['avaliacao'][$d]->id_postagem != $id_post)
-                      <?php 
-                        $cont+= 1 ;
-                      ?>
+            <?php if($rows['id_categoria'] == 1){?>
+              <div class="popup_aval">
+                <span class="popup_sub bold">Avaliação:</span>
+                @if(!empty($post['avaliacao'][0]))
+                  @for($c=0; $c<sizeof($post['avaliacao']); $c++)
+                    @if($post['avaliacao'][$c]->id_postagem == $id_post)
+                      <p class="popup_avali">
+                        <span class="bold">Inovação: </span>{{ $post['avaliacao'][$c]->inovacao_avaliacao }}
+                      </p>
+                      <p class="popup_avali">
+                        <span class="bold">Potencial: </span>{{ $post['avaliacao'][$c]->potencial_avaliacao }}
+                      </p>
+                      <p class="popup_avali">
+                        <span class="bold">Complexidade: </span>{{ $post['avaliacao'][$c]->complexidade_avaliacao }}
+                      </p>
+                      <p class="popup_avaliador">
+                        <span class="bold">Avaliador: {{ $post['avaliador'][$c]->usuario }}</span> 
+                        <span class="underline">{{ date('d/m/Y', strtotime($post['avaliacao'][0]->data_avaliacao))}}</span><br>{{ $post['avaliacao'][$c]->comentario_avaliacao }}
+                      </p>
                     @endif
+
+                    <!-- Verifica se a avaliação está pendente ou não -->
+                    <?php $cont = 0;?>
+                    @for($d=0;$d<sizeof($post['avaliacao']);$d++)
+                      @if($post['avaliacao'][$d]->id_postagem != $id_post)
+                        <?php 
+                          $cont+= 1 ;
+                        ?>
+                      @endif
+                    @endfor
                   @endfor
-                @endfor
-                @if($cont === sizeof($post['avaliacao']))
+                  @if($cont === sizeof($post['avaliacao']))
+                    @if($id_nivel == 1 && isset($rows['id']))
+                      <a href="#" class="popup_coment" data-toggle="modal" data-target="#post<?php echo $id_post ?>_avaliar">Avaliar postagem</a>
+                    @else
+                      <p class="popup_coment">Pendente</p>
+                    @endif
+                  @endif
+                @else
                   @if($id_nivel == 1 && isset($rows['id']))
                     <a href="#" class="popup_coment" data-toggle="modal" data-target="#post<?php echo $id_post ?>_avaliar">Avaliar postagem</a>
                   @else
                     <p class="popup_coment">Pendente</p>
                   @endif
                 @endif
-              @else
-                @if($id_nivel == 1 && isset($rows['id']))
-                  <a href="#" class="popup_coment" data-toggle="modal" data-target="#post<?php echo $id_post ?>_avaliar">Avaliar postagem</a>
-                @else
-                  <p class="popup_coment">Pendente</p>
-                @endif
-              @endif
-              
-            </div>
+                
+              </div>
+            <?php }?>
             <div class="popup-aval">
               <span class="popup_sub bold">Comentários:</span>   
               <div style="margin-bottom: 15%">
