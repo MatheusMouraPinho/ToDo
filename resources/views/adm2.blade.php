@@ -104,7 +104,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
             <tbody class="pisca">
                 <tr>
                     <td><?php echo $i ?></td>
-                    <td><?php echo $rows['usuario']; ?></td>
+                    <td><?php echo mb_strimwidth($rows['usuario'], 0, 30, "..."); ?></td>
                     <td><?php echo $rows['registro']; ?></td>
                     <td><?php   if ($setup == 1) { echo "Usuario";    
                                 }else if ($setup == 2) { echo "Avaliador";

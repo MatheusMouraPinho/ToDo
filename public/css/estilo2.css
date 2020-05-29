@@ -297,17 +297,18 @@ fw{
 
 .alinhamento-img{
   position: relative;
-  left: 12%;
+  margin-left: 14%;
 }
 
 .alinhamento-img2{
   position: relative;
-  left: 20%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .alinhamento-img3{
   position: relative;
-  left: 28%;
+  margin-right: 14%;
 }
 
 .descricao{
@@ -347,4 +348,11 @@ fw{
   margin-bottom: 30px;
   margin-top: 20px;
   box-shadow: 4px 4px 7px grey;
+}
+
+.file-name {
+  white-space: nowrap; 
+  width: 135px; 
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -59,7 +59,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                 <tbody class="pisca">
                     <tr>
                         <td><?php echo $i ?></td>
-                        <td><?php echo $rows['titulo_postagem']; ?></td>
+                        <td><?php echo mb_strimwidth($rows['titulo_postagem'], 0, 35, "..."); ?></td>
                         <td>
                             <?php 
                             if ($rows['id_motivo'] == 1 ) { echo "Spam";    
