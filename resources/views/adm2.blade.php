@@ -37,25 +37,30 @@ if ($total_pesquisa > 0 ){ //se tiver rows
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a class="nav-item nav-link"  href="{{ url('/adm') }}">Cadastros</a>
-    <a class="nav-item nav-link active"  href="{{ url('/adm2') }}">Nivel de acesso</a>
-    <a class="nav-item nav-link"  href="{{ url('/adm3') }}">Denuncias Postagens</a>
-    <a class="nav-item nav-link"  href="{{ url('/adm4') }}">Denuncias Comentarios</a>
+    <a class="nav-item nav-link active"  href="{{ url('/adm2') }}">Usuarios</a>
+    <a class="nav-item nav-link"  href="{{ url('/adm3') }}">Postagens</a>
+    <a class="nav-item nav-link"  href="{{ url('/adm4') }}">Comentarios</a>
   </div>
 </nav>
 <br>
+<div class="row">
+<div class="text-centro contorno-titulo"><h3>Nivel de acesso Usuarios</h3></div>
+</div>
 <div class="row justify-content-md-center">
-<form class="form-inline my-2 my-lg-0" method="POST" action="/pesquisa_user">
-    @csrf
-    <input class="form-control mr-sm-2" type="text" name="pesquisa_user" placeholder="Procure o usuario pelo Nome, RGM/CPF ou Tipo" aria-label="Search" style="width: 400px">
-    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Procurar</button>
-</form>
+    <form class="form-inline my-2 my-lg-0" method="POST" action="/pesquisa_user">
+        @csrf
+        <label><b style="margin-right:10px;">Procurar Usuarios:</b></label>
+        <input class="form-control mr-sm-2" type="text" name="pesquisa_user" placeholder="Procure o usuario pelo Nome ou RGM/CPF" aria-label="Search" style="width: 400px">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Procurar</button>
+    </form>
 </div>
 <br>
+<hr class="justify-content-md-center accent-2 mb-3 mt-0" style="width: 800px;">
 <?php if(NULL !== $pesquisa2){?><div class="contorno-pequeno"><a href="/reset_search2"><img width="20px" src="{{asset('img/close.png')}}"></a> Resultados da Pesquisa "<?php echo $pesquisa2 ?>"</div><?php }?>
 <br>
 <div class="row">
     <table class="col-12" id="table_conta">
-        <caption>Alterar nivel de acesso</caption>
+        <caption><br></caption>
         <?php if(isset($check)){ ?>
             <thead>
                 <tr>
@@ -113,11 +118,11 @@ if ($total_pesquisa > 0 ){ //se tiver rows
             </tbody>
             <?php $i++; } ?>
         <?php }else{?>
-            <tbody>  
+            <tbody style="background-color:#b1b1b1;">  
                 <tr>
                     <td rowspan="10">
-                        <div><br>
-                            <img width="500px" height="200" src="{{asset('img/clock.png')}}"><br><br>
+                        <div>
+                            <img width="20%" height="20%" style="margin-top:8px;" src="{{asset('img/clock.png')}}"><br>
                             <p><h4><b>Nenhum usuario disponivel para alteração de nivel</h4></b></p>
                         </div>
                     </td>

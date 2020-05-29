@@ -142,6 +142,9 @@ class AdminController extends Controller
                 mysqli_query($conn, $sql);
             }
 
+            $sql = "DELETE FROM avaliacao_postagem WHERE id_postagem = $id_post";
+            mysqli_query($conn, $sql);
+
             /*$query = "SELECT * FROM subcomentarios WHERE id_postagem = $id_post";
             $result = mysqli_query($conn, $query);
             while($rows = mysqli_fetch_assoc($result)){

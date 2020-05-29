@@ -33,16 +33,17 @@ if ($total_pesquisa > 0 ){ //se tiver rows
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a class="nav-item nav-link"  href="{{ url('/adm') }}">Cadastros</a>
-    <a class="nav-item nav-link"  href="{{ url('/adm2') }}">Nivel de acesso</a>
-    <a class="nav-item nav-link active"  href="{{ url('/adm3') }}">Denuncias Postagens</a>
-    <a class="nav-item nav-link"  href="{{ url('/adm4') }}">Denuncias Comentarios</a>
+    <a class="nav-item nav-link"  href="{{ url('/adm2') }}">Usuarios</a>
+    <a class="nav-item nav-link active"  href="{{ url('/adm3') }}">Postagens</a>
+    <a class="nav-item nav-link"  href="{{ url('/adm4') }}">Comentarios</a>
   </div>
 </nav>
 <br>
 
 <div class="row">
+    <div class="text-centro contorno-titulo"><h3>Denuncias de Postagens</h3></div>
     <table class="col-12" id="table_conta">
-        <caption>Denuncias Postagens</caption>
+        <caption><br></caption>
         <?php if(isset($check)){ ?>
             <thead>
                 <tr>
@@ -116,11 +117,11 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                 </tbody>
             <?php $i++; } ?>
         <?php }else{?>
-            <tbody>  
+            <tbody style="background-color:#b1b1b1;">  
                 <tr>
                     <td rowspan="10">
-                        <div><br>
-                            <img width="500px" height="200" src="{{asset('img/clock.png')}}"><br><br>
+                        <div>
+                            <img width="20%" height="20%" style="margin-top:8px;" src="{{asset('img/clock.png')}}"><br>
                             <p><h4><b>Nenhuma denuncia disponivel para apuração</h4></b></p>
                         </div>
                     </td>
