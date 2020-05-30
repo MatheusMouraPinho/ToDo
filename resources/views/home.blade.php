@@ -127,6 +127,7 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
         <?php }?>
         <div class="data-home"><f2><?php echo date('d/m/Y', strtotime($rows['data_postagem'])); ?></f2></div>
     </div>
+    
     @include('layouts.post')
 
 <?php } ?>

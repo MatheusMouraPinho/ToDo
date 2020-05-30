@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -68,7 +70,11 @@ class HomeController extends Controller
             'reply_reply' => DB::table('subcomentarios')
                             ->where('id_resposta', '!=', null)
                             ->orderBy('data_comentarios', 'desc')
-                            ->get()
+                            ->get(),
+
+            'img_post' => DB::table('img_postagem')
+            ->select('id_img', 'id_postagem')
+            ->get()
         ];
 
         return view('home', compact('post')); 
@@ -151,7 +157,7 @@ class HomeController extends Controller
         return redirect('home'); 
     }
     
-    public function cria()
+    public function cria(Request $request)
     {
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
         $id = $_POST['id_usuario'];
@@ -170,18 +176,46 @@ class HomeController extends Controller
         
         if($_FILES['img_post']['error'] == 0){
             $img = addslashes(file_get_contents($_FILES['img_post']['tmp_name']));
-            $sql = "INSERT INTO img_postagem (id_postagem, img_post) VALUES ('$id_postagem', '$img')";
+            $img_post = DB::table('postagens')
+                        ->where('id_postagem', $id_postagem)
+                        ->get();            
+            $sql = "INSERT INTO img_postagem (id_postagem, img_post) VALUES ('$id_postagem', '$img')";            
             mysqli_query($conn, $sql);
+
+            $codFile = '1'.$img_post[0]->id_postagem.Str::kebab($img_post[0]->titulo_postagem);
+            $extenstion = $request->img_post->extension();
+            $nameFile = "{$codFile}.{$extenstion}";
+            
+            $upload = $request->img_post->storeAs('posts', $nameFile);
+
         }
         if($_FILES['img_post2']['error'] == 0){
             $img2 = addslashes(file_get_contents($_FILES['img_post2']['tmp_name']));
+            $img_post = DB::table('postagens')
+                        ->where('id_postagem', $id_postagem)
+                        ->get();
             $sql = "INSERT INTO img_postagem (id_postagem, img_post) VALUES ('$id_postagem', '$img2')";
             mysqli_query($conn, $sql);
+
+            $codFile = '2'.$img_post[0]->id_postagem.Str::kebab($img_post[0]->titulo_postagem);
+            $extenstion = $request->img_post2->extension();
+            $nameFile = "{$codFile}.{$extenstion}";
+            
+            $upload = $request->img_post2->storeAs('posts', $nameFile);
         }
         if($_FILES['img_post3']['error'] == 0){
             $img3 = addslashes(file_get_contents($_FILES['img_post3']['tmp_name']));
+            $img_post = DB::table('postagens')
+                        ->where('id_postagem', $id_postagem)
+                        ->get();
             $sql = "INSERT INTO img_postagem (id_postagem, img_post) VALUES ('$id_postagem', '$img3')";
             mysqli_query($conn, $sql);
+
+            $codFile = '3'.$img_post[0]->id_postagem.Str::kebab($img_post[0]->titulo_postagem);
+            $extenstion = $request->img_post3->extension();
+            $nameFile = "{$codFile}.{$extenstion}";
+            
+            $upload = $request->img_post3->storeAs('posts', $nameFile);
         }
 
         return redirect('home');
