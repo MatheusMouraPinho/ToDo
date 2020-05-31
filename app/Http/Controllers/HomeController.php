@@ -220,4 +220,72 @@ class HomeController extends Controller
 
         return redirect('home');
     }
+
+    public function apagar_post()
+    {   
+        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $id = $_POST['id_postagem'];
+
+        $sql = "DELETE FROM denuncias WHERE id_postagem = $id";
+        mysqli_query($conn, $sql);
+
+        $query = "SELECT * FROM comentarios WHERE id_postagem = $id";
+        $result = mysqli_query($conn, $query);
+        while($rows = mysqli_fetch_assoc($result)){
+            $id_com = $rows['id_comentarios'];
+            $sql = "DELETE FROM denuncias_comentarios WHERE id_comentario = $id_com";
+            mysqli_query($conn, $sql);
+        }
+
+        $sql = "DELETE FROM avaliacao_postagem WHERE id_postagem = $id";
+        mysqli_query($conn, $sql);
+
+        $query2 = "SELECT * FROM subcomentarios WHERE id_postagem = $id";
+        $result2 = mysqli_query($conn, $query2);
+        while($rows = mysqli_fetch_assoc($result2)){
+            $id_subcomen = $rows['id_subcomentarios'];
+            $sql = "DELETE FROM like_subcomentarios WHERE id_comentarios = $id_subcomen";
+            mysqli_query($conn, $sql);
+        }
+
+        $sql = "DELETE FROM subcomentarios WHERE id_postagem = $id";
+        mysqli_query($conn, $sql);
+        
+        $query3 = "SELECT * FROM comentarios WHERE id_postagem = $id";
+        $result3 = mysqli_query($conn, $query3);
+        while($rows = mysqli_fetch_assoc($result3)){
+            $id_com = $rows['id_comentarios'];
+            $sql = "DELETE FROM like_comentarios WHERE id_comentarios = $id_com";
+            mysqli_query($conn, $sql);
+        }
+
+        $sql = "DELETE FROM comentarios WHERE id_postagem = $id";
+        mysqli_query($conn, $sql);
+
+        $sql = "DELETE FROM postagens WHERE id_postagem = $id";
+        mysqli_query($conn, $sql);
+
+        $sql = "DELETE FROM img_postagem WHERE id_postagem = $id";
+        mysqli_query($conn, $sql);
+
+        return redirect('home'); 
+    }
+
+    public function denunciar_post()
+    {   
+        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $motivo = $_POST['option'];
+        $id = $_POST ['id_postagem'];
+        
+        $sql = "SELECT * FROM denuncias WHERE id_postagem = $id";
+        $result = mysqli_query($conn, $sql);
+        $check = mysqli_num_rows($result);
+
+        if($check == 0){
+            $sql = "INSERT INTO denuncias (id_postagem, id_motivo) VALUES ($id, $motivo)";
+            mysqli_query($conn, $sql);
+        }
+        $denuncia = TRUE;
+        return redirect('home')->with(['denuncia' =>  $denuncia]);
+    }
 }

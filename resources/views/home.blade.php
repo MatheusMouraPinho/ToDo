@@ -27,6 +27,14 @@ if(!isset($avalia)){ $avalia = "1 OR 2";}
 if($filtro == "media"){$avalia = "1";}
 if($tipo == "2"){$avalia = "2";}
 
+$denuncia = Session::get('denuncia');
+
+if($denuncia == TRUE){ ?>
+    <script>
+        alert("Denuncia Efetuada");
+    </script>
+<?php $denuncia = FALSE; }
+
 $sql = "SELECT * FROM postagens LEFT JOIN usuarios ON (postagens.id_usuarios = usuarios.id) WHERE data_postagem >= $periodo AND (id_categoria = $tipo) AND (id_situacao_postagem = $avalia) AND (postagens.titulo_postagem LIKE '%$pesquisa%' OR usuarios.usuario LIKE '%$pesquisa%') ORDER BY $filtro DESC";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
@@ -118,7 +126,7 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
         <div class="divisao"></div>
         <div class="title-home"><h3><b><?php echo mb_strimwidth(mb_strtoupper($rows['titulo_postagem']), 0, 30, "..."); ?></b></h3></div>
         <div class="desc-home"><?php echo mb_strimwidth($rows['descricao_postagem'], 0, 60, "..."); ?></div>
-        <div class="like-home"><?php echo "<f><b>" . $rows['likes_postagem'] . " Likes" . "</b></f>"; ?></div>
+        <div class="like-home"><b><button class="no-border-button row"><img width="30px" src="{{asset('img/like.png')}}"><p class="num-like-home"><?php echo $rows['likes_postagem']; ?></p></button></b></div>
         <div class="link-home"> <a style="text-decoration:underline" type="button"  data-toggle="modal" data-target="#post<?php echo $id_post ?>">Visualizar</a> </div>
         <?php if($rows['id_categoria'] == 1){?>
             <div class="situation-home"><b>
@@ -126,10 +134,70 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
             </b></div>
         <?php }?>
         <div class="data-home"><f2><?php echo date('d/m/Y', strtotime($rows['data_postagem'])); ?></f2></div>
+        <div class="denuncia-home">
+            <div class="dropdown">
+                <a id="navbarDropdown" role="button" data-toggle="dropdown"><img width="25px" src="{{asset('img/danger.png')}}"></a>
+                <div style="cursor: pointer" class="dropdown-menu">
+                    <?php if($rows['id_usuarios'] == Auth::user()->id){?>
+                        <a class="dropdown-item" data-toggle="modal" data-target="#del-post<?php echo $rows['id_postagem'];?>">Apagar</a>
+                    <?php }else{ ?>
+                        <a class="dropdown-item" data-toggle="modal" data-target="#den-post<?php echo $rows['id_postagem'];?>">Denunciar</a>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
     </div>
-    
     @include('layouts.post')
-
+    <!-- Modal deletar postagem -->
+    <div class="modal fade id" id="del-post<?php echo $rows['id_postagem'];?>" role="dialog">
+        <div class="modal-dialog modal-content">
+            <div class="modal-header"></div>
+            <div class="modal-body">
+                <p>Deseja realmente apagar essa Postagem?</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <form action="/apagar_post" method="POST">
+                        @csrf
+                        <input name="id_postagem" type="hidden" value="<?php echo $rows['id_postagem'];?>">
+                        <input data-toggle="modal" type="submit" class="btn btn-primary" value="Apagar">
+                    </form>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <!-- FIM Modal deletar postagem -->
+    <!-- Modal denunciar postagem -->
+    <div class="modal fade id" id="den-post<?php echo $rows['id_postagem'];?>" role="dialog">
+        <div class="modal-dialog modal-content">
+            <div class="modal-header"></div>
+            <form action="/denunciar_post" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <h3><p>Denunciar postagem por:</p></h3><br>
+                    <h6>
+                        <label class="radio-custom">Conteúdo Inadequado
+                            <input type="radio" id="radio1" type="radio" name="option" value="3" required>
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="radio-custom">Spam
+                            <input type="radio" id="radio3" type="radio" name="option" value="1" required>
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="radio-custom">Copia
+                            <input type="radio" id="radio3" type="radio" name="option" value="2" required>
+                            <span class="checkmark"></span>
+                        </label>
+                    </h6>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <input name="id_postagem" type="hidden" value="<?php echo $rows['id_postagem'];?>">
+                        <input data-toggle="modal" type="submit" class="btn btn-primary" value="Confirmar">
+                    </div> 
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- FIM Modal denunciar postagem -->
 <?php } ?>
                                    
 <nav class="text-center">
@@ -164,5 +232,4 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
         </li>
     </ul>
 </nav>
-
 @endsection

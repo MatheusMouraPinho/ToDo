@@ -57,7 +57,7 @@ $id_user = Auth::user()->id;
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Configurações </a>
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Configurações </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <?php if(3 == $nivel){?>
             <a class="dropdown-item" href="{{ url('/adm') }}">Admin Painel</a>
