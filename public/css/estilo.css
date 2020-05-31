@@ -1014,8 +1014,9 @@ input[type='file'] {
 
 #img_post1 {
   width: 68vw;
-  height: 60vw;
+  height: 45vw;
   border: 1px solid black;
+  margin: 0;
 }
 
 .btn_fechar_body {
