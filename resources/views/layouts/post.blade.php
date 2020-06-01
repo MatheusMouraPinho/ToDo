@@ -61,59 +61,52 @@
                 <img class="popup_imgs_null" src="{{asset('img/semimagem.jpg')}}">
               @endif
             </div>
-
-
-            
-
-
-            <?php if($rows['id_categoria'] == 1){?>
-              <div class="popup_aval">
-                <span class="popup_sub bold">Avaliação:</span>
-                @if(!empty($post['avaliacao'][0])) <!--  Verifica se a consulta sql de avaliações retorna algum valor  -->
-                  @for($c=0; $c<sizeof($post['avaliacao']); $c++) <!-- enquanto a variável c não tiver o valor igualado ao tamanho do array de avaliação, uma avaliação por vez é mostrada -->
-                    @if($post['avaliacao'][$c]->id_postagem == $id_post)  <!-- Mas a avaliação só é mostrada caso o id da postagem da avaliação for igual ao da postagem que está sendo visualizada -->
-                      <p class="popup_avali">
-                        <span class="bold">Inovação: </span>{{ $post['avaliacao'][$c]->inovacao_avaliacao }}
-                      </p>
-                      <p class="popup_avali">
-                        <span class="bold">Potencial: </span>{{ $post['avaliacao'][$c]->potencial_avaliacao }}
-                      </p>
-                      <p class="popup_avali">
-                        <span class="bold">Complexidade: </span>{{ $post['avaliacao'][$c]->complexidade_avaliacao }}
-                      </p>
-                      <p class="popup_avaliador">
-                        <span class="bold">Avaliador: {{ $post['avaliador'][$c]->usuario }}</span> 
-                        <span class="underline">{{ date('d/m/Y', strtotime($post['avaliacao'][0]->data_avaliacao))}}</span><br>{{ $post['avaliacao'][$c]->comentario_avaliacao }}
-                      </p>
-                    @endif
-
-                    <!-- Verifica se a avaliação está pendente ou não -->
-                    <?php $cont = 0;?>
-                    @for($d=0;$d<sizeof($post['avaliacao']);$d++)
-                      @if($post['avaliacao'][$d]->id_postagem != $id_post)  <!-- Quando o for rodar todas as vezes e tbm todos questionamentos do if, e o cont não for igual ao tamanho de quantidade de avaliações , quer dizer q existe alguma avaliação que pertence a postagem atual, e portanto não está pendente -->
-                        <?php 
-                          $cont+= 1 ;
-                        ?>
-                      @endif
-                    @endfor
-                  @endfor
-                  @if($cont === sizeof($post['avaliacao']))
-                    @if($id_nivel == 1 && isset($rows['id']))
-                      <a href="#" class="popup_coment" data-toggle="modal" data-target="#post<?php echo $id_post ?>_avaliar">Avaliar postagem</a>
-                    @else
-                      <p class="popup_coment">Pendente</p>
-                    @endif
+            <div class="popup_aval">
+              <span class="popup_sub bold">Avaliação:</span>
+              @if(!empty($post['avaliacao'][0])) <!--  Verifica se a consulta sql de avaliações retorna algum valor  -->
+                @for($c=0; $c<sizeof($post['avaliacao']); $c++) <!-- enquanto a variável c não tiver o valor igualado ao tamanho do array de avaliação, uma avaliação por vez é mostrada -->
+                  @if($post['avaliacao'][$c]->id_postagem == $id_post)  <!-- Mas a avaliação só é mostrada caso o id da postagem da avaliação for igual ao da postagem que está sendo visualizada -->
+                    <p class="popup_avali">
+                      <span class="bold">Inovação: </span>{{ $post['avaliacao'][$c]->inovacao_avaliacao }}
+                    </p>
+                    <p class="popup_avali">
+                      <span class="bold">Potencial: </span>{{ $post['avaliacao'][$c]->potencial_avaliacao }}
+                    </p>
+                    <p class="popup_avali">
+                      <span class="bold">Complexidade: </span>{{ $post['avaliacao'][$c]->complexidade_avaliacao }}
+                    </p>
+                    <p class="popup_avaliador">
+                      <span class="bold">Avaliador: {{ $post['avaliador'][$c]->usuario }}</span> 
+                      <span class="underline">{{ date('d/m/Y', strtotime($post['avaliacao'][0]->data_avaliacao))}}</span><br>{{ $post['avaliacao'][$c]->comentario_avaliacao }}
+                    </p>
                   @endif
-                @else
+
+                  <!-- Verifica se a avaliação está pendente ou não -->
+                  <?php $cont = 0;?>
+                  @for($d=0;$d<sizeof($post['avaliacao']);$d++)
+                    @if($post['avaliacao'][$d]->id_postagem != $id_post)  <!-- Quando o for rodar todas as vezes e tbm todos questionamentos do if, e o cont não for igual ao tamanho de quantidade de avaliações , quer dizer q existe alguma avaliação que pertence a postagem atual, e portanto não está pendente -->
+                      <?php 
+                        $cont+= 1 ;
+                      ?>
+                    @endif
+                  @endfor
+                @endfor
+                @if($cont === sizeof($post['avaliacao']))
                   @if($id_nivel == 1 && isset($rows['id']))
                     <a href="#" class="popup_coment" data-toggle="modal" data-target="#post<?php echo $id_post ?>_avaliar">Avaliar postagem</a>
                   @else
                     <p class="popup_coment">Pendente</p>
                   @endif
                 @endif
-                
-              </div>
-            <?php }?>
+              @else
+                @if($id_nivel == 1 && isset($rows['id']))
+                  <a href="#" class="popup_coment" data-toggle="modal" data-target="#post<?php echo $id_post ?>_avaliar">Avaliar postagem</a>
+                @else
+                  <p class="popup_coment">Pendente</p>
+                @endif
+              @endif
+              
+            </div>
             <div class="popup-aval">
               <span class="popup_sub bold">Comentários:</span>   
               <div style="margin-bottom: 15%">
