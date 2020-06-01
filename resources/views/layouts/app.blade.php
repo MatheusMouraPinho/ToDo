@@ -52,7 +52,7 @@ $id_user = Auth::user()->id;
           </form>
         </li>
         <li style="padding-left:2em" class="nav-item">
-          <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#modalideia">Crie uma Postagem</button>
+          <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#modalideia">Crie uma Ideia</button>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
@@ -151,7 +151,7 @@ $id_user = Auth::user()->id;
           @csrf
           <div class="modal-body">
             <div class="row">
-              <div class="titulo-modal"><h2><ff>CRIE UMA POSTAGEM</ff></h2></div>
+              <div class="titulo-modal"><h2><ff>CRIE UMA IDEIA</ff></h2></div>
             </div><br>
             <div class="row">
               <div class="alinhamento">
@@ -160,13 +160,12 @@ $id_user = Auth::user()->id;
                 &nbsp;
                 <label><h5><b>Categoria:</b></h5></label>
                 <select class="Bselect" type="text" name="categoria" required> 
-                <?php if($nivel > 2){?>
                   <option value="" disabled selected> Selecionar categoria </option>
-                  <option value="1"> Ideia </option>
-                  <option value="2"> Sugestão </option><?php 
-                }else{?> 
-                  <option value="1"> Ideia </option>
-                <?php }?>
+                  <option value="1"> Desenvolvimento Web </option>
+                  <option value="2"> Design & Criação </option>
+                  <option value="3"> Engenharia & Arquitetura </option>
+                  <option value="4"> Marketing </option>
+                  <option value="5"> Fotografia & AudioVisual </option>
                 </select>
               </div>
             </div><br>

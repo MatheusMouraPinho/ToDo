@@ -109,9 +109,16 @@ class HomeController extends Controller
                 $tipo = "1"; 
             }elseif($var2 == "2"){
                 $tipo = "2";
+            }elseif($var2 == "3"){
+                $tipo = "3";
+            }elseif($var2 == "4"){
+                $tipo = "4";
+            }elseif($var2 == "5"){
+                $tipo = "5";
             }else{
-                $tipo = "1 OR 2";
+                $tipo = "1 OR 2 OR 3 OR 4 OR 5";
             }
+
             return redirect('home')->with(['tipo' =>  $tipo]);
         }
 
@@ -262,10 +269,10 @@ class HomeController extends Controller
         $sql = "DELETE FROM comentarios WHERE id_postagem = $id";
         mysqli_query($conn, $sql);
 
-        $sql = "DELETE FROM postagens WHERE id_postagem = $id";
+        $sql = "DELETE FROM img_postagem WHERE id_postagem = $id";
         mysqli_query($conn, $sql);
 
-        $sql = "DELETE FROM img_postagem WHERE id_postagem = $id";
+        $sql = "DELETE FROM postagens WHERE id_postagem = $id";
         mysqli_query($conn, $sql);
 
         return redirect('home'); 

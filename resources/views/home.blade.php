@@ -21,11 +21,10 @@ if(isset($_SESSION['avalia'])){$avalia = $_SESSION['avalia'];}
 
 if(!isset($pesquisa)){ $pesquisa = NULL;}
 if(!isset($filtro)){$filtro = "data_postagem";}
-if(!isset($tipo)){$tipo = "1";}
+if(!isset($tipo)){$tipo = "1 OR 2 OR 3 OR 4 OR 5";}
 if(!isset($periodo)){ $periodo = "data_postagem";}
 if(!isset($avalia)){ $avalia = "1 OR 2";}
 if($filtro == "media"){$avalia = "1";}
-if($tipo == "2"){$avalia = "2";}
 
 $denuncia = Session::get('denuncia');
 
@@ -80,11 +79,16 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
             <?php }?>
             <div class="dropdown">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <?php if($tipo == "1"){ echo "Ideias"; }elseif($tipo == "2"){ echo "Sugestões"; }else{echo "Ideias/Sugestões";}?> 
+                    <?php if($tipo == "1"){ echo "Desenvolvimento Web"; }elseif($tipo == "2"){ echo "Design & Criação"; }elseif($tipo == "3"){echo "Engenharia & Arquitetura";
+                    }elseif($tipo == "4"){echo "Marketing";}elseif($tipo == "5"){echo "Fotografia & AudioVisual";}else{echo "Todas as categorias";}?> 
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <?php if($tipo != "1"){?><button class="dropdown-item" name="tipo" value="1">Ideias</button><?php }?>
-                    <?php if($tipo != "2"){?><button class="dropdown-item" name="tipo" value="2">Sugestões</button><?php }?>
+                    <?php if($tipo != "1"){?><button class="dropdown-item" name="tipo" value="1">Desenvolvimento Web</button><?php }?>
+                    <?php if($tipo != "2"){?><button class="dropdown-item" name="tipo" value="2">Design & Criação</button><?php }?>
+                    <?php if($tipo != "3"){?><button class="dropdown-item" name="tipo" value="3">Engenharia & Arquitetura</button><?php }?>
+                    <?php if($tipo != "4"){?><button class="dropdown-item" name="tipo" value="4">Marketing</button><?php }?>
+                    <?php if($tipo != "5"){?><button class="dropdown-item" name="tipo" value="5">Fotografia & AudioVisual</button><?php }?>
+                    <?php if($tipo != "1 OR 2 OR 3 OR 4 OR 5"){?><button class="dropdown-item" name="tipo" value="todas">Todas as categorias</button><?php }?>
                 </div>
             </div>
             <div class="dropdown">

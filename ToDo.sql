@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27-Maio-2020 às 02:38
+-- Tempo de geração: 01-Jun-2020 às 07:01
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.10
 
@@ -128,8 +128,11 @@ CREATE TABLE `categoria_postagem` (
 --
 
 INSERT INTO `categoria_postagem` (`id_categoria`, `categoria_postagem`) VALUES
-(1, 'Ideia'),
-(2, 'Sugestão');
+(1, 'Desenvolvimento Web'),
+(2, 'Design & Criação'),
+(3, 'Engenharia & Arquitetura'),
+(4, 'Marketing'),
+(5, 'Fotografia & AudioVisual');
 
 -- --------------------------------------------------------
 
@@ -147,15 +150,6 @@ CREATE TABLE `comentarios` (
   `edit_comentarios` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Extraindo dados da tabela `comentarios`
---
-
-INSERT INTO `comentarios` (`id_comentarios`, `id_usuarios`, `id_postagem`, `conteudo_comentarios`, `data_comentarios`, `likes_comentarios`, `edit_comentarios`) VALUES
-(6, 17, 22, 'Legal gostei', '2020-05-13 00:00:00', 0, NULL),
-(7, 17, 22, 'Legal gostei Denovo', '2020-05-13 00:00:00', 0, NULL),
-(8, 12, 22, 'comentario aleatorio aqui', '2020-05-13 00:00:00', 0, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -168,13 +162,6 @@ CREATE TABLE `denuncias` (
   `id_motivo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Extraindo dados da tabela `denuncias`
---
-
-INSERT INTO `denuncias` (`id_denuncia`, `id_postagem`, `id_motivo`) VALUES
-(16, 11, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -186,13 +173,6 @@ CREATE TABLE `denuncias_comentarios` (
   `id_comentario` int(11) DEFAULT NULL,
   `id_motivo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Extraindo dados da tabela `denuncias_comentarios`
---
-
-INSERT INTO `denuncias_comentarios` (`id_denunciacomentario`, `id_comentario`, `id_motivo`) VALUES
-(11, 8, 3);
 
 -- --------------------------------------------------------
 
@@ -287,26 +267,6 @@ CREATE TABLE `like_subcomentarios` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `migrations`
---
-
-CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Extraindo dados da tabela `migrations`
---
-
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(3, '2014_10_12_100000_create_password_resets_table', 1),
-(4, '2020_04_13_215849_create_verificas_table', 2);
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `motivo_denuncia`
 --
 
@@ -373,17 +333,6 @@ CREATE TABLE `postagens` (
   `data_postagem` datetime NOT NULL,
   `media` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Extraindo dados da tabela `postagens`
---
-
-INSERT INTO `postagens` (`id_postagem`, `id_usuarios`, `id_situacao_postagem`, `id_categoria`, `titulo_postagem`, `descricao_postagem`, `likes_postagem`, `data_postagem`, `media`) VALUES
-(11, 12, 2, 1, 'Titulo da postagem ', 'descrição Teste Teste testeTeste Teste testeTeste Teste testeTeste Teste teste', 1, '2020-05-04 00:00:00', NULL),
-(13, 17, 2, 1, 'big data sobre eleição', 'textotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotexto', 0, '2020-05-13 00:00:00', NULL),
-(14, 12, 2, 1, 'Ideia sem ideias', ' ideias ideias ideias ideias ideias ideias ideias ideias ideias ideias ideias ideias', 0, '2020-05-04 00:00:00', NULL),
-(15, 12, 1, 1, 'agronegócio inteligente', 'preenche linha preenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linhapreenche linha', 1, '2020-05-13 00:00:00', 5),
-(22, 12, 1, 1, 'ideia arduino', 'descriçãodescriçãodescriçãodescriçãodescriçãodescriçãodescrição', 12, '2020-05-13 00:00:00', 8.22);
 
 -- --------------------------------------------------------
 
@@ -1081,13 +1030,6 @@ CREATE TABLE `subcomentarios` (
   `id_resposta` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Extraindo dados da tabela `subcomentarios`
---
-
-INSERT INTO `subcomentarios` (`id_subcomentarios`, `id_usuarios`, `id_postagem`, `id_comentarios`, `conteudo_comentarios`, `data_comentarios`, `likes_comentarios`, `edit_subcomentarios`, `id_resposta`) VALUES
-(3, 12, 22, 7, 'Não entendi porque você comentou denovo', '2020-05-13 00:00:00', 2, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -1230,12 +1172,6 @@ ALTER TABLE `like_subcomentarios`
   ADD KEY `id_subcomentarios` (`id_subcomentarios`);
 
 --
--- Índices para tabela `migrations`
---
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Índices para tabela `motivo_denuncia`
 --
 ALTER TABLE `motivo_denuncia`
@@ -1330,7 +1266,7 @@ ALTER TABLE `avaliacao_postagem`
 -- AUTO_INCREMENT de tabela `categoria_postagem`
 --
 ALTER TABLE `categoria_postagem`
-  MODIFY `id_categoria` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_categoria` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `comentarios`
@@ -1360,7 +1296,7 @@ ALTER TABLE `denuncias_subcomentarios`
 -- AUTO_INCREMENT de tabela `img_postagem`
 --
 ALTER TABLE `img_postagem`
-  MODIFY `id_img` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_img` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `instituicao_ensino`
@@ -1387,12 +1323,6 @@ ALTER TABLE `like_subcomentarios`
   MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `migrations`
---
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT de tabela `motivo_denuncia`
 --
 ALTER TABLE `motivo_denuncia`
@@ -1408,7 +1338,7 @@ ALTER TABLE `nivel_acesso`
 -- AUTO_INCREMENT de tabela `postagens`
 --
 ALTER TABLE `postagens`
-  MODIFY `id_postagem` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_postagem` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de tabela `regiao_cidade`

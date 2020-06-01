@@ -175,10 +175,10 @@ class AdminController extends Controller
             $sql = "DELETE FROM comentarios WHERE id_postagem = $id_post";
             mysqli_query($conn, $sql);
 
-            $sql = "DELETE FROM postagens WHERE id_postagem = $id_post";
-            mysqli_query($conn, $sql);
-
             $sql = "DELETE FROM img_postagem WHERE id_postagem = $id_post";
+            mysqli_query($conn, $sql);
+            
+            $sql = "DELETE FROM postagens WHERE id_postagem = $id_post";
             mysqli_query($conn, $sql);
 
             return redirect('adm3');

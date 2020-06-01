@@ -1,4 +1,5 @@
-<?php if($rows['id_categoria'] == '1' ){$categoria = "Ideia";}else{$categoria = "Sugestão";}?>
+<?php if($rows['id_categoria'] == '1' ){ $categoria = "Desenvolvimento Web"; }elseif($rows['id_categoria'] == "2"){ $categoria = "Design & Criação"; }elseif($rows['id_categoria'] == "3"){$categoria = "Engenharia & Arquitetura";
+}elseif($rows['id_categoria'] == "4"){$categoria = "Marketing";}elseif($rows['id_categoria'] == "5"){$categoria = "Fotografia & AudioVisual";}else{$categoria = "Sem categoria";}?>
 
 <?php
     $nivel = Auth::user()->nivel;
