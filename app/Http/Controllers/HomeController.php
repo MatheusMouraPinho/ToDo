@@ -295,4 +295,38 @@ class HomeController extends Controller
         $denuncia = TRUE;
         return redirect('home')->with(['denuncia' =>  $denuncia]);
     }
+    public function like_post()
+    {   
+        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $id = $_POST['id_post'];
+        $id2 = $_POST['id_usuario'];
+        
+        $sql = "SELECT * FROM like_postagens WHERE id_postagens = $id AND id_usuarios = $id2";
+        $result = mysqli_query($conn, $sql);
+        $check = mysqli_num_rows($result);//consulta se ja existe esse like
+
+        if($check == 0){
+            $sql = "INSERT INTO like_postagens (id_postagens, id_usuarios) VALUES ($id, $id2)";
+            mysqli_query($conn, $sql);
+
+            $sql = "UPDATE postagens SET likes_postagem = likes_postagem + 1 WHERE id_postagem = $id";
+            mysqli_query($conn, $sql);
+        }//executa se não ouver like do usuario nesse post
+
+        return back();
+    }
+    public function remov_like_post()
+    {   
+        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $id = $_POST['id_post'];
+        $id2 = $_POST['id_usuario'];
+
+        $sql = "DELETE FROM like_postagens WHERE id_postagens = $id AND id_usuarios = $id2";
+        mysqli_query($conn, $sql);
+
+        $sql = "UPDATE postagens SET likes_postagem = (SELECT COUNT(id_like) FROM like_postagens WHERE id_postagens = $id) WHERE id_postagem = $id";
+        mysqli_query($conn, $sql);//subquery pra não dar update varias vezes
+
+        return back();
+    }
 }

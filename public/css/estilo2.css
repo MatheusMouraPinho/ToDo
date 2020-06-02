@@ -2,6 +2,7 @@
   border: none;
   padding: 0;
   background: none;
+  outline: 0 !important;
 }
 
 .contorno {
@@ -106,7 +107,7 @@
 
 .num-like-home {
   margin-left: 2px;
-  margin-top: 4px;
+  margin-top: 5px;
 }
 
 .situation-home {
@@ -285,8 +286,9 @@ fw{
 
 .titulo-modal{
   position: relative;
-  left: 30%;
-  padding-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 8px;
   text-decoration:underline;
 }
 
@@ -318,7 +320,7 @@ fw{
 
 .descricao{
   position: relative;
-  left: 27%;
+  left: 26%;
   bottom: 23px;
   resize: none;
 }
@@ -360,4 +362,9 @@ fw{
   width: 135px; 
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.ajuste{
+padding-right: 4px;
+padding-top: 4px;
 }
