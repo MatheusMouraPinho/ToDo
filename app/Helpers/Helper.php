@@ -44,15 +44,4 @@ class Helper
         $user_liked = (empty($resultado)) ? 0 : 1;
         return $user_liked;
     }
-
-    public static function verifica_like_subcoment($id_subcomentario) {
-        $id_usuario = Auth::user()->id;
-        $resultado = DB::table('like_subcomentarios')
-                ->where('id_subcomentarios', $id_subcomentario, 'and')
-                ->where('id_usuarios', $id_usuario)
-                ->value('id_like');  
-        
-        $user_liked = (empty($resultado)) ? 0 : 1;
-        return $user_liked;
-    }
 }

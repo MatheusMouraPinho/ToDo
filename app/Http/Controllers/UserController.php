@@ -96,29 +96,34 @@ class UserController extends Controller
             
             'comentarios' => DB::table('comentarios')
                                 ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
-                                ->where('postagens.id_usuarios', $user_id)
+                                ->where('postagens.id_usuarios', $user_id, 'and')
+                                ->where('comentarios.id_mencionado', '=', null)
                                 ->join('usuarios', 'comentarios.id_usuarios', '=', 'usuarios.id')
                                 ->select('comentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
                                 ->orderBy('comentarios.data_comentarios', 'desc')
                                 ->get(),
 
-            'reply_coment' => DB::table('subcomentarios')
-                                ->join('postagens', 'postagens.id_postagem', '=', 'subcomentarios.id_postagem')
-                                ->where('postagens.id_usuarios', $user_id)
-                                ->where('subcomentarios.id_resposta', '=', null)
-                                ->join('usuarios', 'subcomentarios.id_usuarios', '=', 'usuarios.id')
-                                ->select('subcomentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
-                                ->orderBy('subcomentarios.data_comentarios', 'desc')
+
+            'reply_coment' => DB::table('comentarios')
+                                ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
+                                ->where('postagens.id_usuarios', $user_id, 'and')
+                                ->where('comentarios.id_mencionado', '!=', null)
+                                ->leftJoin('usuarios as users', 'comentarios.id_usuarios', '=', 'users.id')
+                                ->select('comentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'users.*')                               
+                                ->orderBy('data_comentarios', 'asc')
                                 ->get(),
 
-            'reply_reply' => DB::table('subcomentarios')
-                            ->where('id_resposta', '!=', null)
-                            ->orderBy('subcomentarios.data_comentarios', 'desc')
-                            ->get(),
-
+            'mencionado' => DB::table('comentarios')
+                                ->leftJoin('usuarios as user', 'comentarios.id_mencionado', '=', 'user.id') 
+                                ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
+                                ->where('postagens.id_usuarios', $user_id, 'and')
+                                ->where('comentarios.id_mencionado', '!=', null)
+                                ->select('comentarios.id_comentarios','postagens.id_usuarios', 'postagens.id_postagem', 'user.*')                               
+                                ->orderBy('data_comentarios', 'asc')
+                                ->get()
         ];
 
-
+        
         
         return view('conta', compact('dados', 'post'));
     }
@@ -203,25 +208,30 @@ class UserController extends Controller
                 
                 'comentarios' => DB::table('comentarios')
                                     ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
-                                    ->where('postagens.id_usuarios', $dados_usr->id)
+                                    ->where('postagens.id_usuarios', $dados_usr->id, 'and')
+                                    ->where('comentarios.id_mencionado', '=', null)
                                     ->join('usuarios', 'comentarios.id_usuarios', '=', 'usuarios.id')
                                     ->select('comentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
                                     ->orderBy('data_comentarios', 'desc')
                                     ->get(),
     
-                'reply_coment' => DB::table('subcomentarios')
-                                    ->join('postagens', 'postagens.id_postagem', '=', 'subcomentarios.id_postagem')
-                                    ->where('postagens.id_usuarios', $dados_usr->id)
-                                    ->where('subcomentarios.id_resposta', '=', null)
-                                    ->join('usuarios', 'subcomentarios.id_usuarios', '=', 'usuarios.id')
-                                    ->select('subcomentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
-                                    ->orderBy('data_comentarios', 'desc')
+                'reply_coment' => DB::table('comentarios')
+                                    ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
+                                    ->where('postagens.id_usuarios', $dados_usr->id, 'and')
+                                    ->where('comentarios.id_mencionado', '!=', null)
+                                    ->leftJoin('usuarios as users', 'comentarios.id_usuarios', '=', 'users.id')
+                                    ->select('comentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'users.*')                               
+                                    ->orderBy('data_comentarios', 'asc')
                                     ->get(),
-    
-                'reply_reply' => DB::table('subcomentarios')
-                                ->where('id_resposta', '!=', null)
-                                ->orderBy('data_comentarios', 'desc')
-                                ->get()
+
+                'mencionado' => DB::table('comentarios')
+                                    ->leftJoin('usuarios as user', 'comentarios.id_mencionado', '=', 'user.id') 
+                                    ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
+                                    ->where('postagens.id_usuarios', $dados_usr->id, 'and')
+                                    ->where('comentarios.id_mencionado', '!=', null)
+                                    ->select('comentarios.id_comentarios','postagens.id_usuarios', 'postagens.id_postagem', 'user.*')                               
+                                    ->orderBy('data_comentarios', 'asc')
+                                    ->get()
             ];
         }
 

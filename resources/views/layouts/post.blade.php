@@ -120,7 +120,7 @@
               @if(!empty($post['comentarios'][0]))  
                 @for($f=0; $f<sizeof($post['comentarios']); $f++)
                   @if($post['comentarios'][$f]->id_postagem == $id_post)
-                  <hr>
+                    <hr>
                     <div class="popup_coment_aval" id="id_comentario{{ $post['comentarios'][$f]->id_comentarios }}">
                       <div class="header-coment">
                         @if($post['comentarios'][$f]->img_usuarios === null)
@@ -133,7 +133,6 @@
                           <input type="hidden" name="id_usuario" value="{{ $post['comentarios'][$f]->id }}">
                           <input class="bold user" type="submit" value="{{ $post['comentarios'][$f]->usuario}}">
                         </form>
-                        
                         <div class="dropdown dropdown1">
 
                           <!--Trigger-->
@@ -145,7 +144,7 @@
                           <!--Menu-->
                           <div class="dropdown-menu dropdown-primary">
                             @if($post['comentarios'][$f]->id === Auth::user()->id)
-                              <a id="edit" class="dropdown-item" onclick="ocultar_popup('popup{{$id_post}}', 'popup{{$post['comentarios'][$f]->id_comentarios }}_edit1')" href="#" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['comentarios'][$f]->id_comentarios }}_edit1">Editar</a>
+                              <a id="edit" class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['comentarios'][$f]->id_comentarios }}_edit1">Editar</a>
                               <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['comentarios'][$f]->id_comentarios}}_apagar2">Apagar</a>
                             @else
                               <a class="dropdown-item" href="{{ url('/adm') }}">Denunciar</a>
@@ -155,7 +154,7 @@
                         @if(empty($post['comentarios'][$f]->edit_comentarios))
                           <span class="underline data-coment">{{ Helper::tempo_corrido($post['comentarios'][$f]->data_comentarios)}}</span>
                         @else
-                          <span class="underline data-coment"><?='(editado) '. Helper::tempo_corrido($post['comentarios'][$f]->edit_comentarios)?></span>
+                          <span class="underline data-coment"><?='(editado) '. Helper::tempo_corrido($post['comentarios'][$f]->data_comentarios)?></span>
                         @endif
                       </div>
                       <p class="conteudo-coment text-justify">{{ $post['comentarios'][$f]->conteudo_comentarios }}</p>
@@ -166,8 +165,8 @@
                             <span href="#" id="btn_like" class="curtir fa-thumbs-o-up fa" data-id="{{ $post['comentarios'][$f]->id_comentarios }}"></span> 
                             <span class="likes" id="likes_{{ $post['comentarios'][$f]->id_comentarios }}">{{ $post['comentarios'][$f]->likes_comentarios }}</span>
                           @else 
-                            <span href="#" id="btn_like" class="curtir fa-thumbs-up fa" data-id="{{ $post['comentarios'][$f]->id_comentarios }}"></span>
-                            <span class="likes" id="likes_{{ $post['comentarios'][$f]->id_comentarios }}">{{ $post['comentarios'][$f]->likes_comentarios }}</span>
+                          <span href="#" id="btn_like" class="curtir fa-thumbs-up fa" data-id="{{ $post['comentarios'][$f]->id_comentarios }}"></span>
+                          <span class="likes" id="likes_{{ $post['comentarios'][$f]->id_comentarios }}">{{ $post['comentarios'][$f]->likes_comentarios }}</span>
                           @endif
 
                         <!--  Modal de edição de comentários -->
@@ -189,7 +188,7 @@
                                     
 
                                     <div class="modal-footer">
-                                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                       <input data-toggle="modal" data-target="#hiddenDiv" type="submit" class="btn btn-primary dropright" value="Salvar Alterações">
                                       
                                     </div> 
@@ -200,18 +199,14 @@
                               </div>
                             </div>
                           </div>
-                        
-                        
-                        
-
-
-                        
+                  
                         <div id="comentarios">
-                          <form action="{{ route('comentario') }}" method="post">
+                          <form action="{{ route('comentario') }}" method="POST">
                             @csrf
                             <input name="conteudo" maxlength="255" style="width: 100%" type="text" class="btn-popup mr-sm-2" placeholder="<?='Em resposta a '.'@'. $post['comentarios'][$f]->usuario?>">
                             <input type="hidden" name="id_coment" value="{{ $post['comentarios'][$f]->id_comentarios }}">
                             <input type="hidden" name="id_postagem" value="{{ $id_post }}">
+                            <input type="hidden" name="id_mencionado" value="{{ $post['comentarios'][$f]->id }}">
                             <input type="submit" style="display: none" name="respostas">
                           </form>
                         </div>
@@ -243,31 +238,23 @@
                   </div>         
                   @endif
                   @for($g=0; $g<sizeof($post['reply_coment']); $g++)
-                    @if($post['reply_coment'][$g]->id_comentarios === $post['comentarios'][$f]->id_comentarios && $post['comentarios'][$f]->id_postagem == $id_post)
-                      <div class="linha"></div>
-                      <div class="popup_coment_aval" id="respostas">
-                        
+                    @if($post['reply_coment'][$g]->id_postagem == $id_post && $post['comentarios'][$f]->id_comentarios === $post['reply_coment'][$g]->id_comentarios_ref)
+                      <div class="popup_coment_aval" id="respostas" style="margin-top: 10px; width: 95%;margin-left:5%">
                         
                         <div class="header-coment">
-                          <form id="perfil" action="{{ route('perfil') }}" method="get">
-                            @csrf
-                            <input type="hidden" name="id_usuario" value="{{ $post['comentarios'][$f]->id }}">
-                            <span>Em resposta a</span><input name="nome" class="link" type="submit" value="<?='@'. $post['comentarios'][$f]->usuario ?>">
-                            {{-- <p class="respondendo">Em resposta a <span class="link"></span></p> --}}
-                          </form>
                           <div class="dropdown dropdown1">
 
                             <!--Trigger-->
                            
-                            <a class="btn-floating btn-lg black "type="button" id="dropdownMenu3" data-toggle="dropdown"
+                            <a class="btn-floating btn-lg black"type="button" id="dropdownMenu3" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
                           
                           
                             <!--Menu-->
                             <div class="dropdown-menu dropdown-primary">
                               @if($post['reply_coment'][$g]->id === Auth::user()->id)
-                                <a class="dropdown-item" data-toggle="modal" style="cursor: pointer" data-target="#popup{{$post['reply_coment'][$g]->id_subcomentarios }}_edit">Editar</a>
-                                <a class="dropdown-item" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['reply_coment'][$g]->id_subcomentarios }}_apagar1">Apagar</a>
+                                <a class="dropdown-item" data-toggle="modal" style="cursor: pointer" data-target="#popup{{$post['reply_coment'][$g]->id_comentarios }}_edit">Editar</a>
+                                <a class="dropdown-item" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['reply_coment'][$g]->id_comentarios }}_apagar1">Apagar</a>
                               @else
                                 {{-- <form id="denunciar" action="{{ route('denunciar') }}" method="POST">
                                   @csrf
@@ -277,16 +264,16 @@
                               @endif
                             </div>
                           </div>
-                          @if(empty($post['reply_coment'][$g]->edit_subcomentarios))
+                          @if(empty($post['reply_coment'][$g]->edit_comentarios))
                             <span class="underline data-coment">{{ Helper::tempo_corrido($post['reply_coment'][$g]->data_comentarios)}}</span>
                           @else
-                            <span class="underline data-coment"><?='(editado) '. Helper::tempo_corrido($post['reply_coment'][$g]->edit_subcomentarios)?></span>
+                            <span class="underline data-coment"><?='(editado) '. Helper::tempo_corrido($post['reply_coment'][$g]->data_comentarios)?></span>
                           @endif
                           <div>
                             @if($post['reply_coment'][$g]->img_usuarios === null)
                               <img class="img-dados-coment" src="{{asset('img/semuser.png')}}">
                             @else
-                              <img  alt="{{ $post['reply_coment'][$g]->img_usuarios }}" name="img_usuarios" class="img-dados-coment" src="{{asset('/storage/users/'.$post['reply_coment'][$g]->img_usuarios)}}">
+                              <img alt="{{ $post['reply_coment'][$g]->img_usuarios }}" name="img_usuarios" class="img-dados-coment" src="{{asset('/storage/users/'.$post['reply_coment'][$g]->img_usuarios)}}">
                             @endif
                             <form id="perfil" action="{{ route('perfil') }}" method="get">
                               @csrf
@@ -296,34 +283,44 @@
                           </div>
                           
                         </div>
-                        <p class="conteudo-coment text-justify">{{ $post['reply_coment'][$g]->conteudo_comentarios }}</p>
-                        <div class="footer-coment">
-                          {{-- <span class="mostrar">Responder</span> --}}
-                          <?php $resultados = Helper::verifica_like_subcoment($post['reply_coment'][$g]->id_subcomentarios)?>
-                          @if($resultados == 0)
-                            <span href="#" id="{{ $post['reply_coment'][$g]->id_subcomentarios }}" class="subcurtir fa-thumbs-o-up fa" data-id="{{ $post['reply_coment'][$g]->id_subcomentarios }}"></span> 
-                            <span class="likes" id="likes_{{ $post['reply_coment'][$g]->id_subcomentarios }}">{{ $post['reply_coment'][$g]->likes_comentarios }}</span>
-                          @else 
-                            <span href="#" id="{{ $post['reply_coment'][$g]->id_subcomentarios }}" class="subcurtir fa-thumbs-up fa" data-id="{{ $post['reply_coment'][$g]->id_subcomentarios }}"></span>
-                            <span class="likes" id="likes_{{ $post['reply_coment'][$g]->id_subcomentarios }}">{{$post['reply_coment'][$g]->likes_comentarios }}</span>
+                        @for($k=0; $k<sizeof($post['mencionado']);$k++)
+                          @if($post['mencionado'][$k]->id_comentarios === $post['reply_coment'][$g]->id_comentarios)
+                            <form id="perfil" action="{{ route('perfil') }}" method="get">
+                              @csrf
+                              <input type="hidden" name="id_usuario" value="{{ $post['mencionado'][$k]->id }}">
+                              <input class="mencionado" type="submit" value="{{'@'. $post['mencionado'][$k]->usuario }}">
+                            </form>
                           @endif
-
+                        @endfor
+                        <p class="conteudo-coment">{{ $post['reply_coment'][$g]->conteudo_comentarios }}</p>
+                      
+                        <div class="footer-coment">
+                          <span class="mostrar">Responder</span>
+                          <?php $resultados = Helper::verifica_like_coment($post['reply_coment'][$g]->id_comentarios)?>
+                          @if($resultados == 0)
+                            <span href="#" id="{{ $post['reply_coment'][$g]->id_comentarios }}" class="curtir fa-thumbs-o-up fa" data-id="{{ $post['reply_coment'][$g]->id_comentarios }}"></span> 
+                            <span class="likes" id="likes_{{ $post['reply_coment'][$g]->id_comentarios }}">{{ $post['reply_coment'][$g]->likes_comentarios }}</span>
+                          @else 
+                            <span href="#" id="{{ $post['reply_coment'][$g]->id_comentarios }}" class="curtir fa-thumbs-up fa" data-id="{{ $post['reply_coment'][$g]->id_comentarios }}"></span>
+                            <span class="likes" id="likes_{{ $post['reply_coment'][$g]->id_comentarios }}">{{$post['reply_coment'][$g]->likes_comentarios }}</span>
+                          @endif
                           <div id="comentarios">
                             <form action="{{ route('comentario') }}" method="POST">
                               @csrf
-                              <input name="conteudo_resposta" maxlength="255" style="width: 100%" type="text" class="btn-popup mr-sm-2" placeholder="<?='Em resposta a '.'@'. $post['reply_coment'][$g]->usuario?>">
-                              <input type="hidden" name="id_coment" value="{{ $post['reply_coment'][$g]->id_comentarios }}">
-                              <input type="hidden" name="id_resposta" value="{{ $post['reply_coment'][$g]->id_subcomentarios }}">
+                              <input name="conteudo" maxlength="255" style="width: 100%" type="text" class="btn-popup mr-sm-2" placeholder="<?='Em resposta a '.'@'. $post['reply_coment'][$g]->usuario?>">
+                              <input type="hidden" name="id_coment" value="{{ $post['comentarios'][$f]->id_comentarios }}">
                               <input type="hidden" name="id_postagem" value="{{ $id_post }}">
+                              <input type="hidden" name="id_mencionado" value="{{ $post['reply_coment'][$g]->id }}">
                               <input type="submit" style="display: none" name="respostas">
                             </form>
                           </div>
                         </div>
+
                       </div>
 
                       <!--  Modal de edição de respostas de comentários -->
                       <div class="painel-dados">
-                        <div class="modal fade id" id="popup{{$post['reply_coment'][$g]->id_subcomentarios}}_edit" role="dialog">
+                        <div class="modal fade id" id="popup{{$post['reply_coment'][$g]->id_comentarios}}_edit" role="dialog">
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
@@ -333,9 +330,9 @@
                                 <form action="{{ route('edit.coment') }}" method="POST"> 
                                   @csrf                   
                                   <div class="popup-title">
-                                    <label style="vertical-align: top" for="editsubcomentario" class="bold subdados">Descrição:</label>
-                                    <textarea name="editsubcomentario" id="edit_desc" cols="60" rows="1">{{$post['reply_coment'][$g]->conteudo_comentarios }}</textarea>
-                                    <input type="hidden" name="id_subcoment" value="{{ $post['reply_coment'][$g]->id_subcomentarios }}">
+                                    <label style="vertical-align: top" for="editcomentario" class="bold subdados">Descrição:</label>
+                                    <textarea name="editcomentario" id="edit_desc" cols="60" rows="1">{{$post['reply_coment'][$g]->conteudo_comentarios }}</textarea>
+                                    <input type="hidden" name="id_coment" value="{{ $post['reply_coment'][$g]->id_comentarios }}">
                                   </div>
                                 
 
@@ -354,7 +351,7 @@
 
                       <!--  Modal para apagar subcomentários -->
                       <div class="painel-dados">
-                        <div class="modal fade id" id="popup{{$post['reply_coment'][$g]->id_subcomentarios}}_apagar1" role="dialog">
+                        <div class="modal fade id" id="popup{{$post['reply_coment'][$g]->id_comentarios}}_apagar1" role="dialog">
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
@@ -365,7 +362,6 @@
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                   <form action="{{route('apagar-coment')}}" method="POST">
                                     @csrf
-                                    <input name="id_subcomentario" type="hidden" value="{{ $post['reply_coment'][$g]->id_subcomentarios }}">
                                     <input name="id_comentario" type="hidden" value="{{ $post['reply_coment'][$g]->id_comentarios }}">
                                     <input data-toggle="modal" type="submit" class="btn btn-primary dropright" value="Apagar comentário">
                                   </form>

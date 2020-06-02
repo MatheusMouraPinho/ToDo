@@ -1,9 +1,8 @@
 <?php
 
 use Symfony\Component\Console\Input\Input;
+
 $nivel = Auth::user()->nivel;
-
-
 
 ?>
 
@@ -23,7 +22,6 @@ $nivel = Auth::user()->nivel;
     
     <script type="text/javascript" src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/funcoes.js') }}"></script>
     
     

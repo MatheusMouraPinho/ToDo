@@ -51,14 +51,14 @@ class ComentController extends Controller
 
         if(isset($data['conteudo'])) {
             $data['id_usuario'] = Auth::user()->id;
-            $insert = DB::table('subcomentarios')->insert([
+            $insert = DB::table('comentarios')->insert([
                 [
                     'id_usuarios' => $data['id_usuario'],
                     'id_postagem' => $data['id_postagem'],
                     'conteudo_comentarios' => $data['conteudo'],
-                    'id_comentarios' => $data['id_coment'],
                     'data_comentarios' => $data['data_comentarios'],
-                    
+                    'id_mencionado' => $data['id_mencionado'],
+                    'id_comentarios_ref' => $data['id_coment']                    
                 ]
             ]);
 
@@ -68,27 +68,6 @@ class ComentController extends Controller
                                 ->with('error', 'Erro ao processar comentário');
 
             return back();
-        }
-
-        if(isset($data['id_resposta'])) {
-            $data['id_usuario'] = Auth::user()->id;
-            $insert = DB::table('subcomentarios')->insert([
-                [
-                    'id_usuarios' => $data['id_usuario'],
-                    'id_postagem' => $data['id_postagem'],
-                    'conteudo_comentarios' => $data['conteudo_resposta'],
-                    'id_comentarios' => $data['id_coment'],
-                    'data_comentarios' => $data['data_comentarios'],
-                    'id_resposta' => $data['id_resposta']                        
-                ]
-            ]);
-
-            if(!$insert)
-                return redirect()
-                                ->back()
-                                ->with('error', 'Erro ao processar comentário');
-
-            return back(); 
         }
             
     }
@@ -122,42 +101,6 @@ class ComentController extends Controller
             mysqli_query($conn, $sql1);
 
             $sql_count = "select likes_comentarios from comentarios where id_comentarios = $coment_id";
-            $count_likes = mysqli_query($conn, $sql_count);
-            $likes = mysqli_fetch_array($count_likes);
-
-            $rating = [
-                'likes' => $likes[0]
-            ];
-
-            echo json_encode($rating);
-
-        }
-
-        else if(isset($request->subcoment_id)) {
-            $subcoment_id = $request->subcoment_id;
-            $action = $request->action;
-
-            switch($action){
-                case 'like':
-                    $sql = "insert into like_subcomentarios(id_subcomentarios, id_usuarios)
-                            values($subcoment_id, $id_user)";
-                    $sql1 = "update subcomentarios set likes_comentarios = likes_comentarios+1 
-                            where id_subcomentarios = $subcoment_id";
-                    break;
-                case 'unlike':
-                    $sql = "delete from like_subcomentarios
-                            where id_usuarios=$id_user and id_subcomentarios=$subcoment_id";
-                    $sql1 = "update subcomentarios set likes_comentarios = likes_comentarios-1 
-                            where id_subcomentarios = $subcoment_id";
-                    break;
-                default:
-                    break;
-            }
-
-            mysqli_query($conn, $sql);
-            mysqli_query($conn, $sql1);
-
-            $sql_count = "select likes_comentarios from subcomentarios where id_subcomentarios = $subcoment_id";
             $count_likes = mysqli_query($conn, $sql_count);
             $likes = mysqli_fetch_array($count_likes);
 
@@ -218,8 +161,9 @@ class ComentController extends Controller
             $datetime = new DateTime();
             $datetime->format('d-m-Y H:i:s');
             $data['data_comentarios'] = $datetime;
+            
             if(isset($data['editcomentario']))
-                DB::table('comentarios')
+                $edit = DB::table('comentarios')
                         ->where('id_comentarios', $data['id_coment'])
                         ->update(
                             [
@@ -227,15 +171,11 @@ class ComentController extends Controller
                                 'edit_comentarios' => $data['data_comentarios']
                             ]
                         );
-            else if(isset($data['editsubcomentario']))
-                DB::table('subcomentarios')
-                ->where('id_subcomentarios', $data['id_subcoment'])
-                ->update(
-                    [
-                        'conteudo_comentarios' => $data['editsubcomentario'],
-                        'edit_subcomentarios' => $data['data_comentarios']
-                    ]
-                );
+            
+            if(!$edit)
+                        return redirect()
+                                    ->back()
+                                    ->with('error', 'Erro ao editar comentário');
 
             return back();
         }
@@ -252,29 +192,24 @@ class ComentController extends Controller
         $id = request()->all();
         $id_comentario = $id['id_comentario'];
         
-
-        if(!empty($id['id_subcomentario'])){
-            $id_subcomentario = $id['id_subcomentario'];
-            $delete = DB::delete('delete from like_subcomentarios where id_subcomentarios = ?', [$id_subcomentario]);
-            $deletar = DB::delete('delete from subcomentarios where id_subcomentarios = ?', [$id_subcomentario]);
-        }else{
-            $procurando['id_subcomentario'] = DB::table('subcomentarios')
-                            ->where('id_comentarios', $id_comentario)
-                            ->get();
-            if($procurando['id_subcomentario'] != null) {
-                for($c=0; $c<sizeof($procurando['id_subcomentario']);$c++){
-                    $procurando1['id_subcomentario'] = DB::table('like_subcomentarios')
-                            ->where('id_subcomentarios', $procurando['id_subcomentario'][$c]->id_subcomentarios)
-                            ->get();
-                    if($procurando1['id_subcomentario'] != null){
-                        $del_sublike = DB::delete('delete from like_subcomentarios where id_subcomentarios = ?', [$procurando['id_subcomentario'][$c]->id_subcomentarios]);
-                    }
+        if(!empty($id_comentario)){
+            $search['id_comentario'] = DB::table('comentarios')
+                                    ->where('id_comentarios_ref', $id_comentario)
+                                    ->get();
+            if($search['id_comentario'] != null) {
+                for($c=0; $c<sizeof($search['id_comentario']); $c++) {
+                    $delete_like = DB::delete('delete from like_comentarios where id_comentarios = ?', [$search['id_comentario'][$c]->id_comentarios]);
                 }
             }
             $delete = DB::delete('delete from like_comentarios where id_comentarios = ?', [$id_comentario]);
-            $deletar = DB::delete('delete from subcomentarios where id_comentarios = ?', [$id_comentario]);
             $deletando = DB::delete('delete from comentarios where id_comentarios = ?', [$id_comentario]);
+            $deletando_ref = DB::delete('delete from comentarios where id_comentarios_ref = ?', [$id_comentario]);
         }
+
+        if(!$delete && !$deletando && !$deletando_ref && !$delete_like)
+                        return redirect()
+                                    ->back()
+                                    ->with('error', 'Erro ao apagar comentário');
 
         return back();
     }

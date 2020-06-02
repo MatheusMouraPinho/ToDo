@@ -247,12 +247,9 @@
   border-radius: 30px;
 }
 
-.area_ideias {
-  position: relative;
-  display: block;
-  width: 80%;
-  float: right;
-  
+#area_ideias {
+
+  margin-top: 30px;
 }
 
 .margin {
@@ -461,10 +458,10 @@ p {
   display: inline-block;
   border: 1px solid black;
   border-radius: 5px;
-  margin: 0px 5px 0px 5px;
+  padding: 10px;
+  margin: 0px auto 0px auto;
   width: 100%;
   background-color: white;
-  padding: 5px;
 }
 
 .popup_coment_aval:hover {
@@ -601,7 +598,7 @@ input[type='file'] {
 }
 
 .img-dados-coment {
-  width: 20x;
+  width: 40px;
   height: 35px;
   border-radius: 50%;
   border: 1px solid black;
@@ -688,11 +685,12 @@ input[type='file'] {
   overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;
-  width: 170px;
+  width: 140px;
   background-color: transparent;
   border: 0px;
   text-align: left;
   margin: 0px;
+  padding: 0;
 }
 
 .user:hover{
@@ -762,7 +760,7 @@ input[type='file'] {
 }
 
 .comentario {
-  margin: 0px 0px 0px 5px;
+  margin: 0px auto 0px auto;
   width: 100%;
   padding: 10px;
   line-height: 1.5;
@@ -802,8 +800,7 @@ input[type='file'] {
 }
 
 .button_coment {
-  left: 15px;
-  margin: 10px;
+  margin-right: 2px;
   position: relative;
   float: right;
   width: 100px;
@@ -1051,5 +1048,27 @@ input[type='file'] {
   right: 100px;
   justify-items: right;
   font-size: 50px;
+}
+
+.mencionado {
+  color: rgb(34, 108, 192);
+  background-color: #b7d0e0;
+  border-radius: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  display: inline-block;
+  width: 150px;
+  border: 0px;
+  text-align: left;
+  margin: 0px;
+  text-align: center;
+}
+
+.mencionado:hover {
+  color: rgb(255, 255, 255);
+  background-color: #0099ff;
 }
 
