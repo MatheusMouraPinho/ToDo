@@ -37,23 +37,33 @@ class AdminController extends Controller
             
             'comentarios' => DB::table('comentarios')
                                 ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
+                                ->where('comentarios.id_mencionado', '=', null)
                                 ->join('usuarios', 'comentarios.id_usuarios', '=', 'usuarios.id')
                                 ->select('comentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
-                                ->orderBy('data_comentarios', 'desc')
+                                ->orderBy('comentarios.data_comentarios', 'desc')
                                 ->get(),
 
-            'reply_coment' => DB::table('subcomentarios')
-                                ->join('postagens', 'postagens.id_postagem', '=', 'subcomentarios.id_postagem')
-                                ->where('subcomentarios.id_resposta', '=', null)
-                                ->join('usuarios', 'subcomentarios.id_usuarios', '=', 'usuarios.id')
-                                ->select('subcomentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
-                                ->orderBy('data_comentarios', 'desc')
+
+
+            'reply_coment' => DB::table('comentarios')
+                                ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
+                                ->where('comentarios.id_mencionado', '!=', null)
+                                ->leftJoin('usuarios as users', 'comentarios.id_usuarios', '=', 'users.id')
+                                ->select('comentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'users.*')                               
+                                ->orderBy('data_comentarios', 'asc')
                                 ->get(),
 
-            'reply_reply' => DB::table('subcomentarios')
-                            ->where('id_resposta', '!=', null)
-                            ->orderBy('data_comentarios', 'desc')
-                            ->get()
+            'mencionado' => DB::table('comentarios')
+                                ->leftJoin('usuarios as user', 'comentarios.id_mencionado', '=', 'user.id') 
+                                ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
+                                ->where('comentarios.id_mencionado', '!=', null)
+                                ->select('comentarios.id_comentarios','postagens.id_usuarios', 'postagens.id_postagem', 'user.*')                               
+                                ->orderBy('data_comentarios', 'asc')
+                                ->get(),
+
+            'img_post' => DB::table('img_postagem')
+                                ->select('id_img', 'id_postagem')
+                                ->get()
         ];
 
         return view('adm3', compact('post'));
@@ -62,11 +72,6 @@ class AdminController extends Controller
     public function admin4()
     {   
         return view('adm4');
-    }
-
-    public function admin5()
-    {   
-        return view('adm5');
     }
 
     public function alt()
@@ -149,17 +154,6 @@ class AdminController extends Controller
 
             $sql = "DELETE FROM avaliacao_postagem WHERE id_postagem = $id_post";
             mysqli_query($conn, $sql);
-
-            $query2 = "SELECT * FROM subcomentarios WHERE id_postagem = $id_post";
-            $result2 = mysqli_query($conn, $query2);
-            while($rows = mysqli_fetch_assoc($result2)){
-                $id_subcomen = $rows['id_subcomentarios'];
-                $sql = "DELETE FROM like_subcomentarios WHERE id_comentarios = $id_subcomen";
-                mysqli_query($conn, $sql);
-            }
-
-            $sql = "DELETE FROM subcomentarios WHERE id_postagem = $id_post";
-            mysqli_query($conn, $sql);
             
             $query3 = "SELECT * FROM comentarios WHERE id_postagem = $id_post";
             $result3 = mysqli_query($conn, $query3);
@@ -200,20 +194,6 @@ class AdminController extends Controller
             $sql = "DELETE FROM denuncias_comentarios WHERE id_denunciacomentario = $id_den";
             mysqli_query($conn, $sql);
 
-            $query = "SELECT * FROM subcomentarios WHERE id_comentarios = $id_com";
-            $result = mysqli_query($conn, $query);
-            while($rows = mysqli_fetch_assoc($result)){
-                $id_subcom = $rows['id_subcomentarios'];
-                $sql = "DELETE FROM denuncias_subcomentarios WHERE id_subcomentario = $id_subcom";
-                mysqli_query($conn, $sql);
-            }
-
-            $sql = "DELETE FROM like_subcomentarios WHERE id_comentarios = $id_com";
-            mysqli_query($conn, $sql);
-            
-            $sql = "DELETE FROM subcomentarios WHERE id_comentarios = $id_com";
-            mysqli_query($conn, $sql);
-
             $sql = "DELETE FROM like_comentarios WHERE id_comentarios = $id_com";
             mysqli_query($conn, $sql);
 
@@ -243,9 +223,7 @@ class AdminController extends Controller
         }
 
         if(!$insert or !$update ) {
-            return redirect()
-                            ->back()
-                            ->with('error', 'Erro ao processar avaliação');
+            return redirect()->back()->with('error', 'Erro ao processar avaliação');
         }
 
         return back();

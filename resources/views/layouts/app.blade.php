@@ -165,7 +165,7 @@ $id_user = Auth::user()->id;
                   <option value="2"> Design & Criação </option>
                   <option value="3"> Engenharia & Arquitetura </option>
                   <option value="4"> Marketing </option>
-                  <option value="5"> Fotografia & AudioVisual </option>
+                  <option value="5"> Outros </option>
                 </select>
               </div>
             </div><br>

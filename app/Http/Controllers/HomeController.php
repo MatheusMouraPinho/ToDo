@@ -252,17 +252,6 @@ class HomeController extends Controller
 
         $sql = "DELETE FROM avaliacao_postagem WHERE id_postagem = $id";
         mysqli_query($conn, $sql);
-
-        $query2 = "SELECT * FROM subcomentarios WHERE id_postagem = $id";
-        $result2 = mysqli_query($conn, $query2);
-        while($rows = mysqli_fetch_assoc($result2)){
-            $id_subcomen = $rows['id_subcomentarios'];
-            $sql = "DELETE FROM like_subcomentarios WHERE id_comentarios = $id_subcomen";
-            mysqli_query($conn, $sql);
-        }
-
-        $sql = "DELETE FROM subcomentarios WHERE id_postagem = $id";
-        mysqli_query($conn, $sql);
         
         $query3 = "SELECT * FROM comentarios WHERE id_postagem = $id";
         $result3 = mysqli_query($conn, $query3);

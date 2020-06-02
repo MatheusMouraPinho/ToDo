@@ -78,14 +78,14 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
             <div class="dropdown">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?php if($tipo == "1"){ echo "Desenvolvimento Web"; }elseif($tipo == "2"){ echo "Design & Criação"; }elseif($tipo == "3"){echo "Engenharia & Arquitetura";
-                    }elseif($tipo == "4"){echo "Marketing";}elseif($tipo == "5"){echo "Fotografia & AudioVisual";}else{echo "Todas as categorias";}?> 
+                    }elseif($tipo == "4"){echo "Marketing";}elseif($tipo == "5"){echo "Outros";}else{echo "Todas as categorias";}?> 
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <?php if($tipo != "1"){?><button class="dropdown-item" name="tipo" value="1">Desenvolvimento Web</button><?php }?>
                     <?php if($tipo != "2"){?><button class="dropdown-item" name="tipo" value="2">Design & Criação</button><?php }?>
                     <?php if($tipo != "3"){?><button class="dropdown-item" name="tipo" value="3">Engenharia & Arquitetura</button><?php }?>
                     <?php if($tipo != "4"){?><button class="dropdown-item" name="tipo" value="4">Marketing</button><?php }?>
-                    <?php if($tipo != "5"){?><button class="dropdown-item" name="tipo" value="5">Fotografia & AudioVisual</button><?php }?>
+                    <?php if($tipo != "5"){?><button class="dropdown-item" name="tipo" value="5">Outros</button><?php }?>
                     <?php if($tipo != "1 OR 2 OR 3 OR 4 OR 5"){?><button class="dropdown-item" name="tipo" value="todas">Todas as categorias</button><?php }?>
                 </div>
             </div>
