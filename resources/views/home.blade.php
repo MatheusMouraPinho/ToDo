@@ -114,54 +114,57 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
 <?php }?>
 <?php while($rows = mysqli_fetch_assoc($result2)){ $situation = $rows['id_situacao_postagem']; $id_post = $rows['id_postagem'];?>
     <div class="card-home">
-        <div class="text-home"><h6>Postado por</h6></div>
-        <?php if($rows['img_usuarios'] == NULL){?>
-            <img class="img-autor" src="{{asset('img/semuser.png')}}">
-        <?php }else{?>
-            <img class="img-autor" src="{{asset('/storage/users/'.$rows['img_usuarios'])}}">
-        <?php }?>
-        <form action="/perfil" method="GET">
-            @csrf
-            <input type="hidden" name="id_usuario" value="<?php echo $rows['id']?>">
-            <div class="autor-home justify-content-md-center"><button style="text-decoration:underline" class="no-border-button" type="submit"><?php echo mb_strimwidth($rows['usuario'], 0, 16, "..."); ?></button></div>
-        </form>
-        <div class="divisao"></div>
-        <div class="title-home"><h3><b><?php echo mb_strimwidth(mb_strtoupper($rows['titulo_postagem']), 0, 30, "..."); ?></b></h3></div>
-        <div class="desc-home"><?php echo mb_strimwidth($rows['descricao_postagem'], 0, 60, "..."); ?></div>
-        
-        <?php $sql = "SELECT * FROM like_postagens WHERE id_postagens = $id_post AND id_usuarios = $user";
-        $result3 = mysqli_query($conn, $sql); 
-        $like_check = mysqli_num_rows($result3);
+        <div class="divisao">
+            <div class="text-home"><h6>Postado por</h6></div>
+            <?php if($rows['img_usuarios'] == NULL){?>
+                <img class="img-autor" src="{{asset('img/semuser.png')}}">
+            <?php }else{?>
+                <img class="img-autor" src="{{asset('/storage/users/'.$rows['img_usuarios'])}}">
+            <?php }?>
+            <form action="/perfil" method="GET">
+                @csrf
+                <input type="hidden" name="id_usuario" value="<?php echo $rows['id']?>">
+                <div class="autor-home justify-content-md-center"><button style="text-decoration:underline" class="no-border-button" type="submit"><?php echo mb_strimwidth($rows['usuario'], 0, 16, "..."); ?></button></div>
+            </form>
+        </div>
+        <div class="divisao2">
+            <div class="title-home"><h3><b><?php echo mb_strimwidth(mb_strtoupper($rows['titulo_postagem']), 0, 30, "..."); ?></b></h3></div>
+            <div class="desc-home"><?php echo mb_strimwidth($rows['descricao_postagem'], 0, 60, "..."); ?></div>
+            
+            <?php $sql = "SELECT * FROM like_postagens WHERE id_postagens = $id_post AND id_usuarios = $user";
+            $result3 = mysqli_query($conn, $sql); 
+            $like_check = mysqli_num_rows($result3);
 
-        if($like_check == 0){?>
-            <form method="POST" action="/like_post">
-                @csrf
-                <input type="hidden" name="id_post" value="<?php echo $rows['id_postagem'];?>">
-                <input type="hidden" name="id_usuario" value="<?php echo Auth::user()->id;?>">
-                <div class="like-home"><b><button type="submit" class="no-border-button row"><img width="30px" src="{{asset('img/like.png')}}"><p class="num-like-home"><?php echo $rows['likes_postagem']; ?></p></button></b></div>
-            </form>
-        <?php }else{?>
-            <form method="POST" action="/remov_like_post">
-                @csrf
-                <input type="hidden" name="id_post" value="<?php echo $rows['id_postagem'];?>">
-                <input type="hidden" name="id_usuario" value="<?php echo $user?>">
-                <div class="like-home"><b><button type="submit" class="no-border-button row"><img class="ajuste" width="24px" src="{{asset('img/like2.png')}}"><p class="num-like-home"><?php echo $rows['likes_postagem']; ?></p></button></b></div>
-            </form>
-        <?php }?>
-        <div class="link-home"> <a style="text-decoration:underline" type="button"  data-toggle="modal" data-target="#post<?php echo $id_post ?>">Visualizar</a> </div>
-        <div class="situation-home"><b>
-            <?php if ($situation == 1) { echo "<f3> Media: ". number_format((float)$rows['media'], 2, '.', ''). "</f3>";}else{ echo "<f4>" . "Pendente" . "</f4>";} ?>
-        </b></div>
-        <div class="data-home"><f2><?php echo date('d/m/Y', strtotime($rows['data_postagem'])); ?></f2></div>
-        <div class="denuncia-home">
-            <div class="dropdown">
-                <a id="navbarDropdown" role="button" data-toggle="dropdown"><img width="25px" src="{{asset('img/danger.png')}}"></a>
-                <div style="cursor: pointer" class="dropdown-menu">
-                    <?php if($rows['id_usuarios'] == Auth::user()->id){?>
-                        <a class="dropdown-item" data-toggle="modal" data-target="#del-post<?php echo $rows['id_postagem'];?>">Apagar</a>
-                    <?php }else{ ?>
-                        <a class="dropdown-item" data-toggle="modal" data-target="#den-post<?php echo $rows['id_postagem'];?>">Denunciar</a>
-                    <?php } ?>
+            if($like_check == 0){?>
+                <form method="POST" action="/like_post">
+                    @csrf
+                    <input type="hidden" name="id_post" value="<?php echo $rows['id_postagem'];?>">
+                    <input type="hidden" name="id_usuario" value="<?php echo Auth::user()->id;?>">
+                    <div class="like-home"><b><button type="submit" class="no-border-button row"><img width="30px" src="{{asset('img/like.png')}}"><p class="num-like-home"><?php echo $rows['likes_postagem']; ?></p></button></b></div>
+                </form>
+            <?php }else{?>
+                <form method="POST" action="/remov_like_post">
+                    @csrf
+                    <input type="hidden" name="id_post" value="<?php echo $rows['id_postagem'];?>">
+                    <input type="hidden" name="id_usuario" value="<?php echo $user?>">
+                    <div class="like-home"><b><button type="submit" class="no-border-button row"><img class="ajuste" width="24px" src="{{asset('img/like2.png')}}"><p class="num-like-home"><?php echo $rows['likes_postagem']; ?></p></button></b></div>
+                </form>
+            <?php }?>
+            <div class="link-home"> <a style="text-decoration:underline" type="button"  data-toggle="modal" data-target="#post<?php echo $id_post ?>">Visualizar</a> </div>
+            <div class="situation-home"><b>
+                <?php if ($situation == 1) { echo "<f3> Media: ". number_format((float)$rows['media'], 2, '.', ''). "</f3>";}else{ echo "<f4>" . "Pendente" . "</f4>";} ?>
+            </b></div>
+            <div class="data-home"><f2><?php echo date('d/m/Y', strtotime($rows['data_postagem'])); ?></f2></div>
+            <div class="denuncia-home">
+                <div class="dropdown">
+                    <a id="navbarDropdown" role="button" data-toggle="dropdown"><img width="25px" src="{{asset('img/danger.png')}}"></a>
+                    <div style="cursor: pointer" class="dropdown-menu">
+                        <?php if($rows['id_usuarios'] == Auth::user()->id){?>
+                            <a class="dropdown-item" data-toggle="modal" data-target="#del-post<?php echo $rows['id_postagem'];?>">Apagar</a>
+                        <?php }else{ ?>
+                            <a class="dropdown-item" data-toggle="modal" data-target="#den-post<?php echo $rows['id_postagem'];?>">Denunciar</a>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
         </div>

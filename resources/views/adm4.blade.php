@@ -46,7 +46,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
         <caption><br></caption>
         <?php if(isset($check)){ ?>
             <thead>
-                <tr>
+                <tr class="tr-custom">
                     <th scope="col">ID</th>
                     <th scope="col">Autor do comentario</th>
                     <th scope="col">Motivo</th>

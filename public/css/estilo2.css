@@ -34,7 +34,6 @@
 .card-home {
   position: relative;
   display: flex;
-  flex-direction: column;
   word-wrap: break-word;
   background-color: #a9a9a9;
   border-radius: 0.25rem;
@@ -45,58 +44,72 @@
 }
 
 .divisao {
-  border-left: 5px solid #646464;
-  height: 100%;
-  position: absolute;
-  left: 16%;
+  display: row;
+  border-right: 6px solid #646464;
+  height: auto;
+  width: 18%;
 }
+
+.divisao2 {
+  display: row;
+  height: auto;
+  width: 80%;
+}
+
 .text-home {
-  position: absolute;
-  top:3%;
-  left: 4%;
+  position: relative;
+  margin-left: 30%;
+  margin-right: 20%;
+  margin-top: 1%;
+  margin-bottom: 2%;
+  height: auto;
 }
 
 .img-autor {
-  position: absolute;
-  top:20%;
-  left: 3%;
+  position: relative;
   border-radius: 50%;
   border: 3px solid #646464;
-  width:10%;
-  height: 55%;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 19%;
+  margin-right: 20%;
+  width:65%;
+  height: auto;
 }
 
 .autor-home {
-  position: absolute;
-  bottom:5%;
-  left: 3%;
+  position: relative;
+  margin:5%;
+  padding-left: 17%;
   color: black;
+  width: auto;
 }
 
 .title-home {
-  position: absolute;
-  top:13%;
-  left: 18%;
+  position: relative;
+  margin-top: 2%;
+  margin-left: 2%;
   font-family: "Arial Black";
 }
 
 .link-home {
   position: absolute;
-  top: 80%;
-  left: 18%;
+  bottom: 10%;
+  left: 20%;
   color: blue;
 }
 
 .desc-home {
-  position: absolute;
-  top:44%;
-  left: 18%;
+  position: relative;
+  top:15%;
+  left: 2%;
 }
 
 .like-home {
   position: absolute;
-  top: 78%;
-  right: 12%;
+  top:40%;
+  right: 3%;
+  padding-right: 4px;
 }
 
 .denuncia-home {
@@ -367,4 +380,9 @@ fw{
 .ajuste{
 padding-right: 4px;
 padding-top: 4px;
+}
+
+.tr-custom{
+  background-color:#aaaaaa;
+  border-bottom: 4px solid grey;
 }

@@ -64,6 +64,11 @@ class AdminController extends Controller
         return view('adm4');
     }
 
+    public function admin5()
+    {   
+        return view('adm5');
+    }
+
     public function alt()
     {  
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
@@ -145,14 +150,6 @@ class AdminController extends Controller
             $sql = "DELETE FROM avaliacao_postagem WHERE id_postagem = $id_post";
             mysqli_query($conn, $sql);
 
-            /*$query = "SELECT * FROM subcomentarios WHERE id_postagem = $id_post";
-            $result = mysqli_query($conn, $query);
-            while($rows = mysqli_fetch_assoc($result)){
-                $id_subcom = $rows['id_subcomentarios'];
-                $sql = "DELETE FROM denuncias_subcomentarios WHERE id_subcomentario = $id_subcom";
-                mysqli_query($conn, $sql);
-            }
-            */
             $query2 = "SELECT * FROM subcomentarios WHERE id_postagem = $id_post";
             $result2 = mysqli_query($conn, $query2);
             while($rows = mysqli_fetch_assoc($result2)){
@@ -182,11 +179,6 @@ class AdminController extends Controller
             mysqli_query($conn, $sql);
 
             return redirect('adm3');
-        }
-        if($_POST['option'] =='barrar'){
-            $id_den = $_POST ['id_denuncia'];
-            $id_post = $_POST ['id_postagem'];
-            echo $id_den . " e " .  $id_post;
         }
     }
 
