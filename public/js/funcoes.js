@@ -87,14 +87,18 @@ function id(valor_campo) {
 
 function getValor(valor_campo) {
     var valor = document.getElementById(valor_campo).value.replace(',', '.');
-    return parseFloat(valor) * 100;
+    return parseFloat(valor) * 100;    
 }
 
 function calcular () {
-    var soma = getValor('inovacao') + getValor('complexidade') + getValor('potencial');
-    var media = soma / 3;
-    media = media / 100;
-    id('media').value = media.toFixed(2);
+    if(isNaN(getValor('inovacao')) || isNaN(getValor('complexidade')) || isNaN(getValor('potencial'))) {
+        id('media').value = 'Valor inválido!';
+    }else {
+        var soma = getValor('inovacao') + getValor('complexidade') + getValor('potencial');
+        var media = soma / 3;
+        media = media / 100;
+        id('media').value = media.toFixed(2);
+    }
 }
 
 

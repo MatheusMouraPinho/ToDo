@@ -418,14 +418,16 @@
                     </div>
                     <div style="margin: 10px">
                         <label for="potencial" class="sub">Potencial de Mercado:</label>
-                        <input type="number" name="potencial" id="potencial" class="nota" step = "0.1" min="0" max="10" onblur="calcular()" required>
+                        <input type="number" name="potencial" id="potencial" class="nota" step = "0.1" min="0" max="10"  required>
                     </div>
                 </div>
                 <div class="media">
                     <div class="center_media">
                         <label for="media" class="sub_media">Média:</label>
                         <input class="nota" name="media" id="media" placeholder="Calculado pelo sistema" readonly>
+                        <button type="button" class="calcular" onclick="calcular()"><i class="fas fa-spinner"></i></button>
                     </div>
+                    
                 </div>
                 <div class="coment_avaliador">
                     <label for="comentarios" style="vertical-align: top" class="sub_comentario">Comentários:</label>
