@@ -4,6 +4,8 @@ Baixar o projeto:
 
 No local xampp/htdocs usar no git bash o comando "git clone git@github.com:MatheusMouraPinho/ToDo.git".
 
+Descompactar Vendor.zip e importar o SQL no phpMyAdmin
+
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 Dependencias Utilizadas:
