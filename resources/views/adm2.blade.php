@@ -44,7 +44,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
 </nav>
 <br>
 <div class="row">
-<div class="text-centro contorno-titulo"><h3>Nivel de acesso Usuarios</h3></div>
+<div class="text-centro contorno-titulo texture"><h3>Nivel de acesso Usuarios</h3></div>
 </div>
 <div class="row justify-content-md-center">
     <form class="form-inline my-2 my-lg-0" method="POST" action="/pesquisa_user">
@@ -118,7 +118,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
             </tbody>
             <?php $i++; } ?>
         <?php }else{?>
-            <tbody style="background-color:#b1b1b1;">  
+            <tbody class="texture">  
                 <tr>
                     <td rowspan="10">
                         <div>

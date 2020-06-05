@@ -149,7 +149,7 @@ $id_user = Auth::user()->id;
         </div>
         <form action="/cria" method="POST" enctype="multipart/form-data">
           @csrf
-          <div class="modal-body">
+          <div class="modal-body texture">
             <div class="row">
               <div class="titulo-modal"><h2><ff>CRIE UMA IDEIA</ff></h2></div>
             </div><br>

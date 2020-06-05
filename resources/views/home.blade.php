@@ -117,7 +117,7 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
         <div class="divisao">
             <div class="text-home"><h6>Postado por</h6></div>
             <?php if($rows['img_usuarios'] == NULL){?>
-                <img class="img-autor" src="{{asset('img/semuser.png')}}">
+                <img class="img-autor" width="30px" src="{{asset('img/semuser.png')}}">
             <?php }else{?>
                 <img class="img-autor" src="{{asset('/storage/users/'.$rows['img_usuarios'])}}">
             <?php }?>
@@ -140,14 +140,14 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
                     @csrf
                     <input type="hidden" name="id_post" value="<?php echo $rows['id_postagem'];?>">
                     <input type="hidden" name="id_usuario" value="<?php echo Auth::user()->id;?>">
-                    <div class="like-home"><b><button type="submit" class="no-border-button row"><img width="30px" src="{{asset('img/like.png')}}"><p class="num-like-home"><?php echo $rows['likes_postagem']; ?></p></button></b></div>
+                    <div class="like-home like-border"><b><button type="submit" class="row no-border-button"><img width="30px" src="{{asset('img/like.png')}}"><div class="num-like-home"><?php echo $rows['likes_postagem']; ?></div></button></b></div>
                 </form>
             <?php }else{?>
                 <form method="POST" action="/remov_like_post">
                     @csrf
                     <input type="hidden" name="id_post" value="<?php echo $rows['id_postagem'];?>">
                     <input type="hidden" name="id_usuario" value="<?php echo $user?>">
-                    <div class="like-home"><b><button type="submit" class="no-border-button row"><img class="ajuste" width="24px" src="{{asset('img/like2.png')}}"><p class="num-like-home"><?php echo $rows['likes_postagem']; ?></p></button></b></div>
+                    <div class="like-home like-border"><b><button type="submit" class="row no-border-button"><img class="ajuste-unlike" width="25px" src="{{asset('img/like2.png')}}"><div class="num-like-home"><?php echo $rows['likes_postagem']; ?></div></button></b></div>
                 </form>
             <?php }?>
             <div class="link-home"> <a style="text-decoration:underline" type="button"  data-toggle="modal" data-target="#post<?php echo $id_post ?>">Visualizar</a> </div>
@@ -157,7 +157,7 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
             <div class="data-home"><f2><?php echo date('d/m/Y', strtotime($rows['data_postagem'])); ?></f2></div>
             <div class="denuncia-home">
                 <div class="dropdown">
-                    <a id="navbarDropdown" role="button" data-toggle="dropdown"><img width="25px" src="{{asset('img/danger.png')}}"></a>
+                    <a id="navbarDropdown" role="button" data-toggle="dropdown"><img class="danger-icon" width="30px" src="{{asset('img/danger.png')}}"></a>
                     <div style="cursor: pointer" class="dropdown-menu">
                         <?php if($rows['id_usuarios'] == Auth::user()->id){?>
                             <a class="dropdown-item" data-toggle="modal" data-target="#del-post<?php echo $rows['id_postagem'];?>">Apagar</a>
