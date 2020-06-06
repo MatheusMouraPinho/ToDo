@@ -103,9 +103,8 @@
               
               @if(!empty($post['comentarios'][0]))  
                 @for($f=0; $f<sizeof($post['comentarios']); $f++)
-                <hr>
                   @if($post['comentarios'][$f]->id_postagem === $posts->id_postagem)
-                  
+                    <hr>
                     <div class="popup_coment_aval" id="id_comentario{{ $post['comentarios'][$f]->id_comentarios }}">
                       <div class="header-coment">
                         @if($post['comentarios'][$f]->img_usuarios === null)

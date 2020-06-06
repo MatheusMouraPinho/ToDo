@@ -5,6 +5,7 @@
     $nivel = Auth::user()->nivel;
     $id_nivel = 0; 
     if($nivel >= 2){$id_nivel = 1;}
+    $x=0;
 ?>
 
 <!-- Área de detalhes de ideias postadas -->
@@ -372,10 +373,7 @@
                         </div>
                       </div>
                     @endif
-                  @endfor
-
-                                         
-                
+                  @endfor                
                 @endfor
               @endif
             </div>           
@@ -393,60 +391,6 @@
     </div>
 </div>
 </div>
-
-<!--  Modal de avaliação  -->
-
-<div class="modal fade bd-example-modal-lg" id="post<?php echo $id_post ?>_avaliar" tabindex="-1" role="dialog" id="modalideia" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-          <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form action="{{ url('/avaliar')}}" method="POST">
-            @csrf
-            <div class="modal-body">
-                <div class="notas">
-                    <div style="margin: 10px">
-                        <label for="inovacao" class="sub">Inovação:</label>
-                        <input type="number" name="inovacao" id="inovacao" class="nota" step = "0.1" min="0" max="10" required>
-                    </div>
-                    <div style="margin: 10px">
-                        <label for="complexidade" class="sub">Complexidade:</label>
-                        <input type="number" name="complexidade" id="complexidade" class="nota" step = "0.1" min="0" max="10" required>
-                    </div>
-                    <div style="margin: 10px">
-                        <label for="potencial" class="sub">Potencial de Mercado:</label>
-                        <input type="number" name="potencial" id="potencial" class="nota" step = "0.1" min="0" max="10"  required>
-                    </div>
-                </div>
-                <div class="media">
-                    <div class="center_media">
-                        <label for="media" class="sub_media">Média:</label>
-                        <input class="nota" name="media" id="media" placeholder="Calculado pelo sistema" readonly>
-                        <button type="button" class="calcular" onclick="calcular()"><i class="fas fa-spinner"></i></button>
-                    </div>
-                    
-                </div>
-                <div class="coment_avaliador">
-                    <label for="comentarios" style="vertical-align: top" class="sub_comentario">Comentários:</label>
-                    <textarea name="comentarios" class="comentarios" cols="80" rows="4" placeholder="Digite seu comentário..." required></textarea>
-                </div>
-                <input type="hidden" name="id_postagem" value="{{ $id_post }}">
-                <?php if(isset($rows['id'])){?><input type="hidden" name="id_usuario" value="{{ $rows['id'] }}"><?php }?>
-                <input type="hidden" name="id_avaliador" value="{{ Auth::user()->id }}">
-            </div>
-            <div class="modal-footer-custom grey">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Finalizar avaliação</button>
-            </div>
-        </form>
-    </div>
-  </div>
-</div>
-
-<!-- Fim  Modal de avaliação  -->
 
 <!-- Popup de visualização de imagens -->
 <div class="popup_img_post">
@@ -520,8 +464,60 @@
       </div>
   </div>
 </div>
-
-
 <!-- Fim Popup de visualização de imagens3 -->
+
+
+<!--  Modal de avaliação  -->
+<div class="modal fade bd-example-modal-lg" id="post<?php echo $id_post ?>_avaliar" tabindex="-1" role="dialog" id="modalideia" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{{ url('/avaliar')}}" method="POST">
+            @csrf
+            <div class="modal-body">
+                <div class="notas">
+                    <div style="margin: 10px">
+                        <label for="inovacao" class="sub">Inovação:</label>
+                        <input type="number" name="inovacao" id="inovacao{{$id_post}}" class="nota" step = "0.1" min="0" max="10" required>
+                    </div>
+                    <div style="margin: 10px">
+                        <label for="complexidade" class="sub">Complexidade:</label>
+                        <input type="number" name="complexidade" id="complexidade{{$id_post}}" class="nota" step = "0.1" min="0" max="10" required>
+                    </div>
+                    <div style="margin: 10px">
+                        <label for="potencial" class="sub">Potencial de Mercado:</label>
+                        <input type="number" name="potencial" id="potencial{{$id_post}}" class="nota" step = "0.1" min="0" max="10"  required>
+                    </div>
+                </div>
+                <div class="media">
+                    <div class="center_media">
+                        <label for="media" class="sub_media">Média:</label>
+                        <input class="nota nota_media" name="media" id="media{{$id_post}}" placeholder="Calculado pelo sistema" readonly>
+                        <button type="button" class="calcular" onclick="calcular({{$id_post}})"><i class="fas fa-spinner"></i></button>
+                    </div>
+                    
+                </div>
+                <div class="coment_avaliador">
+                    <label for="comentarios" style="vertical-align: top" class="sub_comentario">Comentários:</label>
+                    <textarea name="comentarios" class="comentarios" cols="80" rows="4" placeholder="Digite seu comentário..." required></textarea>
+                </div>
+                <input type="hidden" name="id_postagem" id="id_postagem1" value="{{ $id_post }}">
+                <?php if(isset($rows['id'])){?><input type="hidden" name="id_usuario" value="{{ $rows['id'] }}"><?php }?>
+                <input type="hidden" name="id_avaliador" value="{{ Auth::user()->id }}">
+            </div>
+            <div class="modal-footer-custom grey">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Finalizar avaliação</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
+<!-- Fim  Modal de avaliação  -->
+
 
 

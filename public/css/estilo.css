@@ -945,7 +945,7 @@ input[type='file'] {
   height: 150px;
 }
 
-#media {
+.nota_media {
   width: 50%;
   text-align: center;
   margin-left: 5px;

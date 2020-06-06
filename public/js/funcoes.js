@@ -82,22 +82,23 @@ function update3() {
 }
 
 function id(valor_campo) {
-    return document.getElementById(valor_campo);
+  return document.getElementById(valor_campo);
 }
 
 function getValor(valor_campo) {
-    var valor = document.getElementById(valor_campo).value.replace(',', '.');
-    return parseFloat(valor) * 100;    
+  var valor = document.getElementById(valor_campo).value.replace(',', '.');
+  return parseFloat(valor) * 100;    
 }
 
-function calcular () {
-    if(isNaN(getValor('inovacao')) || isNaN(getValor('complexidade')) || isNaN(getValor('potencial'))) {
-        id('media').value = 'Valor inválido!';
+
+function calcular (id_post) {
+    if(isNaN(getValor('inovacao'+id_post)) || isNaN(getValor('complexidade'+id_post)) || isNaN(getValor('potencial'+id_post))) {
+        id('media'+id_post).value = 'Valor inválido!';
     }else {
-        var soma = getValor('inovacao') + getValor('complexidade') + getValor('potencial');
+        var soma = getValor('inovacao'+id_post) + getValor('complexidade'+id_post) + getValor('potencial'+id_post);
         var media = soma / 3;
         media = media / 100;
-        id('media').value = media.toFixed(2);
+        id('media'+id_post).value = media.toFixed(2);
     }
 }
 
