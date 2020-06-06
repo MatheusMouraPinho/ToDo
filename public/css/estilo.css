@@ -149,6 +149,7 @@
   flex: 1 1 auto;
   padding: 1rem;
   background-color: darkgray;
+  background-image: url("img/texture.png");
 }
 
 .modal-footer {
@@ -228,6 +229,7 @@
   position: relative;
   width: 63%;
   background-color: darkgray;
+  background-image: url("img/texture.png");
   border: 2px solid black;
   margin-left: auto;
   margin-right: auto;

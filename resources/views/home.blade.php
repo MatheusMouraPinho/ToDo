@@ -38,7 +38,7 @@ $sql = "SELECT * FROM postagens LEFT JOIN usuarios ON (postagens.id_usuarios = u
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
-$quantidade = 4; //quantidade de rows
+$quantidade = 6; //quantidade de rows
 
 $num_pagina = ceil($total_pesquisa/$quantidade);
 
@@ -54,6 +54,7 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
 }elseif($periodo == "DATE(NOW()) - INTERVAL 30 DAY"){$setup = "Ultimo Mês";
 }elseif($periodo == "DATE(NOW()) - INTERVAL 365 DAY"){$setup = "Ultimo Ano";
 }else{$setup = "Todas as Postagens";}
+$i = 1;
 ?>
 
 @section('content')
@@ -112,7 +113,8 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
         <h2 class="aviso-text"><b>Nenhuma Postagem encontrada</b></h2>
     </div>
 <?php }?>
-<?php while($rows = mysqli_fetch_assoc($result2)){ $situation = $rows['id_situacao_postagem']; $id_post = $rows['id_postagem'];?>
+<?php while($rows = mysqli_fetch_assoc($result2)){ $situation = $rows['id_situacao_postagem']; $id_post = $rows['id_postagem']; $scroll = $i +1;?>
+    <nav id="scroll<?php echo $scroll?>"></nav>
     <div class="card-home">
         <div class="divisao">
             <div class="text-home"><h6>Postado por</h6></div>
@@ -140,6 +142,7 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
                     @csrf
                     <input type="hidden" name="id_post" value="<?php echo $rows['id_postagem'];?>">
                     <input type="hidden" name="id_usuario" value="<?php echo Auth::user()->id;?>">
+                    <input type="hidden" name="scroll" value="<?php echo $i?>">
                     <div class="like-home like-border"><b><button type="submit" class="row no-border-button"><img width="30px" src="{{asset('img/like.png')}}"><div class="num-like-home"><?php echo $rows['likes_postagem']; ?></div></button></b></div>
                 </form>
             <?php }else{?>
@@ -147,6 +150,7 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
                     @csrf
                     <input type="hidden" name="id_post" value="<?php echo $rows['id_postagem'];?>">
                     <input type="hidden" name="id_usuario" value="<?php echo $user?>">
+                    <input type="hidden" name="scroll" value="<?php echo $i?>">
                     <div class="like-home like-border"><b><button type="submit" class="row no-border-button"><img class="ajuste-unlike" width="25px" src="{{asset('img/like2.png')}}"><div class="num-like-home"><?php echo $rows['likes_postagem']; ?></div></button></b></div>
                 </form>
             <?php }?>
@@ -220,7 +224,8 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
         </div>
     </div>
     <!-- FIM Modal denunciar postagem -->
-<?php } ?>
+    
+<?php $i++; } ?>
                                    
 <nav class="text-center">
     <ul class="pagination">

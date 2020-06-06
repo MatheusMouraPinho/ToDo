@@ -32,30 +32,30 @@ $id_user = Auth::user()->id;
 </head>
 <body>
   <!-- ||Nav Bar||  -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <img class="navbar-brand" width="150px" src="{{asset('img/logo.png')}}">
+  <nav class="navbar navbar-expand-lg cor">
+    <img class="navbar-brand" width="7%" src="{{asset('img/logo.png')}}">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-md-center" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li style="padding-left:2em" class="nav-item active">
+      <ul class="nav navbar-nav ml-auto">
+        <li style="padding-right:22px" class="nav-item active">
           <div class="form-inline my-2 my-lg-0">
             <a class="btn btn-primary my-2 my-sm-0"  href="{{ url('/home') }}">Home</a>
           </div>
         </li>
-        <li style="padding-left:2em" class="nav-item">
+        <li style="padding-right:28px" class="nav-item">
           <form class="form-inline my-2 my-lg-0" method="POST" action="/pesquisa">
             @csrf
-            <input class="form-control mr-sm-2" type="text" name="pesquisa" placeholder="Procure pelo nome da postagem ou autor" aria-label="Search" style="width: 400px">
-            <button class="btn btn-primary my-2 my-sm-0" type="submit">Procurar</button>
+            <input class="form-control mr-sm-2" type="text" name="pesquisa" placeholder="Procure pelo nome da postagem ou autor" aria-label="Search" style="width: 440px">
+            <div><button class="btn btn-primary my-2 my-sm-0" type="submit">Procurar</button></div>
           </form>
         </li>
-        <li style="padding-left:2em" class="nav-item">
+        <li class="nav-item">
           <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#modalideia">Crie uma Ideia</button>
         </li>
       </ul>
-      <ul class="navbar-nav ml-auto">
+      <ul class="nav navbar-nav ml-auto">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Configurações </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">

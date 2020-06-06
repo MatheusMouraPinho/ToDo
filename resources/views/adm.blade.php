@@ -41,7 +41,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
 <br>
 
 <div class="row">
-    <div class="text-centro contorno-titulo texture"><h3>Cadastros Pendentes</h3></div>
+    <div class="text-centro contorno-titulo"><h3>Cadastros Pendentes</h3></div>
     <table class="col-12" id="table_conta">
         <caption><br></caption>
         <?php if(isset($check)){ ?>
