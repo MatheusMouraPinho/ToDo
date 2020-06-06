@@ -55,7 +55,7 @@ $id_user = Auth::user()->id;
           <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#modalideia">Crie uma Ideia</button>
         </li>
       </ul>
-      <ul class="nav navbar-nav ml-auto">
+      <ul class="navbar-nav ml-auto" style="cursor: pointer">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Configurações </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">

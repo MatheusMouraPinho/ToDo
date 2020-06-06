@@ -1,8 +1,9 @@
 <?php
 
 use Symfony\Component\Console\Input\Input;
+session_start();
 $nivel = Auth::user()->nivel;
-
+$_SESSION['id_usuario'] = $dados['id'];
 
 
 // echo tempo_corrido("m/d/Y H:i:s");
@@ -231,7 +232,7 @@ $nivel = Auth::user()->nivel;
             </table>
               <div class="card-footer" style="padding: 8px">
                 <p id="contagem-ideias">
-                  {{ $dados['posts']->links() }}
+                  {{ $dados['posts']->appends(['id_usuario' => $_SESSION['id_usuario']])->links() }}
                 </p>
               </div>
           </div>

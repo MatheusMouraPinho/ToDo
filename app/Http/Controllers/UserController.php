@@ -129,10 +129,11 @@ class UserController extends Controller
     }
 
 
-    public function perfil(Request $request) {
-        $data = $request->all();
+    public function perfil() {
+        $_SESSION['id_usuario'] = $_GET['id_usuario'];
+        $id_usuario = $_SESSION['id_usuario'];
         $dados_user = DB::table('usuarios')
-                    ->where('id', $data['id_usuario'])
+                    ->where('id', $id_usuario)
                     ->get();
         
 
@@ -235,7 +236,7 @@ class UserController extends Controller
             ];
         }
 
-        if($data['id_usuario'] == Auth::user()->id) {
+        if($id_usuario == Auth::user()->id) {
             return view('conta', compact('dados', 'post'));
         }
 

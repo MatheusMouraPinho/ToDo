@@ -982,6 +982,11 @@ input[type='file'] {
   border: 1px solid black;
   box-shadow: 5px 5px 5px #999;
   resize: none;  
+  
+}
+
+.cor {
+  background-color: rgb(0, 51, 219);
 }
 
 @media (max-width: 1000px) {
