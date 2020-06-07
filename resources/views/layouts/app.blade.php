@@ -73,7 +73,7 @@ $id_user = Auth::user()->id;
 
   <div>
     <!-- Puxa o arquivo home dentro da div-->
-    <div class="container my-4">
+    <div class="flex justify-content-md-center">
     <br>
     @yield('content')
     </div>
@@ -178,21 +178,21 @@ $id_user = Auth::user()->id;
             <div class="row">
               <div class="alinhamento-img">
                 <label class="form-control-range">
-                  <input type="file" name="img_post" id="file" accept="image/*" multiple onchange="javascript:update()"/>
+                  <input type="file" name="img_post" id="file" accept="image/*" multiple onchange="javascript:update_file1()"/>
                   <a name="img_post" class="get-file">Adicionar Imagem</a>
                   <div class="file-name" id="file-name"></div>
                 </label>
               </div>
               <div class="alinhamento-img2">
                 <label class="form-control-range">
-                  <input type="file" name="img_post2" id="file2" accept="image/*" multiple onchange="javascript:update2()"/>
+                  <input type="file" name="img_post2" id="file2" accept="image/*" multiple onchange="javascript:update_file2()"/>
                   <a name="img_post" class="get-file">Adicionar Imagem</a>
                   <div class="file-name" id="file-name2"></div>
                 </label>
               </div>
               <div class="alinhamento-img3">
                 <label class="form-control-range">
-                  <input type="file" name="img_post3" id="file3" accept="image/*" multiple onchange="javascript:update3()"/>
+                  <input type="file" name="img_post3" id="file3" accept="image/*" multiple onchange="javascript:update_file3()"/>
                   <a name="img_post" class="get-file">Adicionar Imagem</a>
                   <div class="file-name" id="file-name3"></div>
                 </label>
@@ -212,19 +212,19 @@ $id_user = Auth::user()->id;
 
   
   <script>
-    function update() {
+    function update_file1() {
       var input = document.getElementById('file'); //define o id do input
       var infoArea = document.getElementById( 'file-name' );//define o id do resutado do script
       var fileName = input.files[0].name; //nome do arquivo que foi selecionado no input
       infoArea.textContent = 'File: ' + fileName; //define infoArea como texto que recebe fileName
     }
-    function update2() {
+    function update_file2() {
       var input = document.getElementById('file2');
       var infoArea = document.getElementById( 'file-name2' );
       var fileName = input.files[0].name;
       infoArea.textContent = 'File: ' + fileName;
     }
-    function update3() {
+    function update_file3() {
       var input = document.getElementById('file3');
       var infoArea = document.getElementById( 'file-name3' ); 
       var fileName = input.files[0].name;

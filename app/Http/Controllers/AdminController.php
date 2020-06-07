@@ -129,9 +129,12 @@ class AdminController extends Controller
         
         if($_POST['option'] == 'rem_den'){
             $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
-            $id_sql = $_POST ['id_denuncia'];
+            $id_post = $_POST ['id_postagem'];
 
-            $sql = "DELETE FROM denuncias WHERE id_denuncia = $id_sql";
+            $sql = "DELETE FROM denuncias WHERE id_postagem = $id_post";
+            mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM check_denuncia WHERE id_postagem = $id_post";
             mysqli_query($conn, $sql);
 
             return redirect('adm3');
@@ -142,6 +145,9 @@ class AdminController extends Controller
             $id_post = $_POST ['id_postagem'];
 
             $sql = "DELETE FROM denuncias WHERE id_denuncia = $id_den";
+            mysqli_query($conn, $sql);
+            
+            $sql = "DELETE FROM check_denuncia WHERE id_postagem = $id_post";
             mysqli_query($conn, $sql);
 
             $query = "SELECT * FROM comentarios WHERE id_postagem = $id_post";
@@ -179,9 +185,12 @@ class AdminController extends Controller
     public function option2(){  
         if($_POST['option'] == 'rem_den'){
             $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
-            $id_sql = $_POST ['id_denuncia'];
+            $id_com = $_POST ['id_comentario'];
 
-            $sql = "DELETE FROM denuncias_comentarios WHERE id_denunciacomentario = $id_sql";
+            $sql = "DELETE FROM denuncias_comentarios WHERE id_comentario = $id_com";
+            mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM check_denuncia_comentarios WHERE id_comentario = $id_com";
             mysqli_query($conn, $sql);
 
             return redirect('adm4');
@@ -192,6 +201,9 @@ class AdminController extends Controller
             $id_com = $_POST ['id_comentario'];
 
             $sql = "DELETE FROM denuncias_comentarios WHERE id_denunciacomentario = $id_den";
+            mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM check_denuncia_comentarios WHERE id_comentario = $id_com";
             mysqli_query($conn, $sql);
 
             $sql = "DELETE FROM like_comentarios WHERE id_comentarios = $id_com";

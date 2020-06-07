@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 03-Jun-2020 às 01:05
+-- Tempo de geração: 07-Jun-2020 às 22:30
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.10
 
@@ -137,6 +137,30 @@ INSERT INTO `categoria_postagem` (`id_categoria`, `categoria_postagem`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `check_denuncia`
+--
+
+CREATE TABLE `check_denuncia` (
+  `id_denuncia` int(11) NOT NULL,
+  `id_postagem` int(11) DEFAULT NULL,
+  `id_usuario` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `check_denuncia_comentarios`
+--
+
+CREATE TABLE `check_denuncia_comentarios` (
+  `id_denuncia` int(11) NOT NULL,
+  `id_comentario` int(11) DEFAULT NULL,
+  `id_usuario` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `comentarios`
 --
 
@@ -161,7 +185,8 @@ CREATE TABLE `comentarios` (
 CREATE TABLE `denuncias` (
   `id_denuncia` int(11) NOT NULL,
   `id_postagem` int(11) DEFAULT NULL,
-  `id_motivo` int(11) DEFAULT NULL
+  `id_motivo` int(11) DEFAULT NULL,
+  `quantidade` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -173,7 +198,8 @@ CREATE TABLE `denuncias` (
 CREATE TABLE `denuncias_comentarios` (
   `id_denunciacomentario` int(11) NOT NULL,
   `id_comentario` int(11) DEFAULT NULL,
-  `id_motivo` int(11) DEFAULT NULL
+  `id_motivo` int(11) DEFAULT NULL,
+  `quantidade` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -1017,9 +1043,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `email_verified_at`, `id_situacao`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`) VALUES
-(12, 'Matheus Moura', 'Matheusmpinho@Outlook.com', 20867000, '$2y$10$rZ0C2fvYHoHI0xA7LOuCFu4FiJqIs1B6GEnAUqUPvf6aq/JZMeOOa', 3, '2000-01-27 02:00:00', 1, 2, 10, 457, NULL, NULL),
+(12, 'Matheus Moura', 'Matheusmpinho@Outlook.com', 20867000, '$2y$10$rZ0C2fvYHoHI0xA7LOuCFu4FiJqIs1B6GEnAUqUPvf6aq/JZMeOOa', 3, '2000-01-27 02:00:00', 1, 2, 10, 457, 0x31326d6174686575732d6d6f7572612e706e672e6a7065672e706e672e706e67, NULL),
 (17, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', 22132066, '$2y$10$5ZvANSNC35HjfEwHGy2EX.XuJDjoPqF43Svymdg7ZIzHuE5.p1lxO', 3, '2020-04-30 23:23:51', 1, 2, 10, 398, NULL, NULL),
-(24, 'Vinicius Vieira', 'vinicius_vieira_pereira@hotmail.com', 20541929, '$2y$10$Boy1Hsp7VHD0pHy9XombaODQSyRmS2Wb7RPxFOFYc0jAOjtGEyr4G', 3, '2020-05-19 03:00:00', 1, NULL, NULL, NULL, NULL, NULL);
+(24, 'Vinicius Vieiraaa', 'vinicius_vieira_pereira@hotmail.com', 20541929, '$2y$10$Boy1Hsp7VHD0pHy9XombaODQSyRmS2Wb7RPxFOFYc0jAOjtGEyr4G', 3, '2020-05-19 03:00:00', 1, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1058,6 +1084,22 @@ ALTER TABLE `avaliacao_postagem`
 --
 ALTER TABLE `categoria_postagem`
   ADD PRIMARY KEY (`id_categoria`);
+
+--
+-- Índices para tabela `check_denuncia`
+--
+ALTER TABLE `check_denuncia`
+  ADD PRIMARY KEY (`id_denuncia`),
+  ADD KEY `id_postagem` (`id_postagem`),
+  ADD KEY `id_usuario` (`id_usuario`);
+
+--
+-- Índices para tabela `check_denuncia_comentarios`
+--
+ALTER TABLE `check_denuncia_comentarios`
+  ADD PRIMARY KEY (`id_denuncia`),
+  ADD KEY `id_comentario` (`id_comentario`),
+  ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- Índices para tabela `comentarios`
@@ -1202,28 +1244,28 @@ ALTER TABLE `categoria_postagem`
   MODIFY `id_categoria` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT de tabela `check_denuncia`
+--
+ALTER TABLE `check_denuncia`
+  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de tabela `check_denuncia_comentarios`
+--
+ALTER TABLE `check_denuncia_comentarios`
+  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de tabela `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id_comentarios` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
-
---
--- AUTO_INCREMENT de tabela `denuncias`
---
-ALTER TABLE `denuncias`
-  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT de tabela `denuncias_comentarios`
---
-ALTER TABLE `denuncias_comentarios`
-  MODIFY `id_denunciacomentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_comentarios` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT de tabela `img_postagem`
 --
 ALTER TABLE `img_postagem`
-  MODIFY `id_img` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_img` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `instituicao_ensino`
@@ -1235,13 +1277,13 @@ ALTER TABLE `instituicao_ensino`
 -- AUTO_INCREMENT de tabela `like_comentarios`
 --
 ALTER TABLE `like_comentarios`
-  MODIFY `id_likes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_likes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de tabela `like_postagens`
 --
 ALTER TABLE `like_postagens`
-  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=218;
 
 --
 -- AUTO_INCREMENT de tabela `motivo_denuncia`
@@ -1259,7 +1301,7 @@ ALTER TABLE `nivel_acesso`
 -- AUTO_INCREMENT de tabela `postagens`
 --
 ALTER TABLE `postagens`
-  MODIFY `id_postagem` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_postagem` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de tabela `regiao_cidade`
@@ -1302,6 +1344,20 @@ ALTER TABLE `avaliacao_postagem`
   ADD CONSTRAINT `avaliacao_postagem_ibfk_1` FOREIGN KEY (`id_postagem`) REFERENCES `postagens` (`id_postagem`),
   ADD CONSTRAINT `avaliacao_postagem_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`),
   ADD CONSTRAINT `avaliacao_postagem_ibfk_3` FOREIGN KEY (`id_avaliador`) REFERENCES `usuarios` (`id`);
+
+--
+-- Limitadores para a tabela `check_denuncia`
+--
+ALTER TABLE `check_denuncia`
+  ADD CONSTRAINT `check_denuncia_ibfk_1` FOREIGN KEY (`id_postagem`) REFERENCES `postagens` (`id_postagem`),
+  ADD CONSTRAINT `check_denuncia_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
+
+--
+-- Limitadores para a tabela `check_denuncia_comentarios`
+--
+ALTER TABLE `check_denuncia_comentarios`
+  ADD CONSTRAINT `check_denuncia_comentarios_ibfk_1` FOREIGN KEY (`id_comentario`) REFERENCES `comentarios` (`id_comentarios`),
+  ADD CONSTRAINT `check_denuncia_comentarios_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
 
 --
 -- Limitadores para a tabela `comentarios`

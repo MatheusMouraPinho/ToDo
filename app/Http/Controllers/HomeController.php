@@ -278,16 +278,24 @@ class HomeController extends Controller
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
         $motivo = $_POST['option'];
         $id = $_POST ['id_postagem'];
+        $id2 = $_POST ['id_usuario'];
         
-        $sql = "SELECT * FROM denuncias WHERE id_postagem = $id";
+        $sql = "SELECT * FROM check_denuncia WHERE id_postagem = $id AND id_usuario = $id2";
         $result = mysqli_query($conn, $sql);
-        $check = mysqli_num_rows($result);
+        $check = mysqli_num_rows($result);//consulta se ja existe esse like
 
         if($check == 0){
-            $sql = "INSERT INTO denuncias (id_postagem, id_motivo) VALUES ($id, $motivo)";
+            $sql = "INSERT INTO check_denuncia (id_postagem, id_usuario) VALUES ($id, $id2)";
             mysqli_query($conn, $sql);
+
+            $sql = "INSERT INTO denuncias (id_denuncia, id_postagem, id_motivo) VALUES ($id ,$id, $motivo) ON DUPLICATE KEY UPDATE quantidade = quantidade + 1";
+            mysqli_query($conn, $sql);
+
+            $denuncia = 1;
+        }else{
+            $denuncia = 2;
         }
-        $denuncia = TRUE;
+        
         return redirect('home')->with(['denuncia' =>  $denuncia]);
     }
     public function like_post()
