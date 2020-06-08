@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use datetime;
 use DB;
+use Illuminate\Support\Facades\DB as FacadesDB;
+use intval;
 
 class AdminController extends Controller
 {
@@ -232,11 +234,21 @@ class AdminController extends Controller
         $media = $soma / 3;
         if(!empty($data)) {
             $insert = DB::insert('insert into avaliacao_postagem (
-                id_postagem, id_usuario, inovacao_avaliacao, complexidade_avaliacao, potencial_avaliacao, comentario_avaliacao, media_avaliacao, id_avaliador, data_avaliacao
+                id_postagem, id_usuario, inovacao_avaliacao, complexidade_avaliacao, potencial_avaliacao, media_avaliacao, id_avaliador
             )  
-            values (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
-                $data['id_postagem'], $data['id_usuario'], $data['inovacao'], $data['complexidade'], $data['potencial'], $data['comentarios'], $media, $data['id_avaliador'], $data['data_postagem']
+            values (?, ?, ?, ?, ?, ?, ?)', [
+                $data['id_postagem'], $data['id_usuario'], $data['inovacao'], $data['complexidade'], $data['potencial'], $media, $data['id_avaliador']
             ]);
+
+            $query = DB::table('avaliacao_postagem')
+                            ->where('id_postagem', $data['id_postagem'])
+                            ->select('id_avaliacao')
+                            ->get();
+
+            $query = intval($query[0]->id_avaliacao);
+
+            $insert_coment = DB::insert('insert into comentarios (id_avaliacao, id_usuarios, id_postagem, conteudo_comentarios, data_comentarios)
+            values (?, ?, ?, ?, ?)', [$query, $data['id_usuario'], $data['id_postagem'], $data['comentarios'], $data['data_postagem']]);
 
             $update = DB::update('update postagens set media = ?, id_situacao_postagem = ? where id_postagem = ?', [$media, 1, $data['id_postagem']]);
         }

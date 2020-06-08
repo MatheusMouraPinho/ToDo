@@ -1,3 +1,4 @@
+<?php $user = Auth::user()->id;?>
 <!-- Área de detalhes de ideias postadas -->
 
 <div class="painel-dados">
@@ -66,10 +67,33 @@
                     <p class="popup_avali">
                       <span class="bold">Complexidade: </span>{{ $post['avaliacao'][$c]->complexidade_avaliacao }}
                     </p>
-                    <p class="popup_avaliador">
-                      <span class="bold">Avaliador: {{ $dados['avaliador'][$c]->usuario }}</span> 
-                      <span class="underline">{{ date('d/m/Y', strtotime($post['avaliacao'][0]->data_avaliacao))}}</span><br>{{ $post['avaliacao'][$c]->comentario_avaliacao }}
-                    </p>
+                    <div class="popup_coment_aval" id="avaliacao">
+                      <div class="header-coment">
+                        @if($dados['avaliador'][$c]->img_usuarios === null)
+                            <img class="img-dados-coment" src="{{asset('img/semuser.png')}}">
+                          @else
+                            <img  alt="{{ $dados['avaliador'][$c]->img_usuarios }}" name="img_usuarios" class="img-dados-coment" src="{{asset('/storage/users/'.$dados['avaliador'][$c]->img_usuarios)}}">
+                          @endif
+                          <form id="perfil" action="{{ route('perfil') }}" method="get">
+                            @csrf
+                            <input type="hidden" name="id_usuario" value="{{ $dados['avaliador'][$c]->id }}">
+                            <input class="bold user" type="submit" value="{{ $dados['avaliador'][$c]->usuario}}">
+                          </form>
+                        <span class="underline data-coment">{{ Helper::tempo_corrido($post['avaliacao'][$c]->data_comentarios)}}</span>
+                      </div>
+                      
+                      <p class="conteudo-coment text-justify">{{ $post['avaliacao'][$c]->conteudo_comentarios }}</p>
+                      <div class="footer-coment">
+                        <?php $resultados = Helper::verifica_like_coment($post['avaliacao'][$c]->id_comentarios)?>
+                          @if($resultados == 0)
+                            <span href="#" id="btn_like" class="curtir fa-thumbs-o-up fa" data-id="{{ $post['avaliacao'][$c]->id_comentarios }}"></span> 
+                            <span class="likes" id="likes_{{ $post['avaliacao'][$c]->id_comentarios }}">{{ $post['avaliacao'][$c]->likes_comentarios }}</span>
+                          @else 
+                          <span href="#" id="btn_like" class="curtir fa-thumbs-up fa" data-id="{{ $post['avaliacao'][$c]->id_comentarios }}"></span>
+                          <span class="likes" id="likes_{{ $post['avaliacao'][$c]->id_comentarios }}">{{ $post['avaliacao'][$c]->likes_comentarios }}</span>
+                          @endif
+                      </div>
+                    </div>
                   @endif
 
                   <!-- Verifica se a avaliação está pendente ou não -->
@@ -131,10 +155,45 @@
                               <a id="edit" class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['comentarios'][$f]->id_comentarios }}_edit1">Editar</a>
                               <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['comentarios'][$f]->id_comentarios}}_apagar2">Apagar</a>
                             @else
-                              <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#??">Denunciar</a>
+                              <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#den_comen{{$post['comentarios'][$f]->id_comentarios}}">Denunciar</a>
                             @endif
                           </div>
                         </div> 
+
+                        <!-- Modal denunciar comentario -->
+                        <div class="modal fade id" id="den_comen{{$post['comentarios'][$f]->id_comentarios}}" role="dialog">
+                          <div class="modal-dialog modal-content">
+                              <div class="modal-header"></div>
+                              <form action="/denunciar_comentario" method="POST">
+                                  @csrf
+                                  <div class="modal-body">
+                                      <h3><p>Denunciar Comentario por:</p></h3><br>
+                                      <h6>
+                                          <label class="radio-custom">Conteúdo Inadequado
+                                              <input type="radio" id="radio1" type="radio" name="option" value="3" required>
+                                              <span class="checkmark"></span>
+                                          </label>
+                                          <label class="radio-custom">Spam
+                                              <input type="radio" id="radio3" type="radio" name="option" value="1" required>
+                                              <span class="checkmark"></span>
+                                          </label>
+                                          <label class="radio-custom">Copia
+                                              <input type="radio" id="radio3" type="radio" name="option" value="2" required>
+                                              <span class="checkmark"></span>
+                                          </label>
+                                      </h6>
+                                      <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                          <input name="id_comentario" type="hidden" value="{{$post['comentarios'][$f]->id_comentarios}}">
+                                          <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
+                                          <input data-toggle="modal" type="submit" class="btn btn-primary" value="Confirmar">
+                                      </div> 
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                      <!-- FIM Modal denunciar comentario -->
+
                         @if(empty($post['comentarios'][$f]->edit_comentarios))
                           <span class="underline data-coment">{{ Helper::tempo_corrido($post['comentarios'][$f]->data_comentarios)}}</span>
                         @else
@@ -223,7 +282,7 @@
                   @endif
                   @for($g=0; $g<sizeof($post['reply_coment']); $g++)
                     @if($post['reply_coment'][$g]->id_postagem === $posts->id_postagem && $post['comentarios'][$f]->id_comentarios === $post['reply_coment'][$g]->id_comentarios_ref)
-                      <div class="popup_coment_aval" id="respostas" style="margin-top: 10px; width: 95%;margin-left:5%">
+                      <div class="popup_coment_aval" id="respostas">
                         
                         <div class="header-coment">
                           <div class="dropdown dropdown1">
@@ -240,10 +299,44 @@
                                 <a class="dropdown-item" data-toggle="modal" style="cursor: pointer" data-target="#popup{{$post['reply_coment'][$g]->id_comentarios }}_edit">Editar</a>
                                 <a class="dropdown-item" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['reply_coment'][$g]->id_comentarios }}_apagar1">Apagar</a>
                               @else
-                                <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#??">Denunciar</a>
+                                <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#den_comen_reply{{$post['reply_coment'][$g]->id_comentarios }}">Denunciar</a>
                               @endif
                             </div>
                           </div>
+
+                          <!-- Modal denunciar comentario Reply -->
+                          <div class="modal fade id" id="den_comen_reply{{$post['reply_coment'][$g]->id_comentarios }}" role="dialog">
+                            <div class="modal-dialog modal-content">
+                                <div class="modal-header"></div>
+                                <form action="/denunciar_comentario" method="POST">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <h3><p>Denunciar Comentario por:</p></h3><br>
+                                        <h6>
+                                            <label class="radio-custom">Conteúdo Inadequado
+                                                <input type="radio" id="radio1" type="radio" name="option" value="3" required>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="radio-custom">Spam
+                                                <input type="radio" id="radio3" type="radio" name="option" value="1" required>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="radio-custom">Copia
+                                                <input type="radio" id="radio3" type="radio" name="option" value="2" required>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </h6>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                            <input name="id_comentario" type="hidden" value="{{$post['reply_coment'][$g]->id_comentarios }}">
+                                            <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
+                                            <input data-toggle="modal" type="submit" class="btn btn-primary" value="Confirmar">
+                                        </div> 
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
                           @if(empty($post['reply_coment'][$g]->edit_comentarios))
                             <span class="underline data-coment">{{ Helper::tempo_corrido($post['reply_coment'][$g]->data_comentarios)}}</span>
                           @else

@@ -65,7 +65,7 @@ class UserController extends Controller
                         ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
                         ->where('id_usuario', $user_id)
                         ->join('usuarios', 'usuarios.id', '=', 'avaliacao_postagem.id_avaliador')
-                        ->select('usuarios.usuario')
+                        ->select('usuarios.*')
                         ->get(),
 
             'cidades' => DB::table('regiao_cidade')
@@ -90,14 +90,16 @@ class UserController extends Controller
         $post = [                
             'avaliacao' => DB::table('postagens')
                             ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
-                            ->where('id_usuario', $user_id)
-                            ->select('avaliacao_postagem.*', 'postagens.id_usuarios', 'postagens.id_postagem')
+                            ->where('postagens.id_usuarios', $user_id)
+                            ->join('comentarios', 'comentarios.id_avaliacao', 'avaliacao_postagem.id_avaliacao')
+                            ->select('avaliacao_postagem.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'comentarios.*')
                             ->get(),
             
             'comentarios' => DB::table('comentarios')
                                 ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
                                 ->where('postagens.id_usuarios', $user_id, 'and')
-                                ->where('comentarios.id_mencionado', '=', null)
+                                ->where('comentarios.id_mencionado', '=', null, 'and')
+                                ->where('comentarios.id_avaliacao', '=', null)
                                 ->join('usuarios', 'comentarios.id_usuarios', '=', 'usuarios.id')
                                 ->select('comentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
                                 ->orderBy('comentarios.data_comentarios', 'desc')
@@ -179,7 +181,7 @@ class UserController extends Controller
                             ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
                             ->where('id_usuario', $dados_usr->id)
                             ->join('usuarios', 'usuarios.id', '=', 'avaliacao_postagem.id_avaliador')
-                            ->select('usuarios.usuario')
+                            ->select('usuarios.*')
                             ->get(),
 
                 'cidades' => DB::table('regiao_cidade')
@@ -204,12 +206,14 @@ class UserController extends Controller
                 'avaliacao' => DB::table('postagens')
                                 ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
                                 ->where('id_usuario', $dados_usr->id)
-                                ->select('avaliacao_postagem.*', 'postagens.id_usuarios', 'postagens.id_postagem')
+                                ->join('comentarios', 'comentarios.id_avaliacao', 'avaliacao_postagem.id_avaliacao')
+                                ->select('avaliacao_postagem.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'comentarios.*')
                                 ->get(),
                 
                 'comentarios' => DB::table('comentarios')
                                     ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
                                     ->where('postagens.id_usuarios', $dados_usr->id, 'and')
+                                    ->where('comentarios.id_avaliacao', '=', null, 'and')
                                     ->where('comentarios.id_mencionado', '=', null)
                                     ->join('usuarios', 'comentarios.id_usuarios', '=', 'usuarios.id')
                                     ->select('comentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')

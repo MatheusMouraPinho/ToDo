@@ -44,17 +44,19 @@ class HomeController extends Controller
             'avaliador' => DB::table('postagens')
                             ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
                             ->join('usuarios', 'usuarios.id', '=', 'avaliacao_postagem.id_avaliador')
-                            ->select('usuarios.usuario')
+                            ->select('usuarios.*')
                             ->get(),
             
             'avaliacao' => DB::table('postagens')
                             ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
-                            ->select('avaliacao_postagem.*', 'postagens.id_usuarios', 'postagens.id_postagem')
+                            ->join('comentarios', 'comentarios.id_avaliacao', 'avaliacao_postagem.id_avaliacao')
+                            ->select('avaliacao_postagem.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'comentarios.*')
                             ->get(),
             
             'comentarios' => DB::table('comentarios')
                                 ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
-                                ->where('comentarios.id_mencionado', '=', null)
+                                ->where('comentarios.id_mencionado', '=', null, 'and')
+                                ->where('comentarios.id_avaliacao', '=', null)
                                 ->join('usuarios', 'comentarios.id_usuarios', '=', 'usuarios.id')
                                 ->select('comentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
                                 ->orderBy('comentarios.data_comentarios', 'desc')

@@ -5,6 +5,7 @@ use Symfony\Component\Console\Input\Input;
 
 $nivel = Auth::user()->nivel;
 
+
 ?>
 @section('content')
 <div class="flex justify-content-md-center">
@@ -34,7 +35,7 @@ $nivel = Auth::user()->nivel;
               @if($dados['img'] === null)
                 <img width="150px" class="img-dados" src="{{asset('img/semuser.png')}}">
               @else
-              <img  alt="{{ Auth::user()->img_usuarios }}" name="img_usuarios" class="img-dados" src="{{url('storage/users/'.Auth::user()->img_usuarios)}}">
+                <img  alt="{{ Auth::user()->img_usuarios }}" name="img_usuarios" class="img-dados" src="{{url('storage/users/'.Auth::user()->img_usuarios)}}">
               @endif
             <h3>{{ $dados['nome'] }}</h3>
             

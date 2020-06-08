@@ -5,7 +5,6 @@
     $nivel = Auth::user()->nivel;
     $id_nivel = 0; 
     if($nivel >= 2){$id_nivel = 1;}
-    $x=0;
 ?>
 
 <!-- Área de detalhes de ideias postadas -->
@@ -76,10 +75,33 @@
                     <p class="popup_avali">
                       <span class="bold">Complexidade: </span>{{ $post['avaliacao'][$c]->complexidade_avaliacao }}
                     </p>
-                    <p class="popup_avaliador">
-                      <span class="bold">Avaliador: {{ $post['avaliador'][$c]->usuario }}</span> 
-                      <span class="underline">{{ date('d/m/Y', strtotime($post['avaliacao'][0]->data_avaliacao))}}</span><br>{{ $post['avaliacao'][$c]->comentario_avaliacao }}
-                    </p>
+                    <div class="popup_coment_aval" id="avaliacao">
+                      <div class="header-coment">
+                        @if($post['avaliador'][$c]->img_usuarios === null)
+                            <img class="img-dados-coment" src="{{asset('img/semuser.png')}}">
+                          @else
+                            <img  alt="{{ $post['avaliador'][$c]->img_usuarios }}" name="img_usuarios" class="img-dados-coment" src="{{asset('/storage/users/'.$post['avaliador'][$c]->img_usuarios)}}">
+                          @endif
+                          <form id="perfil" action="{{ route('perfil') }}" method="get">
+                            @csrf
+                            <input type="hidden" name="id_usuario" value="{{ $post['avaliador'][$c]->id }}">
+                            <input class="bold user" type="submit" value="{{ $post['avaliador'][$c]->usuario}}">
+                          </form>
+                        <span class="underline data-coment">{{ Helper::tempo_corrido($post['avaliacao'][$c]->data_comentarios)}}</span>
+                      </div>
+                      
+                      <p class="conteudo-coment text-justify">{{ $post['avaliacao'][$c]->conteudo_comentarios }}</p>
+                      <div class="footer-coment">
+                        <?php $resultados = Helper::verifica_like_coment($post['avaliacao'][$c]->id_comentarios)?>
+                          @if($resultados == 0)
+                            <span href="#" id="btn_like" class="curtir fa-thumbs-o-up fa" data-id="{{ $post['avaliacao'][$c]->id_comentarios }}"></span> 
+                            <span class="likes" id="likes_{{ $post['avaliacao'][$c]->id_comentarios }}">{{ $post['avaliacao'][$c]->likes_comentarios }}</span>
+                          @else 
+                          <span href="#" id="btn_like" class="curtir fa-thumbs-up fa" data-id="{{ $post['avaliacao'][$c]->id_comentarios }}"></span>
+                          <span class="likes" id="likes_{{ $post['avaliacao'][$c]->id_comentarios }}">{{ $post['avaliacao'][$c]->likes_comentarios }}</span>
+                          @endif
+                      </div>
+                    </div>
                   @endif
 
                   <!-- Verifica se a avaliação está pendente ou não -->
