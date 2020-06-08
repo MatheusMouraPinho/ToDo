@@ -148,7 +148,7 @@
                               <a id="edit" class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['comentarios'][$f]->id_comentarios }}_edit1">Editar</a>
                               <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['comentarios'][$f]->id_comentarios}}_apagar2">Apagar</a>
                             @else
-                              <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#den_comen<?php echo $rows['id_comentarios'];?>">Denunciar</a>
+                              <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#den_comen??">Denunciar</a>
                             @endif
                           </div>
                         </div> 
@@ -257,7 +257,7 @@
                                 <a class="dropdown-item" data-toggle="modal" style="cursor: pointer" data-target="#popup{{$post['reply_coment'][$g]->id_comentarios }}_edit">Editar</a>
                                 <a class="dropdown-item" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['reply_coment'][$g]->id_comentarios }}_apagar1">Apagar</a>
                               @else
-                                <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#den_comen<?php echo $rows['id_comentarios'];?>">Denunciar</a>
+                                <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#den_comen<?php echo "??";?>">Denunciar</a>
                               @endif
                             </div>
                           </div>
@@ -515,7 +515,7 @@
 </div>
 <!-- Fim  Modal de avaliação  -->
 <!-- Modal denunciar comentario -->
-<div class="modal fade id" id="den_comen<?php echo $rows['id_comentarios'];?>" role="dialog">
+<div class="modal fade id" id="den_comen<?php echo "??";?>" role="dialog">
     <div class="modal-dialog modal-content">
         <div class="modal-header"></div>
         <form action="/denunciar_comentario" method="POST">
@@ -538,7 +538,7 @@
                 </h6>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <input name="id_comentario" type="hidden" value="<?php echo $rows['id_comentarios'];?>">
+                    <input name="id_comentario" type="hidden" value="<?php echo "??";?>">
                     <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
                     <input data-toggle="modal" type="submit" class="btn btn-primary" value="Confirmar">
                 </div> 
