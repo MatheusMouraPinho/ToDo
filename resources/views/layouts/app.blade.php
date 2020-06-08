@@ -69,7 +69,7 @@ if($denuncia == 1){ ?>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto" style="cursor: pointer">
-        <li class="nav-item dropdown">
+        <li style="margin-right:20px" class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Configurações </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <?php if(3 == $nivel){?>
@@ -174,7 +174,7 @@ if($denuncia == 1){ ?>
                 <label><h5><b>Categoria:</b></h5></label>
                 <select class="Bselect" type="text" name="categoria" required> 
                   <option value="" disabled selected> Selecionar categoria </option>
-                  <option value="1"> Desenvolvimento Web </option>
+                  <option value="1"> Web, Mobile & Software </option>
                   <option value="2"> Design & Criação </option>
                   <option value="3"> Engenharia & Arquitetura </option>
                   <option value="4"> Marketing </option>

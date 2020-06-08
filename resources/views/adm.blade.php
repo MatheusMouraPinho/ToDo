@@ -4,24 +4,23 @@
 $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
 
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
+$num = (isset(($_GET['num'])) ? $_GET['num'] : 1);
 
 $sql = "SELECT * FROM usuarios WHERE id_situacao = '2' AND email_verified_at IS NOT NULL";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
-$quantidade = 5; //quantidade de rows
+$quantidade = 8; //quantidade de rows
 
 $num_pagina = ceil($total_pesquisa/$quantidade);
 
 $inicio = ($quantidade*$pagina)-$quantidade;
 
-$sql = "SELECT * FROM usuarios WHERE id_situacao = '2' AND email_verified_at IS NOT NULL LIMIT $inicio, $quantidade ";
+$sql = "SELECT * FROM usuarios WHERE id_situacao = '2' AND email_verified_at IS NOT NULL ORDER BY email_verified_at ASC LIMIT $inicio, $quantidade ";
 $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
-$pagina_anterior = $pagina - 1; //paginação
-$pagina_posterior = $pagina + 1;
-
-$i = 1; //id base tabelas
+$pagina_anterior = $pagina - 1 && $num - 5; //paginação
+$pagina_posterior = $pagina + 1 && $num + 5;
 
 if ($total_pesquisa > 0 ){ //se tiver rows
     $check = TRUE;
@@ -48,8 +47,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
             <?php if(isset($check)){ ?>
                 <thead>
                     <tr class="tr-custom">
-                        <th scope="col">ID</th>
-                        <th scope="col">Data</th>
+                        <th scope="col">Data de cadastro</th>
                         <th scope="col">Nome</th>
                         <th scope="col">RGM/CPF</th>
                         <th scope="col">Tipo</th>
@@ -57,11 +55,10 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <th scope="col">Deletar</th>
                     </tr>
                 </thead>
-                <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel']; ?>
-                    <tbody class="pisca">
-                        <tr>
-                            <td><?php echo $i ?></td>
-                            <td><?php echo $rows['email_verified_at']; ?></td>
+                <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel']; $num++;?>
+                    <tbody class="texture pisca">
+                        <tr class="">
+                            <td><?php echo date('d/m/Y', strtotime($rows['email_verified_at'])). " As ". date('H:i', strtotime($rows['email_verified_at'])); ?></td>
                             <td><?php echo mb_strimwidth($rows['usuario'], 0, 25, "..."); ?></td>
                             <td><?php echo $rows['registro']; ?></td>
                             <td><?php   if ($setup == 1) { echo "Usuario";    
@@ -79,7 +76,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                             </form>
                         </tr>
                     </tbody>
-                <?php $i++; }?>
+                <?php }?>
             <?php }else{?>
                 <tbody class="texture">  
                     <tr>
@@ -112,12 +109,12 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                 </li>
                 <?php 
                 for($i = 1; $i < $num_pagina + 1; $i++){ ?>
-                    <li class="page-item"><a class="page-link" href="?pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                    <li class="page-item"><a class="page-link" href="?pagina=<?php echo $i . "&num=". $num ; ?>"><?php echo $i; ?></a></li>
                 <?php } ?>
                 <li>
                     <?php
                     if($pagina_posterior <= $num_pagina){ ?>
-                        <a class="page-link" href="?pagina=<?php echo $pagina_posterior; ?>" aria-label="Next">
+                        <a class="page-link" href="?pagina=<?php echo $i . "&num=". $num ; ?>" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     <?php }else{ ?>

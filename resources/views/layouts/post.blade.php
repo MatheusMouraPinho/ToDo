@@ -1,4 +1,4 @@
-<?php if($rows['id_categoria'] == '1' ){ $categoria = "Desenvolvimento Web"; }elseif($rows['id_categoria'] == "2"){ $categoria = "Design & Criação"; }elseif($rows['id_categoria'] == "3"){$categoria = "Engenharia & Arquitetura";
+<?php if($rows['id_categoria'] == '1' ){ $categoria = "Web, Mobile & Software"; }elseif($rows['id_categoria'] == "2"){ $categoria = "Design & Criação"; }elseif($rows['id_categoria'] == "3"){$categoria = "Engenharia & Arquitetura";
 }elseif($rows['id_categoria'] == "4"){$categoria = "Marketing";}elseif($rows['id_categoria'] == "5"){$categoria = "Outros";}else{$categoria = "Sem categoria";}?>
 
 <?php

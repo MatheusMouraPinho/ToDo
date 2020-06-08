@@ -9,7 +9,7 @@ $sql = "SELECT * FROM denuncias";
 $resultado = mysqli_query($conn, $sql);//pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($resultado); //conta o total de rows
 
-$quantidade = 5; //quantidade de rows
+$quantidade = 8; //quantidade de rows
 
 $num_pagina = ceil($total_pesquisa/$quantidade);
 
@@ -47,7 +47,6 @@ if ($total_pesquisa > 0 ){ //se tiver rows
             <?php if(isset($check)){ ?>
                 <thead>
                     <tr class="tr-custom">
-                        <th scope="col">ID</th>
                         <th scope="col">Nome da ideia</th>
                         <th scope="col">Motivo</th>
                         <th scope="col">quantidade</th>
@@ -59,9 +58,8 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                     $nome_post = $rows['titulo_postagem']; $id_post = $rows['id_postagem'];
 
                 ?>
-                    <tbody class="pisca">
+                    <tbody class="texture pisca">
                         <tr>
-                            <td><?php echo $i ?></td>
                             <td><?php echo mb_strimwidth($rows['titulo_postagem'], 0, 35, "..."); ?></td>
                             <td>
                                 <?php 

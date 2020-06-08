@@ -9,7 +9,7 @@ $sql = "SELECT * FROM denuncias_comentarios";
 $resultado = mysqli_query($conn, $sql);//pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($resultado); //conta o total de rows
 
-$quantidade = 5; //quantidade de rows
+$quantidade = 8; //quantidade de rows
 
 $num_pagina = ceil($total_pesquisa/$quantidade);
 
@@ -47,7 +47,6 @@ if ($total_pesquisa > 0 ){ //se tiver rows
             <?php if(isset($check)){ ?>
                 <thead>
                     <tr class="tr-custom">
-                        <th scope="col">ID</th>
                         <th scope="col">Autor do comentario</th>
                         <th scope="col">Motivo</th>
                         <th scope="col">quantidade</th>
@@ -56,9 +55,8 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                     </tr>
                 </thead>
                 <?php while($rows = mysqli_fetch_assoc($result)){ ?>
-                    <tbody class="pisca">
+                    <tbody class="texture pisca">
                         <tr>
-                            <td><?php echo $i ?></td>
                             <td><?php echo mb_strimwidth($rows['usuario'], 0, 30, "..."); ?></td>
                             <td>
                                 <?php 

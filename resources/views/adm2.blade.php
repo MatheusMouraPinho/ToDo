@@ -9,11 +9,11 @@ if(NULL !== Session::get('pesquisa2')){   $_SESSION['pesquisa2'] = Session::get(
 if(isset($_SESSION['pesquisa2'])){$pesquisa2 = $_SESSION['pesquisa2'];}
 if(!isset($pesquisa2)){ $pesquisa2 = NULL;}
 
-$sql = "SELECT * FROM usuarios WHERE id_situacao = '1' AND (usuario LIKE '%$pesquisa2%' OR registro LIKE '%$pesquisa2%') ";
+$sql = "SELECT * FROM usuarios WHERE id_situacao = '1' AND (usuario LIKE '%$pesquisa2%' OR registro LIKE '%$pesquisa2%')";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
-$quantidade = 5; //quantidade de rows
+$quantidade = 8; //quantidade de rows
 
 $num_pagina = ceil($total_pesquisa/$quantidade);
 
@@ -65,7 +65,6 @@ if ($total_pesquisa > 0 ){ //se tiver rows
             <?php if(isset($check)){ ?>
                 <thead>
                     <tr class="tr-custom">
-                        <th scope="col">ID</th>
                         <th scope="col">Nome</th>
                         <th scope="col">RGM/CPF</th>
                         <th scope="col">Tipo</th>
@@ -122,9 +121,8 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                     </div>
                 </div>
                 <!-- FIM Modal deletar usuario -->
-                <tbody class="pisca">
+                <tbody class="texture pisca">
                     <tr>
-                        <td><?php echo $i ?></td>
                         <td><?php echo mb_strimwidth($rows['usuario'], 0, 30, "..."); ?></td>
                         <td><?php echo $rows['registro']; ?></td>
                         <td><?php   if ($setup == 1) { echo "Usuario";    
