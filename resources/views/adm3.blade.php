@@ -2,7 +2,7 @@
 
 <?php  
 $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
-
+$user = Auth::user()->id;
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
 $sql = "SELECT * FROM denuncias";
@@ -15,7 +15,7 @@ $num_pagina = ceil($total_pesquisa/$quantidade);
 
 $inicio = ($quantidade*$pagina)-$quantidade;
 
-$sql = "SELECT * FROM denuncias LEFT JOIN postagens ON (denuncias.id_postagem = postagens.id_postagem) ORDER BY quantidade DESC LIMIT $inicio, $quantidade";
+$sql = "SELECT * FROM denuncias LEFT JOIN postagens ON (denuncias.id_postagem = postagens.id_postagem) LEFT JOIN comentarios ON (comentarios.id_postagem = postagens.id_postagem) ORDER BY quantidade DESC LIMIT $inicio, $quantidade";
 $result = mysqli_query($conn, $sql);//pesquisa limitada com paginação
 
 $pagina_anterior = $pagina - 1; //paginação
