@@ -15,7 +15,7 @@ $num_pagina = ceil($total_pesquisa/$quantidade);
 
 $inicio = ($quantidade*$pagina)-$quantidade;
 
-$sql = "SELECT * FROM denuncias_comentarios LEFT JOIN comentarios ON (id_comentario = comentarios.id_comentarios) LEFT JOIN usuarios ON (id_usuarios = usuarios.id) LIMIT $inicio, $quantidade";
+$sql = "SELECT * FROM denuncias_comentarios LEFT JOIN comentarios ON (id_comentario = comentarios.id_comentarios) LEFT JOIN usuarios ON (id_usuarios = usuarios.id) ORDER BY quantidade DESC LIMIT $inicio, $quantidade";
 $result = mysqli_query($conn, $sql);//pesquisa limitada com paginação
 
 $pagina_anterior = $pagina - 1; //paginação

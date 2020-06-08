@@ -131,7 +131,7 @@
                               <a id="edit" class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['comentarios'][$f]->id_comentarios }}_edit1">Editar</a>
                               <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['comentarios'][$f]->id_comentarios}}_apagar2">Apagar</a>
                             @else
-                              <a class="dropdown-item" href="{{ url('/adm') }}">Denunciar</a>
+                              <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#??">Denunciar</a>
                             @endif
                           </div>
                         </div> 
@@ -240,11 +240,7 @@
                                 <a class="dropdown-item" data-toggle="modal" style="cursor: pointer" data-target="#popup{{$post['reply_coment'][$g]->id_comentarios }}_edit">Editar</a>
                                 <a class="dropdown-item" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$post['reply_coment'][$g]->id_comentarios }}_apagar1">Apagar</a>
                               @else
-                                {{-- <form id="denunciar" action="{{ route('denunciar') }}" method="POST">
-                                  @csrf
-                                  <input type="hidden" name="id_subcomentario" value="{{$post['reply_coment'][$g]->id_subcomentarios}}"> --}}
-                                  <a class="dropdown-item" href="#">Denunciar</a>
-                                {{-- </form> --}}
+                                <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#??">Denunciar</a>
                               @endif
                             </div>
                           </div>
@@ -451,5 +447,4 @@
         </div>
     </div>
 </div>
-
 <!-- Fim Popup de visualização de imagens3 -->

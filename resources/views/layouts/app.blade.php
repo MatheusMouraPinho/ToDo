@@ -1,6 +1,19 @@
 <?php 
 $nivel = Auth::user()->nivel; 
 $id_user = Auth::user()->id;
+$denuncia = Session::get('denuncia');
+
+if($denuncia == 1){ ?>
+  <script>
+    alert("Denuncia Efetuada");
+    location.reload();
+  </script>
+<?php }elseif($denuncia == 2){ ?>
+  <script>
+    alert("Esta postagem ja foi denunciada");
+    location.reload();
+  </script>
+<?php }
 ?>
 
 <!doctype html>
@@ -209,8 +222,6 @@ $id_user = Auth::user()->id;
     </div>
   </div>
   <!-- FIM Modal Criação post-->
-
-  
   <script>
     function update_file1() {
       var input = document.getElementById('file'); //define o id do input

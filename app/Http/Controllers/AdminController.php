@@ -87,11 +87,18 @@ class AdminController extends Controller
     public function del()
     {  
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
-        $id_sql = $_POST ['del'];
+        
+        if(isset($_POST ['del'])){
+            $id_sql = $_POST ['del'];
+        }
+        if(isset($_POST ['del_usu'])){
+            $id_sql = $_POST ['del_usu'];
+        }
+
         $sql = "DELETE FROM usuarios WHERE id = $id_sql";
         mysqli_query($conn, $sql);
-
-        return redirect('adm');
+        
+        return back();
     }
     
     public function alterar()

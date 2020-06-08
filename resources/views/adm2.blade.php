@@ -19,7 +19,7 @@ $num_pagina = ceil($total_pesquisa/$quantidade);
 
 $inicio = ($quantidade*$pagina)-$quantidade;
 
-$sql = "SELECT * FROM usuarios WHERE id_situacao = '1' AND (usuario LIKE '%$pesquisa2%' OR registro LIKE '%$pesquisa2%') LIMIT $inicio, $quantidade ";
+$sql = "SELECT * FROM usuarios WHERE id_situacao = '1' AND (usuario LIKE '%$pesquisa2%' OR registro LIKE '%$pesquisa2%') ORDER BY usuario ASC LIMIT $inicio, $quantidade ";
 $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
 $pagina_anterior = $pagina - 1; //paginação
@@ -73,35 +73,55 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                     </tr>
                 </thead>
                 <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel'];$id_usuario = $rows['id'];$nome = $rows['usuario'];?>
-                <!-- Modal -->
+                <!-- Modal alterar -->
                 <div class="modal fade" id="modal<?php echo $id_usuario ?>" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form action="{{ url('/alterar') }}" method="POST">
-                            @csrf
-                            <div class="modal-body">
-                                <p class="text-center"><h5>Alterar o acesso de: <?php echo $nome ?></h5></p>
-                                <br>
-                                <input type='hidden' name="alterar" value="<?php echo $id_usuario ?>"/>
-                                <label for="tipo" class="bold subdados">Tipo</label>
-                                <select name="tipo" class="select" class="btn btn-primary">
-                                    <option>Usuario</option><option>Avaliador</option><option>Admin</option>
-                                </select>
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                            <div class="modal-footer-custom grey">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                <button type="submit" class="btn btn-primary">Salvar mudanças</button>
-                            </div>
-                        </form>
+                            <form action="/alterar" method="POST">
+                                @csrf
+                                <div class="modal-body">
+                                    <p class="text-center"><h5>Alterar o acesso de <b><?php echo $nome ?></b></h5></p>
+                                    <br>
+                                    <input type='hidden' name="alterar" value="<?php echo $id_usuario ?>"/>
+                                    <label for="tipo" class="bold subdados">Tipo</label>
+                                    <select name="tipo" class="select" class="btn btn-primary">
+                                        <option>Usuario</option><option>Avaliador</option><option>Admin</option>
+                                    </select>
+                                    <br><br>
+                                    <a data-dismiss="modal" data-toggle="modal" data-target="#del_usu<?php echo $id_usuario;?>" style="text-decoration:underline;color:red;cursor:pointer;">Deletar usuario</a>
+                                </div>
+                                <div class="modal-footer-custom grey">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    <button type="submit" class="btn btn-primary">Salvar mudanças</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <!-- Fim Modal -->
+                <!-- Fim Modal alterar -->
+                <!-- Modal deletar usuario -->
+                <div class="modal fade id" id="del_usu<?php echo $id_usuario; ?>" role="dialog">
+                    <div class="modal-dialog modal-content">
+                        <div class="modal-header"></div>
+                        <div class="modal-body">
+                            <h6><p>Deseja realmente deletar <b><?php echo $nome ?></b>?</p>
+                            <form action="/del" method="POST">
+                                @csrf
+                                <div class="modal-footer">
+                                    <input name="del_usu" type="hidden" value="<?php echo $id_usuario; ?>"/>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                                </div> 
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIM Modal deletar usuario -->
                 <tbody class="pisca">
                     <tr>
                         <td><?php echo $i ?></td>

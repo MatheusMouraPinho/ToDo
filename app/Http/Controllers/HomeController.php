@@ -296,7 +296,32 @@ class HomeController extends Controller
             $denuncia = 2;
         }
         
-        return redirect('home')->with(['denuncia' =>  $denuncia]);
+        return back()->with(['denuncia' =>  $denuncia]);
+    }
+    public function denunciar_comentario()
+    {   
+        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $motivo = $_POST['option'];
+        $id = $_POST ['id_comentario'];
+        $id2 = $_POST ['id_usuario'];
+        
+        $sql = "SELECT * FROM check_denuncia_comentarios WHERE id_comentario = $id AND id_usuario = $id2";
+        $result = mysqli_query($conn, $sql);
+        $check = mysqli_num_rows($result);//consulta se ja existe esse like
+
+        if($check == 0){
+            $sql = "INSERT INTO check_denuncia_comentarios (id_comentario, id_usuario) VALUES ($id, $id2)";
+            mysqli_query($conn, $sql);
+
+            $sql = "INSERT INTO denuncias_comentarios (id_denunciacomentario, id_comentario, id_motivo) VALUES ($id ,$id, $motivo) ON DUPLICATE KEY UPDATE quantidade = quantidade + 1";
+            mysqli_query($conn, $sql);
+
+            $denuncia = 1;
+        }else{
+            $denuncia = 2;
+        }
+        
+        return back()->with(['denuncia' =>  $denuncia]);
     }
     public function like_post()
     {   

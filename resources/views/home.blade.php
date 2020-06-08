@@ -26,21 +26,7 @@ if(!isset($periodo)){ $periodo = "data_postagem";}
 if(!isset($avalia)){ $avalia = "1 OR 2";}
 if($filtro == "media"){$avalia = "1";}
 
-$denuncia = Session::get('denuncia');
-
-if($denuncia == 1){ ?>
-    <script>
-        alert("Denuncia Efetuada");
-        location.reload();
-    </script><?php 
-}elseif($denuncia == 2){?>
-    <script>
-        alert("Esta postagem ja foi denunciada");
-        location.reload();
-    </script>
-<?php }
-
-$sql = "SELECT * FROM postagens LEFT JOIN usuarios ON (postagens.id_usuarios = usuarios.id) WHERE data_postagem >= $periodo AND (id_categoria = $tipo) AND (id_situacao_postagem = $avalia) AND (postagens.titulo_postagem LIKE '%$pesquisa%' OR usuarios.usuario LIKE '%$pesquisa%') ORDER BY $filtro DESC";
+$sql = "SELECT * FROM postagens LEFT JOIN usuarios ON (postagens.id_usuarios = usuarios.id) LEFT JOIN comentarios ON (comentarios.id_postagem = postagens.id_postagem) WHERE data_postagem >= $periodo AND (id_categoria = $tipo) AND (id_situacao_postagem = $avalia) AND (postagens.titulo_postagem LIKE '%$pesquisa%' OR usuarios.usuario LIKE '%$pesquisa%') ORDER BY $filtro DESC";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
@@ -50,7 +36,7 @@ $num_pagina = ceil($total_pesquisa/$quantidade);
 
 $inicio = ($quantidade*$pagina)-$quantidade;
 
-$sql = "SELECT * FROM postagens LEFT JOIN usuarios ON (postagens.id_usuarios = usuarios.id) WHERE data_postagem >= $periodo AND (id_categoria = $tipo) AND (id_situacao_postagem = $avalia) AND (postagens.titulo_postagem LIKE '%$pesquisa%' OR usuarios.usuario LIKE '%$pesquisa%') ORDER BY $filtro DESC LIMIT $inicio, $quantidade ";
+$sql = "SELECT * FROM postagens LEFT JOIN usuarios ON (postagens.id_usuarios = usuarios.id) LEFT JOIN comentarios ON (comentarios.id_postagem = postagens.id_postagem) WHERE data_postagem >= $periodo AND (id_categoria = $tipo) AND (id_situacao_postagem = $avalia) AND (postagens.titulo_postagem LIKE '%$pesquisa%' OR usuarios.usuario LIKE '%$pesquisa%') ORDER BY $filtro DESC LIMIT $inicio, $quantidade ";
 $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
 $pagina_anterior = $pagina - 1; //paginação
@@ -188,11 +174,11 @@ $s = 1;
                 <div class="modal-body">
                     <p>Deseja realmente apagar essa Postagem?</p>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                         <form action="/apagar_post" method="POST">
                             @csrf
                             <input name="id_postagem" type="hidden" value="<?php echo $rows['id_postagem'];?>">
-                            <input data-toggle="modal" type="submit" class="btn btn-primary" value="Apagar">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Confirmar</button>
                         </form>
                     </div> 
                 </div>
