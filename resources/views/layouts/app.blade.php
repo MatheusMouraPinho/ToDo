@@ -37,6 +37,7 @@ if($denuncia == 1){ ?>
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+  <link rel="shortcut icon" href="img/img_ToDo.png" type="img/x-icon" />
 
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -46,7 +47,7 @@ if($denuncia == 1){ ?>
 <body>
   <!-- ||Nav Bar||  -->
   <nav class="navbar navbar-expand-lg cor">
-    <img class="navbar-brand" width="7%" src="{{asset('img/logo.png')}}">
+    <img class="navbar-brand" width="3.7%"  src="{{asset('img/img_ToDo.png')}}">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
