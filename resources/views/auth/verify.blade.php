@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card-login">
-                <div class="card-cabeca">Verificação de Email</div>
+                <div class="card-cabeca">Verificação de E-mail</div>
 
                 <div class="card-corpo">
                     @if (session('resent'))
@@ -16,7 +16,7 @@
                         </div>
                     @endif
 
-                    Ola! <?php  echo $user?>, antes de prosseguir, verifique seu e-mail para um link de verificação.
+                    Olá! <?php  echo $user?>, antes de prosseguir, verifique seu e-mail para um link de verificação.
                     Se você não recebeu o email,
                     <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                         @csrf

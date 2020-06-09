@@ -33,9 +33,9 @@ if ($total_pesquisa > 0 ){ //se tiver rows
     <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <a class="nav-item nav-link active"  href="{{ url('/adm') }}">Cadastros</a>
-        <a class="nav-item nav-link"  href="{{ url('/adm2') }}">Usuarios</a>
+        <a class="nav-item nav-link"  href="{{ url('/adm2') }}">Usuários</a>
         <a class="nav-item nav-link"  href="{{ url('/adm3') }}">Postagens</a>
-        <a class="nav-item nav-link"  href="{{ url('/adm4') }}">Comentarios</a>
+        <a class="nav-item nav-link"  href="{{ url('/adm4') }}">Comentários</a>
     </div>
     </nav>
     <br>
@@ -58,10 +58,10 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                 <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel']; $num++;?>
                     <tbody class="texture pisca">
                         <tr class="">
-                            <td><?php echo date('d/m/Y', strtotime($rows['email_verified_at'])). " As ". date('H:i', strtotime($rows['email_verified_at'])); ?></td>
+                            <td><?php echo date('d/m/Y', strtotime($rows['email_verified_at'])). " às ". date('H:i', strtotime($rows['email_verified_at'])); ?></td>
                             <td><?php echo mb_strimwidth($rows['usuario'], 0, 25, "..."); ?></td>
                             <td><?php echo $rows['registro']; ?></td>
-                            <td><?php   if ($setup == 1) { echo "Usuario";    
+                            <td><?php   if ($setup == 1) { echo "Usuário";    
                                         }else if ($setup == 2) { echo "Avaliador";
                                         }else if ($setup == 3) { echo "Admin";}
                                 ?>
@@ -83,7 +83,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <td rowspan="10">
                             <div>
                                 <img width="20%" height="20%" style="margin-top:8px;" src="{{asset('img/clock.png')}}"><br>
-                                <p><h4><b>Nenhum cadastro disponivel para gerenciamento</h4></b></p>
+                                <p><h4><b>Nenhum cadastro disponível para gerenciamento</h4></b></p>
                             </div>
                         </td>
                     </tr>

@@ -43,7 +43,7 @@ $nivel = Auth::user()->nivel;
             
               <div id="conteudo-dados">
                 <div class="dados-pessoais">
-                  <p style="padding: 5px; margin: 0px;">RGM: {{ $dados['rgm'] }}</p>
+                  <p style="padding: 5px; margin: 0px;">RGM/CPF: {{ $dados['rgm'] }}</p>
                 </div>
 
                 <div class="dados-pessoais">
@@ -52,7 +52,7 @@ $nivel = Auth::user()->nivel;
 
                 @if(is_null($dados['telefone']))
                   <div class="dados-pessoais">
-                    <p style="padding: 5px; margin: 0px;">Celular: <span class="font-italic">Não definido</span></p>
+                    <p style="padding: 5px; margin: 0px;">Telefone/Celular: <span class="font-italic">Não definido</span></p>
                   </div>
                 @else 
                   <div class="dados-pessoais">
@@ -191,30 +191,30 @@ $nivel = Auth::user()->nivel;
                     </div>
 
                     <div class="popup-title">
-                      <label for="usuario" class="bold subdados">Usuário</label>
+                      <label for="usuario" class="bold subdados">Usuário: </label>
                       <input type="text" class="btn-popup mr-sm-2" value="{{ Auth::user()->usuario }}" placeholder="Usuário" name="usuario">
                     </div>
 
                     <div class="popup-title">
-                      <label for="email" class="bold subdados">E-mail</label>
+                      <label for="email" class="bold subdados">E-mail: </label>
                       <input type="text" class="btn-popup mr-sm-2" value="{{ Auth::user()->email }}" name="email" placeholder="E-mail" readonly>
                     </div>
 
                     <div class="popup-title">
-                      <label for="senha" class="bold subdados">Senha</label>
+                      <label for="senha" class="bold subdados">Senha: </label>
                       <input type="password" class="btn-popup mr-sm-2" value="{{ Auth::user()->senha }}" name="senha" placeholder="Senha" readonly>
                       <a href="{{ url('/password/reset') }}" class="password">Alterar senha</a>
                     </div>
 
                     <div class="popup-title">
-                      <label for="telefone_usuario" class="bold subdados ">Celular</label>
+                      <label for="telefone_usuario" class="bold subdados ">Celular: </label>
                       <input onkeypress="return onlynumber();" minlength="10" maxlength="11" id="telefone_usuario" type="text" class="btn-popup mr-sm-2 phones" name="telefone_usuario" placeholder="Ex: (11) 11111-1111"/>
                     </div>
 
                     <hr>
 
                     <div class="popup-title">
-                      <label for="id_instituicao" class="bold subdados">Instituição</label>
+                      <label for="id_instituicao" class="bold subdados">Instituição: </label>
                       <select name="id_instituicao" class="select" title="Selecione uma opção">
                       <option value="">{{ $dados['instituicao'] }}</option>
                         @for($a = 0; $a<sizeof($dados['instituicoes']);$a++)
@@ -226,7 +226,7 @@ $nivel = Auth::user()->nivel;
                     </div>
 
                     <div class="popup-title">
-                      <label for="id_area" class="bold subdados">Área</label>
+                      <label for="id_area" class="bold subdados">Área: </label>
                       <select name="id_area" class="select" title="Selecione uma opção" class="btn btn-primary">
                         <option value="">{{$dados['area']}}</option>
                           @for($a = 0; $a<sizeof($dados['areas']);$a++)
@@ -238,7 +238,7 @@ $nivel = Auth::user()->nivel;
                     </div>
 
                     <div class="popup-title">
-                      <label for="id_regiao_cidade" class="bold subdados">Região</label>
+                      <label for="id_regiao_cidade" class="bold subdados">Região: </label>
                       <select name="id_regiao_cidade" class="select" title="Selecione uma opção">
                         <option value="">{{$dados['cidade']}}</option>
                         @for($a = 0; $a<sizeof($dados['cidades']);$a++)

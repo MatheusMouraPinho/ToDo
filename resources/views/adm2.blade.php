@@ -38,20 +38,20 @@ if ($total_pesquisa > 0 ){ //se tiver rows
     <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <a class="nav-item nav-link"  href="{{ url('/adm') }}">Cadastros</a>
-        <a class="nav-item nav-link active"  href="{{ url('/adm2') }}">Usuarios</a>
+        <a class="nav-item nav-link active"  href="{{ url('/adm2') }}">Usuários</a>
         <a class="nav-item nav-link"  href="{{ url('/adm3') }}">Postagens</a>
-        <a class="nav-item nav-link"  href="{{ url('/adm4') }}">Comentarios</a>
+        <a class="nav-item nav-link"  href="{{ url('/adm4') }}">Comentários</a>
     </div>
     </nav>
     <br>
     <div class="row">
-    <div class="text-centro contorno-titulo"><h3>Nivel de acesso Usuarios</h3></div>
+    <div class="text-centro contorno-titulo"><h3>Nível de acesso Usuários</h3></div>
     </div>
     <div class="row justify-content-md-center">
         <form class="form-inline my-2 my-lg-0" method="POST" action="/pesquisa_user">
             @csrf
-            <label><b style="margin-right:10px;">Procurar Usuarios:</b></label>
-            <input class="form-control mr-sm-2" type="text" name="pesquisa_user" placeholder="Procure o usuario pelo Nome ou RGM/CPF" aria-label="Search" style="width: 400px">
+            <label><b style="margin-right:10px;">Procurar Usuários:</b></label>
+            <input class="form-control mr-sm-2" type="text" name="pesquisa_user" placeholder="Procure o usuário pelo Nome ou RGM/CPF" aria-label="Search" style="width: 400px">
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Procurar</button>
         </form>
     </div>
@@ -92,7 +92,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                         <option>Usuario</option><option>Avaliador</option><option>Admin</option>
                                     </select>
                                     <br><br>
-                                    <a data-dismiss="modal" data-toggle="modal" data-target="#del_usu<?php echo $id_usuario;?>" style="text-decoration:underline;color:red;cursor:pointer;">Deletar usuario</a>
+                                    <a data-dismiss="modal" data-toggle="modal" data-target="#del_usu<?php echo $id_usuario;?>" style="text-decoration:underline;color:red;cursor:pointer;">Deletar usuário</a>
                                 </div>
                                 <div class="modal-footer-custom grey">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -125,7 +125,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                     <tr>
                         <td><?php echo mb_strimwidth($rows['usuario'], 0, 30, "..."); ?></td>
                         <td><?php echo $rows['registro']; ?></td>
-                        <td><?php   if ($setup == 1) { echo "Usuario";    
+                        <td><?php   if ($setup == 1) { echo "Usuário";    
                                     }else if ($setup == 2) { echo "Avaliador";
                                     }else if ($setup == 3) { echo "Admin";}
                             ?>
@@ -142,7 +142,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <td rowspan="10">
                             <div>
                                 <img width="20%" height="20%" style="margin-top:8px;" src="{{asset('img/clock.png')}}"><br>
-                                <p><h4><b>Nenhum usuario disponivel para alteração de nivel</h4></b></p>
+                                <p><h4><b>Nenhum usuário disponível para alteração de nível</h4></b></p>
                             </div>
                         </td>
                     </tr>

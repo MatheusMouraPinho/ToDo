@@ -88,9 +88,9 @@ $s = 1;
                         <?php echo $setup ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <?php if($setup != "Ultima Semana"){?><button class="dropdown-item" name="periodo" value="1">Ultima Semana</button><?php }?>
-                        <?php if($setup != "Ultimo Mês"){?><button class="dropdown-item" name="periodo" value="2">Ultimo Mês</button><?php }?>
-                        <?php if($setup != "Ultimo Ano"){?><button class="dropdown-item" name="periodo" value="3">Ultimo Ano</button><?php }?>
+                        <?php if($setup != "Ultima Semana"){?><button class="dropdown-item" name="periodo" value="1">Última Semana</button><?php }?>
+                        <?php if($setup != "Ultimo Mês"){?><button class="dropdown-item" name="periodo" value="2">Último Mês</button><?php }?>
+                        <?php if($setup != "Ultimo Ano"){?><button class="dropdown-item" name="periodo" value="3">Último Ano</button><?php }?>
                         <?php if($setup != "Todas as Postagens"){?><button class="dropdown-item" name="periodo" value="4">Todas as postagens</button><?php }?>
                     </div>
                 </div>
@@ -106,7 +106,7 @@ $s = 1;
             <h2 class="aviso-text"><b>Nenhuma Postagem encontrada</b></h2>
         </div>
     <?php }?>
-    <?php while($rows = mysqli_fetch_assoc($result2)){ $situation = $rows['id_situacao_postagem']; $id_post = $rows['id_postagem']; $scroll = $s +1;?>
+    <?php while($rows = mysqli_fetch_assoc($result2)){ $situation = $rows['id_situacao_postagem']; $id_post = $rows['id_postagem']; $user_post = $rows['id_usuarios']; $scroll = $s +1;?>
         <nav id="scroll<?php echo $scroll?>"></nav>
         <div class="card-home">
             <div class="divisao">
@@ -149,13 +149,13 @@ $s = 1;
                 <?php }?>
                 <div class="link-home"> <a style="text-decoration:underline" type="button"  data-toggle="modal" data-target="#post<?php echo $id_post ?>">Visualizar</a> </div>
                 <div class="situation-home"><b>
-                    <?php if ($situation == 1) { echo "<f3> Media: ". number_format((float)$rows['media'], 2, '.', ''). "</f3>";}else{ echo "<f4>" . "Pendente" . "</f4>";} ?>
+                    <?php if ($situation == 1) { echo "<f3> Média: ". number_format((float)$rows['media'], 2, '.', ''). "</f3>";}else{ echo "<f4>" . "Pendente" . "</f4>";} ?>
                 </b></div>
                 <div class="data-home"><f2><?php echo date('d/m/Y', strtotime($rows['data_postagem'])); ?></f2></div>
                 <div class="denuncia-home">
                     <div class="dropdown">
-                        <a id="navbarDropdown" role="button" data-toggle="dropdown"><img class="danger-icon" width="30px" src="{{asset('img/danger.png')}}"></a>
-                        <div style="cursor: pointer" class="dropdown-menu">
+                        <a id="navbarDropdown" role="button" style="cursor: pointer" data-toggle="dropdown"><img class="danger-icon" width="30px" src="{{asset('img/danger.png')}}"></a>
+                        <div class="dropdown-menu">
                             <?php if($rows['id_usuarios'] == Auth::user()->id){?>
                                 <a class="dropdown-item" data-toggle="modal" data-target="#del-post<?php echo $rows['id_postagem'];?>">Apagar</a>
                             <?php }else{ ?>
@@ -202,7 +202,7 @@ $s = 1;
                                 <input type="radio" id="radio3" type="radio" name="option" value="1" required>
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="radio-custom">Copia
+                            <label class="radio-custom">Cópia
                                 <input type="radio" id="radio3" type="radio" name="option" value="2" required>
                                 <span class="checkmark"></span>
                             </label>

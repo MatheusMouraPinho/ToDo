@@ -43,7 +43,7 @@ $_SESSION['id_usuario'] = $dados['id'];
             <p>{{ $dados['email'] }}</p>
             <div id="conteudo-dados">
               <div class="dados-pessoais">
-                <p style="padding: 5px; margin: 0px;">RGM: {{ $dados['rgm'] }}</p>
+                <p style="padding: 5px; margin: 0px;">RGM/CPF: {{ $dados['rgm'] }}</p>
               </div>
 
               <div class="dados-pessoais">
@@ -52,7 +52,7 @@ $_SESSION['id_usuario'] = $dados['id'];
 
               @if(is_null($dados['telefone']))
                   <div class="dados-pessoais">
-                    <p style="padding: 5px; margin: 0px;">Celular: <span class="font-italic">Não definido</span></p>
+                    <p style="padding: 5px; margin: 0px;">Telefone/Celular: <span class="font-italic">Não definido</span></p>
                   </div>
                 @else 
                   <div class="dados-pessoais">

@@ -34,23 +34,23 @@ if ($total_pesquisa > 0 ){ //se tiver rows
     <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <a class="nav-item nav-link"  href="{{ url('/adm') }}">Cadastros</a>
-        <a class="nav-item nav-link"  href="{{ url('/adm2') }}">Usuarios</a>
+        <a class="nav-item nav-link"  href="{{ url('/adm2') }}">Usuários</a>
         <a class="nav-item nav-link"  href="{{ url('/adm3') }}">Postagens</a>
-        <a class="nav-item nav-link active"  href="{{ url('/adm4') }}">Comentarios</a>
+        <a class="nav-item nav-link active"  href="{{ url('/adm4') }}">Comentários</a>
     </div>
     </nav>
     <br>
     <div class="row">
-        <div class="text-centro contorno-titulo"><h3>Denuncias de Comentarios</h3></div>
+        <div class="text-centro contorno-titulo"><h3>Denúncias de Comentários</h3></div>
         <table class="col-12" id="table_conta">
             <caption><br></caption>
             <?php if(isset($check)){ ?>
                 <thead>
                     <tr class="tr-custom">
-                        <th scope="col">Autor do comentario</th>
+                        <th scope="col">Autor do comentário</th>
                         <th scope="col">Motivo</th>
-                        <th scope="col">quantidade</th>
-                        <th scope="col">Visualizar comentario</th>
+                        <th scope="col">Quantidade</th>
+                        <th scope="col">Visualizar comentário</th>
                         <th scope="col">Opções</th>
                     </tr>
                 </thead>
@@ -61,8 +61,8 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                             <td>
                                 <?php 
                                 if ($rows['id_motivo'] == 1 ) { echo "Spam";    
-                                }elseif($rows['id_motivo'] == 2 ){ echo "Copia";
-                                }else{ echo "Conteudo Inadequado";}
+                                }elseif($rows['id_motivo'] == 2 ){ echo "Cópia";
+                                }else{ echo "Conteúdo Inadequado";}
                                 ?>
                             </td>
                             <td>
@@ -82,7 +82,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                     <form action="{{ url('/alterar') }}" method="POST">
                                         @csrf
                                         <div class="modal-body-white">
-                                            <p class="text-center"><h5>Conteudo do Comentario de <?php echo $rows['usuario'] ?></h5></p>
+                                            <p class="text-center"><h5>Conteúdo do Comentário de <?php echo $rows['usuario'] ?></h5></p>
                                             <br>
                                             <textarea style="resize: none" cols="60" rows="6" readonly><?php echo $rows['conteudo_comentarios'] ?></textarea>
                                         </div>
@@ -112,11 +112,11 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                             <p><h4>Opções:</h4></p>
                                             <br>
                                             <h6>
-                                                <label class="radio-custom">Remover denuncias
+                                                <label class="radio-custom">Remover denúncias
                                                     <input type="radio" id="radio1" type="radio" name="option" value="rem_den" required>
                                                     <span class="checkmark"></span>
                                                 </label>
-                                                <label class="radio-custom">Deletar Comentario
+                                                <label class="radio-custom">Deletar Comentário
                                                     <input type="radio" id="radio2" type="radio" name="option" value="del_comen" required>
                                                     <span class="checkmark"></span>
                                                 </label>
@@ -143,7 +143,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <td rowspan="10">
                             <div>
                             <img width="20%" height="20%" style="margin-top:8px;" src="{{asset('img/clock.png')}}"><br>
-                                <p><h4><b>Nenhuma denuncia disponivel para apuração</h4></b></p>
+                                <p><h4><b>Nenhuma denúncia disponível para apuração</h4></b></p>
                             </div>
                         </td>
                     </tr>

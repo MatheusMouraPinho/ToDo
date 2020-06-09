@@ -105,9 +105,10 @@
                   @endif
 
                   <!-- Verifica se a avaliação está pendente ou não -->
+                  <!-- Quando o for rodar todas as vezes e tbm todos questionamentos do if, e o cont não for igual ao tamanho de quantidade de avaliações , quer dizer q existe alguma avaliação que pertence a postagem atual, e portanto não está pendente -->
                   <?php $cont = 0;?>
                   @for($d=0;$d<sizeof($post['avaliacao']);$d++)
-                    @if($post['avaliacao'][$d]->id_postagem != $id_post)  <!-- Quando o for rodar todas as vezes e tbm todos questionamentos do if, e o cont não for igual ao tamanho de quantidade de avaliações , quer dizer q existe alguma avaliação que pertence a postagem atual, e portanto não está pendente -->
+                    @if($post['avaliacao'][$d]->id_postagem != $id_post)  
                       <?php 
                         $cont+= 1 ;
                       ?>
@@ -115,14 +116,14 @@
                   @endfor
                 @endfor
                 @if($cont === sizeof($post['avaliacao']))
-                  @if($id_nivel == 1 && isset($rows['id']))
+                  @if($id_nivel == 1 && isset($rows['id']) && $user_post != $user)
                     <a href="#" class="popup_coment" data-toggle="modal" data-target="#post<?php echo $id_post ?>_avaliar">Avaliar postagem</a>
                   @else
                     <p class="popup_coment">Pendente</p>
                   @endif
                 @endif
               @else
-                @if($id_nivel == 1 && isset($rows['id']))
+                @if($id_nivel == 1 && isset($rows['id']) && $user_post != $user)
                   <a href="#" class="popup_coment" data-toggle="modal" data-target="#post<?php echo $id_post ?>_avaliar">Avaliar postagem</a>
                 @else
                   <p class="popup_coment">Pendente</p>

@@ -54,7 +54,7 @@ if($denuncia == 1){ ?>
       <ul class="nav navbar-nav ml-auto">
         <li style="padding-right:22px" class="nav-item active">
           <div class="form-inline my-2 my-lg-0">
-            <a class="btn btn-primary my-2 my-sm-0"  href="{{ url('/home') }}">Home</a>
+            <a class="btn btn-primary my-2 my-sm-0"  href="{{ url('/home') }}">Início</a>
           </div>
         </li>
         <li style="padding-right:28px" class="nav-item">
