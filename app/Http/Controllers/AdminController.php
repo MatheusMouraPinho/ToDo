@@ -6,6 +6,10 @@ use datetime;
 use DB;
 use Illuminate\Support\Facades\DB as FacadesDB;
 use intval;
+use Mail;
+use App\Mail\cadastro_aceito;
+use App\Mail\cadastro_recusado;
+use App\Mail\usuario_deletado;
 
 class AdminController extends Controller
 {
@@ -83,6 +87,13 @@ class AdminController extends Controller
         $sql = "UPDATE usuarios SET id_situacao = 1 WHERE id = $id_sql";
         mysqli_query($conn, $sql);
 
+        $sql = "SELECT * FROM usuarios WHERE id = $id_sql AND id_situacao = 1";
+        $result = mysqli_query($conn, $sql);
+        if($rows = mysqli_fetch_assoc($result)){
+            $mail = $rows['email'];
+            Mail::to($mail)->send(new cadastro_aceito());
+        }
+
         return redirect('adm');
     }
 
@@ -92,14 +103,26 @@ class AdminController extends Controller
         
         if(isset($_POST ['del'])){
             $id_sql = $_POST ['del'];
+            $sql = "SELECT * FROM usuarios WHERE id = $id_sql";
+            $result = mysqli_query($conn, $sql);
+            if($rows = mysqli_fetch_assoc($result)){
+                $mail = $rows['email'];
+                Mail::to($mail)->send(new cadastro_recusado());
+            }
         }
         if(isset($_POST ['del_usu'])){
             $id_sql = $_POST ['del_usu'];
+            $sql = "SELECT * FROM usuarios WHERE id = $id_sql";
+            $result = mysqli_query($conn, $sql);
+            if($rows = mysqli_fetch_assoc($result)){
+                $mail = $rows['email'];
+              Mail::to($mail)->send(new usuario_deletado());
+            }
         }
 
         $sql = "DELETE FROM usuarios WHERE id = $id_sql";
         mysqli_query($conn, $sql);
-        
+
         return back();
     }
     

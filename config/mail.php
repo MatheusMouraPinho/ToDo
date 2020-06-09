@@ -9,11 +9,11 @@ return [
     "host" => "smtp.mailtrap.io",
     "port" => 2525,
     "from" => array(
-        "address" => "from@example.com",
-        "name" => "Example"
+        "address" => "Ideias@ToDo.com",
+        "name" => "Repositorio de Ideias ToDo"
     ),
-    "username" => "68f8e26538bc93",
-    "password" => "cfaabb7d895b78",
+    "username" => "2270f5a24df910",
+    "password" => "e67c56c72ae302",
     "sendmail" => "/usr/sbin/sendmail -bs"
   ];
 
