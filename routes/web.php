@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PerfilController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,7 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() { 
 
     Route::post('/like', 'ComentController@like')->name('like');
 
+    Route::post('/avaliar_aval', 'AdminController@avaliar')->middleware('avaliador');
 
 });
 
@@ -85,5 +87,6 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado', 'admin']], func
         Route::post('/option2', 'AdminController@option2');
 
     Route::post('/avaliar', 'AdminController@avaliar');
+    
 });
 

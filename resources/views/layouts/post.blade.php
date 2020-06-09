@@ -561,7 +561,11 @@
           <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="{{ url('/avaliar')}}" method="POST">
+        @if($nivel == 3)
+          <form action="{{ url('/avaliar')}}" method="POST">
+        @elseif($nivel == 2)
+          <form action="{{ url('/avaliar_aval')}}" method="POST">
+        @endif
             @csrf
             <div class="modal-body">
                 <div class="notas">
