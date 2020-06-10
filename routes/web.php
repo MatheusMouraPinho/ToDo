@@ -78,6 +78,7 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado', 'admin']], func
     Route::get('/adm2', 'AdminController@admin2');
         Route::post('/alterar', 'AdminController@alterar');
         Route::post('/pesquisa_user', 'AdminController@pesquisa');
+        Route::post('/del_usu', 'AdminController@del_usu');
         Route::get('/reset_search2', 'AdminController@reset_search');
 
     Route::get('/adm3', 'AdminController@admin3');

@@ -5,6 +5,19 @@ $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
 $user = Auth::user()->id;
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
+$notific = Session::get('notific');
+if($notific == 1){ ?>
+    <script>
+      alert("Denúncias Removidas");
+      location.reload();
+    </script>
+<?php }elseif($notific == 2){ ?>
+    <script>
+      alert("Postagem Deletada");
+      location.reload();
+    </script>
+<?php }
+
 $sql = "SELECT * FROM denuncias";
 $resultado = mysqli_query($conn, $sql);//pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($resultado); //conta o total de rows

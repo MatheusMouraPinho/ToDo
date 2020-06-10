@@ -4,7 +4,19 @@
 $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
 
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
-$num = (isset(($_GET['num'])) ? $_GET['num'] : 1);
+
+$notific = Session::get('notific');
+if($notific == 1){ ?>
+    <script>
+      alert("Cadastro Aceito");
+      location.reload();
+    </script>
+<?php }elseif($notific == 2){ ?>
+    <script>
+      alert("Cadastro Deletado");
+      location.reload();
+    </script>
+<?php }
 
 $sql = "SELECT * FROM usuarios WHERE id_situacao = '2' AND email_verified_at IS NOT NULL";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
@@ -19,8 +31,8 @@ $inicio = ($quantidade*$pagina)-$quantidade;
 $sql = "SELECT * FROM usuarios WHERE id_situacao = '2' AND email_verified_at IS NOT NULL ORDER BY email_verified_at ASC LIMIT $inicio, $quantidade ";
 $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
-$pagina_anterior = $pagina - 1 && $num - 5; //paginação
-$pagina_posterior = $pagina + 1 && $num + 5;
+$pagina_anterior = $pagina - 1; //paginação
+$pagina_posterior = $pagina + 1;
 
 if ($total_pesquisa > 0 ){ //se tiver rows
     $check = TRUE;
@@ -55,7 +67,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <th scope="col">Deletar</th>
                     </tr>
                 </thead>
-                <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel']; $num++;?>
+                <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel'];?>
                     <tbody class="texture pisca">
                         <tr class="">
                             <td><?php echo date('d/m/Y', strtotime($rows['email_verified_at'])). " às ". date('H:i', strtotime($rows['email_verified_at'])); ?></td>
@@ -109,12 +121,12 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                 </li>
                 <?php 
                 for($i = 1; $i < $num_pagina + 1; $i++){ ?>
-                    <li class="page-item"><a class="page-link" href="?pagina=<?php echo $i . "&num=". $num ; ?>"><?php echo $i; ?></a></li>
+                    <li class="page-item"><a class="page-link" href="?pagina=<?php echo $i?>"><?php echo $i; ?></a></li>
                 <?php } ?>
                 <li>
                     <?php
                     if($pagina_posterior <= $num_pagina){ ?>
-                        <a class="page-link" href="?pagina=<?php echo $i . "&num=". $num ; ?>" aria-label="Next">
+                        <a class="page-link" href="?pagina=<?php echo $i?>" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     <?php }else{ ?>

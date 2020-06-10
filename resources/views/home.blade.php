@@ -157,9 +157,9 @@ $s = 1;
                         <a id="navbarDropdown" role="button" style="cursor: pointer" data-toggle="dropdown"><img class="danger-icon" width="30px" src="{{asset('img/danger.png')}}"></a>
                         <div class="dropdown-menu">
                             <?php if($rows['id_usuarios'] == Auth::user()->id){?>
-                                <a class="dropdown-item" data-toggle="modal" data-target="#del-post<?php echo $rows['id_postagem'];?>">Apagar</a>
+                                <a class="dropdown-item" style="cursor: pointer"  data-toggle="modal" data-target="#del-post<?php echo $rows['id_postagem'];?>">Apagar</a>
                             <?php }else{ ?>
-                                <a class="dropdown-item" data-toggle="modal" data-target="#den-post<?php echo $rows['id_postagem'];?>">Denunciar</a>
+                                <a class="dropdown-item" style="cursor: pointer" data-toggle="modal" data-target="#den-post<?php echo $rows['id_postagem'];?>">Denunciar</a>
                             <?php } ?>
                         </div>
                     </div>
