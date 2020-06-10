@@ -711,7 +711,6 @@ input[type='file'] {
 
 .user:hover{
   text-decoration: underline;  
-
 }
 
 #perfil {
@@ -1046,6 +1045,11 @@ input[type='file'] {
 
 #img_post {
   cursor: pointer;
+}
+
+.user:focus{
+  border: none;
+  outline: 0;
 }
 
 #img_post1 {

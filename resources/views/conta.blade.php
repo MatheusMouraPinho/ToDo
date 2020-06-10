@@ -207,7 +207,7 @@ $nivel = Auth::user()->nivel;
 
                     <div class="popup-title">
                       <label for="telefone_usuario" class="bold subdados ">Celular: </label>
-                      <input onkeypress="return onlynumber();" minlength="10" maxlength="11" id="telefone_usuario" type="text" class="btn-popup mr-sm-2 phones" name="telefone_usuario" placeholder="Ex: (11) 11111-1111"/>
+                      <input onkeypress="return onlynumber();" minlength="10" maxlength="11" id="telefone_usuario" value="{{ Auth::user()->telefone_usuario }}" type="text" class="btn-popup mr-sm-2 phones" name="telefone_usuario" placeholder="Ex: (11) 11111-1111"/>
                     </div>
 
                     <hr>

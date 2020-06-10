@@ -28,7 +28,7 @@
         </div>   
 
         <div id="logo">
-            <img src="{{asset('img/img_ToDo.png')}}" >
+            <img height="110px" src="{{asset('img/img_ToDo.png')}}" >
         </div>  
     </div>
 <body>

@@ -79,7 +79,7 @@
                             <input type="hidden" name="id_usuario" value="{{ $dados['avaliador'][$c]->id }}">
                             <input class="bold user" type="submit" value="{{ $dados['avaliador'][$c]->usuario}}">
                           </form>
-                        <span class="underline data-coment">{{ Helper::tempo_corrido($post['avaliacao'][$c]->data_comentarios)}}</span>
+                        <span class="underline data-coment" style="margin-right: 10px">{{ Helper::tempo_corrido($post['avaliacao'][$c]->data_comentarios)}}</span>
                       </div>
                       
                       <p class="conteudo-coment text-justify">{{ $post['avaliacao'][$c]->conteudo_comentarios }}</p>
