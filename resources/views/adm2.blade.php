@@ -6,17 +6,7 @@ $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
 $notific = Session::get('notific');
-if($notific == 1){ ?>
-    <script>
-      alert("Acesso Alterado");
-      location.reload();
-    </script>
-<?php }elseif($notific == 2){ ?>
-    <script>
-      alert("Usuário Deletado");
-      location.reload();
-    </script>
-<?php }
+$usu = Session::get('usu');
 
 if(NULL !== Session::get('pesquisa2')){   $_SESSION['pesquisa2'] = Session::get('pesquisa2');}
 if(isset($_SESSION['pesquisa2'])){$pesquisa2 = $_SESSION['pesquisa2'];}
@@ -121,7 +111,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                     <div class="modal-dialog modal-content">
                         <div class="modal-header"></div>
                         <div class="modal-body">
-                            <h6><p>Deseja realmente deletar <b><?php echo $nome ?></b>?</p>
+                            <h4><p>Deseja realmente deletar <b><?php echo $nome ?></b>?</p><h4><br>
                             <form action="/del_usu" method="POST">
                                 @csrf
                                 <div class="modal-footer">
@@ -199,4 +189,25 @@ if ($total_pesquisa > 0 ){ //se tiver rows
         </nav>
     <?php }?>
 </div>
+<!-- Modal notificação -->
+<div class="modal fade id" id="notific" role="dialog">
+    <div class="modal-dialog modal-content">
+        <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
+        <div class="modal-body">
+                <h4><?php if($notific == 1){ echo "Acesso de <b>". $usu ."</b> Alterado."; }else{echo "Usuario <b>". $usu ."</b> Deletado";}?></h4><br>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+            </div> 
+        </div>
+    </div>
+</div>
+<!-- FIM Modal notificação -->
+<?php
+if(isset($notific)){ ?>
+    <script>
+        $(function(){
+            $("#notific").modal('show');
+        });
+    </script>
+<?php } ?>
 @endsection

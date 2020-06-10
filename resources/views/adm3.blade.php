@@ -6,17 +6,7 @@ $user = Auth::user()->id;
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
 $notific = Session::get('notific');
-if($notific == 1){ ?>
-    <script>
-      alert("Denúncias Removidas");
-      location.reload();
-    </script>
-<?php }elseif($notific == 2){ ?>
-    <script>
-      alert("Postagem Deletada");
-      location.reload();
-    </script>
-<?php }
+$nom = Session::get('nom');
 
 $sql = "SELECT * FROM denuncias";
 $resultado = mysqli_query($conn, $sql);//pesquisa pra ser usado na conta das rows
@@ -113,6 +103,8 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                         </div>
                                         <div class="modal-footer-custom grey">
                                             <input type='hidden' name="id_postagem" value="<?php echo $id_post ?>"/>
+                                            <input type='hidden' name="id_denuncia" value="<?php echo $rows['id_denuncia']; ?>"/>
+                                            <input type='hidden' name="nome_post" value="<?php echo $nome_post ?>"/>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                             <button type="submit" class="btn btn-primary">Confirmar</button>
                                         </div>
@@ -180,4 +172,25 @@ if ($total_pesquisa > 0 ){ //se tiver rows
         </nav>
     <?php }?>
 </div>
+<!-- Modal notificação -->
+<div class="modal fade id" id="notific" role="dialog">
+    <div class="modal-dialog modal-content">
+        <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
+        <div class="modal-body">
+                <h4><?php if($notific == 1){ echo "Todas a denuncias foram removidas da postagem <b>". $nom .".</b>"; }else{echo "Postagem <b>". $nom ."</b> foi deletada.";}?></h4><br>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+            </div> 
+        </div>
+    </div>
+</div>
+<!-- FIM Modal notificação -->
+<?php
+if(isset($notific)){ ?>
+    <script>
+        $(function(){
+            $("#notific").modal('show');
+        });
+    </script>
+<?php } ?>
 @endsection

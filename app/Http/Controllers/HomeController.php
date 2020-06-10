@@ -298,7 +298,7 @@ class HomeController extends Controller
             $denuncia = 2;
         }
         
-        return back()->with(['denuncia' =>  $denuncia, 'id_postagem' => $id]);
+        return back()->with(['denuncia' =>  $denuncia])->with(['id_postagem' => $id]);
     }
     public function denunciar_comentario()
     {   
@@ -324,7 +324,7 @@ class HomeController extends Controller
             $denuncia = 2;
         }
         
-        return back()->with(['denuncia' =>  $denuncia, 'id_postagem' => $id_postagem]);
+        return back()->with(['denuncia' =>  $denuncia])->with(['id_postagem' => $id_postagem]);
     }
     public function like_post()
     {   

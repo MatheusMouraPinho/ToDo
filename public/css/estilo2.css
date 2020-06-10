@@ -411,3 +411,10 @@ fw{
 .cor{
   background-color: #ececec;
 }
+
+.aviso{
+  position: relative;
+  margin-left: 30%;
+  margin-right: auto;
+  padding-top: 8px;
+}

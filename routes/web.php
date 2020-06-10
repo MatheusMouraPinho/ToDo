@@ -42,9 +42,11 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() { 
         Route::get('/reset_search', 'HomeController@reset_search');
         Route::post('/apagar_post', 'HomeController@apagar_post');
         Route::post('/denunciar_post', 'HomeController@denunciar_post');
-        Route::post('/denunciar_comentario', 'HomeController@denunciar_comentario');
         Route::post('/like_post', 'HomeController@like_post');
         Route::post('/remov_like_post', 'HomeController@remov_like_post');
+
+    Route::post('/denunciar_comentario', 'HomeController@denunciar_comentario');
+
     Route::post('/cria', 'HomeController@cria');
 
     Route::get('/conta', 'UserController@index')->name('conta');
@@ -72,8 +74,8 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() { 
 Route::group(['middleware' => ['auth', 'verified', 'Altorizado', 'admin']], function() {
 
     Route::get('/adm', 'AdminController@admin');
-        Route::post('/alt', 'AdminController@alt');
-        Route::post('/del', 'AdminController@del');
+        Route::post('/alt', 'AdminController@altorizar');
+        Route::post('/del', 'AdminController@recusar');
 
     Route::get('/adm2', 'AdminController@admin2');
         Route::post('/alterar', 'AdminController@alterar');

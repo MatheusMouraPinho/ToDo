@@ -6,17 +6,7 @@ $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
 $notific = Session::get('notific');
-if($notific == 1){ ?>
-    <script>
-      alert("Cadastro Aceito");
-      location.reload();
-    </script>
-<?php }elseif($notific == 2){ ?>
-    <script>
-      alert("Cadastro Deletado");
-      location.reload();
-    </script>
-<?php }
+$usu = Session::get('usu');
 
 $sql = "SELECT * FROM usuarios WHERE id_situacao = '2' AND email_verified_at IS NOT NULL";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
@@ -139,4 +129,25 @@ if ($total_pesquisa > 0 ){ //se tiver rows
         </nav>
     <?php } ?>
 </div>
+<!-- Modal notificação -->
+<div class="modal fade id" id="notific" role="dialog">
+    <div class="modal-dialog modal-content">
+        <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
+        <div class="modal-body">
+                <h4><?php if($notific == 1){ echo "Cadastro do Usuario <b>". $usu ."</b> Aceito."; }elseif($notific == 2){echo "Cadastro do Usuario <b>". $usu ."</b> Recusado";}else{echo "<b> Ocorreu um erro, tente novamente </b>";}?></h4><br>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+            </div> 
+        </div>
+    </div>
+</div>
+<!-- FIM Modal notificação -->
+<?php
+if(isset($notific)){ ?>
+    <script>
+        $(function(){
+            $("#notific").modal('show');
+        });
+    </script>
+<?php } ?>
 @endsection

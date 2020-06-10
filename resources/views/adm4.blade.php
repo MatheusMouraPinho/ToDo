@@ -6,17 +6,7 @@ $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
 $notific = Session::get('notific');
-if($notific == 1){ ?>
-    <script>
-      alert("Denúncias Removidas");
-      location.reload();
-    </script>
-<?php }elseif($notific == 2){ ?>
-    <script>
-      alert("Comentário Deletado");
-      location.reload();
-    </script>
-<?php }
+$nom = Session::get('nom');
 
 $sql = "SELECT * FROM denuncias_comentarios";
 $resultado = mysqli_query($conn, $sql);//pesquisa pra ser usado na conta das rows
@@ -67,7 +57,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <th scope="col">Opções</th>
                     </tr>
                 </thead>
-                <?php while($rows = mysqli_fetch_assoc($result)){ ?>
+                <?php while($rows = mysqli_fetch_assoc($result)){ $nome_autor = $rows['usuario'];?>
                     <tbody class="texture pisca">
                         <tr>
                             <td><?php echo mb_strimwidth($rows['usuario'], 0, 30, "..."); ?></td>
@@ -94,13 +84,13 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                     </div>
                                     <form action="{{ url('/alterar') }}" method="POST">
                                         @csrf
-                                        <div class="modal-body-white">
-                                            <p class="text-center"><h5>Conteúdo do Comentário de <?php echo $rows['usuario'] ?></h5></p>
+                                        <div class="modal-body">
+                                            <p class="text-center"><h5>Conteúdo do Comentário de <b><?php echo $rows['usuario'] ?></b></h5></p>
                                             <br>
                                             <textarea style="resize: none" cols="60" rows="6" readonly><?php echo $rows['conteudo_comentarios'] ?></textarea>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                        <div class="modal-footer-custom grey">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
                                         </div>
                                     </form>
                                     </div>
@@ -136,7 +126,9 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                             </h6>
                                         </div>
                                         <div class="modal-footer-custom grey">
-                                            <input type='hidden' name="id_comentario" value="<?php echo $rows['id_comentario'] ?>"/>
+                                            <input type='hidden' name="id_comentario" value="<?php echo $rows['id_comentario']; ?>"/>
+                                            <input type='hidden' name="id_denuncia" value="<?php echo $rows['id_denunciacomentario']; ?>"/>
+                                            <input type='hidden' name="autor_coment" value="<?php echo $nome_autor; ?>"/>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                             <button type="submit" class="btn btn-primary">Confirmar</button>
                                         </div>
@@ -200,4 +192,25 @@ if ($total_pesquisa > 0 ){ //se tiver rows
         </nav>
     <?php }?>
 </div>
+<!-- Modal notificação -->
+<div class="modal fade id" id="notific" role="dialog">
+    <div class="modal-dialog modal-content">
+        <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
+        <div class="modal-body">
+                <h4><?php if($notific == 1){ echo "Todas a denúncias foram removidas do comentario de <b>". $nom .".</b>"; }else{echo "O Comentario de <b>". $nom ."</b> foi deletado.";}?></h4><br>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+            </div> 
+        </div>
+    </div>
+</div>
+<!-- FIM Modal notificação -->
+<?php
+if(isset($notific)){ ?>
+    <script>
+        $(function(){
+            $("#notific").modal('show');
+        });
+    </script>
+<?php } ?>
 @endsection

@@ -80,7 +80,7 @@ class AdminController extends Controller
         return view('adm4');
     }
 
-    public function alt()
+    public function altorizar()
     {  
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
         $id_sql = $_POST ['alt'];
@@ -91,15 +91,16 @@ class AdminController extends Controller
         $result = mysqli_query($conn, $sql);
         if($rows = mysqli_fetch_assoc($result)){
             $mail = $rows['email'];
+            $usu = $rows['usuario'];
             Mail::to($mail)->send(new cadastro_aceito());
         }
 
         $notific = 1;
 
-        return redirect('adm')->with(['notific' =>  $notific]);
+        return redirect('adm')->with(['notific' =>  $notific])->with(['usu' => $usu]);
     }
 
-    public function del()
+    public function recusar()
     {  
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
         $id_sql = $_POST ['del'];
@@ -109,14 +110,19 @@ class AdminController extends Controller
         if($rows = mysqli_fetch_assoc($result)){
             $mail = $rows['email'];
             Mail::to($mail)->send(new cadastro_recusado());
+            $usu = $rows['usuario'];
+        
+
+            $sql = "DELETE FROM usuarios WHERE id = $id_sql";
+            mysqli_query($conn, $sql);
+
+            $notific = 2;
+
+            return redirect('adm')->with(['notific' =>  $notific])->with(['usu' => $usu]);
+        }else{
+            $notific = 3;
+            return redirect('adm')->with(['notific' =>  $notific]);
         }
-
-        $sql = "DELETE FROM usuarios WHERE id = $id_sql";
-        mysqli_query($conn, $sql);
-
-        $notific = 2;
-
-        return redirect('adm')->with(['notific' =>  $notific]);
     }
     
     public function alterar()
@@ -132,9 +138,16 @@ class AdminController extends Controller
         $sql = "UPDATE usuarios SET nivel = $result WHERE id = $id_sql";
         mysqli_query($conn, $sql);
 
+        $sql = "SELECT * FROM usuarios WHERE id = $id_sql";
+        $result = mysqli_query($conn, $sql);
+        if($rows = mysqli_fetch_assoc($result)){
+            $usu = $rows['usuario'];
+        }
+
         $notific = 1;
 
-        return redirect('adm2')->with(['notific' =>  $notific]);
+        return redirect('adm2')->with(['notific' =>  $notific])->with(['usu' => $usu]);
+
     }
 
     public function del_usu()
@@ -146,12 +159,13 @@ class AdminController extends Controller
         $result = mysqli_query($conn, $sql);
         if($rows = mysqli_fetch_assoc($result)){
             $mail = $rows['email'];
+            $usu = $rows['usuario'];
             Mail::to($mail)->send(new usuario_deletado());
         }
 
         $notific = 2;
 
-        return redirect('adm2')->with(['notific' =>  $notific]);
+        return redirect('adm2')->with(['notific' =>  $notific])->with(['usu' => $usu]);
     }
 
     public function pesquisa()
@@ -174,6 +188,7 @@ class AdminController extends Controller
         if($_POST['option'] == 'rem_den'){
             $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
             $id_post = $_POST ['id_postagem'];
+            $nom = $_POST ['nome_post'];
 
             $sql = "DELETE FROM denuncias WHERE id_postagem = $id_post";
             mysqli_query($conn, $sql);
@@ -183,12 +198,13 @@ class AdminController extends Controller
 
             $notific = 1;
 
-            return redirect('adm3')->with(['notific' =>  $notific]);
+            return redirect('adm3')->with(['notific' =>  $notific])->with(['nom' => $nom]);
         }
         if($_POST['option'] == 'del_post'){
             $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
             $id_den = $_POST ['id_denuncia'];
             $id_post = $_POST ['id_postagem'];
+            $nom = $_POST ['nome_post'];
 
             $sql = "DELETE FROM denuncias WHERE id_denuncia = $id_den";
             mysqli_query($conn, $sql);
@@ -226,7 +242,7 @@ class AdminController extends Controller
 
             $notific = 2;
 
-            return redirect('adm3')->with(['notific' =>  $notific]);
+            return redirect('adm3')->with(['notific' =>  $notific])->with(['nom' => $nom]);
         }
     }
 
@@ -234,6 +250,7 @@ class AdminController extends Controller
         if($_POST['option'] == 'rem_den'){
             $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
             $id_com = $_POST ['id_comentario'];
+            $nom = $_POST ['autor_coment'];
 
             $sql = "DELETE FROM denuncias_comentarios WHERE id_comentario = $id_com";
             mysqli_query($conn, $sql);
@@ -243,12 +260,13 @@ class AdminController extends Controller
 
             $notific = 1;
 
-            return redirect('adm4')->with(['notific' =>  $notific]);
+            return redirect('adm4')->with(['notific' =>  $notific])->with(['nom' => $nom]);
         }
         if($_POST['option'] == 'del_comen'){
             $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
             $id_den = $_POST ['id_denuncia'];
             $id_com = $_POST ['id_comentario'];
+            $nom = $_POST ['autor_coment'];
 
             $sql = "DELETE FROM denuncias_comentarios WHERE id_denunciacomentario = $id_den";
             mysqli_query($conn, $sql);
@@ -264,7 +282,7 @@ class AdminController extends Controller
 
             $notific = 2;
 
-            return redirect('adm4')->with(['notific' =>  $notific]);
+            return redirect('adm4')->with(['notific' =>  $notific])->with(['nom' => $nom]);
         }
     }
         

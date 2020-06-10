@@ -2,18 +2,6 @@
 $nivel = Auth::user()->nivel; 
 $id_user = Auth::user()->id;
 $denuncia = Session::get('denuncia');
-
-if($denuncia == 1){ ?>
-  <script>
-    alert("Denuncia Efetuada");
-    location.reload();
-  </script>
-<?php }elseif($denuncia == 2){ ?>
-  <script>
-    alert("Esta postagem ja foi denunciada");
-    location.reload();
-  </script>
-<?php }
 ?>
 
 <!doctype html>
@@ -243,5 +231,26 @@ if($denuncia == 1){ ?>
       infoArea.textContent = 'File: ' + fileName;
     }
   </script>
+<!-- Modal notificação denuncia -->
+<div class="modal fade id" id="denuncia" role="dialog">
+    <div class="modal-dialog modal-content">
+        <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
+        <div class="modal-body">
+                <h4><?php if($denuncia == 1){ echo "<b> Denuncia efetuada </b>"; }else{echo "<b> Esta postagem ja foi denúnciada </b>";}?></h4><br>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+            </div> 
+        </div>
+    </div>
+</div>
+<!-- FIM Modal notificação denuncia -->
+<?php
+if(isset($denuncia)){ ?>
+    <script>
+        $(function(){
+            $("#denuncia").modal('show');
+        });
+    </script>
+<?php } ?>
 </body>
 </html>
