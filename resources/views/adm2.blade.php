@@ -5,6 +5,19 @@ $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
 
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
+$notific = Session::get('notific');
+if($notific == 1){ ?>
+    <script>
+      alert("Acesso Alterado");
+      location.reload();
+    </script>
+<?php }elseif($notific == 2){ ?>
+    <script>
+      alert("Usuário Deletado");
+      location.reload();
+    </script>
+<?php }
+
 if(NULL !== Session::get('pesquisa2')){   $_SESSION['pesquisa2'] = Session::get('pesquisa2');}
 if(isset($_SESSION['pesquisa2'])){$pesquisa2 = $_SESSION['pesquisa2'];}
 if(!isset($pesquisa2)){ $pesquisa2 = NULL;}
@@ -109,7 +122,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <div class="modal-header"></div>
                         <div class="modal-body">
                             <h6><p>Deseja realmente deletar <b><?php echo $nome ?></b>?</p>
-                            <form action="/del" method="POST">
+                            <form action="/del_usu" method="POST">
                                 @csrf
                                 <div class="modal-footer">
                                     <input name="del_usu" type="hidden" value="<?php echo $id_usuario; ?>"/>

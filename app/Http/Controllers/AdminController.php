@@ -94,36 +94,29 @@ class AdminController extends Controller
             Mail::to($mail)->send(new cadastro_aceito());
         }
 
-        return redirect('adm');
+        $notific = 1;
+
+        return redirect('adm')->with(['notific' =>  $notific]);
     }
 
     public function del()
     {  
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
-        
-        if(isset($_POST ['del'])){
-            $id_sql = $_POST ['del'];
-            $sql = "SELECT * FROM usuarios WHERE id = $id_sql";
-            $result = mysqli_query($conn, $sql);
-            if($rows = mysqli_fetch_assoc($result)){
-                $mail = $rows['email'];
-                Mail::to($mail)->send(new cadastro_recusado());
-            }
-        }
-        if(isset($_POST ['del_usu'])){
-            $id_sql = $_POST ['del_usu'];
-            $sql = "SELECT * FROM usuarios WHERE id = $id_sql";
-            $result = mysqli_query($conn, $sql);
-            if($rows = mysqli_fetch_assoc($result)){
-                $mail = $rows['email'];
-              Mail::to($mail)->send(new usuario_deletado());
-            }
+        $id_sql = $_POST ['del'];
+
+        $sql = "SELECT * FROM usuarios WHERE id = $id_sql";
+        $result = mysqli_query($conn, $sql);
+        if($rows = mysqli_fetch_assoc($result)){
+            $mail = $rows['email'];
+            Mail::to($mail)->send(new cadastro_recusado());
         }
 
         $sql = "DELETE FROM usuarios WHERE id = $id_sql";
         mysqli_query($conn, $sql);
 
-        return back();
+        $notific = 2;
+
+        return redirect('adm')->with(['notific' =>  $notific]);
     }
     
     public function alterar()
@@ -139,7 +132,26 @@ class AdminController extends Controller
         $sql = "UPDATE usuarios SET nivel = $result WHERE id = $id_sql";
         mysqli_query($conn, $sql);
 
-        return redirect('adm2');
+        $notific = 1;
+
+        return redirect('adm2')->with(['notific' =>  $notific]);
+    }
+
+    public function del_usu()
+    { 
+        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $id_sql = $_POST ['del_usu'];
+
+        $sql = "SELECT * FROM usuarios WHERE id = $id_sql";
+        $result = mysqli_query($conn, $sql);
+        if($rows = mysqli_fetch_assoc($result)){
+            $mail = $rows['email'];
+            Mail::to($mail)->send(new usuario_deletado());
+        }
+
+        $notific = 2;
+
+        return redirect('adm2')->with(['notific' =>  $notific]);
     }
 
     public function pesquisa()
@@ -169,7 +181,9 @@ class AdminController extends Controller
             $sql = "DELETE FROM check_denuncia WHERE id_postagem = $id_post";
             mysqli_query($conn, $sql);
 
-            return redirect('adm3');
+            $notific = 1;
+
+            return redirect('adm3')->with(['notific' =>  $notific]);
         }
         if($_POST['option'] == 'del_post'){
             $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
@@ -210,7 +224,9 @@ class AdminController extends Controller
             $sql = "DELETE FROM postagens WHERE id_postagem = $id_post";
             mysqli_query($conn, $sql);
 
-            return redirect('adm3');
+            $notific = 2;
+
+            return redirect('adm3')->with(['notific' =>  $notific]);
         }
     }
 
@@ -225,7 +241,9 @@ class AdminController extends Controller
             $sql = "DELETE FROM check_denuncia_comentarios WHERE id_comentario = $id_com";
             mysqli_query($conn, $sql);
 
-            return redirect('adm4');
+            $notific = 1;
+
+            return redirect('adm4')->with(['notific' =>  $notific]);
         }
         if($_POST['option'] == 'del_comen'){
             $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
@@ -244,7 +262,9 @@ class AdminController extends Controller
             $sql = "DELETE FROM comentarios WHERE id_comentarios = $id_com";
             mysqli_query($conn, $sql);
 
-            return redirect('adm4');
+            $notific = 2;
+
+            return redirect('adm4')->with(['notific' =>  $notific]);
         }
     }
         
