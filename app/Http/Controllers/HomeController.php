@@ -298,7 +298,7 @@ class HomeController extends Controller
             $denuncia = 2;
         }
         
-        return back()->with(['denuncia' =>  $denuncia])->with(['id_postagem' => $id]);
+        return back()->with(['denuncia' =>  $denuncia]);
     }
     public function denunciar_comentario()
     {   
