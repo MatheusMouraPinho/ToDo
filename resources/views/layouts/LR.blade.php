@@ -28,7 +28,7 @@
         </div>   
 
         <div id="logo">
-            <img src="{{asset('css/img/logo.png')}}" >
+            <img src="{{asset('img/img_ToDo.png')}}" >
         </div>  
     </div>
 <body>
@@ -41,7 +41,7 @@
         </main>
     </div>
 
-    <footer>Repositorio de ideias</footer>
+    <footer>Repositório de ideias</footer>
 
 </body>
 </html>
