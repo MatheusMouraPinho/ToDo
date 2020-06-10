@@ -57,7 +57,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <th scope="col">Deletar</th>
                     </tr>
                 </thead>
-                <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel']; $mail = $rows['email']; $name = $rows['usuario'];?>
+                <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel']; $mail = $rows['email']; $name = $rows['usuario']; $id_usuario = $rows['id'];?>
                     <tbody class="texture pisca">
                         <tr class="">
                             <td><?php echo date('d/m/Y', strtotime($rows['email_verified_at'])). " às ". date('H:i', strtotime($rows['email_verified_at'])); ?></td>
@@ -68,20 +68,50 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                         }else if ($setup == 3) { echo "Admin";}
                                 ?>
                             </td>
-                            <form action="{{ url('/alt') }}" method="POST">
-                                @csrf
-                                <input type='hidden' name="nome" value="<?php echo $name ?>"/>
-                                <input type='hidden' name="email" value="<?php echo $mail ?>"/>
-                                <td><button class="no-border-button" name="alt" value="<?php echo $rows['id']; ?>"><img width="40px" src="{{asset('img/correct.png')}}"></button></td>
-                            </form>
-                            <form action="{{ url('/del') }}" method="POST">
-                                @csrf
-                                <input type='hidden' name="nome" value="<?php echo $name ?>"/>
-                                <input type='hidden' name="email" value="<?php echo $mail ?>"/>
-                                <td><button class="no-border-button" name="del" value="<?php echo $rows['id']; ?>"><img width="40px" src="{{asset('img/denie.png')}}"></button></td>
-                            </form>
+                            <td><a data-dismiss="modal" data-toggle="modal" data-target="#alt<?php echo $id_usuario;?>"><img width="40px" src="{{asset('img/correct.png')}}"></a></td>
+                            <td><a data-dismiss="modal" data-toggle="modal" data-target="#del<?php echo $id_usuario;?>"><img width="40px" src="{{asset('img/denie.png')}}"></a></td>
                         </tr>
                     </tbody>
+                    <!-- Modal  confirmar aceitar cadastro -->
+                    <div class="modal fade id" id="alt<?php echo $id_usuario; ?>" role="dialog">
+                        <div class="modal-dialog modal-content">
+                            <div class="modal-header"></div>
+                            <div class="modal-body">
+                                <h4><p>Deseja aceitar o cadastro de <b><?php echo $name ?></b>?</p><h4><br>
+                                <form action="{{ url('/alt') }}" method="POST">
+                                    @csrf
+                                    <div class="modal-footer">
+                                        <input type='hidden' name="nome" value="<?php echo $name ?>"/>
+                                        <input type='hidden' name="email" value="<?php echo $mail ?>"/>
+                                        <input type='hidden' name="alt" value="<?php echo $id_usuario ?>">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIM Modal aceitar cadastro -->
+                    <!-- Modal deletar cadastro -->
+                    <div class="modal fade id" id="del<?php echo $id_usuario; ?>" role="dialog">
+                        <div class="modal-dialog modal-content">
+                            <div class="modal-header"></div>
+                            <div class="modal-body">
+                                <h4><p>Deseja deletar o cadastro de <b><?php echo $name ?></b>?</p><h4><br>
+                                <form action="{{ url('/del') }}" method="POST">
+                                    @csrf
+                                    <div class="modal-footer">
+                                        <input type='hidden' name="nome" value="<?php echo $name ?>"/>
+                                        <input type='hidden' name="email" value="<?php echo $mail ?>"/>
+                                        <input type='hidden' name="del" value="<?php echo $id_usuario ?>">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIM Modal deletar cadastro -->
                 <?php }?>
             <?php }else{?>
                 <tbody class="texture">  
