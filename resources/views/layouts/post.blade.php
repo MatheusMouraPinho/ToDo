@@ -197,6 +197,7 @@
                                                 <span class="checkmark"></span>
                                             </label>
                                         </h6>
+                                        <input type="hidden" value="{{$id_post}}" name="id_postagem">
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                             <input name="id_comentario" type="hidden" value="{{$post['comentarios'][$f]->id_comentarios}}">
@@ -241,6 +242,7 @@
                                         <label style="vertical-align: top" for="editcomentario" class="bold subdados">Descrição:</label>
                                         <textarea name="editcomentario" id="edit_desc" cols="60" rows="1">{{$post['comentarios'][$f]->conteudo_comentarios }}</textarea>
                                         <input type="hidden" name="id_coment" value="{{ $post['comentarios'][$f]->id_comentarios }}">
+                                        <input type="hidden" value="{{$id_post}}" name="id_postagem">
                                       </div>
                                     
 
@@ -285,6 +287,7 @@
                               <form action="{{route('apagar-coment')}}" method="POST">
                                 @csrf
                                 <input name="id_comentario" type="hidden" value="{{ $post['comentarios'][$f]->id_comentarios }}">
+                                <input type="hidden" value="{{$id_post}}" name="id_postagem">
                                 <input data-toggle="modal" type="submit" class="btn btn-primary dropright" value="Apagar comentário">
                               </form>
                             </div> 
@@ -339,6 +342,7 @@
                                                   <span class="checkmark"></span>
                                               </label>
                                           </h6>
+                                          <input type="hidden" value="{{$id_post}}" name="id_postagem">
                                           <div class="modal-footer">
                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                               <input name="id_comentario" type="hidden" value="{{$post['reply_coment'][$g]->id_comentarios }}">
@@ -419,6 +423,7 @@
                                     <label style="vertical-align: top" for="editcomentario" class="bold subdados">Descrição:</label>
                                     <textarea name="editcomentario" id="edit_desc" cols="60" rows="1">{{$post['reply_coment'][$g]->conteudo_comentarios }}</textarea>
                                     <input type="hidden" name="id_coment" value="{{ $post['reply_coment'][$g]->id_comentarios }}">
+                                    <input type="hidden" value="{{$id_post}}" name="id_postagem">
                                   </div>
                                 
 
@@ -450,6 +455,7 @@
                                     @csrf
                                     <input name="id_comentario" type="hidden" value="{{ $post['reply_coment'][$g]->id_comentarios }}">
                                     <input data-toggle="modal" type="submit" class="btn btn-primary dropright" value="Apagar comentário">
+                                    <input type="hidden" value="{{$id_post}}" name="id_postagem">
                                   </form>
                                 </div> 
                               </div>
@@ -608,3 +614,11 @@
 </div>
 <!-- Fim  Modal de avaliação  -->
 
+@if(!empty(Session::get('id_postagem')))
+  <script>
+    var id_post = "<?php echo Session::get('id_postagem')?>"
+    $(function() {
+        $('#post'+id_post).modal('show');
+    });
+  </script>
+@endif

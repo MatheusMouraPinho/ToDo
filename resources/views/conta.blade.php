@@ -5,7 +5,6 @@ use Symfony\Component\Console\Input\Input;
 
 $nivel = Auth::user()->nivel;
 
-
 ?>
 @section('content')
 <div class="flex justify-content-md-center">

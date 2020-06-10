@@ -41,12 +41,14 @@ class ComentController extends Controller
                 ]
             ]);
 
+            $id_postagem = $data['id_postagem'];
+
             if(!$insert)
                 return redirect()
                                 ->back()
                                 ->with('error', 'Erro ao processar comentário');
 
-            return back();
+            return back()->with('id_postagem', $id_postagem);
         }
 
         if(isset($data['conteudo'])) {
@@ -62,12 +64,14 @@ class ComentController extends Controller
                 ]
             ]);
 
+            $id_postagem = $data['id_postagem'];
+
             if(!$insert)
                 return redirect()
                                 ->back()
                                 ->with('error', 'Erro ao processar comentário');
 
-            return back();
+            return back()->with('id_postagem', $id_postagem);
         }
             
     }
@@ -172,12 +176,14 @@ class ComentController extends Controller
                             ]
                         );
             
+            $id_postagem = $data['id_postagem'];
+            
             if(!$edit)
                         return redirect()
                                     ->back()
                                     ->with('error', 'Erro ao editar comentário');
 
-            return back();
+            return back()->with('id_postagem', $id_postagem);
         }
     }
 
@@ -206,11 +212,13 @@ class ComentController extends Controller
             $deletando_ref = DB::delete('delete from comentarios where id_comentarios_ref = ?', [$id_comentario]);
         }
 
+        $id_postagem = $id['id_postagem'];
+
         if(!$delete && !$deletando && !$deletando_ref && !$delete_like)
                         return redirect()
                                     ->back()
                                     ->with('error', 'Erro ao apagar comentário');
 
-        return back();
+        return back()->with('id_postagem', $id_postagem);
     }
 }
