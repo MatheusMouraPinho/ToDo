@@ -172,12 +172,12 @@ $s = 1;
             <div class="modal-dialog modal-content">
                 <div class="modal-header"></div>
                 <div class="modal-body">
-                    <p>Deseja realmente apagar essa Postagem?</p>
+                <h4><b><p>Deseja realmente apagar essa Postagem?</p></b><h4>
                     <div class="modal-footer">
                         <form action="/apagar_post" method="POST">
                             @csrf
                             <input name="id_postagem" type="hidden" value="<?php echo $rows['id_postagem'];?>">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-primary">Confirmar</button>
                         </form>
                     </div> 
@@ -208,7 +208,7 @@ $s = 1;
                             </label>
                         </h6>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                             <input name="id_postagem" type="hidden" value="<?php echo $rows['id_postagem'];?>">
                             <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
                             <input data-toggle="modal" type="submit" class="btn btn-primary" value="Confirmar">

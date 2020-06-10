@@ -238,7 +238,7 @@ $denuncia = Session::get('denuncia');
         <div class="modal-body">
                 <h4><?php if($denuncia == 1){ echo "<b> Denuncia efetuada </b>"; }else{echo "<b> Esta postagem ja foi denúnciada </b>";}?></h4><br>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
             </div> 
         </div>
     </div>

@@ -105,7 +105,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                             <input type='hidden' name="id_postagem" value="<?php echo $id_post ?>"/>
                                             <input type='hidden' name="id_denuncia" value="<?php echo $rows['id_denuncia']; ?>"/>
                                             <input type='hidden' name="nome_post" value="<?php echo $nome_post ?>"/>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                                             <button type="submit" class="btn btn-primary">Confirmar</button>
                                         </div>
                                     </form>

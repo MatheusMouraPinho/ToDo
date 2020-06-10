@@ -183,7 +183,7 @@
                                         </h6>
                                         <input type="hidden" value="{{$posts->id_postagem}}" name="id_postagem">
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                             <input name="id_comentario" type="hidden" value="{{$post['comentarios'][$f]->id_comentarios}}">
                                             <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
                                             <input data-toggle="modal" type="submit" class="btn btn-primary" value="Confirmar">
@@ -231,7 +231,7 @@
                                     
 
                                     <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                       <input data-toggle="modal" data-target="#hiddenDiv" type="submit" class="btn btn-primary dropright" value="Salvar Alterações">
                                       
                                     </div> 
@@ -267,7 +267,7 @@
                           <div class="modal-body"> 
                             <p>Deseja realmente apagar este comentário?</p>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                               <form action="{{route('apagar-coment')}}" method="POST">
                                 @csrf
                                 <input name="id_comentario" type="hidden" value="{{ $post['comentarios'][$f]->id_comentarios }}">
@@ -328,7 +328,7 @@
                                           </h6>
                                           <input type="hidden" value="{{$posts->id_postagem}}" name="id_postagem">
                                           <div class="modal-footer">
-                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                               <input name="id_comentario" type="hidden" value="{{$post['reply_coment'][$g]->id_comentarios }}">
                                               <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
                                               <input data-toggle="modal" type="submit" class="btn btn-primary" value="Confirmar">
@@ -412,7 +412,7 @@
                                 
 
                                 <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                   <input data-toggle="modal" data-target="#hiddenDiv" type="submit" class="btn btn-primary dropright" value="Salvar Alterações">
                                   
                                 </div> 
@@ -434,7 +434,7 @@
                               <div class="modal-body"> 
                                 <p>Deseja realmente apagar este comentário?</p>
                                 <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                   <form action="{{route('apagar-coment')}}" method="POST">
                                     @csrf
                                     <input name="id_comentario" type="hidden" value="{{ $post['reply_coment'][$g]->id_comentarios }}">

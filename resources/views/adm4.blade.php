@@ -129,7 +129,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                             <input type='hidden' name="id_comentario" value="<?php echo $rows['id_comentario']; ?>"/>
                                             <input type='hidden' name="id_denuncia" value="<?php echo $rows['id_denunciacomentario']; ?>"/>
                                             <input type='hidden' name="autor_coment" value="<?php echo $nome_autor; ?>"/>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                                             <button type="submit" class="btn btn-primary">Confirmar</button>
                                         </div>
                                     </form>
