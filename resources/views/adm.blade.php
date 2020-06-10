@@ -57,7 +57,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <th scope="col">Deletar</th>
                     </tr>
                 </thead>
-                <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel'];?>
+                <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel']; $mail = $rows['email']; $name = $rows['usuario'];?>
                     <tbody class="texture pisca">
                         <tr class="">
                             <td><?php echo date('d/m/Y', strtotime($rows['email_verified_at'])). " às ". date('H:i', strtotime($rows['email_verified_at'])); ?></td>
@@ -70,10 +70,14 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                             </td>
                             <form action="{{ url('/alt') }}" method="POST">
                                 @csrf
+                                <input type='hidden' name="nome" value="<?php echo $name ?>"/>
+                                <input type='hidden' name="email" value="<?php echo $mail ?>"/>
                                 <td><button class="no-border-button" name="alt" value="<?php echo $rows['id']; ?>"><img width="40px" src="{{asset('img/correct.png')}}"></button></td>
                             </form>
                             <form action="{{ url('/del') }}" method="POST">
                                 @csrf
+                                <input type='hidden' name="nome" value="<?php echo $name ?>"/>
+                                <input type='hidden' name="email" value="<?php echo $mail ?>"/>
                                 <td><button class="no-border-button" name="del" value="<?php echo $rows['id']; ?>"><img width="40px" src="{{asset('img/denie.png')}}"></button></td>
                             </form>
                         </tr>
@@ -134,20 +138,20 @@ if ($total_pesquisa > 0 ){ //se tiver rows
     <div class="modal-dialog modal-content">
         <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
         <div class="modal-body">
-                <h4><?php if($notific == 1){ echo "Cadastro do Usuario <b>". $usu ."</b> Aceito."; }elseif($notific == 2){echo "Cadastro do Usuario <b>". $usu ."</b> Recusado";}else{echo "<b> Ocorreu um erro, tente novamente </b>";}?></h4><br>
+                <h4><?php if($notific == 1){ echo "Cadastro do Usuario <b>". $usu ."</b> Aceito."; }else{echo "Cadastro do Usuario <b>". $usu ."</b> Recusado";}?></h4><br>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
             </div> 
         </div>
     </div>
 </div>
 <!-- FIM Modal notificação -->
 <?php
-if(isset($notific)){ ?>
+if(isset($notific)){?>
     <script>
         $(function(){
             $("#notific").modal('show');
         });
     </script>
-<?php } ?>
+<?php }?>
 @endsection

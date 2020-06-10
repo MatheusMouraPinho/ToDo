@@ -74,7 +74,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <th scope="col">Alterar</th>
                     </tr>
                 </thead>
-                <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel'];$id_usuario = $rows['id'];$nome = $rows['usuario'];?>
+                <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel'];$id_usuario = $rows['id'];$nome = $rows['usuario']; $mail = $rows['email'];?>
                 <!-- Modal alterar -->
                 <div class="modal fade" id="modal<?php echo $id_usuario ?>" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -89,6 +89,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                 <div class="modal-body">
                                     <p class="text-center"><h5>Alterar o acesso de <b><?php echo $nome ?></b></h5></p>
                                     <br>
+                                    <input name="nome" type="hidden" value="<?php echo $nome; ?>"/>
                                     <input type='hidden' name="alterar" value="<?php echo $id_usuario ?>"/>
                                     <label for="tipo" class="bold subdados">Tipo</label>
                                     <select name="tipo" class="select" class="btn btn-primary">
@@ -98,7 +99,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                     <a data-dismiss="modal" data-toggle="modal" data-target="#del_usu<?php echo $id_usuario;?>" style="text-decoration:underline;color:red;cursor:pointer;">Deletar usuário</a>
                                 </div>
                                 <div class="modal-footer-custom grey">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                     <button type="submit" class="btn btn-primary">Salvar mudanças</button>
                                 </div>
                             </form>
@@ -115,8 +116,10 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                             <form action="/del_usu" method="POST">
                                 @csrf
                                 <div class="modal-footer">
+                                    <input name="nome" type="hidden" value="<?php echo $nome; ?>"/>
+                                    <input name="email" type="hidden" value="<?php echo $mail; ?>"/>
                                     <input name="del_usu" type="hidden" value="<?php echo $id_usuario; ?>"/>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                     <button type="submit" class="btn btn-primary">Confirmar</button>
                                 </div> 
                             </form>
@@ -196,7 +199,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
         <div class="modal-body">
                 <h4><?php if($notific == 1){ echo "Acesso de <b>". $usu ."</b> Alterado."; }else{echo "Usuario <b>". $usu ."</b> Deletado";}?></h4><br>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
             </div> 
         </div>
     </div>

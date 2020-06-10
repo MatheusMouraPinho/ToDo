@@ -179,7 +179,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
         <div class="modal-body">
                 <h4><?php if($notific == 1){ echo "Todas a denuncias foram removidas da postagem <b>". $nom .".</b>"; }else{echo "Postagem <b>". $nom ."</b> foi deletada.";}?></h4><br>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
             </div> 
         </div>
     </div>
