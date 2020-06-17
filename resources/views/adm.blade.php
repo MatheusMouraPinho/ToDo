@@ -2,6 +2,7 @@
 
 <?php  
 $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+mysqli_set_charset($conn, 'utf8');
 
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
@@ -34,10 +35,10 @@ if ($total_pesquisa > 0 ){ //se tiver rows
 <div class="container my-4">
     <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active"  href="{{ url('/adm') }}">Cadastros</a>
-        <a class="nav-item nav-link"  href="{{ url('/adm2') }}">Usuários</a>
-        <a class="nav-item nav-link"  href="{{ url('/adm3') }}">Postagens</a>
-        <a class="nav-item nav-link"  href="{{ url('/adm4') }}">Comentários</a>
+        <a class="nav-item nav-link active"  href="{{ url('adm') }}">Cadastros</a>
+        <a class="nav-item nav-link"  href="{{ url('adm2') }}">Usuários</a>
+        <a class="nav-item nav-link"  href="{{ url('adm3') }}">Postagens</a>
+        <a class="nav-item nav-link"  href="{{ url('adm4') }}">Comentários</a>
     </div>
     </nav>
     <br>
@@ -78,7 +79,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                             <div class="modal-header"></div>
                             <div class="modal-body">
                                 <h4><p>Deseja aceitar o cadastro de <b><?php echo $name ?></b>?</p><h4><br>
-                                <form action="{{ url('/alt') }}" method="POST">
+                                <form action="{{ url('alt') }}" method="POST">
                                     @csrf
                                     <div class="modal-footer">
                                         <input type='hidden' name="nome" value="<?php echo $name ?>"/>
@@ -98,7 +99,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                             <div class="modal-header"></div>
                             <div class="modal-body">
                                 <h4><p>Deseja deletar o cadastro de <b><?php echo $name ?></b>?</p><h4><br>
-                                <form action="{{ url('/del') }}" method="POST">
+                                <form action="{{ url('del') }}" method="POST">
                                     @csrf
                                     <div class="modal-footer">
                                         <input type='hidden' name="nome" value="<?php echo $name ?>"/>

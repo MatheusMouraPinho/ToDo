@@ -2,9 +2,10 @@
 
 <?php  
 $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+mysqli_set_charset($conn, 'utf8');
+
 $user = Auth::user()->id;
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
-
 $notific = Session::get('notific');
 $nom = Session::get('nom');
 
@@ -36,10 +37,10 @@ if ($total_pesquisa > 0 ){ //se tiver rows
 <div class="container my-4">
     <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link"  href="{{ url('/adm') }}">Cadastros</a>
-        <a class="nav-item nav-link"  href="{{ url('/adm2') }}">Usuários</a>
-        <a class="nav-item nav-link active"  href="{{ url('/adm3') }}">Postagens</a>
-        <a class="nav-item nav-link"  href="{{ url('/adm4') }}">Comentários</a>
+        <a class="nav-item nav-link"  href="{{ url('adm') }}">Cadastros</a>
+        <a class="nav-item nav-link"  href="{{ url('adm2') }}">Usuários</a>
+        <a class="nav-item nav-link active"  href="{{ url('adm3') }}">Postagens</a>
+        <a class="nav-item nav-link"  href="{{ url('adm4') }}">Comentários</a>
     </div>
     </nav>
     <br>
@@ -85,7 +86,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form action="{{ url('/option') }}" method="POST">
+                                    <form action="{{ url('option') }}" method="POST">
                                         @csrf
                                         <div class="modal-body">
                                             <p><h4>Opções:</h4></p>

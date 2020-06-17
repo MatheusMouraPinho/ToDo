@@ -175,6 +175,8 @@ class HomeController extends Controller
     public function cria(Request $request)
     {
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        mysqli_set_charset($conn, 'utf8');
+        
         $id = $_POST['id_usuario'];
         $title = $_POST['titulo'];
         $descri = $_POST['descricao'];
@@ -239,6 +241,8 @@ class HomeController extends Controller
     public function apagar_post()
     {   
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        mysqli_set_charset($conn, 'utf8');
+        
         $id = $_POST['id_postagem'];
 
         $sql = "DELETE FROM denuncias WHERE id_postagem = $id";
@@ -278,6 +282,8 @@ class HomeController extends Controller
     public function denunciar_post()
     {   
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        mysqli_set_charset($conn, 'utf8');
+
         $motivo = $_POST['option'];
         $id = $_POST ['id_postagem'];
         $id2 = $_POST ['id_usuario'];
@@ -303,6 +309,8 @@ class HomeController extends Controller
     public function denunciar_comentario()
     {   
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        mysqli_set_charset($conn, 'utf8');
+        
         $motivo = $_POST['option'];
         $id = $_POST ['id_comentario'];
         $id2 = $_POST ['id_usuario'];
@@ -329,6 +337,8 @@ class HomeController extends Controller
     public function like_post()
     {   
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        mysqli_set_charset($conn, 'utf8');
+        
         $id = $_POST['id_post'];
         $id2 = $_POST['id_usuario'];
         $id3 = $_POST['scroll'];
@@ -350,6 +360,8 @@ class HomeController extends Controller
     public function remov_like_post()
     {   
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        mysqli_set_charset($conn, 'utf8');
+        
         $id = $_POST['id_post'];
         $id2 = $_POST['id_usuario'];
         $id3 = $_POST['scroll'];

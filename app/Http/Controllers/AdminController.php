@@ -85,6 +85,8 @@ class AdminController extends Controller
     public function altorizar()
     {  
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        mysqli_set_charset($conn, 'utf8');
+        
         $id_sql = $_POST ['alt'];
         $mail = $_POST ['email'];
         $usu = $_POST ['nome'];
@@ -101,6 +103,8 @@ class AdminController extends Controller
     public function recusar()
     {  
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        mysqli_set_charset($conn, 'utf8');
+        
         $id_sql = $_POST ['del'];
         $mail = $_POST ['email'];
         $usu = $_POST ['nome'];
@@ -117,6 +121,8 @@ class AdminController extends Controller
     public function alterar()
     {  
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        mysqli_set_charset($conn, 'utf8');
+        
         $id_sql = $_POST ['alterar'];
         $tipo = $_POST ['tipo'];
         $usu = $_POST ['nome'];
@@ -136,6 +142,8 @@ class AdminController extends Controller
     public function del_usu()
     { 
         $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        mysqli_set_charset($conn, 'utf8');
+        
         $id_sql = $_POST ['del_usu'];
         $usu = $_POST ['nome'];
         $mail = $_POST ['email'];
@@ -182,6 +190,8 @@ class AdminController extends Controller
         }
         if($_POST['option'] == 'del_post'){
             $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+            mysqli_set_charset($conn, 'utf8');
+            
             $id_den = $_POST ['id_denuncia'];
             $id_post = $_POST ['id_postagem'];
             $nom = $_POST ['nome_post'];
@@ -242,6 +252,8 @@ class AdminController extends Controller
         }
         if($_POST['option'] == 'del_comen'){
             $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+            mysqli_set_charset($conn, 'utf8');
+            
             $id_den = $_POST ['id_denuncia'];
             $id_com = $_POST ['id_comentario'];
             $nom = $_POST ['autor_coment'];

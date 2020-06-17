@@ -2,6 +2,7 @@
 
 <?php  session_start();
 $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+mysqli_set_charset($conn, 'utf8');
 
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
@@ -40,10 +41,10 @@ if ($total_pesquisa > 0 ){ //se tiver rows
 <div class="container my-4">
     <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link"  href="{{ url('/adm') }}">Cadastros</a>
-        <a class="nav-item nav-link active"  href="{{ url('/adm2') }}">Usuários</a>
-        <a class="nav-item nav-link"  href="{{ url('/adm3') }}">Postagens</a>
-        <a class="nav-item nav-link"  href="{{ url('/adm4') }}">Comentários</a>
+        <a class="nav-item nav-link"  href="{{ url('adm') }}">Cadastros</a>
+        <a class="nav-item nav-link active"  href="{{ url('adm2') }}">Usuários</a>
+        <a class="nav-item nav-link"  href="{{ url('adm3') }}">Postagens</a>
+        <a class="nav-item nav-link"  href="{{ url('adm4') }}">Comentários</a>
     </div>
     </nav>
     <br>
@@ -51,7 +52,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
     <div class="text-centro contorno-titulo"><h3>Nível de acesso Usuários</h3></div>
     </div>
     <div class="row justify-content-md-center">
-        <form class="form-inline my-2 my-lg-0" method="POST" action="/pesquisa_user">
+        <form class="form-inline my-2 my-lg-0" method="POST" action="{{url('pesquisa_user')}}">
             @csrf
             <label><b style="margin-right:10px;">Procurar Usuários:</b></label>
             <input class="form-control mr-sm-2" type="text" name="pesquisa_user" placeholder="Procure o usuário pelo Nome ou RGM/CPF" aria-label="Search" style="width: 400px">
@@ -60,7 +61,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
     </div>
     <br>
     <hr class="justify-content-md-center accent-2 mb-3 mt-0" style="width: 800px;">
-    <?php if(NULL !== $pesquisa2){?><div class="contorno-pequeno"><a href="/reset_search2"><img width="20px" src="{{asset('img/close.png')}}"></a> Resultados da Pesquisa "<?php echo $pesquisa2 ?>"</div><?php }?>
+    <?php if(NULL !== $pesquisa2){?><div class="contorno-pequeno"><a href="{{url('reset_search2')}}"><img width="20px" src="{{asset('img/close.png')}}"></a> Resultados da Pesquisa "<?php echo $pesquisa2 ?>"</div><?php }?>
     <br>
     <div class="row">
         <table class="col-12" id="table_conta">
@@ -84,7 +85,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="/alterar" method="POST">
+                            <form action="{{url('alterar')}}" method="POST">
                                 @csrf
                                 <div class="modal-body">
                                     <p class="text-center"><h5>Alterar o acesso de <b><?php echo $nome ?></b></h5></p>
@@ -113,7 +114,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <div class="modal-header"></div>
                         <div class="modal-body">
                             <h4><p>Deseja realmente deletar <b><?php echo $nome ?></b>?</p><h4><br>
-                            <form action="/del_usu" method="POST">
+                            <form action="{{url('del_usu')}}" method="POST">
                                 @csrf
                                 <div class="modal-footer">
                                     <input name="nome" type="hidden" value="<?php echo $nome; ?>"/>

@@ -4,6 +4,8 @@
 
 <?php  session_start();
 $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+mysqli_set_charset($conn, 'utf8');
+
 $user = Auth::user()->id;
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
@@ -53,7 +55,7 @@ $s = 1;
 
 <div class="container my-4">
     <div class="row justify-content-md-center">
-        <form method="POST" action="/filtro">
+        <form method="POST" action="{{url('filtro')}}">
             @csrf
             <div class="row contorno"> 
                 <button name="filtro" value="novo" <?php if($filtro == "data_postagem"){?> class="btn btn-outline-primary-custom" <?php }else{?> class="btn btn-primary" <?php }?>>Novos</button> 
@@ -94,11 +96,11 @@ $s = 1;
                         <?php if($setup != "Todas as Postagens"){?><button class="dropdown-item" name="periodo" value="4">Todas as postagens</button><?php }?>
                     </div>
                 </div>
-                <a href="/reset"><img width="45px" src="{{asset('img/reset.png')}}"></a>
+                <a href="{{url('reset')}}"><img width="45px" src="{{asset('img/reset.png')}}"></a>
             </div>  
         </form>
     </div>  
-    <?php if(NULL !== $pesquisa){?><div class="contorno-pequeno"><a href="/reset_search"><img width="20px" src="{{asset('img/close.png')}}"></a> Resultados da Pesquisa "<?php echo $pesquisa ?>"</div><?php }?>
+    <?php if(NULL !== $pesquisa){?><div class="contorno-pequeno"><a href="{{url('reset_search')}}"><img width="20px" src="{{asset('img/close.png')}}"></a> Resultados da Pesquisa "<?php echo $pesquisa ?>"</div><?php }?>
 
     <?php if ($total_pesquisa < 1){?>
         <div class="aviso-home">    
@@ -116,7 +118,7 @@ $s = 1;
                 <?php }else{?>
                     <img class="img-autor" src="{{asset('/storage/users/'.$rows['img_usuarios'])}}">
                 <?php }?>
-                <form action="/perfil" method="GET">
+                <form action="{{url('perfil')}}" method="GET">
                     @csrf
                     <input type="hidden" name="id_usuario" value="<?php echo $rows['id']?>">
                     <div class="autor-home justify-content-md-center"><button style="text-decoration:underline" class="no-border-button" type="submit"><?php echo mb_strimwidth($rows['usuario'], 0, 16, "..."); ?></button></div>
@@ -131,7 +133,7 @@ $s = 1;
                 $like_check = mysqli_num_rows($result3);
 
                 if($like_check == 0){?>
-                    <form method="POST" action="/like_post">
+                    <form method="POST" action="{{url('like_post')}}">
                         @csrf
                         <input type="hidden" name="id_post" value="<?php echo $rows['id_postagem'];?>">
                         <input type="hidden" name="id_usuario" value="<?php echo Auth::user()->id;?>">
@@ -139,7 +141,7 @@ $s = 1;
                         <div class="like-home like-border"><b><button type="submit" class="row no-border-button"><img width="30px" src="{{asset('img/like.png')}}"><div class="num-like-home"><?php echo $rows['likes_postagem']; ?></div></button></b></div>
                     </form>
                 <?php }else{?>
-                    <form method="POST" action="/remov_like_post">
+                    <form method="POST" action="{{url('remov_like_post')}}">
                         @csrf
                         <input type="hidden" name="id_post" value="<?php echo $rows['id_postagem'];?>">
                         <input type="hidden" name="id_usuario" value="<?php echo $user?>">
@@ -174,7 +176,7 @@ $s = 1;
                 <div class="modal-body">
                 <h4><b><p>Deseja realmente apagar essa Postagem?</p></b><h4>
                     <div class="modal-footer">
-                        <form action="/apagar_post" method="POST">
+                        <form action="{{url('apagar_post')}}" method="POST">
                             @csrf
                             <input name="id_postagem" type="hidden" value="<?php echo $rows['id_postagem'];?>">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -189,7 +191,7 @@ $s = 1;
         <div class="modal fade id" id="den-post<?php echo $rows['id_postagem'];?>" role="dialog">
             <div class="modal-dialog modal-content">
                 <div class="modal-header"></div>
-                <form action="/denunciar_post" method="POST">
+                <form action="{{url('denunciar_post')}}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <h3><p>Denunciar postagem por:</p></h3><br>

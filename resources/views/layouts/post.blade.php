@@ -179,7 +179,7 @@
                         <div class="modal fade id" id="den_comen{{$post['comentarios'][$f]->id_comentarios}}" role="dialog">
                             <div class="modal-dialog modal-content">
                                 <div class="modal-header"></div>
-                                <form action="/denunciar_comentario" method="POST">
+                                <form action="{{url('denunciar_comentario')}}" method="POST">
                                     @csrf
                                     <div class="modal-body">
                                         <h3><p>Denunciar Comentario por:</p></h3><br>
@@ -324,7 +324,7 @@
                           <div class="modal fade id" id="den_comen_reply{{$post['reply_coment'][$g]->id_comentarios }}" role="dialog">
                               <div class="modal-dialog modal-content">
                                   <div class="modal-header"></div>
-                                  <form action="/denunciar_comentario" method="POST">
+                                  <form action="{{url('denunciar_comentario')}}" method="POST">
                                       @csrf
                                       <div class="modal-body">
                                           <h3><p>Denunciar Comentario por:</p></h3><br>
@@ -568,9 +568,9 @@
           </button>
         </div>
         @if($nivel == 3)
-          <form action="{{ url('/avaliar')}}" method="POST">
+          <form action="{{ url('avaliar')}}" method="POST">
         @elseif($nivel == 2)
-          <form action="{{ url('/avaliar_aval')}}" method="POST">
+          <form action="{{ url('avaliar_aval')}}" method="POST">
         @endif
             @csrf
             <div class="modal-body">

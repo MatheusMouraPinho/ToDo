@@ -43,11 +43,11 @@ $denuncia = Session::get('denuncia');
       <ul class="nav navbar-nav ml-auto">
         <li style="padding-right:22px" class="nav-item active">
           <div class="form-inline my-2 my-lg-0">
-            <a class="btn btn-primary my-2 my-sm-0"  href="{{ url('/home') }}">Início</a>
+            <a class="btn btn-primary my-2 my-sm-0"  href="{{ url('home') }}">Início</a>
           </div>
         </li>
         <li style="padding-right:28px" class="nav-item">
-          <form class="form-inline my-2 my-lg-0" method="POST" action="/pesquisa">
+          <form class="form-inline my-2 my-lg-0" method="POST" action="{{url('pesquisa')}}">
             @csrf
             <input class="form-control mr-sm-2" type="text" name="pesquisa" placeholder="Procure pelo nome da postagem ou autor" aria-label="Search" style="width: 440px">
             <div><button class="btn btn-primary my-2 my-sm-0" type="submit">Procurar</button></div>
@@ -62,10 +62,10 @@ $denuncia = Session::get('denuncia');
           <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Configurações </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <?php if(3 == $nivel){?>
-            <a class="dropdown-item" href="{{ url('/adm') }}">Admin Painel</a>
+            <a class="dropdown-item" href="{{ url('adm') }}">Admin Painel</a>
             <?php }?>
-            <a class="dropdown-item" href="{{ url('/conta') }}">Minha conta</a>
-            <a class="dropdown-item" href="{{ url('/logout') }}"> Sair </a>
+            <a class="dropdown-item" href="{{ url('conta') }}">Minha conta</a>
+            <a class="dropdown-item" href="{{ url('logout') }}"> Sair </a>
           </div>
         </li>
       </ul>
@@ -135,7 +135,7 @@ $denuncia = Session::get('denuncia');
     </div>
     <div class="space2">
       <div class="footer-copyright text-center py-3">© 2020 Copyright:
-        <a href="https://github.com/MatheusMouraPinho/ToDo"> RepositorioToDo.com</a>
+        <a href="http://todoideias.ga/public_html/"> todoideias.ga</a>
       </div>
     </div>
   </footer>
@@ -149,7 +149,7 @@ $denuncia = Session::get('denuncia');
           <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="/cria" method="POST" enctype="multipart/form-data">
+        <form action="{{url('cria')}}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="modal-body texture">
             <div class="row">
