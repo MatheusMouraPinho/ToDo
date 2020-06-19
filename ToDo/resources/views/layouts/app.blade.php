@@ -135,7 +135,7 @@ $denuncia = Session::get('denuncia');
     </div>
     <div class="space2">
       <div class="footer-copyright text-center py-3">© 2020 Copyright:
-        <a href="http://todoideias.ga/public_html/"> todoideias.ga</a>
+        <a href="http://todoideias.gq"> ToDoIdeias.gq</a>
       </div>
     </div>
   </footer>
