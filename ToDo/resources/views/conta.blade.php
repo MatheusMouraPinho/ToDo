@@ -34,7 +34,7 @@ $nivel = Auth::user()->nivel;
               @if($dados['img'] === null)
                 <img width="150px" class="img-dados" src="{{asset('img/semuser.png')}}">
               @else
-                <img  alt="{{ Auth::user()->img_usuarios }}" name="img_usuarios" class="img-dados" src="{{url('storage/users/'.Auth::user()->img_usuarios)}}">
+                <img  alt="{{ Auth::user()->img_usuarios }}" name="img_usuarios" class="img-dados" src="{{url('/ToDo/storage/app/public/users/'.Auth::user()->img_usuarios)}}">
               @endif
             <h3>{{ $dados['nome'] }}</h3>
             
@@ -180,7 +180,7 @@ $nivel = Auth::user()->nivel;
                       @if($dados['img'] === null)
                         <img width="150px" name="img_usuarios" class="img" src="{{asset('img/semuser.png')}}">  
                       @else
-                        <img width="200px" alt="{{ Auth::user()->img_usuarios }}" name="img_usuarios" class="img" src="{{url('storage/users/'.Auth::user()->img_usuarios)}}">
+                        <img width="200px" alt="{{ Auth::user()->img_usuarios }}" name="img_usuarios" class="img" src="{{url('/ToDo/storage/app/public/users/'.Auth::user()->img_usuarios)}}">
                       @endif
                       <label class="form-control-range">
                         <input type="file" name="img_usuarios" id="file" accept="image/*" multiple onchange="javascript:update()"/>

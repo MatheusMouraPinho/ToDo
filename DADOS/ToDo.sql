@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 09-Jun-2020 às 00:24
+-- Tempo de geração: 19-Jun-2020 às 03:52
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.10
 
@@ -192,7 +192,7 @@ INSERT INTO `comentarios` (`id_comentarios`, `id_avaliacao`, `id_usuarios`, `id_
 (2, 2, 24, 39, 'Otimo!', '2020-06-08 20:24:29', 1, NULL, NULL, NULL),
 (3, NULL, 12, 38, 'Gostei da ideia', '2020-06-08 20:25:36', 2, NULL, NULL, NULL),
 (4, NULL, 25, 38, 'Tivemos uma ideia parecida semestre passado', '2020-06-08 20:26:24', 1, NULL, NULL, NULL),
-(5, NULL, 17, 40, 'Muito interessante!', '2020-06-09 00:20:33', 0, NULL, NULL, NULL);
+(6, NULL, 12, 39, 'teste', '2020-06-10 17:31:18', 0, '2020-06-10 17:58:24', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -405,7 +405,7 @@ INSERT INTO `postagens` (`id_postagem`, `id_usuarios`, `id_situacao_postagem`, `
 (37, 12, 2, 1, 'Big Data Sobre Eleição', 'o Big Data pode ser utilizado para o desenvolvimento de programas e soluções que melhorem o nosso cotidiano, há um segmento que tem recorrido bastante a ele nos últimos tempos: o campo da política. O uso dos dados para campanhas eleitorais não é uma novidades exclusiva deste ano, mas as eleições de 2018 tem aplicado essa análise com muita precisão e, consequentemente, obtendo resultados significativos para as campanhas.', 3, '2020-06-08 18:18:39', NULL),
 (38, 24, 1, 1, 'Arduino robô', 'Os programas em sala de aula do Arduino desenvolvem os alunos pela universidade, aumentando a complexidade para desafiá-los à medida que desenvolvem suas habilidades.\r\n\r\nTodos os programas incluem uma variedade de eletrônicos, como placas programáveis, sensores, peças mecânicas, software simples de código aberto, conteúdo on-line para os alunos e treinamento e suporte orientados para educadores.\r\n\r\nOs produtos com os quais os alunos aprendem são os mesmos usados ​​profissionalmente em empresas de todo o mundo, em aplicações como prototipagem rápida, IA, tecnologia de drones e aprendizado de máquina.', 2, '2020-06-08 18:27:44', 4.66667),
 (39, 24, 1, 1, 'Repositorio de ideias', 'O ToDo é um sistema voltado para a coleta, armazenamento e gestão de ideiais de\r\nsoftwares, de forma a se tormar um repositório, onde qualquer pessoa poderá registrar uma\r\nideia de software. Considera-se “ideia de software” qualquer proposta que venha a surgir de\r\numa inovação, oportunidade, necessidade ou problema.', 1, '2020-06-05 18:38:33', 7.33333),
-(40, 25, 2, 1, 'Ecommerce mercado', 'Não é segredo que, ao longo dos anos, o varejo se transformou junto com os clientes. Hoje, as pessoas buscam novas formas de consumir e prezam muito por praticidade e segurança. Comprar pela internet se tornou um hábito cada vez mais comum entre os consumidores: de 2011 até 2017, o faturamento das compras on-line subiu de R$ 18,7 milhões para R$ 47,7 milhões no Brasil.\r\n\r\nO e-commerce brasileiro encerrou 2018 com faturamento de R$ 53,2 bilhões, o que representa uma alta nominal de 12% na comparação anual, de acordo com informações da EbitNielsen. A Associação Brasileira de Comércio Eletrônico (ABComm) estima crescimento de 16% em 2019.\r\n\r\nMas você sabe o que é e-commerce? Usar a internet como canal de vendas e relacionamento com os clientes do seu negócio pode ser uma estratégia bastante lucrativa. Aliás, essa modalidade de venda vem sendo amplamente empregada por comércios do Brasil e do mundo.', 2, '2020-06-08 18:49:46', NULL),
+(40, 25, 2, 1, 'E-commerce mercado', 'Não é segredo que, ao longo dos anos, o varejo se transformou junto com os clientes. Hoje, as pessoas buscam novas formas de consumir e prezam muito por praticidade e segurança. Comprar pela internet se tornou um hábito cada vez mais comum entre os consumidores: de 2011 até 2017, o faturamento das compras on-line subiu de R$ 18,7 milhões para R$ 47,7 milhões no Brasil.\r\n\r\nO e-commerce brasileiro encerrou 2018 com faturamento de R$ 53,2 bilhões, o que representa uma alta nominal de 12% na comparação anual, de acordo com informações da EbitNielsen. A Associação Brasileira de Comércio Eletrônico (ABComm) estima crescimento de 16% em 2019.\r\n\r\nMas você sabe o que é e-commerce? Usar a internet como canal de vendas e relacionamento com os clientes do seu negócio pode ser uma estratégia bastante lucrativa. Aliás, essa modalidade de venda vem sendo amplamente empregada por comércios do Brasil e do mundo.', 2, '2020-06-08 18:49:46', NULL),
 (41, 17, 2, 1, 'Banco de Talentos', 'O próprio aluno é responsável por se cadastrar e por manter suas informações atualizadas.\r\nO alunos deve ter um local ainda para inserir seu atual cargo ou emprego, colocar imagens e dados de seu portfolio.\r\nNão se trata de uma rede social, portanto, não pode existir meios de comunicação entre as pessoas no sistema. Trata-se apenas de uma base de dados.', 0, '2020-06-08 23:30:42', NULL);
 
 -- --------------------------------------------------------
@@ -1115,8 +1115,8 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `email_verified_at`, `id_situacao`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`) VALUES
 (12, 'Matheus Moura', 'Matheusmpinho@Outlook.com', 20867000, '$2y$10$rZ0C2fvYHoHI0xA7LOuCFu4FiJqIs1B6GEnAUqUPvf6aq/JZMeOOa', 3, '2000-01-27 04:00:00', 1, 2, 10, 457, NULL, NULL),
 (17, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', 22132066, '$2y$10$WhwODqAMm.PNYkDrXSBmPekQEPHLE9ep8yCxHE0anlLLpprez6LI6', 3, '2020-05-01 02:23:51', 1, 2, 10, 398, 0x31376a6f6e617468616e2d646961732e6a706567, NULL),
-(24, 'Vinicius Vieira', 'vinicius_vieira_pereira@hotmail.com', 20867002, '$2y$10$Boy1Hsp7VHD0pHy9XombaODQSyRmS2Wb7RPxFOFYc0jAOjtGEyr4G', 2, '2020-05-19 06:00:00', 1, NULL, NULL, NULL, 0x323476696e69636975732d7669656972612e6a706567, NULL),
-(25, 'Mauricio Freire', 'mauriciofreire520@gmail.com', 20867001, '$2y$10$R2GsC/k2SSEIjr4NmL2bOe.MT.P5gdUrJYYe6TOtPKAQxxg4fG67G', 1, '2020-05-19 06:00:00', 1, 2, NULL, NULL, 0x3132356d6175726963696f2e6a706567, NULL),
+(24, 'Vinicius Vieira', 'vinicius_vieira_pereira@hotmail.com', 20541929, '$2y$10$Boy1Hsp7VHD0pHy9XombaODQSyRmS2Wb7RPxFOFYc0jAOjtGEyr4G', 3, '2020-05-19 06:00:00', 1, NULL, NULL, NULL, 0x323476696e69636975732d7669656972612e6a706567, NULL),
+(25, 'Mauricio Freire', 'mauriciofreire520@gmail.com', 20530625, '$2y$10$R2GsC/k2SSEIjr4NmL2bOe.MT.P5gdUrJYYe6TOtPKAQxxg4fG67G', 3, '2020-05-19 06:00:00', 1, 2, NULL, NULL, 0x3132356d6175726963696f2e6a706567, NULL),
 (26, 'Robert Barry', 'mus.Aenean@mattis.org', 76771258, 'TGY72UJU8WV', 1, '2020-01-06 16:44:47', 1, 24, 7, 255, NULL, 7216815913),
 (27, 'Jordan Klein', 'lacinia.mattis.Integer@semut.co.uk', 21734232, 'KGX28FOE9GU', 1, '2020-03-27 05:58:20', 1, 10, 8, 380, NULL, 5937699255),
 (31, 'Clare Mcgee', 'faucibus.leo@ametante.net', 49669966, 'IXG25RWH7FP', 1, '2020-02-24 17:47:44', 1, 20, 10, 83, NULL, 5084772282),
@@ -1163,9 +1163,8 @@ INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, 
 (88, 'Caldwell Newman', 'et.rutrum@luctuslobortis.co.uk', 91285042, 'RVJ32SUY1GL', 1, '2020-02-26 08:41:02', 1, 16, 8, 278, NULL, 4111206966),
 (89, 'Declan Kidd', 'ornare.elit@Maecenasiaculisaliquet.com', 81727782, 'QCK91ADK2OP', 1, '2020-06-04 18:53:49', 2, 22, 4, 557, NULL, 4099471584),
 (90, 'Ira Barton', 'scelerisque.mollis@fringilla.edu', 79697845, 'PQT43ASZ0OK', 1, '2020-03-18 12:31:35', 2, 20, 2, 337, NULL, 7334034110),
-(91, 'Lee Robles', 'in.faucibus@mi.org', 78367109, 'YGQ76EOV9MS', 1, '2020-03-04 10:57:37', 2, 21, 3, 521, NULL, 1452030132),
 (92, 'Jin Whitley', 'Etiam.gravida.molestie@orciadipiscingnon.net', 98583763, 'JON55JSR1HJ', 1, '2020-02-07 20:47:51', 1, 14, 7, 459, NULL, 7445990551),
-(94, 'Britanni Atkins', 'a.enim.Suspendisse@ullamcorperDuiscursus.co.uk', 51431411, 'RBX35QCB5UJ', 2, '2020-01-28 08:54:14', 1, 8, 10, 217, NULL, 4983270576),
+(94, 'Britanni Atkins', 'a.enim.Suspendisse@ullamcorperDuiscursus.co.uk', 51431411, 'RBX35QCB5UJ', 1, '2020-01-28 08:54:14', 1, 8, 10, 217, NULL, 4983270576),
 (95, 'Stacey Cummings', 'a.facilisis@morbi.net', 21999057, 'DXP63JQO1MC', 1, '2020-04-15 04:03:27', 1, 8, 5, 123, NULL, 6919831773),
 (96, 'Ainsley Holland', 'sem@euismodetcommodo.net', 95514636, 'NCV93GYV8PN', 1, '2020-05-31 04:45:24', 2, 7, 6, 102, NULL, 1063781799),
 (97, 'Lael Henderson', 'sem@fringilla.edu', 81937551, 'ZTQ03FOE6SD', 1, '2020-01-21 02:26:22', 1, 5, 11, 136, NULL, 3288737886),
@@ -1188,7 +1187,8 @@ INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, 
 (120, 'Vivian May', 'blandit@odio.net', 26630098, 'KLZ44RBV7WN', 1, '2020-01-04 15:24:02', 1, 24, 1, 179, NULL, 7111074277),
 (121, 'Uta Robbins', 'semper@temporaugue.co.uk', 42771663, 'DTT08CPG2YB', 1, '2020-01-05 05:20:27', 1, 13, 6, 590, NULL, 2767464804),
 (122, 'Kameko Aguirre', 'euismod@Praesenteunulla.edu', 42527432, 'OID94GGL5RM', 1, '2020-05-21 00:14:29', 2, 25, 10, 566, NULL, 3652211421),
-(123, 'Oliver Serrano', 'volutpat.nunc@elitAliquamauctor.org', 72153788, 'DSH54DVL4DE', 1, '2020-01-09 01:07:22', 1, 22, 12, 438, NULL, 6712838836);
+(123, 'Oliver Serrano', 'volutpat.nunc@elitAliquamauctor.org', 72153788, 'DSH54DVL4DE', 1, '2020-01-09 01:07:22', 1, 22, 12, 438, NULL, 6712838836),
+(126, 'matheus mouraa', 'Matheusmpinh@Outlook.com', 20867008, '$2y$10$TaDiHuMvhoADSOrjNYuCceMo7StrWtPi4xsnd8NLJNsDZaaYVoW4S', 1, '2020-06-10 23:59:50', 1, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1391,25 +1391,25 @@ ALTER TABLE `categoria_postagem`
 -- AUTO_INCREMENT de tabela `check_denuncia`
 --
 ALTER TABLE `check_denuncia`
-  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `check_denuncia_comentarios`
 --
 ALTER TABLE `check_denuncia_comentarios`
-  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id_comentarios` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_comentarios` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `img_postagem`
 --
 ALTER TABLE `img_postagem`
-  MODIFY `id_img` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_img` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `instituicao_ensino`
@@ -1427,7 +1427,7 @@ ALTER TABLE `like_comentarios`
 -- AUTO_INCREMENT de tabela `like_postagens`
 --
 ALTER TABLE `like_postagens`
-  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `motivo_denuncia`
@@ -1445,7 +1445,7 @@ ALTER TABLE `nivel_acesso`
 -- AUTO_INCREMENT de tabela `postagens`
 --
 ALTER TABLE `postagens`
-  MODIFY `id_postagem` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id_postagem` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT de tabela `regiao_cidade`
@@ -1475,7 +1475,7 @@ ALTER TABLE `situacao_usuario`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
 -- Restrições para despejos de tabelas

@@ -116,7 +116,7 @@ $s = 1;
                 <?php if($rows['img_usuarios'] == NULL){?>
                     <img class="img-autor" width="30px" src="{{asset('img/semuser.png')}}">
                 <?php }else{?>
-                    <img class="img-autor" src="{{asset('/storage/users/'.$rows['img_usuarios'])}}">
+                    <img class="img-autor" src="{{asset('/ToDo/storage/app/public/users/'.$rows['img_usuarios'])}}">
                 <?php }?>
                 <form action="{{url('perfil')}}" method="GET">
                     @csrf

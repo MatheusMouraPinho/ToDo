@@ -36,7 +36,7 @@ $_SESSION['id_usuario'] = $dados['id'];
               @if($dados['img'] === null)
                 <img width="150px" class="img-dados" src="{{asset('img/semuser.png')}}">
               @else
-              <img  alt="{{ $dados['img'] }}" name="img_usuarios" class="img-dados" src="{{url('storage/users/'.$dados['img'])}}">
+              <img  alt="{{ $dados['img'] }}" name="img_usuarios" class="img-dados" src="{{url('/ToDo/storage/app/public/users/'.$dados['img'])}}">
               @endif
             <h3>{{ $dados['nome'] }}</h3>
             
