@@ -1,6 +1,5 @@
 @extends('layouts.LR')
 
-<?php $user = \Auth::user()->usuario; ?> 
 
 @section('content')
 <div class="container">
@@ -10,10 +9,9 @@
                 <div class="card-cabeca">Aviso</div>
 
                 <div class="card-corpo">
-                    Olá! <b><?php echo $user?></b>, estamos analisando os seus dados, aguarde a confirmação
-                    do seu cadastro para acessar o nosso Site!
+                    Olá! percebemos que você esta utilizando um dispositivo Mobile porem o nosso site
+                    ainda não esta responsivo por enquanto, acesse o site através de um computador ou notebook.
                     <br><br>
-                    <a id="nv" href="{{ url('/logout') }}"> Sair </a>
                 </div>
             </div>
         </div>

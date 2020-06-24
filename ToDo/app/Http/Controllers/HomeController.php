@@ -26,11 +26,6 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     
-    public function registro() //nome função do web.php
-    {
-        return view('auth.register'); //retorna da pasta view ('pasta.arquivo');
-    }
-
     public function logout()
     {   session_start();
         session_destroy();

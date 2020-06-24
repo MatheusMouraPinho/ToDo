@@ -41,10 +41,10 @@ if ($total_pesquisa > 0 ){ //se tiver rows
 <div class="container my-4">
     <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link"  href="{{ url('adm') }}">Cadastros</a>
-        <a class="nav-item nav-link active"  href="{{ url('adm2') }}">Usuários</a>
-        <a class="nav-item nav-link"  href="{{ url('adm3') }}">Postagens</a>
-        <a class="nav-item nav-link"  href="{{ url('adm4') }}">Comentários</a>
+        <a class="nav-item nav-link fix"  href="{{ url('adm') }}">Cadastros</a>
+        <a class="nav-item nav-link ativo"  href="{{ url('adm2') }}">Usuários</a>
+        <a class="nav-item nav-link fix"  href="{{ url('adm3') }}">Postagens</a>
+        <a class="nav-item nav-link fix"  href="{{ url('adm4') }}">Comentários</a>
     </div>
     </nav>
     <br>

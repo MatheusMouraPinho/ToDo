@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Repositório de Ideias - ToDo</title>
+    <title>ToDo Ideias</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -17,6 +17,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="shortcut icon" href="img/img_ToDo.png" type="img/x-icon" />
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -27,12 +28,12 @@
             <img id="modulo" src="{{asset('css/img/centro.jpg')}}" >
         </div>   
 
-        <div id="logo">
-            <img height="110px" src="{{asset('img/img_ToDo.png')}}" >
+        <div id="logo" style="padding-top:28px">
+            <img height="90px" src="{{asset('img/ToDo.png')}}" >
         </div>  
     </div>
 <body>
-    <div id="app">
+    <div id="app" style="padding-top:20px">
       <!--  layout da tela de login, register, comfirmação de email... -->
       
 
@@ -41,7 +42,7 @@
         </main>
     </div>
 
-    <footer>Repositório de ideias</footer>
+    <footer>© 2020 ToDoIdeias.gq All Rights Reserved</footer>
 
 </body>
 </html>

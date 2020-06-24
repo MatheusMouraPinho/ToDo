@@ -77,11 +77,11 @@
                         <div class="form-group row">
                             <label for="Radio" class="col-md-4 col-form-label text-md-right">Você é um:</label>
                             <div class="col-md-6">
-                                <div class="form-check form-check-inline">
+                                <div class="form-check form-check-inline escolha">
                                     <input class="form-check-input" type="radio" name="nivel" id="Radio" value="1" required>
                                     <label class="form-check-label" for="inlineRadio1">Usuário</label>
                                 </div>
-                                <div class="form-check form-check-inline">
+                                <div class="form-check form-check-inline escolha">
                                     <input class="form-check-input" type="radio" name="nivel" id="Radio" value="2" required>
                                     <label class="form-check-label" for="inlineRadio2">Avaliador</label>
                                 </div>

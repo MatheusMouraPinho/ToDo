@@ -39,16 +39,16 @@
   word-wrap: break-word;
   background-color: #a9a9a9;
   background-image: url("img/texture.png");
-  border-radius: 0.25rem;
+  border-radius: 0.85rem;
   height: 200px;
-  border: 3px solid #646464;
+  border: 1px solid #646464;
   margin: 50px 22px 30px auto;
   box-shadow: 5px 6px 6px grey;
 }
 
 .divisao {
   display: row;
-  border-right: 5px solid #646464;
+  border-right: 2px solid #646464;
   height: auto;
   width: 18%;
   color: black;
@@ -72,18 +72,18 @@
 .img-autor {
   position: relative;
   border-radius: 50%;
-  border: 3px solid #646464;
+  border: 2px solid #646464;
   margin-top: 1%;
   margin-bottom: 1%;
   margin-left: 18%;
   margin-right: 20%;
-  width: 67%;
-  height: 122px;
+  width: 68%;
+  height: 125px;
 }
 
 .autor-home {
   position: relative;
-  margin-left: 22%;
+  margin-left: 23%;
   margin-right: 1%;
   margin-bottom: 1%;
 }
@@ -266,15 +266,18 @@ f4{ /* borda situação pendente */
 	background: black;
 }
 
-.custom-footer {
+.layout-footer {
   margin-top: 50px;
-  background-color: #a9a9a9;
-  background-image: url("img/footer.png");
+  background-color:rgba(0, 0, 0, 0.753);
+  color: white;
+}
+
+.white {
+  border-color: white;
 }
 
 .space {
-  background-color: grey;
-  padding: 0.50rem;
+ border-top: 1px solid #000000;
 }
 
 .space2 {
@@ -375,12 +378,6 @@ fw{
   border-bottom: 4px solid grey;
 }
 
-/*.danger-icon{
-  background: #ffffff;
-  border-radius: 50%;
-  border: solid white 2px ;
-}*/
-
 .like-home {
   position: absolute;
   bottom:35%;
@@ -408,8 +405,12 @@ fw{
   background-image: url("img/texture.png");
 }
 
+.fundo{
+  background-color: #ececec; 
+}
+
 .cor{
-  background-color: #ececec;
+  background-color: white;
 }
 
 .aviso{
@@ -417,4 +418,29 @@ fw{
   margin-left: 30%;
   margin-right: auto;
   padding-top: 8px;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid #a9a9a9;
+}
+
+.nav-tabs .nav-link {
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+
+.ativo, .ativo:hover{
+  background-color: #3490dc ;
+  color: white;
+  
+}
+
+.fix {
+  color: black;
+}
+
+.fix:hover{
+  background-color: #3490dc;
+  color: white;
 }

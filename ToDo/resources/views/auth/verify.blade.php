@@ -16,7 +16,7 @@
                         </div>
                     @endif
 
-                    Olá! <?php  echo $user?>, antes de prosseguir, verifique seu e-mail para um link de verificação.
+                    Olá! <b><?php echo $user?></b>, antes de prosseguir, verifique seu e-mail para um link de verificação.
                     Se você não recebeu o email,
                     <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                         @csrf

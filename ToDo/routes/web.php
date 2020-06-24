@@ -27,11 +27,15 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/registro', 'HomeController@registro');  
 
-Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
+Route::group(['middleware' => ['web']], function() {
 
-Route::get('/logout', 'HomeController@logout')->middleware('auth');
+    Route::get('/mobile', 'Controller@mobile'); 
+
+    Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
+
+    Route::get('/logout', 'HomeController@logout')->middleware('auth');
+});
 
 Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() { //grupo middleware
 
