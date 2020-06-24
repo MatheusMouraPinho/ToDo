@@ -25,7 +25,7 @@
 </head>
     <div id="fundo">
          <div>
-            <img id="modulo" src="{{asset('css/img/centro.jpg')}}" >
+            <img id="modulo" src="{{asset('img/centro.jpg')}}" >
         </div>   
 
         <div id="logo" style="padding-top:28px">
