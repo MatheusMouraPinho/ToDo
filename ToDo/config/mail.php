@@ -1,28 +1,5 @@
 <?php
 
-
-
-
-
-return [
-    "driver" => "smtp",
-    "host" => "smtp.mailtrap.io",
-    "port" => 2525,
-    "from" => array(
-        "address" => "Ideias@ToDo.com",
-        "name" => "Repositorio de Ideias ToDo"
-    ),
-    "username" => "2270f5a24df910",
-    "password" => "e67c56c72ae302",
-    "sendmail" => "/usr/sbin/sendmail -bs"
-  ];
-
-
-
-
-
-/*
-
 return [
 
     /*
@@ -35,7 +12,7 @@ return [
     | and used as needed; however, this mailer will be used by default.
     |
     */
-/*
+
     'default' => env('MAIL_MAILER', 'smtp'),
 
     /*
@@ -55,7 +32,7 @@ return [
     |            "postmark", "log", "array"
     |
     */
-/*
+
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
@@ -104,7 +81,7 @@ return [
     | used globally for all e-mails that are sent by your application.
     |
     */
-/*
+
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
@@ -121,7 +98,7 @@ return [
     |
     */
 
- /*   'markdown' => [
+    'markdown' => [
         'theme' => 'default',
 
         'paths' => [
@@ -130,5 +107,3 @@ return [
     ],
 
 ];
-
-*/
