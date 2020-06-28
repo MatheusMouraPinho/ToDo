@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Config;
 
 class HomeController extends Controller
 {
@@ -169,7 +170,8 @@ class HomeController extends Controller
     
     public function cria(Request $request)
     {
-        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $db_config = Config::get('database.connections.'.Config::get('database.default'));
+        $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
         mysqli_set_charset($conn, 'utf8');
 
         $id = $_POST['id_usuario'];
@@ -235,7 +237,8 @@ class HomeController extends Controller
 
     public function apagar_post()
     {   
-        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $db_config = Config::get('database.connections.'.Config::get('database.default'));
+        $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
         mysqli_set_charset($conn, 'utf8');
 
         $id = $_POST['id_postagem'];
@@ -276,7 +279,8 @@ class HomeController extends Controller
 
     public function denunciar_post()
     {   
-        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $db_config = Config::get('database.connections.'.Config::get('database.default'));
+        $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
         mysqli_set_charset($conn, 'utf8');
 
         $motivo = $_POST['option'];
@@ -303,7 +307,8 @@ class HomeController extends Controller
     }
     public function denunciar_comentario()
     {   
-        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $db_config = Config::get('database.connections.'.Config::get('database.default'));
+        $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
         mysqli_set_charset($conn, 'utf8');
 
         $motivo = $_POST['option'];
@@ -331,7 +336,8 @@ class HomeController extends Controller
     }
     public function like_post()
     {   
-        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $db_config = Config::get('database.connections.'.Config::get('database.default'));
+        $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
         mysqli_set_charset($conn, 'utf8');
 
         $id = $_POST['id_post'];
@@ -354,7 +360,8 @@ class HomeController extends Controller
     }
     public function remov_like_post()
     {   
-        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $db_config = Config::get('database.connections.'.Config::get('database.default'));
+        $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
         mysqli_set_charset($conn, 'utf8');
         
         $id = $_POST['id_post'];

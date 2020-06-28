@@ -3,7 +3,8 @@
 
 
 <?php  session_start();
-$conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+$db_config = Config::get('database.connections.'.Config::get('database.default'));
+$conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
 mysqli_set_charset($conn, 'utf8');
 
 $user = Auth::user()->id;
@@ -108,7 +109,7 @@ $s = 1;
             <h2 class="aviso-text"><b>Nenhuma Postagem encontrada</b></h2>
         </div>
     <?php }?>
-    <?php while($rows = mysqli_fetch_assoc($result2)){ $situation = $rows['id_situacao_postagem']; $id_post = $rows['id_postagem']; $user_post = $rows['id_usuarios']; $scroll = $s +1;?>
+    <?php while($rows = mysqli_fetch_assoc($result2)){ $situation = $rows['id_situacao_postagem']; $id_post = $rows['id_postagem']; $user_post = $rows['id_usuarios']; $name = $rows['usuario']; $parts = explode(" ", $name); $scroll = $s +1;?>
         <nav id="scroll<?php echo $scroll?>"></nav>
         <div class="card-home">
             <div class="divisao">
@@ -121,7 +122,7 @@ $s = 1;
                 <form action="{{url('perfil')}}" method="GET">
                     @csrf
                     <input type="hidden" name="id_usuario" value="<?php echo $rows['id']?>">
-                    <div class="autor-home justify-content-md-center"><button style="text-decoration:underline" class="no-border-button" type="submit"><?php echo mb_strimwidth($rows['usuario'], 0, 16, "..."); ?></button></div>
+                    <div class="autor-home"><button style="text-decoration:underline" class="no-border-button" type="submit"><?php echo "$parts[0]"; ?></button></div>
                 </form>
             </div>
             <div class="divisao2">

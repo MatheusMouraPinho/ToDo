@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use datetime;
 use DB;
+use Config;
 
 class ComentController extends Controller
 {
@@ -78,7 +79,10 @@ class ComentController extends Controller
 
 
     public function like(Request $request) {
-        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $db_config = Config::get('database.connections.'.Config::get('database.default'));
+        $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
+        mysqli_set_charset($conn, 'utf8');
+
         $id_user = Auth::user()->id;
         if(isset($request->coment_id)) {
             $coment_id = $request->coment_id;

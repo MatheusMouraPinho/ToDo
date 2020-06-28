@@ -27,7 +27,7 @@ class VerifyEmail extends VerifyEmailBase
                 Lang::get('Confirmar Verificação'),
                 $this->verificationUrl($notifiable)
             )
-            ->line(Lang::get('Se não foi você não criou a conta não será necessário a confirmação.'))
-            ->salutation(Lang::get('Repositorio De Ideias ToDo.'));
+            ->line(Lang::get('Se não foi você que criou a conta não será necessário a confirmação.'))
+            ->salutation(Lang::get('ToDo Ideias.'));
     }
 }

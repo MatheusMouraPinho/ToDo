@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 <?php  
-$conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+$db_config = Config::get('database.connections.'.Config::get('database.default'));
+$conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
 mysqli_set_charset($conn, 'utf8');
 
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;

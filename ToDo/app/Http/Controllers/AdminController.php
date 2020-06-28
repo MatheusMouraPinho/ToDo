@@ -10,6 +10,7 @@ use Mail;
 use App\Mail\cadastro_aceito;
 use App\Mail\cadastro_recusado;
 use App\Mail\usuario_deletado;
+use Config;
 
 class AdminController extends Controller
 {
@@ -84,7 +85,8 @@ class AdminController extends Controller
 
     public function altorizar()
     {  
-        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $db_config = Config::get('database.connections.'.Config::get('database.default'));
+        $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
         mysqli_set_charset($conn, 'utf8');
 
         $id_sql = $_POST ['alt'];
@@ -102,7 +104,8 @@ class AdminController extends Controller
 
     public function recusar()
     {  
-        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $db_config = Config::get('database.connections.'.Config::get('database.default'));
+        $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
         mysqli_set_charset($conn, 'utf8');
 
         $id_sql = $_POST ['del'];
@@ -120,7 +123,8 @@ class AdminController extends Controller
     
     public function alterar()
     {  
-        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $db_config = Config::get('database.connections.'.Config::get('database.default'));
+        $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
         mysqli_set_charset($conn, 'utf8');
 
         $id_sql = $_POST ['alterar'];
@@ -141,7 +145,8 @@ class AdminController extends Controller
 
     public function del_usu()
     { 
-        $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+        $db_config = Config::get('database.connections.'.Config::get('database.default'));
+        $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
         mysqli_set_charset($conn, 'utf8');
 
         $id_sql = $_POST ['del_usu'];
@@ -151,8 +156,6 @@ class AdminController extends Controller
 
         $sql = "DELETE FROM usuarios WHERE id = $id_sql";
         mysqli_query($conn, $sql);
-
-        Mail::to($mail)->send(new usuario_deletado());
 
         return redirect('adm2')->with(['notific' =>  $notific])->with(['usu' => $usu]);
     }
@@ -173,9 +176,9 @@ class AdminController extends Controller
     }
 
     public function option(){  
-        
         if($_POST['option'] == 'rem_den'){
-            $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+            $db_config = Config::get('database.connections.'.Config::get('database.default'));
+            $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
             mysqli_set_charset($conn, 'utf8');
 
             $id_post = $_POST ['id_postagem'];
@@ -191,7 +194,8 @@ class AdminController extends Controller
             return redirect('adm3')->with(['notific' =>  $notific])->with(['nom' => $nom]);
         }
         if($_POST['option'] == 'del_post'){
-            $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+            $db_config = Config::get('database.connections.'.Config::get('database.default'));
+            $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
             mysqli_set_charset($conn, 'utf8');
 
             $id_den = $_POST ['id_denuncia'];
@@ -229,6 +233,9 @@ class AdminController extends Controller
 
             $sql = "DELETE FROM img_postagem WHERE id_postagem = $id_post";
             mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM like_postagens WHERE id_postagens = $id_post";
+            mysqli_query($conn, $sql);
             
             $sql = "DELETE FROM postagens WHERE id_postagem = $id_post";
             mysqli_query($conn, $sql);
@@ -237,9 +244,10 @@ class AdminController extends Controller
         }
     }
 
-    public function option2(){  
+    public function option2(){
         if($_POST['option'] == 'rem_den'){
-            $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+            $db_config = Config::get('database.connections.'.Config::get('database.default'));
+            $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
             mysqli_set_charset($conn, 'utf8');
 
             $id_com = $_POST ['id_comentario'];
@@ -255,7 +263,8 @@ class AdminController extends Controller
             return redirect('adm4')->with(['notific' =>  $notific])->with(['nom' => $nom]);
         }
         if($_POST['option'] == 'del_comen'){
-            $conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+            $db_config = Config::get('database.connections.'.Config::get('database.default'));
+            $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
             mysqli_set_charset($conn, 'utf8');
             
             $id_den = $_POST ['id_denuncia'];

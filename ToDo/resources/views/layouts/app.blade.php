@@ -1,4 +1,4 @@
-<?php 
+<?php
 $nivel = Auth::user()->nivel; 
 $id_user = Auth::user()->id;
 $denuncia = Session::get('denuncia');
@@ -168,21 +168,21 @@ $denuncia = Session::get('denuncia');
               <div class="row">
                 <div class="alinhamento-img">
                   <label class="form-control-range">
-                    <input type="file" name="img_post" id="file" accept="image/*" multiple onchange="javascript:update_file1()"/>
+                    <input type="file" name="img_post" id="file" accept="image/jpeg, image/png" multiple onchange="javascript:update_file1()"/>
                     <a name="img_post" class="get-file">Adicionar Imagem</a>
                     <div class="file-name" id="file-name">File: Empty</div>
                   </label>
                 </div>
                 <div class="alinhamento-img2">
                   <label class="form-control-range">
-                    <input type="file" name="img_post2" id="file2" accept="image/*" multiple onchange="javascript:update_file2()"/>
+                    <input type="file" name="img_post2" id="file2" accept="image/jpeg, image/png" multiple onchange="javascript:update_file2()"/>
                     <a name="img_post" class="get-file">Adicionar Imagem</a>
                     <div class="file-name" id="file-name2">File: Empty</div>
                   </label>
                 </div>
                 <div class="alinhamento-img3">
                   <label class="form-control-range">
-                    <input type="file" name="img_post3" id="file3" accept="image/*" multiple onchange="javascript:update_file3()"/>
+                    <input type="file" name="img_post3" id="file3" accept="image/jpeg, image/png" multiple onchange="javascript:update_file3()"/>
                     <a name="img_post" class="get-file">Adicionar Imagem</a>
                     <div class="file-name" id="file-name3">File: Empty</div>
                   </label>

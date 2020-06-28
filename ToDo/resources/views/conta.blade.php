@@ -183,7 +183,7 @@ $nivel = Auth::user()->nivel;
                         <img width="200px" alt="{{ Auth::user()->img_usuarios }}" name="img_usuarios" class="img" src="{{url('/ToDo/storage/app/public/users/'.Auth::user()->img_usuarios)}}">
                       @endif
                       <label class="form-control-range">
-                        <input type="file" name="img_usuarios" id="file" accept="image/*" multiple onchange="javascript:update()"/>
+                        <input type="file" name="img_usuarios" id="file" accept="image/jpeg, image/png" multiple onchange="javascript:update()"/>
                         <a name="img_usuarios" class="get-file">Alterar imagem de perfil</a>
                         <div style="text-align: center" id="file-name"></div>
                       </label>

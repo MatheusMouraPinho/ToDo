@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 <?php  
-$conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+$db_config = Config::get('database.connections.'.Config::get('database.default'));
+$conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
 mysqli_set_charset($conn, 'utf8');
 
 $user = Auth::user()->id;
@@ -96,7 +97,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                                     <input type="radio" id="radio1" type="radio" name="option" value="rem_den" required>
                                                     <span class="checkmark"></span>
                                                 </label>
-                                                <label class="radio-custom">Deletar o Postagem
+                                                <label class="radio-custom">Deletar a Postagem
                                                     <input type="radio" id="radio2" type="radio" name="option" value="del_post" required>
                                                     <span class="checkmark"></span>
                                                 </label>

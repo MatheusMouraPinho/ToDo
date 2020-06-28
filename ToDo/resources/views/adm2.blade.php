@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 <?php  session_start();
-$conn = mysqli_connect("localhost", "root", "", "repositorio_de_ideias");
+$db_config = Config::get('database.connections.'.Config::get('database.default'));
+$conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
 mysqli_set_charset($conn, 'utf8');
 
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
@@ -23,7 +24,7 @@ $num_pagina = ceil($total_pesquisa/$quantidade);
 
 $inicio = ($quantidade*$pagina)-$quantidade;
 
-$sql = "SELECT * FROM usuarios WHERE id_situacao = '1' AND (usuario LIKE '%$pesquisa2%' OR registro LIKE '%$pesquisa2%') ORDER BY usuario ASC LIMIT $inicio, $quantidade ";
+$sql = "SELECT * FROM usuarios WHERE id_situacao = '1' AND (usuario LIKE '%$pesquisa2%' OR registro LIKE '%$pesquisa2%') ORDER BY nivel DESC LIMIT $inicio, $quantidade ";
 $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
 $pagina_anterior = $pagina - 1; //paginação
