@@ -1096,7 +1096,7 @@ CREATE TABLE `usuarios` (
   `id` int(10) NOT NULL,
   `usuario` varchar(50) NOT NULL,
   `email` varchar(200) NOT NULL,
-  `registro` int(11) NOT NULL COMMENT 'Esse campo se refere ao RGM/CPF do usuário',
+  `registro` varchar(11) NOT NULL COMMENT 'Esse campo se refere ao RGM/CPF do usuário',
   `senha` varchar(200) NOT NULL,
   `nivel` int(10) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
