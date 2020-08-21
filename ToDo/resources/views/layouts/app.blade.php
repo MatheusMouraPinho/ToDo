@@ -1,4 +1,8 @@
 <?php
+Artisan::call('route:clear');
+Artisan::call('view:clear');
+Artisan::call('cache:clear');
+
 $nivel = Auth::user()->nivel; 
 $id_user = Auth::user()->id;
 $denuncia = Session::get('denuncia');
