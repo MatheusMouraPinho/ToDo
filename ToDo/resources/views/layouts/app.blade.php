@@ -192,11 +192,11 @@ $denuncia = Session::get('denuncia');
                   </label>
                 </div>
               </div>
-            </div>
-            <div class="modal-footer-custom grey">
-              <input type='hidden' name="id_usuario" value="<?php echo $id_user ?>"/>
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-primary">Enviar Ideia</button><br>
+              <div class="modal-footer">
+                <input type='hidden' name="id_usuario" value="<?php echo $id_user ?>"/>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Enviar Ideia</button><br>
+              </div>
             </div>
           </form>
         </div>
