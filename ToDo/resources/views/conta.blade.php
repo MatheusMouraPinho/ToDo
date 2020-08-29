@@ -230,24 +230,9 @@ $nivel = Auth::user()->nivel;
                                 <input name="img_capa" type="file" style="display: none; cursor: pointer;" accept="image/jpeg, image/png, image/svg">
                                 <a name="img_capa" class="dropdown-item">Alterar foto da capa</a>
                               </label>
-                              {{-- <input id="file" name="img_usuarios" type="file" style="display: none" accept="image/jpeg, image/png" multiple onchange="javascript:update()"/>
-                              <a name="img_usuarios" class="dropdown-item">Alterar foto de perfil</a>
-                              <input id="file2" name="img_capa" type="file" style="display: none" accept="image/jpeg, image/png" multiple onchange="javascript:update2()"/>
-                              <a name="img_capa" class="dropdown-item">Alterar foto da capa</a> --}}
                             </div>
                           </div>
-                        </div>
-                        {{-- <label class="form-control-range">
-                          <input type="file" name="img_usuarios" id="file" accept="image/jpeg, image/png" multiple onchange="javascript:update()"/>
-                          <a name="img_usuarios" class="get-file">Alterar imagem de perfil</a>
-                          <div style="text-align: center" id="file-name"></div>
-                        </label>
-                        <label class="form-control-range">
-                          <input type="file" name="img_capa" id="file2" accept="image/jpeg, image/png" multiple onchange="javascript:update2()"/>
-                          <a name="img_capa" class="get-file">Alterar imagem de capa</a>
-                          <div style="text-align: center" id="file-name2"></div>
-                        </label> --}}
-                      
+                        </div>                      
 
                         <div class="popup-title">
                           <label for="usuario" class="bold subdados">Usuário: </label>

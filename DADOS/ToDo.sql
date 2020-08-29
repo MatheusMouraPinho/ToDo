@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.9.5deb2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Tempo de geração: 19-Jun-2020 às 03:52
--- Versão do servidor: 10.4.8-MariaDB
--- versão do PHP: 7.3.10
+-- Host: localhost:3306
+-- Tempo de geração: 28-Ago-2020 às 21:31
+-- Versão do servidor: 8.0.21-0ubuntu0.20.04.4
+-- versão do PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,9 +31,9 @@ USE `repositorio_de_ideias`;
 --
 
 CREATE TABLE `area_estudo` (
-  `id_area` int(10) NOT NULL,
+  `id_area` int NOT NULL,
   `nome_area` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `area_estudo`
@@ -100,15 +100,15 @@ INSERT INTO `area_estudo` (`id_area`, `nome_area`) VALUES
 --
 
 CREATE TABLE `avaliacao_postagem` (
-  `id_avaliacao` int(10) NOT NULL,
-  `id_postagem` int(10) NOT NULL,
-  `id_usuario` int(10) NOT NULL,
+  `id_avaliacao` int NOT NULL,
+  `id_postagem` int NOT NULL,
+  `id_usuario` int NOT NULL,
   `inovacao_avaliacao` double NOT NULL,
   `complexidade_avaliacao` double NOT NULL,
   `potencial_avaliacao` double NOT NULL,
   `media_avaliacao` double NOT NULL,
-  `id_avaliador` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_avaliador` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `avaliacao_postagem`
@@ -125,9 +125,9 @@ INSERT INTO `avaliacao_postagem` (`id_avaliacao`, `id_postagem`, `id_usuario`, `
 --
 
 CREATE TABLE `categoria_postagem` (
-  `id_categoria` int(10) NOT NULL,
+  `id_categoria` int NOT NULL,
   `categoria_postagem` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `categoria_postagem`
@@ -147,10 +147,10 @@ INSERT INTO `categoria_postagem` (`id_categoria`, `categoria_postagem`) VALUES
 --
 
 CREATE TABLE `check_denuncia` (
-  `id_denuncia` int(11) NOT NULL,
-  `id_postagem` int(11) DEFAULT NULL,
-  `id_usuario` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_denuncia` int NOT NULL,
+  `id_postagem` int DEFAULT NULL,
+  `id_usuario` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -159,10 +159,10 @@ CREATE TABLE `check_denuncia` (
 --
 
 CREATE TABLE `check_denuncia_comentarios` (
-  `id_denuncia` int(11) NOT NULL,
-  `id_comentario` int(11) DEFAULT NULL,
-  `id_usuario` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_denuncia` int NOT NULL,
+  `id_comentario` int DEFAULT NULL,
+  `id_usuario` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -171,17 +171,17 @@ CREATE TABLE `check_denuncia_comentarios` (
 --
 
 CREATE TABLE `comentarios` (
-  `id_comentarios` int(10) NOT NULL,
-  `id_avaliacao` int(10) DEFAULT NULL,
-  `id_usuarios` int(11) NOT NULL,
-  `id_postagem` int(10) NOT NULL,
+  `id_comentarios` int NOT NULL,
+  `id_avaliacao` int DEFAULT NULL,
+  `id_usuarios` int NOT NULL,
+  `id_postagem` int NOT NULL,
   `conteudo_comentarios` varchar(255) NOT NULL,
   `data_comentarios` datetime NOT NULL,
-  `likes_comentarios` int(11) NOT NULL DEFAULT 0,
+  `likes_comentarios` int NOT NULL DEFAULT '0',
   `edit_comentarios` datetime DEFAULT NULL,
-  `id_mencionado` int(11) DEFAULT NULL,
-  `id_comentarios_ref` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_mencionado` int DEFAULT NULL,
+  `id_comentarios_ref` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `comentarios`
@@ -201,11 +201,11 @@ INSERT INTO `comentarios` (`id_comentarios`, `id_avaliacao`, `id_usuarios`, `id_
 --
 
 CREATE TABLE `denuncias` (
-  `id_denuncia` int(11) NOT NULL,
-  `id_postagem` int(11) DEFAULT NULL,
-  `id_motivo` int(11) DEFAULT NULL,
-  `quantidade` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_denuncia` int NOT NULL,
+  `id_postagem` int DEFAULT NULL,
+  `id_motivo` int DEFAULT NULL,
+  `quantidade` int NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -214,11 +214,11 @@ CREATE TABLE `denuncias` (
 --
 
 CREATE TABLE `denuncias_comentarios` (
-  `id_denunciacomentario` int(11) NOT NULL,
-  `id_comentario` int(11) DEFAULT NULL,
-  `id_motivo` int(11) DEFAULT NULL,
-  `quantidade` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_denunciacomentario` int NOT NULL,
+  `id_comentario` int DEFAULT NULL,
+  `id_motivo` int DEFAULT NULL,
+  `quantidade` int NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -227,10 +227,10 @@ CREATE TABLE `denuncias_comentarios` (
 --
 
 CREATE TABLE `img_postagem` (
-  `id_img` int(10) NOT NULL,
-  `id_postagem` int(10) NOT NULL,
-  `img_post` longblob DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_img` int NOT NULL,
+  `id_postagem` int NOT NULL,
+  `img_post` longblob
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `img_postagem`
@@ -256,10 +256,10 @@ INSERT INTO `img_postagem` (`id_img`, `id_postagem`, `img_post`) VALUES
 --
 
 CREATE TABLE `instituicao_ensino` (
-  `id_instituicao` int(10) NOT NULL,
+  `id_instituicao` int NOT NULL,
   `nome_instituicao` varchar(100) NOT NULL,
   `sigla_instituicao` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `instituicao_ensino`
@@ -286,10 +286,10 @@ INSERT INTO `instituicao_ensino` (`id_instituicao`, `nome_instituicao`, `sigla_i
 --
 
 CREATE TABLE `like_comentarios` (
-  `id_likes` int(11) NOT NULL,
-  `id_comentarios` int(11) NOT NULL,
-  `id_usuarios` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_likes` int NOT NULL,
+  `id_comentarios` int NOT NULL,
+  `id_usuarios` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `like_comentarios`
@@ -308,10 +308,10 @@ INSERT INTO `like_comentarios` (`id_likes`, `id_comentarios`, `id_usuarios`) VAL
 --
 
 CREATE TABLE `like_postagens` (
-  `id_like` int(11) NOT NULL,
-  `id_postagens` int(11) NOT NULL,
-  `id_usuarios` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_like` int NOT NULL,
+  `id_postagens` int NOT NULL,
+  `id_usuarios` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `like_postagens`
@@ -334,9 +334,9 @@ INSERT INTO `like_postagens` (`id_like`, `id_postagens`, `id_usuarios`) VALUES
 --
 
 CREATE TABLE `motivo_denuncia` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `motivo` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `motivo_denuncia`
@@ -354,9 +354,9 @@ INSERT INTO `motivo_denuncia` (`id`, `motivo`) VALUES
 --
 
 CREATE TABLE `nivel_acesso` (
-  `id_nivel` int(10) NOT NULL,
+  `id_nivel` int NOT NULL,
   `nivel` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `nivel_acesso`
@@ -374,8 +374,8 @@ INSERT INTO `nivel_acesso` (`id_nivel`, `nivel`) VALUES
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -386,16 +386,16 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `postagens` (
-  `id_postagem` int(10) NOT NULL,
-  `id_usuarios` int(10) NOT NULL,
-  `id_situacao_postagem` int(10) NOT NULL DEFAULT 2,
-  `id_categoria` int(10) NOT NULL,
+  `id_postagem` int NOT NULL,
+  `id_usuarios` int NOT NULL,
+  `id_situacao_postagem` int NOT NULL DEFAULT '2',
+  `id_categoria` int NOT NULL,
   `titulo_postagem` varchar(50) NOT NULL,
   `descricao_postagem` text NOT NULL,
-  `likes_postagem` int(10) NOT NULL DEFAULT 0,
+  `likes_postagem` int NOT NULL DEFAULT '0',
   `data_postagem` datetime NOT NULL,
   `media` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `postagens`
@@ -406,7 +406,15 @@ INSERT INTO `postagens` (`id_postagem`, `id_usuarios`, `id_situacao_postagem`, `
 (38, 24, 1, 1, 'Arduino robô', 'Os programas em sala de aula do Arduino desenvolvem os alunos pela universidade, aumentando a complexidade para desafiá-los à medida que desenvolvem suas habilidades.\r\n\r\nTodos os programas incluem uma variedade de eletrônicos, como placas programáveis, sensores, peças mecânicas, software simples de código aberto, conteúdo on-line para os alunos e treinamento e suporte orientados para educadores.\r\n\r\nOs produtos com os quais os alunos aprendem são os mesmos usados ​​profissionalmente em empresas de todo o mundo, em aplicações como prototipagem rápida, IA, tecnologia de drones e aprendizado de máquina.', 2, '2020-06-08 18:27:44', 4.66667),
 (39, 24, 1, 1, 'Repositorio de ideias', 'O ToDo é um sistema voltado para a coleta, armazenamento e gestão de ideiais de\r\nsoftwares, de forma a se tormar um repositório, onde qualquer pessoa poderá registrar uma\r\nideia de software. Considera-se “ideia de software” qualquer proposta que venha a surgir de\r\numa inovação, oportunidade, necessidade ou problema.', 1, '2020-06-05 18:38:33', 7.33333),
 (40, 25, 2, 1, 'E-commerce mercado', 'Não é segredo que, ao longo dos anos, o varejo se transformou junto com os clientes. Hoje, as pessoas buscam novas formas de consumir e prezam muito por praticidade e segurança. Comprar pela internet se tornou um hábito cada vez mais comum entre os consumidores: de 2011 até 2017, o faturamento das compras on-line subiu de R$ 18,7 milhões para R$ 47,7 milhões no Brasil.\r\n\r\nO e-commerce brasileiro encerrou 2018 com faturamento de R$ 53,2 bilhões, o que representa uma alta nominal de 12% na comparação anual, de acordo com informações da EbitNielsen. A Associação Brasileira de Comércio Eletrônico (ABComm) estima crescimento de 16% em 2019.\r\n\r\nMas você sabe o que é e-commerce? Usar a internet como canal de vendas e relacionamento com os clientes do seu negócio pode ser uma estratégia bastante lucrativa. Aliás, essa modalidade de venda vem sendo amplamente empregada por comércios do Brasil e do mundo.', 2, '2020-06-08 18:49:46', NULL),
-(41, 17, 2, 1, 'Banco de Talentos', 'O próprio aluno é responsável por se cadastrar e por manter suas informações atualizadas.\r\nO alunos deve ter um local ainda para inserir seu atual cargo ou emprego, colocar imagens e dados de seu portfolio.\r\nNão se trata de uma rede social, portanto, não pode existir meios de comunicação entre as pessoas no sistema. Trata-se apenas de uma base de dados.', 0, '2020-06-08 23:30:42', NULL);
+(41, 17, 2, 1, 'Banco de Talentos', 'O próprio aluno é responsável por se cadastrar e por manter suas informações atualizadas.\r\nO alunos deve ter um local ainda para inserir seu atual cargo ou emprego, colocar imagens e dados de seu portfolio.\r\nNão se trata de uma rede social, portanto, não pode existir meios de comunicação entre as pessoas no sistema. Trata-se apenas de uma base de dados.', 0, '2020-06-08 23:30:42', NULL),
+(54, 17, 2, 2, 'teste3', 'hfgh', 0, '2020-08-26 22:19:48', NULL),
+(55, 17, 2, 2, 'hfghf', 'fhfgh', 0, '2020-08-26 22:20:02', NULL),
+(56, 17, 2, 1, 'fghfgh', 'fghf', 0, '2020-08-26 22:20:09', NULL),
+(57, 17, 2, 4, 'xcvxc', 'xcvxcv', 0, '2020-08-26 22:20:16', NULL),
+(58, 17, 2, 2, 'sdbsv', 'dgsd', 0, '2020-08-26 22:20:25', NULL),
+(59, 17, 2, 5, 'teste3', 'fghfgh', 0, '2020-08-26 22:20:37', NULL),
+(60, 17, 2, 1, 'fghfgh', 'dfgfg', 0, '2020-08-26 22:20:46', NULL),
+(61, 17, 2, 1, 'teste2', 'fghdfgf', 0, '2020-08-26 22:21:05', NULL);
 
 -- --------------------------------------------------------
 
@@ -415,10 +423,10 @@ INSERT INTO `postagens` (`id_postagem`, `id_usuarios`, `id_situacao_postagem`, `
 --
 
 CREATE TABLE `regiao_cidade` (
-  `id_regiao_cidade` int(10) NOT NULL,
-  `id_estado` int(10) NOT NULL,
+  `id_regiao_cidade` int NOT NULL,
+  `id_estado` int NOT NULL,
   `nome_cidade` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `regiao_cidade`
@@ -1010,10 +1018,10 @@ INSERT INTO `regiao_cidade` (`id_regiao_cidade`, `id_estado`, `nome_cidade`) VAL
 --
 
 CREATE TABLE `regiao_estado` (
-  `id_regiao_estado` int(10) NOT NULL,
+  `id_regiao_estado` int NOT NULL,
   `nome_estado` varchar(50) NOT NULL,
   `uf_regiao_estado` varchar(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `regiao_estado`
@@ -1055,9 +1063,9 @@ INSERT INTO `regiao_estado` (`id_regiao_estado`, `nome_estado`, `uf_regiao_estad
 --
 
 CREATE TABLE `situacao_postagem` (
-  `id_situacao_postagem` int(10) NOT NULL,
+  `id_situacao_postagem` int NOT NULL,
   `situacao_postagem` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `situacao_postagem`
@@ -1074,9 +1082,9 @@ INSERT INTO `situacao_postagem` (`id_situacao_postagem`, `situacao_postagem`) VA
 --
 
 CREATE TABLE `situacao_usuario` (
-  `id_situacao_usuario` int(10) NOT NULL,
+  `id_situacao_usuario` int NOT NULL,
   `situacao_usuario` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `situacao_usuario`
@@ -1093,102 +1101,103 @@ INSERT INTO `situacao_usuario` (`id_situacao_usuario`, `situacao_usuario`) VALUE
 --
 
 CREATE TABLE `usuarios` (
-  `id` int(10) NOT NULL,
+  `id` int NOT NULL,
   `usuario` varchar(50) NOT NULL,
   `email` varchar(200) NOT NULL,
   `registro` varchar(11) NOT NULL COMMENT 'Esse campo se refere ao RGM/CPF do usuário',
   `senha` varchar(200) NOT NULL,
-  `nivel` int(10) NOT NULL,
+  `nivel` int NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `id_situacao` int(10) NOT NULL DEFAULT 2,
-  `id_area` int(10) DEFAULT NULL,
-  `id_instituicao` int(10) DEFAULT NULL,
-  `id_regiao_cidade` int(10) DEFAULT NULL,
-  `img_usuarios` longblob DEFAULT NULL,
-  `telefone_usuario` bigint(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_situacao` int NOT NULL DEFAULT '2',
+  `id_area` int DEFAULT NULL,
+  `id_instituicao` int DEFAULT NULL,
+  `id_regiao_cidade` int DEFAULT NULL,
+  `img_usuarios` longblob,
+  `telefone_usuario` bigint DEFAULT NULL,
+  `img_capa` longblob
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `email_verified_at`, `id_situacao`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`) VALUES
-(12, 'Matheus Moura', 'Matheusmpinho@Outlook.com', 20867000, '$2y$10$rZ0C2fvYHoHI0xA7LOuCFu4FiJqIs1B6GEnAUqUPvf6aq/JZMeOOa', 3, '2000-01-27 04:00:00', 1, 2, 10, 457, NULL, NULL),
-(17, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', 22132066, '$2y$10$WhwODqAMm.PNYkDrXSBmPekQEPHLE9ep8yCxHE0anlLLpprez6LI6', 3, '2020-05-01 02:23:51', 1, 2, 10, 398, 0x31376a6f6e617468616e2d646961732e6a706567, NULL),
-(24, 'Vinicius Vieira', 'vinicius_vieira_pereira@hotmail.com', 20541929, '$2y$10$Boy1Hsp7VHD0pHy9XombaODQSyRmS2Wb7RPxFOFYc0jAOjtGEyr4G', 3, '2020-05-19 06:00:00', 1, NULL, NULL, NULL, 0x323476696e69636975732d7669656972612e6a706567, NULL),
-(25, 'Mauricio Freire', 'mauriciofreire520@gmail.com', 20530625, '$2y$10$R2GsC/k2SSEIjr4NmL2bOe.MT.P5gdUrJYYe6TOtPKAQxxg4fG67G', 3, '2020-05-19 06:00:00', 1, 2, NULL, NULL, 0x3132356d6175726963696f2e6a706567, NULL),
-(26, 'Robert Barry', 'mus.Aenean@mattis.org', 76771258, 'TGY72UJU8WV', 1, '2020-01-06 16:44:47', 1, 24, 7, 255, NULL, 7216815913),
-(27, 'Jordan Klein', 'lacinia.mattis.Integer@semut.co.uk', 21734232, 'KGX28FOE9GU', 1, '2020-03-27 05:58:20', 1, 10, 8, 380, NULL, 5937699255),
-(31, 'Clare Mcgee', 'faucibus.leo@ametante.net', 49669966, 'IXG25RWH7FP', 1, '2020-02-24 17:47:44', 1, 20, 10, 83, NULL, 5084772282),
-(32, 'Sigourney Ware', 'amet.luctus.vulputate@acliberonec.org', 51098868, 'HAV74GKD9VQ', 1, '2020-02-16 19:08:06', 1, 6, 11, 77, NULL, 3914745563),
-(34, 'Shelby Logan', 'arcu@ipsumDonec.ca', 95930275, 'SAJ39RGP1SU', 1, '2020-04-12 13:11:40', 1, 17, 11, 51, NULL, 7297074588),
-(35, 'Leila Rice', 'sagittis@odiotristique.ca', 40066990, 'ANI28ONI0SS', 1, '2020-03-04 21:49:45', 1, 10, 11, 163, NULL, 1797360292),
-(37, 'Gail Hanson', 'purus.in.molestie@euenimEtiam.ca', 13521330, 'KJW38ZTC6NJ', 1, '2020-02-17 01:43:02', 1, 19, 12, 394, NULL, 4496185923),
-(38, 'Dara Rosario', 'arcu.Vestibulum.ut@nec.org', 90204453, 'RKC74ULE1ZO', 1, '2020-03-03 07:44:06', 2, 9, 1, 251, NULL, 1857780800),
-(39, 'Jorden Knox', 'gravida.Praesent@ridiculus.com', 84836182, 'VRU00PIE7BX', 1, '2020-03-05 19:10:50', 1, 24, 3, 479, NULL, 8735348399),
-(40, 'Chastity Pratt', 'elit.elit@auguescelerisquemollis.net', 29082581, 'DJB75LAF2ER', 1, '2020-04-23 11:43:15', 1, 19, 4, 351, NULL, 3406616815),
-(41, 'Julian Reilly', 'nunc@etnetus.net', 45384484, 'GCL13TLJ6PX', 1, '2020-05-27 12:08:20', 2, 23, 11, 413, NULL, 7294629686),
-(42, 'Kane Wolfe', 'ante@Vivamussit.net', 92900822, 'VRO60QRU6KA', 1, '2020-04-14 18:19:10', 1, 22, 12, 359, NULL, 7785532930),
-(43, 'Indira Tyler', 'scelerisque.sed@sedduiFusce.co.uk', 66089774, 'ETA55YPK4IA', 1, '2020-04-23 17:31:00', 1, 11, 2, 3, NULL, 8503885607),
-(44, 'Larissa Diaz', 'cubilia.Curae.Donec@ornaresagittisfelis.edu', 94275113, 'ECO74JEX9CC', 1, '2020-01-29 02:46:56', 1, 1, 11, 217, NULL, 5335153387),
-(45, 'Marsden Nunez', 'nulla.magna@non.co.uk', 30475103, 'OVA18ZCQ0RX', 1, '2020-04-04 11:45:52', 1, 1, 11, 461, NULL, 6602734968),
-(48, 'September Farley', 'Donec.luctus@Quisquepurus.co.uk', 27770993, 'IVH05CGQ7JQ', 1, '2020-05-06 13:55:09', 1, 15, 7, 338, NULL, 9742085055),
-(51, 'Gavin Aguirre', 'Quisque.porttitor@feugiatnon.org', 71366703, 'EVI24CPB1ZR', 1, '2020-06-08 23:12:35', 1, 9, 5, 431, NULL, 7626752063),
-(52, 'Carol Freeman', 'sapien@litoratorquentper.net', 12924216, 'HIH87VJP9JN', 1, '2020-03-06 04:20:12', 2, 4, 5, 319, NULL, 1728533928),
-(55, 'Coby Walton', 'montes.nascetur.ridiculus@molestietellus.org', 39637558, 'QGP92JYD3DR', 1, '2020-03-15 11:35:25', 2, 6, 6, 344, NULL, 7635572210),
-(57, 'Reagan Robbins', 'sapien@egestas.co.uk', 38103543, 'JPJ38ZVI6LJ', 1, '2020-04-29 13:34:33', 2, 10, 10, 236, NULL, 4187990831),
-(58, 'Joseph Kidd', 'eget@placerataugue.com', 59062643, 'NTI64BRM3YI', 1, '2020-03-31 16:27:39', 2, 2, 5, 281, NULL, 5511278833),
-(59, 'Stephen Owen', 'Nam.nulla@acturpisegestas.org', 73824837, 'UHW25OEH1XL', 1, '2020-04-10 08:46:07', 1, 3, 6, 296, NULL, 1665996935),
-(61, 'Signe Everett', 'pede@eu.net', 90748431, 'RUC34AJM9KC', 1, '2020-03-26 19:49:34', 1, 5, 6, 13, NULL, 1613483437),
-(62, 'Jolie Golden', 'gravida.molestie@bibendumsed.net', 59662926, 'DCQ48JPH4VX', 1, '2020-05-07 07:47:56', 1, 6, 3, 505, NULL, 4595742988),
-(64, 'Laura Gillespie', 'sagittis.Duis.gravida@idblandit.co.uk', 32549800, 'VMT38DSN5CM', 1, '2020-03-31 11:21:27', 2, 18, 5, 111, NULL, 5161277259),
-(65, 'Vielka Wheeler', 'turpis.egestas.Aliquam@malesuadaut.co.uk', 85564528, 'HMD84OXX5MC', 1, '2020-01-17 12:59:07', 1, 18, 3, 431, NULL, 3414848069),
-(66, 'Mannix Oneil', 'amet@augueacipsum.co.uk', 91923343, 'UUT64XJQ5CI', 1, '2020-05-28 22:32:17', 2, 24, 4, 588, NULL, 8163648449),
-(67, 'Lester Holcomb', 'sapien.imperdiet.ornare@dolorNulla.net', 81693620, 'UYI76TRZ2HP', 1, '2020-01-16 23:16:33', 1, 8, 10, 26, NULL, 1348469197),
-(69, 'Fay Fuentes', 'fermentum.fermentum@Maurismolestie.org', 78738827, 'AKF00AUC0GK', 1, '2020-02-08 23:04:59', 1, 25, 6, 521, NULL, 4114956633),
-(71, 'Linus Fleming', 'Cras.convallis.convallis@viverra.com', 64886672, 'EQN57BMC7OR', 1, '2020-02-08 23:35:43', 1, 19, 2, 81, NULL, 7102879357),
-(72, 'Cole Fuller', 'Phasellus@lorem.net', 21157487, 'NGQ00TEZ1MH', 1, '2020-02-27 03:48:46', 2, 14, 4, 484, NULL, 3283898991),
-(73, 'Dalton Allen', 'dolor.elit@laciniaSed.edu', 34121791, 'FFN27QFW7KX', 1, '2020-05-11 23:37:14', 1, 4, 5, 421, NULL, 8543973943),
-(74, 'Harriet Mccall', 'eros@acliberonec.edu', 97937651, 'JGA15NLE3QP', 1, '2020-04-29 22:36:23', 2, 2, 6, 119, NULL, 2417924683),
-(75, 'Fitzgerald Lloyd', 'sociis.natoque.penatibus@utcursusluctus.ca', 81245141, 'YBQ58IWD0OZ', 1, '2020-03-07 02:35:10', 1, 12, 2, 475, NULL, 5849912869),
-(76, 'Grace Foster', 'suscipit.nonummy@loremeget.ca', 50740778, 'WKO32QCB3PV', 1, '2020-05-28 16:05:10', 1, 12, 6, 584, NULL, 5858388147),
-(78, 'Reese Glover', 'diam.Pellentesque@Nunc.co.uk', 41838949, 'ZEN06VZI9BG', 1, '2020-04-25 14:03:53', 2, 7, 7, 392, NULL, 7581636606),
-(79, 'Amber Mccray', 'in.tempus@egestasrhoncus.ca', 14487722, 'UIF46HWZ6GP', 1, '2020-03-21 07:24:17', 2, 12, 11, 360, NULL, 3759577112),
-(81, 'Gage Decker', 'penatibus@ullamcorperviverra.edu', 31753760, 'VYH49XEG0IT', 1, '2020-03-09 16:38:56', 1, 25, 1, 196, NULL, 4074468011),
-(82, 'Portia Bradford', 'ornare.In.faucibus@elitsedconsequat.org', 50985068, 'PKQ47NWE6RC', 1, '2020-03-27 17:42:58', 2, 19, 7, 445, NULL, 7964641704),
-(83, 'Melvin Lane', 'dui.Cum@Curabiturdictum.edu', 78446864, 'OQQ55QSX3MY', 1, '2020-02-03 21:20:43', 1, 20, 7, 355, NULL, 9681732497),
-(85, 'Davis Bush', 'Quisque.libero.lacus@malesuada.org', 75985022, 'HCD02YVE9TW', 1, '2020-03-23 07:41:29', 2, 22, 7, 89, NULL, 2084205573),
-(86, 'Ivy Houston', 'egestas@eu.com', 71037292, 'CRU82JHG3PM', 1, '2020-01-11 12:24:48', 1, 18, 10, 325, NULL, 6034515317),
-(87, 'Mohammad Bullock', 'dolor.sit.amet@vitaedolor.com', 79481935, 'MDJ10CKS2XX', 1, '2020-01-31 21:22:55', 1, 12, 2, 356, NULL, 7794746060),
-(88, 'Caldwell Newman', 'et.rutrum@luctuslobortis.co.uk', 91285042, 'RVJ32SUY1GL', 1, '2020-02-26 08:41:02', 1, 16, 8, 278, NULL, 4111206966),
-(89, 'Declan Kidd', 'ornare.elit@Maecenasiaculisaliquet.com', 81727782, 'QCK91ADK2OP', 1, '2020-06-04 18:53:49', 2, 22, 4, 557, NULL, 4099471584),
-(90, 'Ira Barton', 'scelerisque.mollis@fringilla.edu', 79697845, 'PQT43ASZ0OK', 1, '2020-03-18 12:31:35', 2, 20, 2, 337, NULL, 7334034110),
-(92, 'Jin Whitley', 'Etiam.gravida.molestie@orciadipiscingnon.net', 98583763, 'JON55JSR1HJ', 1, '2020-02-07 20:47:51', 1, 14, 7, 459, NULL, 7445990551),
-(94, 'Britanni Atkins', 'a.enim.Suspendisse@ullamcorperDuiscursus.co.uk', 51431411, 'RBX35QCB5UJ', 1, '2020-01-28 08:54:14', 1, 8, 10, 217, NULL, 4983270576),
-(95, 'Stacey Cummings', 'a.facilisis@morbi.net', 21999057, 'DXP63JQO1MC', 1, '2020-04-15 04:03:27', 1, 8, 5, 123, NULL, 6919831773),
-(96, 'Ainsley Holland', 'sem@euismodetcommodo.net', 95514636, 'NCV93GYV8PN', 1, '2020-05-31 04:45:24', 2, 7, 6, 102, NULL, 1063781799),
-(97, 'Lael Henderson', 'sem@fringilla.edu', 81937551, 'ZTQ03FOE6SD', 1, '2020-01-21 02:26:22', 1, 5, 11, 136, NULL, 3288737886),
-(98, 'Rina Gregory', 'gravida.sagittis.Duis@enimcommodo.org', 70222191, 'MLK16MDJ2EP', 1, '2020-01-18 03:58:48', 1, 1, 11, 92, NULL, 8408747811),
-(99, 'Lyle Battle', 'dui.Fusce@faucibusorci.net', 45855661, 'PWV82FTV6WA', 1, '2020-06-01 01:35:33', 1, 15, 5, 484, NULL, 8797847198),
-(100, 'Quinlan Molina', 'ac.eleifend@aptent.com', 83563851, 'JMJ86WVT1CY', 1, '2020-06-07 23:12:05', 2, 23, 5, 566, NULL, 9341907282),
-(101, 'Lacota Maddox', 'tellus.faucibus@sit.com', 77910447, 'TVV59ROP1VG', 1, '2020-02-15 07:48:23', 1, 19, 4, 119, NULL, 6736246758),
-(105, 'Demetrius Ross', 'eget.dictum@nequenonquam.net', 91874245, 'KIK42BIG0AU', 1, '2020-01-07 23:58:59', 1, 5, 11, 320, NULL, 6592531361),
-(107, 'Jenna Blake', 'penatibus.et@nisl.ca', 13872409, 'BPA49HOL0ZG', 2, '2020-03-01 17:56:42', 2, 5, 7, 462, NULL, 1674488232),
-(108, 'Graiden Sexton', 'sit@orciUtsagittis.com', 57787043, 'EDU74VNY5LU', 1, '2020-04-21 06:47:20', 1, 25, 8, 504, NULL, 2033426983),
-(110, 'Rogan Ryan', 'Donec.non@velvenenatis.co.uk', 59549674, 'WGO63FOK6PT', 1, '2020-05-12 13:54:49', 2, 19, 5, 488, NULL, 9576848387),
-(111, 'Jillian Guerrero', 'Nunc.pulvinar@cursus.com', 11935981, 'MPW75LMQ8FU', 1, '2020-04-01 06:56:46', 2, 9, 3, 210, NULL, 3798405767),
-(112, 'Claudia Brennan', 'volutpat.nunc@consectetuer.net', 25432854, 'AHP80HHW9YY', 3, '2020-04-11 10:26:26', 1, 12, 1, 286, NULL, 4741073829),
-(113, 'Kaden Baker', 'consectetuer.cursus@liberoet.ca', 27223237, 'VHH44MRP7JL', 1, '2020-01-06 16:39:57', 1, 4, 8, 112, NULL, 9805601437),
-(114, 'Lara Pruitt', 'eu.augue@velturpisAliquam.edu', 36815876, 'DUX52RGV6TU', 1, '2020-04-20 17:02:40', 2, 20, 10, 72, NULL, 6087737145),
-(116, 'Inez Garcia', 'aptent@urnaet.net', 29605500, 'DSX67JXY6DC', 1, '2020-05-20 04:16:09', 2, 21, 3, 304, NULL, 4317234998),
-(117, 'Leonard Dickerson', 'conubia.nostra@nonmassa.net', 25857461, 'CKP47EOR7BX', 1, '2020-03-23 22:15:23', 2, 18, 3, 271, NULL, 6247881063),
-(118, 'Kevin Heath', 'dictum.cursus@Curabitur.org', 94852282, 'QNJ68CZZ2JL', 1, '2020-05-03 21:44:06', 1, 14, 5, 169, NULL, 7218585668),
-(119, 'Slade Crane', 'Donec@Vestibulumante.net', 71390206, 'PDZ55STQ7CF', 1, '2020-05-05 23:46:08', 2, 7, 2, 416, NULL, 5522163087),
-(120, 'Vivian May', 'blandit@odio.net', 26630098, 'KLZ44RBV7WN', 1, '2020-01-04 15:24:02', 1, 24, 1, 179, NULL, 7111074277),
-(121, 'Uta Robbins', 'semper@temporaugue.co.uk', 42771663, 'DTT08CPG2YB', 1, '2020-01-05 05:20:27', 1, 13, 6, 590, NULL, 2767464804),
-(122, 'Kameko Aguirre', 'euismod@Praesenteunulla.edu', 42527432, 'OID94GGL5RM', 1, '2020-05-21 00:14:29', 2, 25, 10, 566, NULL, 3652211421),
-(123, 'Oliver Serrano', 'volutpat.nunc@elitAliquamauctor.org', 72153788, 'DSH54DVL4DE', 1, '2020-01-09 01:07:22', 1, 22, 12, 438, NULL, 6712838836),
-(126, 'matheus mouraa', 'Matheusmpinh@Outlook.com', 20867008, '$2y$10$TaDiHuMvhoADSOrjNYuCceMo7StrWtPi4xsnd8NLJNsDZaaYVoW4S', 1, '2020-06-10 23:59:50', 1, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `email_verified_at`, `id_situacao`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`, `img_capa`) VALUES
+(12, 'Matheus Moura', 'Matheusmpinho@Outlook.com', '20867000', '$2y$10$rZ0C2fvYHoHI0xA7LOuCFu4FiJqIs1B6GEnAUqUPvf6aq/JZMeOOa', 3, '2000-01-27 04:00:00', 1, 2, 10, 457, NULL, NULL, NULL),
+(17, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', '22132066', '$2y$10$WhwODqAMm.PNYkDrXSBmPekQEPHLE9ep8yCxHE0anlLLpprez6LI6', 3, '2020-05-01 02:23:51', 1, 2, 10, 398, 0x31376a6f6e617468616e2d646961732e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a706567, NULL, 0x31376a6f6e617468616e2d646961732e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a706567),
+(24, 'Vinicius Vieira', 'vinicius_vieira_pereira@hotmail.com', '20541929', '$2y$10$Boy1Hsp7VHD0pHy9XombaODQSyRmS2Wb7RPxFOFYc0jAOjtGEyr4G', 3, '2020-05-19 06:00:00', 1, NULL, NULL, NULL, 0x323476696e69636975732d7669656972612e6a706567, NULL, NULL),
+(25, 'Mauricio Freire', 'mauriciofreire520@gmail.com', '20530625', '$2y$10$R2GsC/k2SSEIjr4NmL2bOe.MT.P5gdUrJYYe6TOtPKAQxxg4fG67G', 3, '2020-05-19 06:00:00', 1, 2, NULL, NULL, 0x3132356d6175726963696f2e6a706567, NULL, NULL),
+(26, 'Robert Barry', 'mus.Aenean@mattis.org', '76771258', 'TGY72UJU8WV', 1, '2020-01-06 16:44:47', 1, 24, 7, 255, NULL, 7216815913, NULL),
+(27, 'Jordan Klein', 'lacinia.mattis.Integer@semut.co.uk', '21734232', 'KGX28FOE9GU', 1, '2020-03-27 05:58:20', 1, 10, 8, 380, NULL, 5937699255, NULL),
+(31, 'Clare Mcgee', 'faucibus.leo@ametante.net', '49669966', 'IXG25RWH7FP', 1, '2020-02-24 17:47:44', 1, 20, 10, 83, NULL, 5084772282, NULL),
+(32, 'Sigourney Ware', 'amet.luctus.vulputate@acliberonec.org', '51098868', 'HAV74GKD9VQ', 1, '2020-02-16 19:08:06', 1, 6, 11, 77, NULL, 3914745563, NULL),
+(34, 'Shelby Logan', 'arcu@ipsumDonec.ca', '95930275', 'SAJ39RGP1SU', 1, '2020-04-12 13:11:40', 1, 17, 11, 51, NULL, 7297074588, NULL),
+(35, 'Leila Rice', 'sagittis@odiotristique.ca', '40066990', 'ANI28ONI0SS', 1, '2020-03-04 21:49:45', 1, 10, 11, 163, NULL, 1797360292, NULL),
+(37, 'Gail Hanson', 'purus.in.molestie@euenimEtiam.ca', '13521330', 'KJW38ZTC6NJ', 1, '2020-02-17 01:43:02', 1, 19, 12, 394, NULL, 4496185923, NULL),
+(38, 'Dara Rosario', 'arcu.Vestibulum.ut@nec.org', '90204453', 'RKC74ULE1ZO', 1, '2020-03-03 07:44:06', 2, 9, 1, 251, NULL, 1857780800, NULL),
+(39, 'Jorden Knox', 'gravida.Praesent@ridiculus.com', '84836182', 'VRU00PIE7BX', 1, '2020-03-05 19:10:50', 1, 24, 3, 479, NULL, 8735348399, NULL),
+(40, 'Chastity Pratt', 'elit.elit@auguescelerisquemollis.net', '29082581', 'DJB75LAF2ER', 1, '2020-04-23 11:43:15', 1, 19, 4, 351, NULL, 3406616815, NULL),
+(41, 'Julian Reilly', 'nunc@etnetus.net', '45384484', 'GCL13TLJ6PX', 1, '2020-05-27 12:08:20', 2, 23, 11, 413, NULL, 7294629686, NULL),
+(42, 'Kane Wolfe', 'ante@Vivamussit.net', '92900822', 'VRO60QRU6KA', 1, '2020-04-14 18:19:10', 1, 22, 12, 359, NULL, 7785532930, NULL),
+(43, 'Indira Tyler', 'scelerisque.sed@sedduiFusce.co.uk', '66089774', 'ETA55YPK4IA', 1, '2020-04-23 17:31:00', 1, 11, 2, 3, NULL, 8503885607, NULL),
+(44, 'Larissa Diaz', 'cubilia.Curae.Donec@ornaresagittisfelis.edu', '94275113', 'ECO74JEX9CC', 1, '2020-01-29 02:46:56', 1, 1, 11, 217, NULL, 5335153387, NULL),
+(45, 'Marsden Nunez', 'nulla.magna@non.co.uk', '30475103', 'OVA18ZCQ0RX', 1, '2020-04-04 11:45:52', 1, 1, 11, 461, NULL, 6602734968, NULL),
+(48, 'September Farley', 'Donec.luctus@Quisquepurus.co.uk', '27770993', 'IVH05CGQ7JQ', 1, '2020-05-06 13:55:09', 1, 15, 7, 338, NULL, 9742085055, NULL),
+(51, 'Gavin Aguirre', 'Quisque.porttitor@feugiatnon.org', '71366703', 'EVI24CPB1ZR', 1, '2020-06-08 23:12:35', 1, 9, 5, 431, NULL, 7626752063, NULL),
+(52, 'Carol Freeman', 'sapien@litoratorquentper.net', '12924216', 'HIH87VJP9JN', 1, '2020-03-06 04:20:12', 2, 4, 5, 319, NULL, 1728533928, NULL),
+(55, 'Coby Walton', 'montes.nascetur.ridiculus@molestietellus.org', '39637558', 'QGP92JYD3DR', 1, '2020-03-15 11:35:25', 2, 6, 6, 344, NULL, 7635572210, NULL),
+(57, 'Reagan Robbins', 'sapien@egestas.co.uk', '38103543', 'JPJ38ZVI6LJ', 1, '2020-04-29 13:34:33', 2, 10, 10, 236, NULL, 4187990831, NULL),
+(58, 'Joseph Kidd', 'eget@placerataugue.com', '59062643', 'NTI64BRM3YI', 1, '2020-03-31 16:27:39', 2, 2, 5, 281, NULL, 5511278833, NULL),
+(59, 'Stephen Owen', 'Nam.nulla@acturpisegestas.org', '73824837', 'UHW25OEH1XL', 1, '2020-04-10 08:46:07', 1, 3, 6, 296, NULL, 1665996935, NULL),
+(61, 'Signe Everett', 'pede@eu.net', '90748431', 'RUC34AJM9KC', 1, '2020-03-26 19:49:34', 1, 5, 6, 13, NULL, 1613483437, NULL),
+(62, 'Jolie Golden', 'gravida.molestie@bibendumsed.net', '59662926', 'DCQ48JPH4VX', 1, '2020-05-07 07:47:56', 1, 6, 3, 505, NULL, 4595742988, NULL),
+(64, 'Laura Gillespie', 'sagittis.Duis.gravida@idblandit.co.uk', '32549800', 'VMT38DSN5CM', 1, '2020-03-31 11:21:27', 2, 18, 5, 111, NULL, 5161277259, NULL),
+(65, 'Vielka Wheeler', 'turpis.egestas.Aliquam@malesuadaut.co.uk', '85564528', 'HMD84OXX5MC', 1, '2020-01-17 12:59:07', 1, 18, 3, 431, NULL, 3414848069, NULL),
+(66, 'Mannix Oneil', 'amet@augueacipsum.co.uk', '91923343', 'UUT64XJQ5CI', 1, '2020-05-28 22:32:17', 2, 24, 4, 588, NULL, 8163648449, NULL),
+(67, 'Lester Holcomb', 'sapien.imperdiet.ornare@dolorNulla.net', '81693620', 'UYI76TRZ2HP', 1, '2020-01-16 23:16:33', 1, 8, 10, 26, NULL, 1348469197, NULL),
+(69, 'Fay Fuentes', 'fermentum.fermentum@Maurismolestie.org', '78738827', 'AKF00AUC0GK', 1, '2020-02-08 23:04:59', 1, 25, 6, 521, NULL, 4114956633, NULL),
+(71, 'Linus Fleming', 'Cras.convallis.convallis@viverra.com', '64886672', 'EQN57BMC7OR', 1, '2020-02-08 23:35:43', 1, 19, 2, 81, NULL, 7102879357, NULL),
+(72, 'Cole Fuller', 'Phasellus@lorem.net', '21157487', 'NGQ00TEZ1MH', 1, '2020-02-27 03:48:46', 2, 14, 4, 484, NULL, 3283898991, NULL),
+(73, 'Dalton Allen', 'dolor.elit@laciniaSed.edu', '34121791', 'FFN27QFW7KX', 1, '2020-05-11 23:37:14', 1, 4, 5, 421, NULL, 8543973943, NULL),
+(74, 'Harriet Mccall', 'eros@acliberonec.edu', '97937651', 'JGA15NLE3QP', 1, '2020-04-29 22:36:23', 2, 2, 6, 119, NULL, 2417924683, NULL),
+(75, 'Fitzgerald Lloyd', 'sociis.natoque.penatibus@utcursusluctus.ca', '81245141', 'YBQ58IWD0OZ', 1, '2020-03-07 02:35:10', 1, 12, 2, 475, NULL, 5849912869, NULL),
+(76, 'Grace Foster', 'suscipit.nonummy@loremeget.ca', '50740778', 'WKO32QCB3PV', 1, '2020-05-28 16:05:10', 1, 12, 6, 584, NULL, 5858388147, NULL),
+(78, 'Reese Glover', 'diam.Pellentesque@Nunc.co.uk', '41838949', 'ZEN06VZI9BG', 1, '2020-04-25 14:03:53', 2, 7, 7, 392, NULL, 7581636606, NULL),
+(79, 'Amber Mccray', 'in.tempus@egestasrhoncus.ca', '14487722', 'UIF46HWZ6GP', 1, '2020-03-21 07:24:17', 2, 12, 11, 360, NULL, 3759577112, NULL),
+(81, 'Gage Decker', 'penatibus@ullamcorperviverra.edu', '31753760', 'VYH49XEG0IT', 1, '2020-03-09 16:38:56', 1, 25, 1, 196, NULL, 4074468011, NULL),
+(82, 'Portia Bradford', 'ornare.In.faucibus@elitsedconsequat.org', '50985068', 'PKQ47NWE6RC', 1, '2020-03-27 17:42:58', 2, 19, 7, 445, NULL, 7964641704, NULL),
+(83, 'Melvin Lane', 'dui.Cum@Curabiturdictum.edu', '78446864', 'OQQ55QSX3MY', 1, '2020-02-03 21:20:43', 1, 20, 7, 355, NULL, 9681732497, NULL),
+(85, 'Davis Bush', 'Quisque.libero.lacus@malesuada.org', '75985022', 'HCD02YVE9TW', 1, '2020-03-23 07:41:29', 2, 22, 7, 89, NULL, 2084205573, NULL),
+(86, 'Ivy Houston', 'egestas@eu.com', '71037292', 'CRU82JHG3PM', 1, '2020-01-11 12:24:48', 1, 18, 10, 325, NULL, 6034515317, NULL),
+(87, 'Mohammad Bullock', 'dolor.sit.amet@vitaedolor.com', '79481935', 'MDJ10CKS2XX', 1, '2020-01-31 21:22:55', 1, 12, 2, 356, NULL, 7794746060, NULL),
+(88, 'Caldwell Newman', 'et.rutrum@luctuslobortis.co.uk', '91285042', 'RVJ32SUY1GL', 1, '2020-02-26 08:41:02', 1, 16, 8, 278, NULL, 4111206966, NULL),
+(89, 'Declan Kidd', 'ornare.elit@Maecenasiaculisaliquet.com', '81727782', 'QCK91ADK2OP', 1, '2020-06-04 18:53:49', 2, 22, 4, 557, NULL, 4099471584, NULL),
+(90, 'Ira Barton', 'scelerisque.mollis@fringilla.edu', '79697845', 'PQT43ASZ0OK', 1, '2020-03-18 12:31:35', 2, 20, 2, 337, NULL, 7334034110, NULL),
+(92, 'Jin Whitley', 'Etiam.gravida.molestie@orciadipiscingnon.net', '98583763', 'JON55JSR1HJ', 1, '2020-02-07 20:47:51', 1, 14, 7, 459, NULL, 7445990551, NULL),
+(94, 'Britanni Atkins', 'a.enim.Suspendisse@ullamcorperDuiscursus.co.uk', '51431411', 'RBX35QCB5UJ', 1, '2020-01-28 08:54:14', 1, 8, 10, 217, NULL, 4983270576, NULL),
+(95, 'Stacey Cummings', 'a.facilisis@morbi.net', '21999057', 'DXP63JQO1MC', 1, '2020-04-15 04:03:27', 1, 8, 5, 123, NULL, 6919831773, NULL),
+(96, 'Ainsley Holland', 'sem@euismodetcommodo.net', '95514636', 'NCV93GYV8PN', 1, '2020-05-31 04:45:24', 2, 7, 6, 102, NULL, 1063781799, NULL),
+(97, 'Lael Henderson', 'sem@fringilla.edu', '81937551', 'ZTQ03FOE6SD', 1, '2020-01-21 02:26:22', 1, 5, 11, 136, NULL, 3288737886, NULL),
+(98, 'Rina Gregory', 'gravida.sagittis.Duis@enimcommodo.org', '70222191', 'MLK16MDJ2EP', 1, '2020-01-18 03:58:48', 1, 1, 11, 92, NULL, 8408747811, NULL),
+(99, 'Lyle Battle', 'dui.Fusce@faucibusorci.net', '45855661', 'PWV82FTV6WA', 1, '2020-06-01 01:35:33', 1, 15, 5, 484, NULL, 8797847198, NULL),
+(100, 'Quinlan Molina', 'ac.eleifend@aptent.com', '83563851', 'JMJ86WVT1CY', 1, '2020-06-07 23:12:05', 2, 23, 5, 566, NULL, 9341907282, NULL),
+(101, 'Lacota Maddox', 'tellus.faucibus@sit.com', '77910447', 'TVV59ROP1VG', 1, '2020-02-15 07:48:23', 1, 19, 4, 119, NULL, 6736246758, NULL),
+(105, 'Demetrius Ross', 'eget.dictum@nequenonquam.net', '91874245', 'KIK42BIG0AU', 1, '2020-01-07 23:58:59', 1, 5, 11, 320, NULL, 6592531361, NULL),
+(107, 'Jenna Blake', 'penatibus.et@nisl.ca', '13872409', 'BPA49HOL0ZG', 2, '2020-03-01 17:56:42', 2, 5, 7, 462, NULL, 1674488232, NULL),
+(108, 'Graiden Sexton', 'sit@orciUtsagittis.com', '57787043', 'EDU74VNY5LU', 1, '2020-04-21 06:47:20', 1, 25, 8, 504, NULL, 2033426983, NULL),
+(110, 'Rogan Ryan', 'Donec.non@velvenenatis.co.uk', '59549674', 'WGO63FOK6PT', 1, '2020-05-12 13:54:49', 2, 19, 5, 488, NULL, 9576848387, NULL),
+(111, 'Jillian Guerrero', 'Nunc.pulvinar@cursus.com', '11935981', 'MPW75LMQ8FU', 1, '2020-04-01 06:56:46', 2, 9, 3, 210, NULL, 3798405767, NULL),
+(112, 'Claudia Brennan', 'volutpat.nunc@consectetuer.net', '25432854', 'AHP80HHW9YY', 3, '2020-04-11 10:26:26', 1, 12, 1, 286, NULL, 4741073829, NULL),
+(113, 'Kaden Baker', 'consectetuer.cursus@liberoet.ca', '27223237', 'VHH44MRP7JL', 1, '2020-01-06 16:39:57', 1, 4, 8, 112, NULL, 9805601437, NULL),
+(114, 'Lara Pruitt', 'eu.augue@velturpisAliquam.edu', '36815876', 'DUX52RGV6TU', 1, '2020-04-20 17:02:40', 2, 20, 10, 72, NULL, 6087737145, NULL),
+(116, 'Inez Garcia', 'aptent@urnaet.net', '29605500', 'DSX67JXY6DC', 1, '2020-05-20 04:16:09', 2, 21, 3, 304, NULL, 4317234998, NULL),
+(117, 'Leonard Dickerson', 'conubia.nostra@nonmassa.net', '25857461', 'CKP47EOR7BX', 1, '2020-03-23 22:15:23', 2, 18, 3, 271, NULL, 6247881063, NULL),
+(118, 'Kevin Heath', 'dictum.cursus@Curabitur.org', '94852282', 'QNJ68CZZ2JL', 1, '2020-05-03 21:44:06', 1, 14, 5, 169, NULL, 7218585668, NULL),
+(119, 'Slade Crane', 'Donec@Vestibulumante.net', '71390206', 'PDZ55STQ7CF', 1, '2020-05-05 23:46:08', 2, 7, 2, 416, NULL, 5522163087, NULL),
+(120, 'Vivian May', 'blandit@odio.net', '26630098', 'KLZ44RBV7WN', 1, '2020-01-04 15:24:02', 1, 24, 1, 179, NULL, 7111074277, NULL),
+(121, 'Uta Robbins', 'semper@temporaugue.co.uk', '42771663', 'DTT08CPG2YB', 1, '2020-01-05 05:20:27', 1, 13, 6, 590, NULL, 2767464804, NULL),
+(122, 'Kameko Aguirre', 'euismod@Praesenteunulla.edu', '42527432', 'OID94GGL5RM', 1, '2020-05-21 00:14:29', 2, 25, 10, 566, NULL, 3652211421, NULL),
+(123, 'Oliver Serrano', 'volutpat.nunc@elitAliquamauctor.org', '72153788', 'DSH54DVL4DE', 1, '2020-01-09 01:07:22', 1, 22, 12, 438, NULL, 6712838836, NULL),
+(126, 'matheus mouraa', 'Matheusmpinh@Outlook.com', '20867008', '$2y$10$TaDiHuMvhoADSOrjNYuCceMo7StrWtPi4xsnd8NLJNsDZaaYVoW4S', 1, '2020-06-10 23:59:50', 1, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1197,8 +1206,8 @@ INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, 
 --
 
 CREATE TABLE `verifica` (
-  `user_id` int(11) NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1373,109 +1382,109 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `area_estudo`
 --
 ALTER TABLE `area_estudo`
-  MODIFY `id_area` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id_area` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de tabela `avaliacao_postagem`
 --
 ALTER TABLE `avaliacao_postagem`
-  MODIFY `id_avaliacao` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_avaliacao` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `categoria_postagem`
 --
 ALTER TABLE `categoria_postagem`
-  MODIFY `id_categoria` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_categoria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `check_denuncia`
 --
 ALTER TABLE `check_denuncia`
-  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_denuncia` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `check_denuncia_comentarios`
 --
 ALTER TABLE `check_denuncia_comentarios`
-  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_denuncia` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id_comentarios` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_comentarios` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `img_postagem`
 --
 ALTER TABLE `img_postagem`
-  MODIFY `id_img` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_img` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `instituicao_ensino`
 --
 ALTER TABLE `instituicao_ensino`
-  MODIFY `id_instituicao` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_instituicao` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `like_comentarios`
 --
 ALTER TABLE `like_comentarios`
-  MODIFY `id_likes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_likes` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `like_postagens`
 --
 ALTER TABLE `like_postagens`
-  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_like` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `motivo_denuncia`
 --
 ALTER TABLE `motivo_denuncia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `nivel_acesso`
 --
 ALTER TABLE `nivel_acesso`
-  MODIFY `id_nivel` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_nivel` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `postagens`
 --
 ALTER TABLE `postagens`
-  MODIFY `id_postagem` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id_postagem` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT de tabela `regiao_cidade`
 --
 ALTER TABLE `regiao_cidade`
-  MODIFY `id_regiao_cidade` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=591;
+  MODIFY `id_regiao_cidade` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=591;
 
 --
 -- AUTO_INCREMENT de tabela `regiao_estado`
 --
 ALTER TABLE `regiao_estado`
-  MODIFY `id_regiao_estado` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_regiao_estado` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de tabela `situacao_postagem`
 --
 ALTER TABLE `situacao_postagem`
-  MODIFY `id_situacao_postagem` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_situacao_postagem` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `situacao_usuario`
 --
 ALTER TABLE `situacao_usuario`
-  MODIFY `id_situacao_usuario` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_situacao_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
 -- Restrições para despejos de tabelas
