@@ -47,7 +47,9 @@ class UserController extends Controller
                 SELECT id_estado from regiao_cidade where id_regiao_cidade = :cidade
                 )' , ['cidade' => $user_cidade]),
 
-            'img' => Auth::user()->img_usuarios,
+            'img_perfil' => Auth::user()->img_usuarios,
+
+            'img_capa' => Auth::user()->img_capa,
 
             'posts' => DB::table('postagens')
                     ->join('categoria_postagem','categoria_postagem.id_categoria', '=', 'postagens.id_categoria' )
@@ -55,7 +57,7 @@ class UserController extends Controller
                     ->where('id_usuarios', $user_id)
                     ->select('categoria_postagem.*', 'postagens.*', 'situacao_postagem.*')
                     ->orderBy('postagens.id_postagem', 'asc')
-                    ->paginate(5),
+                    ->get(),
 
             'date' => DB::table('postagens')
                     ->where('id_usuarios', $user_id)
@@ -163,7 +165,9 @@ class UserController extends Controller
                     SELECT id_estado from regiao_cidade where id_regiao_cidade = :cidade
                     )' , ['cidade' => $dados_usr->id_regiao_cidade]),
 
-                'img' => $dados_usr->img_usuarios,
+                'img_perfil' => $dados_usr->img_usuarios,
+
+                'img_capa' => $dados_usr->img_capa,
 
                 'posts' => DB::table('postagens')
                         ->join('categoria_postagem','categoria_postagem.id_categoria', '=', 'postagens.id_categoria' )
@@ -341,6 +345,30 @@ class UserController extends Controller
                                 ->back()
                                 ->with('error', 'Erro ao fazer upload de imagem');
         }
+
+        $data['img_capa'] = $user->img_capa;
+        if($request->hasFile('img_capa') && $request->file('img_capa')->isValid()) {
+            if($user->img_capa)
+                $name = $user->img_capa;
+            else
+                $name = $user->id.Str::kebab($user->usuario);
+            
+            $extenstion = $request->img_capa->extension();
+            $nameFile = "{$name}.{$extenstion}";
+
+            $data['img_capa'] = $nameFile;
+
+            $upload = $request->img_capa->storeAs('users_capa', $nameFile);
+
+            Storage::disk('public')->delete('users_capa/'.Auth::user()->img_capa);
+
+            if(!$upload)
+                return redirect()
+                                ->back()
+                                ->with('error', 'Erro ao fazer upload de imagem');
+        }
+
+        //dd($data);
 
         $update = $user->update($data);
 

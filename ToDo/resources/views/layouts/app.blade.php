@@ -77,7 +77,7 @@ $denuncia = Session::get('denuncia');
   </nav> 
   <!--||Fim Nav bar||-->
 
-  <div class="fundo">
+  <div class="fundo" style="background-color: #E5E5E5">
     <!-- Puxa o arquivo home dentro da div-->
     <div class="flex justify-content-md-center">
     <br>

@@ -130,7 +130,7 @@
   border-bottom: 1px solid #dee2e6;
   border-top-left-radius: calc(0.3rem - 1px);
   border-top-right-radius: calc(0.3rem - 1px);
-  background-color: black;
+  background-color: #3490dc;
 }
 
 .modal-header .close {
@@ -147,9 +147,7 @@
 .modal-body {
   position: relative;
   flex: 1 1 auto;
-  padding: 1rem;
-  background-color: darkgray;
-  background-image: url("img/texture.png");
+  background-color: rgb(226, 226, 226);
 }
 
 .modal-footer {
@@ -222,22 +220,98 @@
 }
 
 #area_principal {
-  margin-top: 0px;
+  width: 1150px;
+  margin-top: 20px;
+  margin-bottom: auto;
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
 }
+
+#area_capa {
+  width: 100%;
+  height: 270px;
+  position: absolute;
+  margin: 0px;
+}
+
+#area_capa_edit {
+  width: 100%;
+  height: 250px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin: 0px;
+}
+
+.area_dados_edit {
+  width: 100%;
+  position: relative;
+  margin-top: 140px;
+  top: 0px;
+  left: 0px;
+  background-color: transparent;
+}
+
+#img_capa {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  object-fit: cover;
+}
+
+.img_capa {
+  width: 100%;
+  height: 200px;
+
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  object-fit: cover;
+}
+
 
 #area-dados {
   position: relative;
-  width: 63%;
-  background-color: darkgray;
-  background-image: url("img/texture.png");
-  border: 2px solid black;
-  margin-left: auto;
+  width: 40%;
+  background-color: transparent;
+  margin-left: 0px;
   margin-right: auto;
   padding: 10px;
-  border-radius: 5px;
-  display: block;
+  display: inline-block;
   margin-bottom: 0px;
-  box-shadow: 10px 10px 10px #999;
+  margin-top: 160px;
+}
+
+.divisao-conta {
+  display: inline-block;
+  border: 1px solid gray;
+  width: 1px;
+  height: 450px;
+  background-color: violet;
+  vertical-align: top;
+  margin: 310px 0px 0px 0px;
+}
+
+.img_perfil {
+  position: relative;
+}
+
+.icon_cam {
+  position: absolute;
+  bottom: 15px;
+  left: 285px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50px;
+  height: 40px;
+  border-radius: 15%;
+  background-color: rgb(141, 141, 141);
+  align-items: center;
+  align-content: center;
 }
 
 .fa {
@@ -250,8 +324,11 @@
 }
 
 #area_ideias {
-
-  margin-top: 30px;
+  vertical-align: top;
+  display: inline-block;
+  margin-left: 30px;
+  margin-top: 270px;
+  width: 55%;
 }
 
 .margin {
@@ -266,28 +343,43 @@
 #h1conta {
   position: relative;
   width: 200px;
-  background-color: darkgray;
-  text-align: center;
-  padding: 10px;
-  border: 1px solid black;
-  border-radius: 10px;
+  text-align: left;
+  margin-left: 0px;
+  margin-right: auto;
+  font-weight: bold;
+}
+
+.edit_perfil {
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 3px 3px 3px #999;
 }
 
 #table_conta {
-  width: 80%;
-  height: 200px;
-  border: 1px solid black;
-  margin-left: auto;
+  width: 90%;
+  border-bottom: #3490dc 3px solid;
+  margin-left: 15px;
   margin-right: auto;
-  border: 5px solid #8d9094;
+  border-radius: 10px 10px 0 0;
+  overflow: scroll;
+  min-height: 150px;
+}
+
+.scroll_table {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+#table_conta tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+#table_conta tbody tr:last-of-type {
+  border-bottom:  #3490dc 4px solid;
 }
 
 
 thead {
-  background-color: rgb(221, 221, 221);
+  background-color: #3490dc;
+  color: white;
 }
 
 th, td {
@@ -587,7 +679,7 @@ input[type='file'] {
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  border: 2px inset #B3FF00;
+  border: 2px inset #ffffff;
   overflow: hidden;
   max-width: 100%;
   -moz-transition: all 0.3s;
@@ -609,7 +701,7 @@ input[type='file'] {
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  border: 2px inset #B3FF00;
+  border: 2px inset #ffff;
 }
 
 .img-dados-coment {
@@ -880,7 +972,7 @@ input[type='file'] {
 
 .dados-pessoais {
   position: relative;
-  width: 47%;
+  width: 95%;
   display: inline-block;
   margin: 10px 0% 10px 2%;
   border: 1px solid black;
