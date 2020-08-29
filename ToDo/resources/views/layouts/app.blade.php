@@ -18,6 +18,7 @@ $denuncia = Session::get('denuncia');
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>ToDo Ideias</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}" defer></script>
@@ -25,6 +26,8 @@ $denuncia = Session::get('denuncia');
   <script type="text/javascript" src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
   <script type="text/javascript" src="{{ asset('js/funcoes.js') }}"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -38,12 +41,13 @@ $denuncia = Session::get('denuncia');
 </head>
 <body>
   <!-- ||Nav Bar||  -->
-  <nav class="navbar navbar-expand-lg cor">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <img width="6.6%" src="{{asset('img/ToDo.png')}}">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse justify-content-md-center" id="navbarNavDropdown">
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="nav navbar-nav ml-auto">
         <li style="padding-right:22px" class="nav-item active">
           <div class="form-inline my-2 my-lg-0">
@@ -73,8 +77,7 @@ $denuncia = Session::get('denuncia');
           </div>
         </li>
       </ul>
-    <div>
-  </nav> 
+  </nav>
   <!--||Fim Nav bar||-->
 
   <div class="fundo" style="background-color: #E5E5E5">
