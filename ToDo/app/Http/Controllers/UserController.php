@@ -389,8 +389,51 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy_perfil()
     {
-        //
+        $user = Auth::user()->id;
+
+        $search = DB::table('usuarios')
+                        ->where('id', $user)
+                        ->pluck('img_usuarios');
+
+        $delete = Storage::disk('public')->delete('users/'.Auth::user()->img_usuarios);
+
+        $remove = DB::table('usuarios')
+                            ->where('id', $user)
+                            ->update(['img_usuarios' => null]);
+
+        if($remove)
+            return redirect()
+                        ->route('conta');
+
+        if($search[0] === null)
+            return redirect()
+                    ->route('conta')
+                    ->with('error', 'O usuário não tem foto para apagar!');
+    }
+
+    public function destroy_capa()
+    {
+        $user = Auth::user()->id;
+
+        $search = DB::table('usuarios')
+                        ->where('id', $user)
+                        ->pluck('img_capa');
+
+        $delete = Storage::disk('public')->delete('users_capa/'.Auth::user()->img_capa);
+        
+        $remove = DB::table('usuarios')
+                            ->where('id', $user)
+                            ->update(['img_capa' => null]);
+
+        if($remove)
+            return redirect()
+                        ->route('conta');
+
+        if($search[0] === null)
+            return redirect()
+                    ->route('conta')
+                    ->with('error', 'O usuário não tem capa para apagar!');
     }
 }

@@ -9,13 +9,13 @@ $nivel = Auth::user()->nivel;
 @section('content')
 
         @if(session('success'))
-          <div class="alert alert-success">
+          <div class="alert alert-success text-center">
             {{ session('success') }}
           </div>
         @endif
 
         @if(session('error'))
-          <div class="alert alert-danger">
+          <div class="alert alert-danger text-center">
             {{ session('error') }}
           </div>
         @endif
@@ -24,7 +24,7 @@ $nivel = Auth::user()->nivel;
       <div id="area_principal">
         <div id="area_capa">
           @if($dados['img_capa'] === null)
-            <img class="img_capa" src="{{asset('img/fundo_azul.jpg')}}">
+            <img id="img_capa" src="{{asset('img/fundo_azul.jpg')}}">
           @else
             <img id="img_capa" src="{{url('/ToDo/storage/app/public/users_capa/'.Auth::user()->img_capa)}}">
           @endif
@@ -198,7 +198,7 @@ $nivel = Auth::user()->nivel;
                   @csrf
                       <div id="area_capa_edit">
                         @if($dados['img_capa'] === null)
-                          <img class="img_capa" src="{{asset('img/fundo_azul.jpg')}}">
+                          <img id="img_capa" src="{{asset('img/fundo_azul.jpg')}}">
                         @else
                           <img id="img_capa" src="{{url('/ToDo/storage/app/public/users_capa/'.Auth::user()->img_capa)}}">
                         @endif
@@ -210,7 +210,6 @@ $nivel = Auth::user()->nivel;
                             <img width="150px" name="img_usuarios" class="img" src="{{asset('img/semuser.png')}}">  
                           @else
                             <img width="200px" alt="{{ Auth::user()->img_usuarios }}" name="img_usuarios" class="img" src="{{url('/ToDo/storage/app/public/users/'.Auth::user()->img_usuarios)}}">
-                            {{-- <button class="icon_cam" type=""><span class="fas fa-camera"></span></button> --}}
                           @endif
                           <div class="dropdown" style="position: absolute">
                             <button class="btn btn-secondary dropdown-toggle icon_cam" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -230,6 +229,10 @@ $nivel = Auth::user()->nivel;
                                 <input name="img_capa" type="file" style="display: none; cursor: pointer;" accept="image/jpeg, image/png, image/svg">
                                 <a name="img_capa" class="dropdown-item">Alterar foto da capa</a>
                               </label>
+                              <div class="dropdown-divider"></div>
+
+                              <a class="dropdown-item" href="{{route('remove_perfil')}}">Remover foto de perfil</a>
+                              <a class="dropdown-item" href="{{route('remove_capa')}}">Remover foto da capa</a>
                             </div>
                           </div>
                         </div>                      

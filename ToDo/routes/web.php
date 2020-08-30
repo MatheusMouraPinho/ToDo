@@ -69,6 +69,10 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() { 
 
     Route::post('/avaliar_aval', 'AdminController@avaliar')->middleware('avaliador');
 
+    Route::get('/remove_capa', 'UserController@destroy_capa')->name('remove_capa');
+
+    Route::get('/remove_perfil', 'UserController@destroy_perfil')->name('remove_perfil');
+
 });
 
 Route::group(['middleware' => ['auth', 'verified', 'Altorizado', 'admin']], function() {
