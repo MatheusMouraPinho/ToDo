@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5deb2
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Tempo de geração: 28-Ago-2020 às 21:31
--- Versão do servidor: 8.0.21-0ubuntu0.20.04.4
--- versão do PHP: 7.4.3
+-- Host: 127.0.0.1
+-- Tempo de geração: 29-Ago-2020 às 04:00
+-- Versão do servidor: 10.4.8-MariaDB
+-- versão do PHP: 7.3.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,9 +31,9 @@ USE `repositorio_de_ideias`;
 --
 
 CREATE TABLE `area_estudo` (
-  `id_area` int NOT NULL,
+  `id_area` int(11) NOT NULL,
   `nome_area` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `area_estudo`
@@ -100,23 +100,22 @@ INSERT INTO `area_estudo` (`id_area`, `nome_area`) VALUES
 --
 
 CREATE TABLE `avaliacao_postagem` (
-  `id_avaliacao` int NOT NULL,
-  `id_postagem` int NOT NULL,
-  `id_usuario` int NOT NULL,
+  `id_avaliacao` int(11) NOT NULL,
+  `id_postagem` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
   `inovacao_avaliacao` double NOT NULL,
   `complexidade_avaliacao` double NOT NULL,
   `potencial_avaliacao` double NOT NULL,
   `media_avaliacao` double NOT NULL,
-  `id_avaliador` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id_avaliador` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `avaliacao_postagem`
 --
 
 INSERT INTO `avaliacao_postagem` (`id_avaliacao`, `id_postagem`, `id_usuario`, `inovacao_avaliacao`, `complexidade_avaliacao`, `potencial_avaliacao`, `media_avaliacao`, `id_avaliador`) VALUES
-(1, 38, 24, 4, 5, 5, 4.6666666666667, 12),
-(2, 39, 24, 9, 7, 6, 7.3333333333333, 12);
+(1, 38, 24, 4, 5, 5, 4.6666666666667, 12);
 
 -- --------------------------------------------------------
 
@@ -125,9 +124,9 @@ INSERT INTO `avaliacao_postagem` (`id_avaliacao`, `id_postagem`, `id_usuario`, `
 --
 
 CREATE TABLE `categoria_postagem` (
-  `id_categoria` int NOT NULL,
+  `id_categoria` int(11) NOT NULL,
   `categoria_postagem` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `categoria_postagem`
@@ -147,10 +146,10 @@ INSERT INTO `categoria_postagem` (`id_categoria`, `categoria_postagem`) VALUES
 --
 
 CREATE TABLE `check_denuncia` (
-  `id_denuncia` int NOT NULL,
-  `id_postagem` int DEFAULT NULL,
-  `id_usuario` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id_denuncia` int(11) NOT NULL,
+  `id_postagem` int(11) DEFAULT NULL,
+  `id_usuario` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -159,10 +158,10 @@ CREATE TABLE `check_denuncia` (
 --
 
 CREATE TABLE `check_denuncia_comentarios` (
-  `id_denuncia` int NOT NULL,
-  `id_comentario` int DEFAULT NULL,
-  `id_usuario` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id_denuncia` int(11) NOT NULL,
+  `id_comentario` int(11) DEFAULT NULL,
+  `id_usuario` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -171,17 +170,17 @@ CREATE TABLE `check_denuncia_comentarios` (
 --
 
 CREATE TABLE `comentarios` (
-  `id_comentarios` int NOT NULL,
-  `id_avaliacao` int DEFAULT NULL,
-  `id_usuarios` int NOT NULL,
-  `id_postagem` int NOT NULL,
+  `id_comentarios` int(11) NOT NULL,
+  `id_avaliacao` int(11) DEFAULT NULL,
+  `id_usuarios` int(11) NOT NULL,
+  `id_postagem` int(11) NOT NULL,
   `conteudo_comentarios` varchar(255) NOT NULL,
   `data_comentarios` datetime NOT NULL,
-  `likes_comentarios` int NOT NULL DEFAULT '0',
+  `likes_comentarios` int(11) NOT NULL DEFAULT 0,
   `edit_comentarios` datetime DEFAULT NULL,
-  `id_mencionado` int DEFAULT NULL,
-  `id_comentarios_ref` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id_mencionado` int(11) DEFAULT NULL,
+  `id_comentarios_ref` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `comentarios`
@@ -189,10 +188,8 @@ CREATE TABLE `comentarios` (
 
 INSERT INTO `comentarios` (`id_comentarios`, `id_avaliacao`, `id_usuarios`, `id_postagem`, `conteudo_comentarios`, `data_comentarios`, `likes_comentarios`, `edit_comentarios`, `id_mencionado`, `id_comentarios_ref`) VALUES
 (1, 1, 24, 38, 'Uma boa ideia Vinicius', '2020-06-08 20:21:25', 0, NULL, NULL, NULL),
-(2, 2, 24, 39, 'Otimo!', '2020-06-08 20:24:29', 1, NULL, NULL, NULL),
 (3, NULL, 12, 38, 'Gostei da ideia', '2020-06-08 20:25:36', 2, NULL, NULL, NULL),
-(4, NULL, 25, 38, 'Tivemos uma ideia parecida semestre passado', '2020-06-08 20:26:24', 1, NULL, NULL, NULL),
-(6, NULL, 12, 39, 'teste', '2020-06-10 17:31:18', 0, '2020-06-10 17:58:24', NULL, NULL);
+(4, NULL, 25, 38, 'Tivemos uma ideia parecida semestre passado', '2020-06-08 20:26:24', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -201,11 +198,11 @@ INSERT INTO `comentarios` (`id_comentarios`, `id_avaliacao`, `id_usuarios`, `id_
 --
 
 CREATE TABLE `denuncias` (
-  `id_denuncia` int NOT NULL,
-  `id_postagem` int DEFAULT NULL,
-  `id_motivo` int DEFAULT NULL,
-  `quantidade` int NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id_denuncia` int(11) NOT NULL,
+  `id_postagem` int(11) DEFAULT NULL,
+  `id_motivo` int(11) DEFAULT NULL,
+  `quantidade` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -214,11 +211,11 @@ CREATE TABLE `denuncias` (
 --
 
 CREATE TABLE `denuncias_comentarios` (
-  `id_denunciacomentario` int NOT NULL,
-  `id_comentario` int DEFAULT NULL,
-  `id_motivo` int DEFAULT NULL,
-  `quantidade` int NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id_denunciacomentario` int(11) NOT NULL,
+  `id_comentario` int(11) DEFAULT NULL,
+  `id_motivo` int(11) DEFAULT NULL,
+  `quantidade` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -227,10 +224,10 @@ CREATE TABLE `denuncias_comentarios` (
 --
 
 CREATE TABLE `img_postagem` (
-  `id_img` int NOT NULL,
-  `id_postagem` int NOT NULL,
-  `img_post` longblob
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id_img` int(11) NOT NULL,
+  `id_postagem` int(11) NOT NULL,
+  `img_post` longblob DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `img_postagem`
@@ -256,10 +253,10 @@ INSERT INTO `img_postagem` (`id_img`, `id_postagem`, `img_post`) VALUES
 --
 
 CREATE TABLE `instituicao_ensino` (
-  `id_instituicao` int NOT NULL,
+  `id_instituicao` int(11) NOT NULL,
   `nome_instituicao` varchar(100) NOT NULL,
   `sigla_instituicao` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `instituicao_ensino`
@@ -286,10 +283,10 @@ INSERT INTO `instituicao_ensino` (`id_instituicao`, `nome_instituicao`, `sigla_i
 --
 
 CREATE TABLE `like_comentarios` (
-  `id_likes` int NOT NULL,
-  `id_comentarios` int NOT NULL,
-  `id_usuarios` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id_likes` int(11) NOT NULL,
+  `id_comentarios` int(11) NOT NULL,
+  `id_usuarios` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `like_comentarios`
@@ -298,8 +295,7 @@ CREATE TABLE `like_comentarios` (
 INSERT INTO `like_comentarios` (`id_likes`, `id_comentarios`, `id_usuarios`) VALUES
 (1, 3, 25),
 (2, 4, 17),
-(3, 3, 17),
-(4, 2, 17);
+(3, 3, 17);
 
 -- --------------------------------------------------------
 
@@ -308,10 +304,10 @@ INSERT INTO `like_comentarios` (`id_likes`, `id_comentarios`, `id_usuarios`) VAL
 --
 
 CREATE TABLE `like_postagens` (
-  `id_like` int NOT NULL,
-  `id_postagens` int NOT NULL,
-  `id_usuarios` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id_like` int(11) NOT NULL,
+  `id_postagens` int(11) NOT NULL,
+  `id_usuarios` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `like_postagens`
@@ -322,7 +318,6 @@ INSERT INTO `like_postagens` (`id_like`, `id_postagens`, `id_usuarios`) VALUES
 (2, 38, 12),
 (4, 37, 25),
 (5, 40, 25),
-(6, 39, 17),
 (7, 40, 17),
 (8, 38, 17),
 (9, 37, 17);
@@ -334,9 +329,9 @@ INSERT INTO `like_postagens` (`id_like`, `id_postagens`, `id_usuarios`) VALUES
 --
 
 CREATE TABLE `motivo_denuncia` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `motivo` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `motivo_denuncia`
@@ -354,9 +349,9 @@ INSERT INTO `motivo_denuncia` (`id`, `motivo`) VALUES
 --
 
 CREATE TABLE `nivel_acesso` (
-  `id_nivel` int NOT NULL,
+  `id_nivel` int(11) NOT NULL,
   `nivel` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `nivel_acesso`
@@ -374,8 +369,8 @@ INSERT INTO `nivel_acesso` (`id_nivel`, `nivel`) VALUES
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -386,16 +381,16 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `postagens` (
-  `id_postagem` int NOT NULL,
-  `id_usuarios` int NOT NULL,
-  `id_situacao_postagem` int NOT NULL DEFAULT '2',
-  `id_categoria` int NOT NULL,
+  `id_postagem` int(11) NOT NULL,
+  `id_usuarios` int(11) NOT NULL,
+  `id_situacao_postagem` int(11) NOT NULL DEFAULT 2,
+  `id_categoria` int(11) NOT NULL,
   `titulo_postagem` varchar(50) NOT NULL,
   `descricao_postagem` text NOT NULL,
-  `likes_postagem` int NOT NULL DEFAULT '0',
+  `likes_postagem` int(11) NOT NULL DEFAULT 0,
   `data_postagem` datetime NOT NULL,
   `media` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `postagens`
@@ -404,17 +399,8 @@ CREATE TABLE `postagens` (
 INSERT INTO `postagens` (`id_postagem`, `id_usuarios`, `id_situacao_postagem`, `id_categoria`, `titulo_postagem`, `descricao_postagem`, `likes_postagem`, `data_postagem`, `media`) VALUES
 (37, 12, 2, 1, 'Big Data Sobre Eleição', 'o Big Data pode ser utilizado para o desenvolvimento de programas e soluções que melhorem o nosso cotidiano, há um segmento que tem recorrido bastante a ele nos últimos tempos: o campo da política. O uso dos dados para campanhas eleitorais não é uma novidades exclusiva deste ano, mas as eleições de 2018 tem aplicado essa análise com muita precisão e, consequentemente, obtendo resultados significativos para as campanhas.', 3, '2020-06-08 18:18:39', NULL),
 (38, 24, 1, 1, 'Arduino robô', 'Os programas em sala de aula do Arduino desenvolvem os alunos pela universidade, aumentando a complexidade para desafiá-los à medida que desenvolvem suas habilidades.\r\n\r\nTodos os programas incluem uma variedade de eletrônicos, como placas programáveis, sensores, peças mecânicas, software simples de código aberto, conteúdo on-line para os alunos e treinamento e suporte orientados para educadores.\r\n\r\nOs produtos com os quais os alunos aprendem são os mesmos usados ​​profissionalmente em empresas de todo o mundo, em aplicações como prototipagem rápida, IA, tecnologia de drones e aprendizado de máquina.', 2, '2020-06-08 18:27:44', 4.66667),
-(39, 24, 1, 1, 'Repositorio de ideias', 'O ToDo é um sistema voltado para a coleta, armazenamento e gestão de ideiais de\r\nsoftwares, de forma a se tormar um repositório, onde qualquer pessoa poderá registrar uma\r\nideia de software. Considera-se “ideia de software” qualquer proposta que venha a surgir de\r\numa inovação, oportunidade, necessidade ou problema.', 1, '2020-06-05 18:38:33', 7.33333),
 (40, 25, 2, 1, 'E-commerce mercado', 'Não é segredo que, ao longo dos anos, o varejo se transformou junto com os clientes. Hoje, as pessoas buscam novas formas de consumir e prezam muito por praticidade e segurança. Comprar pela internet se tornou um hábito cada vez mais comum entre os consumidores: de 2011 até 2017, o faturamento das compras on-line subiu de R$ 18,7 milhões para R$ 47,7 milhões no Brasil.\r\n\r\nO e-commerce brasileiro encerrou 2018 com faturamento de R$ 53,2 bilhões, o que representa uma alta nominal de 12% na comparação anual, de acordo com informações da EbitNielsen. A Associação Brasileira de Comércio Eletrônico (ABComm) estima crescimento de 16% em 2019.\r\n\r\nMas você sabe o que é e-commerce? Usar a internet como canal de vendas e relacionamento com os clientes do seu negócio pode ser uma estratégia bastante lucrativa. Aliás, essa modalidade de venda vem sendo amplamente empregada por comércios do Brasil e do mundo.', 2, '2020-06-08 18:49:46', NULL),
-(41, 17, 2, 1, 'Banco de Talentos', 'O próprio aluno é responsável por se cadastrar e por manter suas informações atualizadas.\r\nO alunos deve ter um local ainda para inserir seu atual cargo ou emprego, colocar imagens e dados de seu portfolio.\r\nNão se trata de uma rede social, portanto, não pode existir meios de comunicação entre as pessoas no sistema. Trata-se apenas de uma base de dados.', 0, '2020-06-08 23:30:42', NULL),
-(54, 17, 2, 2, 'teste3', 'hfgh', 0, '2020-08-26 22:19:48', NULL),
-(55, 17, 2, 2, 'hfghf', 'fhfgh', 0, '2020-08-26 22:20:02', NULL),
-(56, 17, 2, 1, 'fghfgh', 'fghf', 0, '2020-08-26 22:20:09', NULL),
-(57, 17, 2, 4, 'xcvxc', 'xcvxcv', 0, '2020-08-26 22:20:16', NULL),
-(58, 17, 2, 2, 'sdbsv', 'dgsd', 0, '2020-08-26 22:20:25', NULL),
-(59, 17, 2, 5, 'teste3', 'fghfgh', 0, '2020-08-26 22:20:37', NULL),
-(60, 17, 2, 1, 'fghfgh', 'dfgfg', 0, '2020-08-26 22:20:46', NULL),
-(61, 17, 2, 1, 'teste2', 'fghdfgf', 0, '2020-08-26 22:21:05', NULL);
+(41, 17, 2, 1, 'Banco de Talentos', 'O próprio aluno é responsável por se cadastrar e por manter suas informações atualizadas.\r\nO alunos deve ter um local ainda para inserir seu atual cargo ou emprego, colocar imagens e dados de seu portfolio.\r\nNão se trata de uma rede social, portanto, não pode existir meios de comunicação entre as pessoas no sistema. Trata-se apenas de uma base de dados.', 0, '2020-06-08 23:30:42', NULL);
 
 -- --------------------------------------------------------
 
@@ -423,10 +409,10 @@ INSERT INTO `postagens` (`id_postagem`, `id_usuarios`, `id_situacao_postagem`, `
 --
 
 CREATE TABLE `regiao_cidade` (
-  `id_regiao_cidade` int NOT NULL,
-  `id_estado` int NOT NULL,
+  `id_regiao_cidade` int(11) NOT NULL,
+  `id_estado` int(11) NOT NULL,
   `nome_cidade` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `regiao_cidade`
@@ -1018,10 +1004,10 @@ INSERT INTO `regiao_cidade` (`id_regiao_cidade`, `id_estado`, `nome_cidade`) VAL
 --
 
 CREATE TABLE `regiao_estado` (
-  `id_regiao_estado` int NOT NULL,
+  `id_regiao_estado` int(11) NOT NULL,
   `nome_estado` varchar(50) NOT NULL,
   `uf_regiao_estado` varchar(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `regiao_estado`
@@ -1063,9 +1049,9 @@ INSERT INTO `regiao_estado` (`id_regiao_estado`, `nome_estado`, `uf_regiao_estad
 --
 
 CREATE TABLE `situacao_postagem` (
-  `id_situacao_postagem` int NOT NULL,
+  `id_situacao_postagem` int(11) NOT NULL,
   `situacao_postagem` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `situacao_postagem`
@@ -1082,9 +1068,9 @@ INSERT INTO `situacao_postagem` (`id_situacao_postagem`, `situacao_postagem`) VA
 --
 
 CREATE TABLE `situacao_usuario` (
-  `id_situacao_usuario` int NOT NULL,
+  `id_situacao_usuario` int(11) NOT NULL,
   `situacao_usuario` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `situacao_usuario`
@@ -1101,21 +1087,21 @@ INSERT INTO `situacao_usuario` (`id_situacao_usuario`, `situacao_usuario`) VALUE
 --
 
 CREATE TABLE `usuarios` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `usuario` varchar(50) NOT NULL,
   `email` varchar(200) NOT NULL,
   `registro` varchar(11) NOT NULL COMMENT 'Esse campo se refere ao RGM/CPF do usuário',
   `senha` varchar(200) NOT NULL,
-  `nivel` int NOT NULL,
+  `nivel` int(11) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `id_situacao` int NOT NULL DEFAULT '2',
-  `id_area` int DEFAULT NULL,
-  `id_instituicao` int DEFAULT NULL,
-  `id_regiao_cidade` int DEFAULT NULL,
-  `img_usuarios` longblob,
-  `telefone_usuario` bigint DEFAULT NULL,
-  `img_capa` longblob
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id_situacao` int(11) NOT NULL DEFAULT 2,
+  `id_area` int(11) DEFAULT NULL,
+  `id_instituicao` int(11) DEFAULT NULL,
+  `id_regiao_cidade` int(11) DEFAULT NULL,
+  `img_usuarios` longblob DEFAULT NULL,
+  `telefone_usuario` bigint(20) DEFAULT NULL,
+  `img_capa` longblob DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `usuarios`
@@ -1123,7 +1109,7 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `email_verified_at`, `id_situacao`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`, `img_capa`) VALUES
 (12, 'Matheus Moura', 'Matheusmpinho@Outlook.com', '20867000', '$2y$10$rZ0C2fvYHoHI0xA7LOuCFu4FiJqIs1B6GEnAUqUPvf6aq/JZMeOOa', 3, '2000-01-27 04:00:00', 1, 2, 10, 457, NULL, NULL, NULL),
-(17, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', '22132066', '$2y$10$WhwODqAMm.PNYkDrXSBmPekQEPHLE9ep8yCxHE0anlLLpprez6LI6', 3, '2020-05-01 02:23:51', 1, 2, 10, 398, 0x31376a6f6e617468616e2d646961732e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a706567, NULL, 0x31376a6f6e617468616e2d646961732e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a706567),
+(17, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', '22132066', '$2y$10$WhwODqAMm.PNYkDrXSBmPekQEPHLE9ep8yCxHE0anlLLpprez6LI6', 3, '2020-05-01 02:23:51', 1, 2, 10, 398, NULL, NULL, 0x31376a6f6e617468616e2d646961732e6a7065672e6a7065672e6a7065672e6a7065672e6a7065672e6a706567),
 (24, 'Vinicius Vieira', 'vinicius_vieira_pereira@hotmail.com', '20541929', '$2y$10$Boy1Hsp7VHD0pHy9XombaODQSyRmS2Wb7RPxFOFYc0jAOjtGEyr4G', 3, '2020-05-19 06:00:00', 1, NULL, NULL, NULL, 0x323476696e69636975732d7669656972612e6a706567, NULL, NULL),
 (25, 'Mauricio Freire', 'mauriciofreire520@gmail.com', '20530625', '$2y$10$R2GsC/k2SSEIjr4NmL2bOe.MT.P5gdUrJYYe6TOtPKAQxxg4fG67G', 3, '2020-05-19 06:00:00', 1, 2, NULL, NULL, 0x3132356d6175726963696f2e6a706567, NULL, NULL),
 (26, 'Robert Barry', 'mus.Aenean@mattis.org', '76771258', 'TGY72UJU8WV', 1, '2020-01-06 16:44:47', 1, 24, 7, 255, NULL, 7216815913, NULL),
@@ -1206,8 +1192,8 @@ INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, 
 --
 
 CREATE TABLE `verifica` (
-  `user_id` int NOT NULL,
-  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1382,109 +1368,109 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `area_estudo`
 --
 ALTER TABLE `area_estudo`
-  MODIFY `id_area` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id_area` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de tabela `avaliacao_postagem`
 --
 ALTER TABLE `avaliacao_postagem`
-  MODIFY `id_avaliacao` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_avaliacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `categoria_postagem`
 --
 ALTER TABLE `categoria_postagem`
-  MODIFY `id_categoria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `check_denuncia`
 --
 ALTER TABLE `check_denuncia`
-  MODIFY `id_denuncia` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `check_denuncia_comentarios`
 --
 ALTER TABLE `check_denuncia_comentarios`
-  MODIFY `id_denuncia` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id_comentarios` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_comentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `img_postagem`
 --
 ALTER TABLE `img_postagem`
-  MODIFY `id_img` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_img` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `instituicao_ensino`
 --
 ALTER TABLE `instituicao_ensino`
-  MODIFY `id_instituicao` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_instituicao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `like_comentarios`
 --
 ALTER TABLE `like_comentarios`
-  MODIFY `id_likes` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_likes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `like_postagens`
 --
 ALTER TABLE `like_postagens`
-  MODIFY `id_like` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `motivo_denuncia`
 --
 ALTER TABLE `motivo_denuncia`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `nivel_acesso`
 --
 ALTER TABLE `nivel_acesso`
-  MODIFY `id_nivel` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `postagens`
 --
 ALTER TABLE `postagens`
-  MODIFY `id_postagem` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id_postagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT de tabela `regiao_cidade`
 --
 ALTER TABLE `regiao_cidade`
-  MODIFY `id_regiao_cidade` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=591;
+  MODIFY `id_regiao_cidade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=591;
 
 --
 -- AUTO_INCREMENT de tabela `regiao_estado`
 --
 ALTER TABLE `regiao_estado`
-  MODIFY `id_regiao_estado` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_regiao_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de tabela `situacao_postagem`
 --
 ALTER TABLE `situacao_postagem`
-  MODIFY `id_situacao_postagem` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_situacao_postagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `situacao_usuario`
 --
 ALTER TABLE `situacao_usuario`
-  MODIFY `id_situacao_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_situacao_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
 -- Restrições para despejos de tabelas
