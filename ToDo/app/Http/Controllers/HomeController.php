@@ -274,7 +274,11 @@ class HomeController extends Controller
         $sql = "DELETE FROM postagens WHERE id_postagem = $id";
         mysqli_query($conn, $sql);
 
-        return redirect('home'); 
+        if($_POST['identificador'] == 1) {
+            return redirect('conta'); 
+        }else {
+            return redirect('home'); 
+        }
     }
 
     public function denunciar_post()

@@ -475,7 +475,9 @@ ul {
 
 .popup-title {
   margin: 10px;
+
 }
+
 
 .popup_desc {
   width: 100%;
@@ -633,10 +635,11 @@ p {
   border: 1px solid #000000;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
 }
 
 .select  {
-  width: 240px;
+  width: 60%;
   height: 34px;
   overflow: hidden;
   background: url(new_arrow.png) no-repeat right #ddd;
@@ -645,8 +648,8 @@ p {
 }
 
 .subdados {
+  width: 100px;
   display: inline-block;
-  width: 80px;
   text-align: right;
 }
 
@@ -714,7 +717,7 @@ input[type='file'] {
 
 .password {
   display: inline-block;
-  margin-left: 85px;
+  margin-left: 100px;
 }
 
 .configuracoes {

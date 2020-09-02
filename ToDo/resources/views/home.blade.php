@@ -180,6 +180,7 @@ $s = 1;
                         <form action="{{url('apagar_post')}}" method="POST">
                             @csrf
                             <input name="id_postagem" type="hidden" value="<?php echo $rows['id_postagem'];?>">
+                            <input type="hidden" name="identificador" value="0">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-primary">Confirmar</button>
                         </form>
