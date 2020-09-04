@@ -385,6 +385,7 @@ thead {
 th, td {
   font-size: 1.1em;
   padding: 10px;
+  max-width: 150px;
 }
 
 caption {
@@ -901,7 +902,11 @@ input[type='file'] {
 }
 
 .abreviar {
-
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  width: 70px;
 }
 
 .link:hover {
@@ -1211,5 +1216,181 @@ input[type='file'] {
   background-color: #0099ff;
 }
 
+.type_data {
+  font-size: 1.1em;
+}
+
+@media (max-width: 767px) {
+  #area_principal {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;;
+    padding-bottom: 20px;
+  }
+  #area_capa {
+    width: 100%;
+    height: 270px;
+    position: absolute;
+    margin: 0px;
+  }
+  #area-dados {
+    width: 100%;
+  }
+
+  .divisao-conta {
+    display: block;
+    width: 80%;
+    height: 2px;
+    margin: 0px auto 20px auto;
+  }
+
+  #area_ideias {
+    display: block;
+    margin-left: 0px;
+    margin-top: 0px;
+    width: 100%;
+    
+  }
+
+  .dados-pessoais {
+    display: block;
+    width: 100%;
+    margin: 10px auto 10px auto;
+  }
+
+  #table_conta {
+    width: 100%;
+    margin-left: 0px;
+  }
+
+  .type_data {
+    display: block;
+  }
+
+  td {
+    max-width: 100px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  #area_principal {
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;;
+    padding-bottom: 20px;
+  }
+  #area_capa {
+    width: 100%;
+    height: 270px;
+    position: absolute;
+    margin: 0px;
+  }
+  #area-dados {
+    width: 100%;
+  }
+
+  .divisao-conta {
+    display: block;
+    width: 80%;
+    height: 2px;
+    margin: 0px auto 20px auto;
+  }
+
+  #area_ideias {
+    display: block;
+    margin-left: 0px;
+    margin-top: 0px;
+    width: 100%;
+    
+  }
+
+  .dados-pessoais {
+    display: block;
+    width: 80%;
+    margin: 10px auto 10px auto;
+  }
+
+  #table_conta {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .type_data {
+    display: block;
+  }
+
+  #h1conta {
+    margin-left: 20px;
+  }
+
+  td {
+    max-width: 140px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1366px) {
+  #area_principal {
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;;
+    padding-bottom: 20px;
+  }
+  #area_capa {
+    width: 100%;
+    height: 270px;
+    position: absolute;
+    margin: 0px;
+  }
+  #area-dados {
+    width: 45%;
+  }
+
+  .divisao-conta {
+    display: inline-block;
+    width: 2px;
+    height: 450px;
+    margin: 320px auto 20px auto;
+  }
+
+  #area_ideias {
+    vertical-align: top;
+    display: inline-block;
+    margin-left: 0px;
+    margin-top: 270px;
+    width: 53%;
+    
+  }
+
+  .dados-pessoais {
+    display: block;
+    width: 100%;
+    margin: 10px 0px 10px auto;
+  }
+
+  #table_conta {
+    width: 90%;
+    margin-left: 15px;
+    margin-right: auto;
+  }
+  .abreviar {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+  }
+
+  .type_data {
+    display: inline-block;
+  }
+
+  td {
+    max-width: 150px;
+  }
+
+  #h1conta {
+    margin-left: 0px;
+  }
+}
 
 
