@@ -479,3 +479,17 @@ $nivel = Auth::user()->nivel;
         <!-- Fim área de edição de dados do usuário -->
 </div>
 @endsection
+
+<script>
+  function autoResize()
+    {
+        objTextArea = document.getElementById('txtTextArea');
+        while (objTextArea.scrollHeight > objTextArea.offsetHeight)
+        {
+            objTextArea.rows += 1;
+        }
+        while (objTextArea.scrollHeight < objTextArea.offsetHeight) {
+            objTextArea.rows -= 1;
+        }
+    }
+</script>

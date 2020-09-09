@@ -1,9 +1,22 @@
 $(function(){
     $(".mostrar").click(function(){
         $(this).siblings("#comentarios").toggle("slow");   
-
+        
     }); 
 });
+
+$(function(){
+    $(".comentario").click(function(){
+        $(this).siblings("#buttom_area").toggle("slow");   
+        
+    }); 
+});
+
+  function auto_grow(element) {
+    element.style.height = "5px";
+    element.style.height = (element.scrollHeight)+"px";
+}
+
 
 function onlynumber(evt) {
     var theEvent = evt || window.event;
@@ -17,50 +30,49 @@ function onlynumber(evt) {
     }
 }
 
-$(document).ready(function(){
+
     
-    // Quando o usuário clicar no curtir
-    $('.curtir').on('click', function(){
-        
-        var coment_id = $(this).data('id');
-        $btn_clicado = $(this);
+// Quando o usuário clicar no curtir
+function like(data){
+    var coment_id = $(data).data('id');
+    $btn_clicado = $(data);
     
-    
-        if($btn_clicado.hasClass("fa-thumbs-o-up")){
-            action = 'like';
-        } else if ($btn_clicado.hasClass("fa-thumbs-up")) {
-            action = 'unlike';
+
+    if($btn_clicado.hasClass("fa-thumbs-o-up")){
+        action = 'like';
+    } else if ($btn_clicado.hasClass("fa-thumbs-up")) {
+        action = 'unlike';
+    }
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-    
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    
-        $.ajax ({
-            type: 'post',
-            url: "/like",
-            data: {
-                'action': action,
-                'coment_id': coment_id 
-            },
-            success: function(data){
-                res = JSON.parse(data);
-    
-                if(action == 'like') {
-                    $btn_clicado.removeClass('fa-thumbs-o-up');
-                    $btn_clicado.addClass('fa-thumbs-up');
-                } else if(action = 'unlike') {
-                    $btn_clicado.removeClass('fa-thumbs-up');
-                    $btn_clicado.addClass('fa-thumbs-o-up');
-                }
-    
-                $btn_clicado.siblings('span.likes').text(res.likes);
-            }
-        })
     });
-});
+
+    $.ajax ({
+        type: 'post',
+        url: "like",
+        data: {
+            'action': action,
+            'coment_id': coment_id 
+        },
+        success: function(data){
+            res = JSON.parse(data);
+
+            if(action == 'like') {
+                $btn_clicado.removeClass('fa-thumbs-o-up');
+                $btn_clicado.addClass('fa-thumbs-up');
+            } else if(action = 'unlike') {
+                $btn_clicado.removeClass('fa-thumbs-up');
+                $btn_clicado.addClass('fa-thumbs-o-up');
+            }
+
+            $btn_clicado.siblings('span.likes').text(res.likes);
+        }
+    })
+};
+
 
 function update() {
     var input = document.getElementById('file'); //define o id do input
@@ -99,6 +111,7 @@ function calcular (id_post) {
         var media = soma / 3;
         media = media / 100;
         id('media'+id_post).value = media.toFixed(2);
+        alert("oi");
     }
 }
 

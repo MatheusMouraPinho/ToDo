@@ -77,7 +77,9 @@ class HomeController extends Controller
                                 ->get(),
 
             'img_post' => DB::table('img_postagem')
-                                ->select('id_img', 'id_postagem')
+                                ->leftJoin('postagens', 'postagens.id_postagem', '=', 'img_postagem.id_img')
+                                ->select('img_postagem.id_postagem')
+                                ->distinct()
                                 ->get()
         ];
 

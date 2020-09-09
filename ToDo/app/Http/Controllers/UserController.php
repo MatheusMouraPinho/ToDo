@@ -124,7 +124,13 @@ class UserController extends Controller
                                 ->where('comentarios.id_mencionado', '!=', null)
                                 ->select('comentarios.id_comentarios','postagens.id_usuarios', 'postagens.id_postagem', 'user.*')                               
                                 ->orderBy('data_comentarios', 'asc')
-                                ->get()
+                                ->get(),
+
+            'img_post' => DB::table('img_postagem')
+                            ->leftJoin('postagens', 'postagens.id_postagem', '=', 'img_postagem.id_img')
+                            ->select('img_postagem.id_postagem')
+                            ->distinct()
+                            ->get()
         ];
 
         
@@ -240,6 +246,12 @@ class UserController extends Controller
                                     ->where('comentarios.id_mencionado', '!=', null)
                                     ->select('comentarios.id_comentarios','postagens.id_usuarios', 'postagens.id_postagem', 'user.*')                               
                                     ->orderBy('data_comentarios', 'asc')
+                                    ->get(),
+
+                'img_post' => DB::table('img_postagem')
+                                    ->leftJoin('postagens', 'postagens.id_postagem', '=', 'img_postagem.id_img')
+                                    ->select('img_postagem.id_postagem')
+                                    ->distinct()
                                     ->get()
             ];
         }
