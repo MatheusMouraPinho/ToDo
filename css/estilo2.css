@@ -1,3 +1,9 @@
+.search{
+  position: relative;
+  top: 20px;
+
+}
+
 .no-border-button {
   border: none;
   padding: 0;

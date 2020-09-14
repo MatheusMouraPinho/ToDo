@@ -41,42 +41,49 @@ $denuncia = Session::get('denuncia');
 </head>
 <body>
   <!-- ||Nav Bar||  -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <img width="6.6%" src="{{asset('img/ToDo.png')}}">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="nav navbar-nav ml-auto">
-        <li style="padding-right:22px" class="nav-item active">
-          <div class="form-inline my-2 my-lg-0">
-            <a class="btn btn-primary my-2 my-sm-0"  href="{{ url('home') }}">Início</a>
-          </div>
-        </li>
-        <li style="padding-right:25px" class="nav-item">
-          <form class="form-inline my-2 my-lg-0" method="POST" action="{{url('pesquisa')}}">
-            @csrf
-            <input class="form-control mr-sm-2" type="text" name="pesquisa" placeholder="Procure pelo nome da postagem ou autor" aria-label="Search" style="width: 440px">
-            <button class="btn btn-primary my-2 my-sm-0" type="submit">Procurar</button>
-          </form>
-        </li>
-        <li class="nav-item">
-          <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#modalideia">Criar uma Ideia</button>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto" style="cursor: pointer">
-        <li style="margin-right:20px" class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Configurações </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <?php if(3 == $nivel){?>
-            <a class="dropdown-item" href="{{ url('adm') }}">Admin Painel</a>
-            <?php }?>
-            <a class="dropdown-item" href="{{ url('conta') }}">Minha conta</a>
-            <a class="dropdown-item" href="{{ url('logout') }}"> Sair </a>
-          </div>
-        </li>
-      </ul>
+  <nav class="navbar navbar-light cor">
+    <ul class="navbar-nav" style="cursor: pointer">
+      <li>
+        <a href="{{ url('home') }}"> <img width="110px" src="{{asset('img/ToDo.png')}}"> </a>
+      </li>
+    </ul>
+    <ul class="nav ml-auto" style="cursor: pointer">
+      <li style="margin-right:22px" class="nav-item dropdown">
+        <a id="navbarDropdown" role="button" data-toggle="dropdown"> <img src="{{asset('img/op-icon.png')}}" width="110px"> </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <?php if(3 == $nivel){?>
+          <a class="dropdown-item" href="{{ url('adm') }}">
+            <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-clipboard-data" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+              <path fill-rule="evenodd" d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+              <path d="M4 11a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0v-1zm6-4a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0V7zM7 9a1 1 0 0 1 2 0v3a1 1 0 1 1-2 0V9z"/>
+            </svg>&nbsp Painel Admin
+          </a>
+          <?php }?>
+          <a class="dropdown-item" data-toggle="modal" data-target="#modalideia">
+            <svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+            </svg>&nbsp Criar ideia
+          </a>
+          <a class="dropdown-item" href="{{ url('home') }}">
+            <svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-house-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 3.293l6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+              <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+            </svg>&nbsp Inicio
+          </a>
+          <a class="dropdown-item" href="{{ url('conta') }}">
+            <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-lines-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7 1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm2 9a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
+            </svg>&nbsp Perfil
+          </a>
+          <a class="dropdown-item" href="{{ url('logout') }}">
+            <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-box-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+              <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+            </svg>&nbsp Sair
+          </a>
+      </li>
+    </ul>
   </nav>
   <!--||Fim Nav bar||-->
 
