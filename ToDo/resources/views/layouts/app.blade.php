@@ -41,6 +41,7 @@ $denuncia = Session::get('denuncia');
 </head>
 <body>
   <!-- ||Nav Bar||  -->
+<<<<<<< Updated upstream
   <nav class="navbar navbar-light cor">
     <ul class="navbar-nav" style="cursor: pointer">
       <li>
@@ -84,12 +85,50 @@ $denuncia = Session::get('denuncia');
           </a>
       </li>
     </ul>
+=======
+  <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <img width="6.6%" src="{{asset('img/ToDo.png')}}">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="nav navbar-nav ml-auto">
+        <li style="padding-right:22px" class="nav-item active">
+          <div class="form-inline my-2 my-lg-0">
+            <a class="btn btn-primary my-2 my-sm-0"  href="{{ url('home') }}">Início</a>
+          </div>
+        </li>
+        <li style="padding-right:25px" class="nav-item">
+          <form class="form-inline my-2 my-lg-0" method="POST" action="{{url('pesquisa')}}">
+            @csrf
+            <input class="form-control mr-sm-2" type="text" name="pesquisa" placeholder="Procure pelo nome da postagem ou autor" aria-label="Search" style="width: 440px">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Procurar</button>
+          </form>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#modalideia">Criar uma Ideia</button>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto" style="cursor: pointer">
+        <li style="margin-right:20px" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Configurações </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <?php if(3 == $nivel){?>
+            <a class="dropdown-item" href="{{ url('adm') }}">Admin Painel</a>
+            <?php }?>
+            <a class="dropdown-item" href="{{ url('conta') }}">Minha conta</a>
+            <a class="dropdown-item" href="{{ url('logout') }}"> Sair </a>
+          </div>
+        </li>
+      </ul>
+>>>>>>> Stashed changes
   </nav>
   <!--||Fim Nav bar||-->
 
   <div class="fundo" style="background-color: #E5E5E5">
     <!-- Puxa o arquivo home dentro da div-->
-    <div class="flex justify-content-md-center">
+    <div class="justify-content-md-center">
     <br>
     @yield('content')
     </div>

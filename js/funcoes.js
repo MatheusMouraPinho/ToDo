@@ -31,6 +31,7 @@ function onlynumber(evt) {
 }
 
 
+
     
 // Quando o usuário clicar no curtir
 function like(data){

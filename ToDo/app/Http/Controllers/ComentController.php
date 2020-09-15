@@ -121,6 +121,26 @@ class ComentController extends Controller
         }
     }
 
+    public function ordenar() {
+        if(isset($_POST['ordenar'])){
+            if($_POST['ordenar'] == 'Recentes') {
+                $filtro_coment = 'data_comentarios';
+                $selected = 1;
+
+            } elseif ($_POST['ordenar'] == 'Populares') {
+                $filtro_coment = 'likes_comentarios';
+                $selected = 2;
+                
+            }
+
+            $id_postagem = $_POST['id_postagem'];
+        }
+
+        
+        
+        return back()->with(compact('filtro_coment', 'selected', 'id_postagem'));
+    }
+
 
     /**
      * Store a newly created resource in storage.

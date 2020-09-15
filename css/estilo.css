@@ -127,7 +127,7 @@
   align-items: flex-start;
   justify-content: space-between;
   padding: 1rem 1rem;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid #ffffff;
   border-top-left-radius: calc(0.3rem - 1px);
   border-top-right-radius: calc(0.3rem - 1px);
   background-color: #3490dc;
@@ -147,7 +147,7 @@
 .modal-body {
   position: relative;
   flex: 1 1 auto;
-  background-color: rgb(226, 226, 226);
+  background-color: rgb(247, 247, 247);
 }
 
 .modal-footer {
@@ -498,7 +498,7 @@ ul {
   resize: none;
   border: hidden;
   border-bottom: 2px solid #3490dc;
-  background-color: rgb(226, 226, 226);
+  background-color: transparent;
   overflow-y: hidden;
 }
 
@@ -571,7 +571,7 @@ p {
 .popup_coment_aval {
   display: inline-block;
   padding: 10px;
-  margin: 10px auto 0px auto;
+  margin: 10px auto 10px auto;
   width: 100%;
   background-color: #e9e9e9;
   border-radius: 20px;
@@ -643,7 +643,7 @@ p {
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
-  border: hidden;
+  border: 1px solid black;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   margin-top: 5px;
@@ -807,7 +807,8 @@ input[type='file'] {
   overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;
-  width: 140px;
+  width: auto;
+  max-width: 140px;
   background-color: transparent;
   border: 0px;
   text-align: left;
@@ -896,7 +897,7 @@ input[type='file'] {
   border-bottom: 2px solid #3490dc;
   resize: none;
   overflow-y: hidden;
-  background-color: rgb(226, 226, 226)  ;
+  background-color: transparent;
 }
 
 .comentario:focus {

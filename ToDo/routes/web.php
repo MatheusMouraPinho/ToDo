@@ -67,6 +67,8 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() { 
 
     Route::post('/like', 'ComentController@like')->name('like');
 
+    Route::post('/ordenar', 'ComentController@ordenar')->name('ordenar');
+
     Route::post('/avaliar_aval', 'AdminController@avaliar')->middleware('avaliador');
 
     Route::get('/remove_capa', 'UserController@destroy_capa')->name('remove_capa');
