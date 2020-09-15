@@ -1,7 +1,45 @@
-.search{
-  position: relative;
-  top: 20px;
+@media screen and (max-width: 1000px) {
+  .filtro-pc {
+    display: none;
+  }
+  .pesquisa-home{
+    width: 150px;
+    height: 30px;
+  }
+}
 
+@media screen and (min-width: 768px) {
+  .pesquisa-home{
+    width: 400px;
+    height: 35px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .filtro-tablet {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .filtro-tablet {
+    display: none;
+  }
+}
+
+.btn{
+  border-radius: 20px;
+  font-weight: bold;
+  border: 2px solid black;
+}
+
+.pesquisa-home{
+  border-radius: 30px;
+  border-color: black;
+}
+
+.ajuste-drop{
+  left: -30px;
 }
 
 .no-border-button {
@@ -12,14 +50,11 @@
 }
 
 .contorno {
-  background-color: #a9a9a9;
-  background-image: url("img/texture.png");
+  background-color: white;
   background-clip: border-box;
   padding: 0.45rem;
-  border: 2px solid #00000020;
-  border-radius: 0.25rem;
-  margin: 10px 22px 8px auto;
-  box-shadow: 2px 2px 6px grey;
+  border: 2px solid black;
+  border-radius: 0.50rem;
 }
 
 .contorno-pequeno {
@@ -35,8 +70,9 @@
 
 .btn-outline-primary-custom {
   color: #000000;
-  border-color: #000000;
-  background-color: #ffffff;
+  border: 2px solid black;
+  background-color: #F5F5F5;
+  font-weight: bold;
 }
 
 .card-home {
@@ -394,11 +430,6 @@ fw{
   border-radius: 50%;
   padding-left: 21px;
   padding-right: 21px;
-}
-
-.ajuste-unlike{
-  padding-right: 3px;
-  padding-top: 2px;
 }
 
 .num-like-home {

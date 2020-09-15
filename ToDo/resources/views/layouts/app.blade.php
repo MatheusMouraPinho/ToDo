@@ -12,7 +12,6 @@ $denuncia = Session::get('denuncia');
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -41,17 +40,16 @@ $denuncia = Session::get('denuncia');
 </head>
 <body>
   <!-- ||Nav Bar||  -->
-<<<<<<< Updated upstream
   <nav class="navbar navbar-light cor">
     <ul class="navbar-nav" style="cursor: pointer">
       <li>
-        <a href="{{ url('home') }}"> <img width="110px" src="{{asset('img/ToDo.png')}}"> </a>
+        <a href="{{ url('home') }}"> <img width="112px" src="{{asset('img/ToDo.png')}}"> </a>
       </li>
     </ul>
     <ul class="nav ml-auto" style="cursor: pointer">
       <li style="margin-right:22px" class="nav-item dropdown">
-        <a id="navbarDropdown" role="button" data-toggle="dropdown"> <img src="{{asset('img/op-icon.png')}}" width="110px"> </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a id="navbarDropdown" role="button" data-toggle="dropdown"> <img src="{{asset('img/op-icon.png')}}" width="95px"> </a>
+        <div class="dropdown-menu ajuste-drop" aria-labelledby="navbarDropdown">
           <?php if(3 == $nivel){?>
           <a class="dropdown-item" href="{{ url('adm') }}">
             <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-clipboard-data" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -83,55 +81,16 @@ $denuncia = Session::get('denuncia');
               <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
             </svg>&nbsp Sair
           </a>
+        </div>
       </li>
     </ul>
-=======
-  <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-    <img width="6.6%" src="{{asset('img/ToDo.png')}}">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="nav navbar-nav ml-auto">
-        <li style="padding-right:22px" class="nav-item active">
-          <div class="form-inline my-2 my-lg-0">
-            <a class="btn btn-primary my-2 my-sm-0"  href="{{ url('home') }}">Início</a>
-          </div>
-        </li>
-        <li style="padding-right:25px" class="nav-item">
-          <form class="form-inline my-2 my-lg-0" method="POST" action="{{url('pesquisa')}}">
-            @csrf
-            <input class="form-control mr-sm-2" type="text" name="pesquisa" placeholder="Procure pelo nome da postagem ou autor" aria-label="Search" style="width: 440px">
-            <button class="btn btn-primary my-2 my-sm-0" type="submit">Procurar</button>
-          </form>
-        </li>
-        <li class="nav-item">
-          <button class="btn btn-primary my-2 my-sm-0" data-toggle="modal" data-target="#modalideia">Criar uma Ideia</button>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto" style="cursor: pointer">
-        <li style="margin-right:20px" class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Configurações </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <?php if(3 == $nivel){?>
-            <a class="dropdown-item" href="{{ url('adm') }}">Admin Painel</a>
-            <?php }?>
-            <a class="dropdown-item" href="{{ url('conta') }}">Minha conta</a>
-            <a class="dropdown-item" href="{{ url('logout') }}"> Sair </a>
-          </div>
-        </li>
-      </ul>
->>>>>>> Stashed changes
   </nav>
   <!--||Fim Nav bar||-->
 
   <div class="fundo" style="background-color: #E5E5E5">
-    <!-- Puxa o arquivo home dentro da div-->
-    <div class="justify-content-md-center">
-    <br>
-    @yield('content')
-    </div>
+    <div style="padding:14px"></div>
+    @yield('content') <!-- Puxa a pagina aqui -->
+    
     <!-- Footer -->
     <footer class="layout-footer space">
       <div class="container text-center text-md-left mt-5">

@@ -55,16 +55,16 @@ $s = 1;
 @section('content')
 
 <div class="container my-4">
-    <div class="row justify-content-md-center">
+    <div class="filtro-pc row justify-content-md-center">
         <form method="POST" action="{{url('filtro')}}">
             @csrf
             <div class="row contorno"> 
-                <button name="filtro" value="novo" <?php if($filtro == "data_postagem"){?> class="btn btn-outline-primary-custom" <?php }else{?> class="btn btn-primary" <?php }?>>Novos</button> 
-                <button name="filtro" value="popu" <?php if($filtro == "likes_postagem"){?> class="btn btn-outline-primary-custom" <?php }else{?> class="btn btn-primary" <?php }?>>Populares</button> 
-                <button name="filtro" value="melh" <?php if($filtro == "media"){?> class="btn btn-outline-primary-custom" <?php }else{?> class="btn btn-primary" <?php }?>>Melhores Avaliados</button> 
+                <button name="filtro" value="novo" <?php if($filtro == "data_postagem"){?> class="btn btn-primary" <?php }else{?> class="btn btn-outline-primary-custom" <?php }?>><img width="21px" src="{{asset('img/new.png')}}"> Novos</button> 
+                <button name="filtro" value="popu" <?php if($filtro == "likes_postagem"){?> class="btn btn-primary" <?php }else{?> class="btn btn-outline-primary-custom" <?php }?>><img width="23px" src="{{asset('img/like.png')}}">Populares</button> 
+                <button name="filtro" value="melh" <?php if($filtro == "media"){?> class="btn btn-primary" <?php }else{?> class="btn btn-outline-primary-custom" <?php }?>><img width="22px" src="{{asset('img/avaliacao.png')}}">Melhores Avaliados</button> 
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?php if($avalia == "1"){ echo "Avaliados"; }elseif($avalia == "2"){ echo "Pendentes"; }else{echo "Todos";}?> 
+                        <?php if($avalia == "1"){ echo "Avaliados"; }elseif($avalia == "2"){ echo "Pendentes"; }else{echo "Situação";}?> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <?php if($avalia != "1"){?><button class="dropdown-item" name="avalia" value="1">Avaliados</button><?php }?>
@@ -75,7 +75,7 @@ $s = 1;
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php if($tipo == "1"){ echo "Web, Mobile & Software"; }elseif($tipo == "2"){ echo "Design & Criação"; }elseif($tipo == "3"){echo "Engenharia & Arquitetura";
-                        }elseif($tipo == "4"){echo "Marketing";}elseif($tipo == "5"){echo "Outros";}else{echo "Todas as categorias";}?> 
+                        }elseif($tipo == "4"){echo "Marketing";}elseif($tipo == "5"){echo "Outros";}else{echo "Categoria";}?> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <?php if($tipo != "1"){?><button class="dropdown-item" name="tipo" value="1">Web, Mobile & Software</button><?php }?>
@@ -88,7 +88,7 @@ $s = 1;
                 </div>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?php echo $setup ?>
+                        <?php if($setup == "Todas as Postagens"){echo "Periodo";}else{ echo $setup; } ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <?php if($setup != "Ultima Semana"){?><button class="dropdown-item" name="periodo" value="1">Última Semana</button><?php }?>
@@ -97,10 +97,87 @@ $s = 1;
                         <?php if($setup != "Todas as Postagens"){?><button class="dropdown-item" name="periodo" value="4">Todas as postagens</button><?php }?>
                     </div>
                 </div>
-                <a href="{{url('reset')}}"><img width="45px" src="{{asset('img/reset.png')}}"></a>
+                <div class="dropdown">
+                    <a id="navbarDropdown" role="button" style="cursor: pointer" data-toggle="dropdown"><img style="padding-top:5px" width="38px" src="{{asset('img/option.png')}}"></a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{url('reset')}}">Limpar Filtro</a>
+                    </div>
+                </div>
             </div>  
         </form>
-    </div>  
+    </div>
+    <!-- filtro tablet  -->
+    <div class="filtro-tablet row justify-content-md-center">
+        <form method="POST" action="{{url('filtro')}}">
+            @csrf
+            <div class="row contorno">
+                <div class="dropdown">
+                    <button class="btn btn btn-outline-primary-custom dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <?php if($filtro == "media"){?> <img width="22px" src="{{asset('img/avaliacao.png')}}"> <?php echo "Mais avaliados"; }elseif($filtro == "likes_postagem"){?><img width="23px" src="{{asset('img/like.png')}}"><?php  echo "Populares"; } elseif($filtro == "data_postagem"){?> <img width="21px" src="{{asset('img/new.png')}}"> <?php echo "Novos";}else{echo $filtro;}?> 
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <?php if($filtro != "data_postagem"){?><button class="dropdown-item" name="filtro" value="novos"><img width="21px" src="{{asset('img/new.png')}}"> Novos</button><?php }?>
+                        <?php if($filtro != "likes_postagem"){?><button class="dropdown-item" name="filtro" value="popu"><img width="23px" src="{{asset('img/like.png')}}"> Populares</button><?php }?>
+                        <?php if($filtro != "media"){?><button class="dropdown-item" name="filtro" value="melh"><img width="22px" src="{{asset('img/avaliacao.png')}}"> Mais avaliados</button><?php }?>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <?php if($avalia == "1"){ echo "Avaliados"; }elseif($avalia == "2"){ echo "Pendentes"; }else{echo "Situação";}?> 
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <?php if($avalia != "1"){?><button class="dropdown-item" name="avalia" value="1">Avaliados</button><?php }?>
+                        <?php if($avalia != "2"){?><button class="dropdown-item" name="avalia" value="2">Pendentes</button><?php }?>
+                        <?php if($avalia != "1 OR 2"){?><button class="dropdown-item" name="avalia" value="3">Todos</button><?php }?>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <?php if($tipo == "1"){ echo "Web, Mobile & Software"; }elseif($tipo == "2"){ echo "Design & Criação"; }elseif($tipo == "3"){echo "Engenharia & Arquitetura";
+                        }elseif($tipo == "4"){echo "Marketing";}elseif($tipo == "5"){echo "Outros";}else{echo "Categoria";}?> 
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <?php if($tipo != "1"){?><button class="dropdown-item" name="tipo" value="1">Web, Mobile & Software</button><?php }?>
+                        <?php if($tipo != "2"){?><button class="dropdown-item" name="tipo" value="2">Design & Criação</button><?php }?>
+                        <?php if($tipo != "3"){?><button class="dropdown-item" name="tipo" value="3">Engenharia & Arquitetura</button><?php }?>
+                        <?php if($tipo != "4"){?><button class="dropdown-item" name="tipo" value="4">Marketing</button><?php }?>
+                        <?php if($tipo != "5"){?><button class="dropdown-item" name="tipo" value="5">Outros</button><?php }?>
+                        <?php if($tipo != "1 OR 2 OR 3 OR 4 OR 5"){?><button class="dropdown-item" name="tipo" value="todas">Todas as categorias</button><?php }?>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <?php if($setup == "Todas as Postagens"){echo "Periodo";}else{ echo $setup; } ?>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <?php if($setup != "Ultima Semana"){?><button class="dropdown-item" name="periodo" value="1">Última Semana</button><?php }?>
+                        <?php if($setup != "Ultimo Mês"){?><button class="dropdown-item" name="periodo" value="2">Último Mês</button><?php }?>
+                        <?php if($setup != "Ultimo Ano"){?><button class="dropdown-item" name="periodo" value="3">Último Ano</button><?php }?>
+                        <?php if($setup != "Todas as Postagens"){?><button class="dropdown-item" name="periodo" value="4">Todas as postagens</button><?php }?>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a id="navbarDropdown" role="button" style="cursor: pointer" data-toggle="dropdown"><img style="padding-top:5px" width="38px" src="{{asset('img/option.png')}}"></a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{url('reset')}}">Limpar Filtro</a>
+                    </div>
+                </div>
+            </div>  
+        </form>
+    </div>
+
+    <div style="padding:30px"></div>
+    <div class="row justify-content-md-center"> 
+        <form class="form-inline d-flex justify-content-center md-form form-sm mt-0" method="POST" action="{{url('pesquisa')}}">
+            @csrf
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <input class="form-control-sm ml-1 pesquisa-home" type="text" name="pesquisa" placeholder="Procure pelo nome da postagem ou autor" aria-label="Search">
+        </form>
+    </div>
+    <div style="padding:12px"></div>
+    <div class="row justify-content-md-center"> 
+        <hr class="accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 80%;">
+    </div>
     <?php if(NULL !== $pesquisa){?><div class="contorno-pequeno"><a href="{{url('reset_search')}}"><img width="20px" src="{{asset('img/close.png')}}"></a> Resultados da Pesquisa "<?php echo $pesquisa ?>"</div><?php }?>
 
     <?php if ($total_pesquisa < 1){?>
@@ -147,7 +224,7 @@ $s = 1;
                         <input type="hidden" name="id_post" value="<?php echo $rows['id_postagem'];?>">
                         <input type="hidden" name="id_usuario" value="<?php echo $user?>">
                         <input type="hidden" name="scroll" value="<?php echo $s?>">
-                        <div class="like-home like-border"><b><button type="submit" class="row no-border-button"><img class="ajuste-unlike" width="25px" src="{{asset('img/like2.png')}}"><div class="num-like-home"><?php echo $rows['likes_postagem']; ?></div></button></b></div>
+                        <div class="like-home like-border"><b><button type="submit" class="row no-border-button"><img class="ajuste-unlike" width="30px" src="{{asset('img/liked.png')}}"><div class="num-like-home"><?php echo $rows['likes_postagem']; ?></div></button></b></div>
                     </form>
                 <?php }?>
                 <div class="link-home"> <a style="text-decoration:underline" type="button"  data-toggle="modal" data-target="#post<?php echo $id_post ?>">Visualizar</a> </div>
@@ -235,37 +312,39 @@ $s = 1;
         </div>
         <!-- FIM Modal denunciar postagem -->
     <?php $s++; } ?>
-    <nav class="text-center">
-        <ul class="pagination">
-            <li class="page-item">
-                <?php
-                if($pagina_anterior != 0){ ?>
-                    <a class="page-link" href="?pagina=<?php echo $pagina_anterior; ?>" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                <?php }else{ ?>
-                    <a class="page-link" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                <?php }  ?>
-            </li>
-            <?php 
-            for($i = 1; $i < $num_pagina + 1; $i++){ ?>
-                <li class="page-item"><a class="page-link" href="?pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
-            <?php } ?>
-            <li>
-                <?php
-                if($pagina_posterior <= $num_pagina){ ?>
-                    <a class="page-link" href="?pagina=<?php echo $pagina_posterior; ?>" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                <?php }else{ ?>
-                    <a class="page-link" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                <?php }  ?>
-            </li>
-        </ul>
-    </nav>
+    <?php if ($total_pesquisa > 1){?>
+        <nav class="text-center">
+            <ul class="pagination">
+                <li class="page-item">
+                    <?php
+                    if($pagina_anterior != 0){ ?>
+                        <a class="page-link" href="?pagina=<?php echo $pagina_anterior; ?>" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    <?php }else{ ?>
+                        <a class="page-link" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    <?php }  ?>
+                </li>
+                <?php 
+                for($i = 1; $i < $num_pagina + 1; $i++){ ?>
+                    <li class="page-item"><a class="page-link" href="?pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                <?php } ?>
+                <li>
+                    <?php
+                    if($pagina_posterior <= $num_pagina){ ?>
+                        <a class="page-link" href="?pagina=<?php echo $pagina_posterior; ?>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    <?php }else{ ?>
+                        <a class="page-link" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    <?php }  ?>
+                </li>
+            </ul>
+        </nav>
+    <?php }?>
 </div>
 @endsection
