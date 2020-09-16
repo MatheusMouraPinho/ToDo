@@ -49,21 +49,23 @@ if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
 }elseif($periodo == "DATE(NOW()) - INTERVAL 30 DAY"){$setup = "Ultimo Mês";
 }elseif($periodo == "DATE(NOW()) - INTERVAL 365 DAY"){$setup = "Ultimo Ano";
 }else{$setup = "Todas as Postagens";}
+
 $s = 1;
+$smartphone = true;
 ?>
 
 @section('content')
 
 <div class="container my-4">
-    <div class="filtro-pc row justify-content-md-center">
+    <div class="filtro-pc row justify-content-center">
         <form method="POST" action="{{url('filtro')}}">
             @csrf
             <div class="row contorno"> 
-                <button name="filtro" value="novo" <?php if($filtro == "data_postagem"){?> class="btn btn-primary" <?php }else{?> class="btn btn-outline-primary-custom" <?php }?>><img width="21px" src="{{asset('img/new.png')}}"> Novos</button> 
-                <button name="filtro" value="popu" <?php if($filtro == "likes_postagem"){?> class="btn btn-primary" <?php }else{?> class="btn btn-outline-primary-custom" <?php }?>><img width="23px" src="{{asset('img/like.png')}}">Populares</button> 
-                <button name="filtro" value="melh" <?php if($filtro == "media"){?> class="btn btn-primary" <?php }else{?> class="btn btn-outline-primary-custom" <?php }?>><img width="22px" src="{{asset('img/avaliacao.png')}}">Melhores Avaliados</button> 
+                <button name="filtro" value="novo" <?php if($filtro == "data_postagem"){?> class="btn selecionado" <?php }else{?> class="btn btn-outline-primary-custom" <?php }?>><img width="21px" src="{{asset('img/new.png')}}"> Novos</button> 
+                <button name="filtro" value="popu" <?php if($filtro == "likes_postagem"){?> class="btn selecionado" <?php }else{?> class="btn btn-outline-primary-custom" <?php }?>><img width="23px" src="{{asset('img/like.png')}}">Populares</button> 
+                <button name="filtro" value="melh" <?php if($filtro == "media"){?> class="btn selecionado" <?php }else{?> class="btn btn-outline-primary-custom" <?php }?>><img width="22px" src="{{asset('img/avaliacao.png')}}">Melhores Avaliados</button> 
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn selecionado dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php if($avalia == "1"){ echo "Avaliados"; }elseif($avalia == "2"){ echo "Pendentes"; }else{echo "Situação";}?> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -73,7 +75,7 @@ $s = 1;
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn selecionado dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php if($tipo == "1"){ echo "Web, Mobile & Software"; }elseif($tipo == "2"){ echo "Design & Criação"; }elseif($tipo == "3"){echo "Engenharia & Arquitetura";
                         }elseif($tipo == "4"){echo "Marketing";}elseif($tipo == "5"){echo "Outros";}else{echo "Categoria";}?> 
                     </button>
@@ -87,7 +89,7 @@ $s = 1;
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn selecionado dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php if($setup == "Todas as Postagens"){echo "Periodo";}else{ echo $setup; } ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -106,8 +108,8 @@ $s = 1;
             </div>  
         </form>
     </div>
-    <!-- filtro tablet  -->
-    <div class="filtro-tablet row justify-content-md-center">
+    <!-- Filtro tablet  -->
+    <div class="filtro-tablet row justify-content-center">
         <form method="POST" action="{{url('filtro')}}">
             @csrf
             <div class="row contorno">
@@ -165,17 +167,17 @@ $s = 1;
             </div>  
         </form>
     </div>
-
-    <div style="padding:30px"></div>
-    <div class="row justify-content-md-center"> 
+    <!-- FIM filtro tablet  -->
+    <div class="espaço-filtro"></div>
+    <div class="row justify-content-center"> 
         <form class="form-inline d-flex justify-content-center md-form form-sm mt-0" method="POST" action="{{url('pesquisa')}}">
             @csrf
             <i class="fas fa-search" aria-hidden="true"></i>
-            <input class="form-control-sm ml-1 pesquisa-home" type="text" name="pesquisa" placeholder="Procure pelo nome da postagem ou autor" aria-label="Search">
+            <input class="form-control-sm ml-1 pesquisa-home" type="text" name="pesquisa" placeholder="Procurar ideias..." aria-label="Search">
         </form>
     </div>
     <div style="padding:12px"></div>
-    <div class="row justify-content-md-center"> 
+    <div class="row justify-content-center"> 
         <hr class="accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 80%;">
     </div>
     <?php if(NULL !== $pesquisa){?><div class="contorno-pequeno"><a href="{{url('reset_search')}}"><img width="20px" src="{{asset('img/close.png')}}"></a> Resultados da Pesquisa "<?php echo $pesquisa ?>"</div><?php }?>
@@ -259,6 +261,93 @@ $s = 1;
             </div>
         </div>
         @include('layouts.post')
+        <!-- Modal ordenação -->
+        <div class="modal fade" id="ordenacao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle"><b>Ordernar Por</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ url('filtro') }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <label class="radio-custom"><h6><b>Novos</b></h6>
+                                <input type="radio" id="radio1" type="radio" name="filtro" value="novo" <?php if($filtro == "data_postagem"){ echo "checked"; }else{ echo "required";} ?>>
+                                <span class="checkmark"></span>
+                            </label>
+                            <br>
+                            <label class="radio-custom"><h6><b>Populares</b></h6>
+                                <input type="radio" id="radio2" type="radio" name="filtro" value="popu" <?php if($filtro == "likes_postagem"){ echo "checked"; }else{ echo "required";} ?>>
+                                <span class="checkmark"></span>
+                            </label>
+                            <br>
+                            <label class="radio-custom"><h6><b>Mais avaliados</b></h6>
+                                <input type="radio" id="radio3" type="radio" name="filtro" value="melh" <?php if($filtro == "media"){ echo "checked"; }else{ echo "required";} ?>>
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-primary">Salvar alteração</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- FIM Modal ordenação -->
+        <!-- Modal Filtros -->
+        <div class="modal fade" id="filtros" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle"><b>Filtrar Por</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ url('filtro') }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="justify-content-center alinhamento-filtro">
+                                <select name="avalia" class="selecionar-op">
+                                    <option class="op" selected disabled hidden><?php if($avalia == "1 OR 2"){ echo "&nbsp Situação"; }else{ echo $avalia; } ?></option>
+                                    <option class="op" value="1">Avaliados</option>
+                                    <option class="op" value="2">Pendentes</option>
+                                    <option class="op" value="3">Todos</option>
+                                </select>
+                                <select name="tipo" class="selecionar-op">
+                                    <option class="op" selected disabled hidden><?php if($tipo == "1 OR 2 OR 3 OR 4 OR 5"){ echo "&nbsp categorias"; }else{ echo $tipo; } ?></option>
+                                    <option class="op" value="1">Web, Mobile & Software</option>
+                                    <option class="op" value="2">Design & Criação</option>
+                                    <option class="op" value="3">Engenharia & Arquitetura</option>
+                                    <option class="op" value="4">Marketing</option>
+                                    <option class="op" value="5">Outros</option>
+                                    <option class="op" value="todas">Todas as categorias</option>
+                                </select>
+                            </div>
+                            <div class="justify-content-center alinhamento-filtro">
+                                <select name="periodo" class="selecionar-op">
+                                    <option class="op" selected disabled hidden><?php if($setup == "Todas as Postagens"){ echo "&nbsp Periodo"; }else{ echo $setup; } ?></option>
+                                    <option class="op" value="1">Última Semana</option>
+                                    <option class="op" value="2">Último Mês</option>
+                                    <option class="op" value="3">Último Ano</option>
+                                    <option class="op" value="4">Todas as postagens</option>
+                                </select>
+                                <a class="ajuste-link selecionar-op" href="{{url('reset')}}">Limpar</a>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-primary">Salvar alteração</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- FIM Modal Filtros -->
         <!-- Modal deletar postagem -->
         <div class="modal fade id" id="del-post<?php echo $rows['id_postagem'];?>" role="dialog">
             <div class="modal-dialog modal-content">

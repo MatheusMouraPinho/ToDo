@@ -88,7 +88,21 @@ $denuncia = Session::get('denuncia');
   <!--||Fim Nav bar||-->
 
   <div class="fundo" style="background-color: #E5E5E5">
-    <div style="padding:14px"></div>
+    
+    <?php if (isset($smartphone)){?>
+      <!-- Filtro SmartPhone  -->
+      <div class="filtro-smartphone">
+        <div class="filtro-esquerda">  
+          <a class="fix" data-toggle="modal" data-target="#ordenacao">Ordenação</a>
+        </div>
+        <div class="filtro-direita">  
+          <a class="fix" data-toggle="modal" data-target="#filtros">Filtros</a>
+        </div>
+      </div>
+      <!-- FIM filtro SmartPhone  -->
+    <?php }?>
+
+    <div style="padding:12px"></div>
     @yield('content') <!-- Puxa a pagina aqui -->
     
     <!-- Footer -->

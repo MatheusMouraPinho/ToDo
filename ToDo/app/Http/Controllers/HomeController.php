@@ -134,6 +134,12 @@ class HomeController extends Controller
             }
             return redirect('home')->with(['avalia' =>  $avalia]);
         }
+        
+        if(isset($_POST['reset'])){
+            session_start();
+            unset($_SESSION['filtro'], $_SESSION['tipo'], $_SESSION['periodo'], $_SESSION['avalia']);
+            return redirect('home');
+        }
 
     }
 
