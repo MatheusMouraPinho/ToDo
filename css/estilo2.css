@@ -284,6 +284,7 @@ f4{ /* borda situação pendente */
   padding-left: 35px;
   margin-bottom: 12px;
   cursor: pointer;
+  font-size: 22px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -298,17 +299,21 @@ f4{ /* borda situação pendente */
 
 .checkmark {
   position: absolute;
-  top: -6px;
+  top: 0;
   left: 0;
   height: 25px;
   width: 25px;
   background-color: #eee;
-  border-radius: 50%;
   border: 1px solid black;
+  border-radius: 50%;
 }
 
-.container input:checked ~ .checkmark {
-  border: 1px solid #000000;
+.radio-custom:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.radio-custom input:checked ~ .checkmark {
+  background-color: #ccc;
 }
 
 .checkmark:after {
@@ -317,11 +322,11 @@ f4{ /* borda situação pendente */
   display: none;
 }
 
-.container input:checked ~ .checkmark:after {
+.radio-custom input:checked ~ .checkmark:after {
   display: block;
 }
 
-.container .checkmark:after {
+.radio-custom .checkmark:after {
  	top: 8px;
 	left: 8px;
 	width: 8px;

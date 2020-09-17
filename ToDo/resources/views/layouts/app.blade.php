@@ -92,10 +92,10 @@ $denuncia = Session::get('denuncia');
     <?php if (isset($smartphone)){?>
       <div class="filtro-smartphone">
         <div class="filtro-esquerda">  
-          <a class="fix" data-toggle="modal" data-target="#ordenacao">Ordenação</a>
+          <a class="fix" style="padding:30px;padding-top:11px;padding-bottom:13px;" data-toggle="modal" data-target="#ordenacao">Ordenação</a>
         </div>
         <div class="filtro-direita">  
-          <a class="fix" data-toggle="modal" data-target="#filtros">Filtros</a>
+          <a class="fix" style="padding:50px; padding-top:11px;padding-bottom:13px;" data-toggle="modal" data-target="#filtros">Filtros</a>
         </div>
       </div>
     <?php }?>

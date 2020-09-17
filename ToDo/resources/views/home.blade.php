@@ -189,7 +189,7 @@ $smartphone = true;
     <div class="row justify-content-center"> 
         <hr class="accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 80%;">
     </div>
-    <?php if(NULL !== $pesquisa){?><div class="contorno-pequeno"><a href="{{url('reset_search')}}"><img width="16px" style="padding-bottom:3px" src="{{asset('img/close.png')}}"></a> Resultados da Pesquisa "<?php echo mb_strimwidth($pesquisa, 0, 30, "..."); ?>"</div><?php }?>
+    <?php if(NULL !== $pesquisa){?><a href="{{url('reset_search')}}"><img width="16px" style="padding-bottom:3px" src="{{asset('img/close.png')}}"></a> Resultados da Pesquisa "<?php echo mb_strimwidth($pesquisa, 0, 30, "..."); ?>"<?php }?>
 
     <?php if ($total_pesquisa < 1){?>
         <div class="aviso-home">    
@@ -372,17 +372,17 @@ $smartphone = true;
                 @csrf
                 <div class="modal-body">
                     <label class="radio-custom"><h6><b>Novos</b></h6>
-                        <input type="radio" id="radio1" type="radio" name="filtro" value="novo" <?php if($filtro == "data_postagem"){ echo "checked"; }else{ echo "required";} ?>>
+                        <input type="radio" id="radio1" name="filtro" value="novo" <?php if($filtro == "data_postagem"){ echo "checked"; }else{ echo "required";} ?>>
                         <span class="checkmark"></span>
                     </label>
                     <br>
                     <label class="radio-custom"><h6><b>Populares</b></h6>
-                        <input type="radio" id="radio2" type="radio" name="filtro" value="popu" <?php if($filtro == "likes_postagem"){ echo "checked"; }else{ echo "required";} ?>>
+                        <input type="radio" id="radio2" name="filtro" value="popu" <?php if($filtro == "likes_postagem"){ echo "checked"; }else{ echo "required";} ?>>
                         <span class="checkmark"></span>
                     </label>
                     <br>
                     <label class="radio-custom"><h6><b>Mais avaliados</b></h6>
-                        <input type="radio" id="radio3" type="radio" name="filtro" value="melh" <?php if($filtro == "media"){ echo "checked"; }else{ echo "required";} ?>>
+                        <input type="radio" id="radio3" name="filtro" value="melh" <?php if($filtro == "media"){ echo "checked"; }else{ echo "required";} ?>>
                         <span class="checkmark"></span>
                     </label>
                 </div>
