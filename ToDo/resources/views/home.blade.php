@@ -48,7 +48,18 @@ $pagina_posterior = $pagina + 1;
 if ($periodo == "DATE(NOW()) - INTERVAL 7 DAY"){$setup = "Ultima Semana";
 }elseif($periodo == "DATE(NOW()) - INTERVAL 30 DAY"){$setup = "Ultimo Mês";
 }elseif($periodo == "DATE(NOW()) - INTERVAL 365 DAY"){$setup = "Ultimo Ano";
-}else{$setup = "Todas as Postagens";}
+}else{$setup = "Periodo";}
+
+if($tipo == "1"){ $setup2 = "Web, Mobile & Software"; 
+}elseif($tipo == "2"){ $setup2 = "Design & Criação"; 
+}elseif($tipo == "3"){$setup2 = "Engenharia & Arquitetura";
+}elseif($tipo == "4"){$setup2 = "Marketing";
+}elseif($tipo == "5"){$setup2 = "Outros";
+}else{$setup2 = "Categoria";}
+
+if($avalia == "1"){ $setup3 = "Avaliados"; 
+}elseif($avalia == "2"){ $setup3 = "Pendentes"; 
+}else{$setup3 = "Situação";}
 
 $s = 1;
 $smartphone = true;
@@ -66,7 +77,7 @@ $smartphone = true;
                 <button name="filtro" value="melh" <?php if($filtro == "media"){?> class="btn selecionado" <?php }else{?> class="btn btn-outline-primary-custom" <?php }?>><img width="22px" src="{{asset('img/avaliacao.png')}}">Melhores Avaliados</button> 
                 <div class="dropdown">
                     <button class="btn selecionado dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?php if($avalia == "1"){ echo "Avaliados"; }elseif($avalia == "2"){ echo "Pendentes"; }else{echo "Situação";}?> 
+                        <?php echo $setup3;?> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <?php if($avalia != "1"){?><button class="dropdown-item" name="avalia" value="1">Avaliados</button><?php }?>
@@ -76,8 +87,7 @@ $smartphone = true;
                 </div>
                 <div class="dropdown">
                     <button class="btn selecionado dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?php if($tipo == "1"){ echo "Web, Mobile & Software"; }elseif($tipo == "2"){ echo "Design & Criação"; }elseif($tipo == "3"){echo "Engenharia & Arquitetura";
-                        }elseif($tipo == "4"){echo "Marketing";}elseif($tipo == "5"){echo "Outros";}else{echo "Categoria";}?> 
+                        <?php echo $setup2 ;?> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <?php if($tipo != "1"){?><button class="dropdown-item" name="tipo" value="1">Web, Mobile & Software</button><?php }?>
@@ -90,13 +100,13 @@ $smartphone = true;
                 </div>
                 <div class="dropdown">
                     <button class="btn selecionado dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?php if($setup == "Todas as Postagens"){echo "Periodo";}else{ echo $setup; } ?>
+                        <?php echo $setup; ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <?php if($setup != "Ultima Semana"){?><button class="dropdown-item" name="periodo" value="1">Última Semana</button><?php }?>
                         <?php if($setup != "Ultimo Mês"){?><button class="dropdown-item" name="periodo" value="2">Último Mês</button><?php }?>
                         <?php if($setup != "Ultimo Ano"){?><button class="dropdown-item" name="periodo" value="3">Último Ano</button><?php }?>
-                        <?php if($setup != "Todas as Postagens"){?><button class="dropdown-item" name="periodo" value="4">Todas as postagens</button><?php }?>
+                        <?php if($setup != "Periodo"){?><button class="dropdown-item" name="periodo" value="4">Todas as postagens</button><?php }?>
                     </div>
                 </div>
                 <div class="dropdown">
@@ -125,7 +135,7 @@ $smartphone = true;
                 </div>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?php if($avalia == "1"){ echo "Avaliados"; }elseif($avalia == "2"){ echo "Pendentes"; }else{echo "Situação";}?> 
+                        <?php echo $setup3;?> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <?php if($avalia != "1"){?><button class="dropdown-item" name="avalia" value="1">Avaliados</button><?php }?>
@@ -135,8 +145,7 @@ $smartphone = true;
                 </div>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?php if($tipo == "1"){ echo "Web, Mobile & Software"; }elseif($tipo == "2"){ echo "Design & Criação"; }elseif($tipo == "3"){echo "Engenharia & Arquitetura";
-                        }elseif($tipo == "4"){echo "Marketing";}elseif($tipo == "5"){echo "Outros";}else{echo "Categoria";}?> 
+                        <?php echo $setup2;?> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <?php if($tipo != "1"){?><button class="dropdown-item" name="tipo" value="1">Web, Mobile & Software</button><?php }?>
@@ -149,13 +158,13 @@ $smartphone = true;
                 </div>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?php if($setup == "Todas as Postagens"){echo "Periodo";}else{ echo $setup; } ?>
+                        <?php echo $setup; ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <?php if($setup != "Ultima Semana"){?><button class="dropdown-item" name="periodo" value="1">Última Semana</button><?php }?>
                         <?php if($setup != "Ultimo Mês"){?><button class="dropdown-item" name="periodo" value="2">Último Mês</button><?php }?>
                         <?php if($setup != "Ultimo Ano"){?><button class="dropdown-item" name="periodo" value="3">Último Ano</button><?php }?>
-                        <?php if($setup != "Todas as Postagens"){?><button class="dropdown-item" name="periodo" value="4">Todas as postagens</button><?php }?>
+                        <?php if($setup != "Periodo"){?><button class="dropdown-item" name="periodo" value="4">Todas as postagens</button><?php }?>
                     </div>
                 </div>
                 <div class="dropdown">
@@ -172,7 +181,7 @@ $smartphone = true;
     <div class="row justify-content-center"> 
         <form class="form-inline d-flex justify-content-center md-form form-sm mt-0" method="POST" action="{{url('pesquisa')}}">
             @csrf
-            <i class="fas fa-search" aria-hidden="true"></i>
+            <button type="submit" class="fas fa-search no-border-button" aria-hidden="true"></button>
             <input class="form-control-sm ml-1 pesquisa-home" type="text" name="pesquisa" placeholder="Procurar ideias..." aria-label="Search">
         </form>
     </div>
@@ -180,7 +189,7 @@ $smartphone = true;
     <div class="row justify-content-center"> 
         <hr class="accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 80%;">
     </div>
-    <?php if(NULL !== $pesquisa){?><div class="contorno-pequeno"><a href="{{url('reset_search')}}"><img width="20px" src="{{asset('img/close.png')}}"></a> Resultados da Pesquisa "<?php echo $pesquisa ?>"</div><?php }?>
+    <?php if(NULL !== $pesquisa){?><div class="contorno-pequeno"><a href="{{url('reset_search')}}"><img width="16px" style="padding-bottom:3px" src="{{asset('img/close.png')}}"></a> Resultados da Pesquisa "<?php echo mb_strimwidth($pesquisa, 0, 30, "..."); ?>"</div><?php }?>
 
     <?php if ($total_pesquisa < 1){?>
         <div class="aviso-home">    
@@ -261,93 +270,6 @@ $smartphone = true;
             </div>
         </div>
         @include('layouts.post')
-        <!-- Modal ordenação -->
-        <div class="modal fade" id="ordenacao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle"><b>Ordernar Por</b></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="{{ url('filtro') }}" method="POST">
-                        @csrf
-                        <div class="modal-body">
-                            <label class="radio-custom"><h6><b>Novos</b></h6>
-                                <input type="radio" id="radio1" type="radio" name="filtro" value="novo" <?php if($filtro == "data_postagem"){ echo "checked"; }else{ echo "required";} ?>>
-                                <span class="checkmark"></span>
-                            </label>
-                            <br>
-                            <label class="radio-custom"><h6><b>Populares</b></h6>
-                                <input type="radio" id="radio2" type="radio" name="filtro" value="popu" <?php if($filtro == "likes_postagem"){ echo "checked"; }else{ echo "required";} ?>>
-                                <span class="checkmark"></span>
-                            </label>
-                            <br>
-                            <label class="radio-custom"><h6><b>Mais avaliados</b></h6>
-                                <input type="radio" id="radio3" type="radio" name="filtro" value="melh" <?php if($filtro == "media"){ echo "checked"; }else{ echo "required";} ?>>
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-primary">Salvar alteração</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- FIM Modal ordenação -->
-        <!-- Modal Filtros -->
-        <div class="modal fade" id="filtros" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle"><b>Filtrar Por</b></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="{{ url('filtro') }}" method="POST">
-                        @csrf
-                        <div class="modal-body">
-                            <div class="justify-content-center alinhamento-filtro">
-                                <select name="avalia" class="selecionar-op">
-                                    <option class="op" selected disabled hidden><?php if($avalia == "1 OR 2"){ echo "&nbsp Situação"; }else{ echo $avalia; } ?></option>
-                                    <option class="op" value="1">Avaliados</option>
-                                    <option class="op" value="2">Pendentes</option>
-                                    <option class="op" value="3">Todos</option>
-                                </select>
-                                <select name="tipo" class="selecionar-op">
-                                    <option class="op" selected disabled hidden><?php if($tipo == "1 OR 2 OR 3 OR 4 OR 5"){ echo "&nbsp categorias"; }else{ echo $tipo; } ?></option>
-                                    <option class="op" value="1">Web, Mobile & Software</option>
-                                    <option class="op" value="2">Design & Criação</option>
-                                    <option class="op" value="3">Engenharia & Arquitetura</option>
-                                    <option class="op" value="4">Marketing</option>
-                                    <option class="op" value="5">Outros</option>
-                                    <option class="op" value="todas">Todas as categorias</option>
-                                </select>
-                            </div>
-                            <div class="justify-content-center alinhamento-filtro">
-                                <select name="periodo" class="selecionar-op">
-                                    <option class="op" selected disabled hidden><?php if($setup == "Todas as Postagens"){ echo "&nbsp Periodo"; }else{ echo $setup; } ?></option>
-                                    <option class="op" value="1">Última Semana</option>
-                                    <option class="op" value="2">Último Mês</option>
-                                    <option class="op" value="3">Último Ano</option>
-                                    <option class="op" value="4">Todas as postagens</option>
-                                </select>
-                                <a class="ajuste-link selecionar-op" href="{{url('reset')}}">Limpar</a>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-primary">Salvar alteração</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- FIM Modal Filtros -->
         <!-- Modal deletar postagem -->
         <div class="modal fade id" id="del-post<?php echo $rows['id_postagem'];?>" role="dialog">
             <div class="modal-dialog modal-content">
@@ -436,4 +358,91 @@ $smartphone = true;
         </nav>
     <?php }?>
 </div>
+<!-- Modal ordenação -->
+<div class="modal fade" id="ordenacao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"><b>Ordernar Por</b></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ url('filtro') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <label class="radio-custom"><h6><b>Novos</b></h6>
+                        <input type="radio" id="radio1" type="radio" name="filtro" value="novo" <?php if($filtro == "data_postagem"){ echo "checked"; }else{ echo "required";} ?>>
+                        <span class="checkmark"></span>
+                    </label>
+                    <br>
+                    <label class="radio-custom"><h6><b>Populares</b></h6>
+                        <input type="radio" id="radio2" type="radio" name="filtro" value="popu" <?php if($filtro == "likes_postagem"){ echo "checked"; }else{ echo "required";} ?>>
+                        <span class="checkmark"></span>
+                    </label>
+                    <br>
+                    <label class="radio-custom"><h6><b>Mais avaliados</b></h6>
+                        <input type="radio" id="radio3" type="radio" name="filtro" value="melh" <?php if($filtro == "media"){ echo "checked"; }else{ echo "required";} ?>>
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Salvar alteração</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- FIM Modal ordenação -->
+<!-- Modal Filtros -->
+<div class="modal fade" id="filtros" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"><b>Filtrar Por</b></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ url('filtro2') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="justify-content-center alinhamento-filtro">
+                        <select name="avalia" class="selecionar-op">
+                            <option class="op" selected disabled hidden><?php if($avalia == "1 OR 2"){ echo "&nbsp&nbsp Situação"; }else{ echo $setup3; } ?></option>
+                            <option class="op" value="1">Avaliados</option>
+                            <option class="op" value="2">Pendentes</option>
+                            <option class="op" value="3">Todos</option>
+                        </select>
+                        <select name="tipo" class="selecionar-op">
+                            <option class="op" selected disabled hidden><?php if($tipo == "1 OR 2 OR 3 OR 4 OR 5"){ echo "&nbspCategorias"; }else{ echo $setup2; } ?></option>
+                            <option class="op" value="1">Web, Mobile & Software</option>
+                            <option class="op" value="2">Design & Criação</option>
+                            <option class="op" value="3">Engenharia & Arquitetura</option>
+                            <option class="op" value="4">Marketing</option>
+                            <option class="op" value="5">Outros</option>
+                            <option class="op" value="todas">Todas as categorias</option>
+                        </select>
+                    </div>
+                    <div class="justify-content-center alinhamento-filtro">
+                        <select name="periodo" class="selecionar-op">
+                            <option class="op" selected disabled hidden><?php if($setup == "Periodo"){ echo "&nbsp&nbsp Periodo"; }else{ echo $setup; } ?></option>
+                            <option class="op" value="1">Última Semana</option>
+                            <option class="op" value="2">Último Mês</option>
+                            <option class="op" value="3">Último Ano</option>
+                            <option class="op" value="4">Todas as postagens</option>
+                        </select>
+                        <a class="ajuste-link selecionar-op" href="{{url('reset')}}">Limpar</a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Salvar alteração</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- FIM Modal Filtros -->
 @endsection

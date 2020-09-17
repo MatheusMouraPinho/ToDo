@@ -134,17 +134,78 @@ class HomeController extends Controller
             }
             return redirect('home')->with(['avalia' =>  $avalia]);
         }
-        
-        if(isset($_POST['reset'])){
-            session_start();
-            unset($_SESSION['filtro'], $_SESSION['tipo'], $_SESSION['periodo'], $_SESSION['avalia']);
-            return redirect('home');
+    }
+
+    public function filtro2()
+    {
+        if(isset($_POST['tipo'])){
+            $var2 = $_POST['tipo'];
+            if($var2 == "1"){
+                $tipo = "1"; 
+            }elseif($var2 == "2"){
+                $tipo = "2";
+            }elseif($var2 == "3"){
+                $tipo = "3";
+            }elseif($var2 == "4"){
+                $tipo = "4";
+            }elseif($var2 == "5"){
+                $tipo = "5";
+            }else{
+                $tipo = "1 OR 2 OR 3 OR 4 OR 5";
+            }
         }
 
+        if(isset($_POST['periodo'])){
+            $var3 = $_POST['periodo'];
+            if($var3 == "1"){
+                $periodo = "DATE(NOW()) - INTERVAL 7 DAY";
+            }elseif($var3 == "2"){
+                $periodo = "DATE(NOW()) - INTERVAL 30 DAY"; 
+            }elseif($var3 == "3"){
+                $periodo = "DATE(NOW()) - INTERVAL 365 DAY"; 
+            }else{
+                $periodo = "data_postagem";
+            }
+        }
+
+        if(isset($_POST['avalia'])){
+            $var4 = $_POST['avalia'];
+            if($var4 == "1"){
+                $avalia = "1"; 
+            }elseif($var4 == "2"){
+                $avalia = "2";
+            }else{
+                $avalia = "1 OR 2";
+            }
+        }
+        
+        if(isset($_POST['tipo'], $_POST['periodo'], $_POST['avalia'])){
+            return redirect('home')->with(['avalia' =>  $avalia ,'periodo' =>  $periodo ,'tipo' =>  $tipo]);
+        
+        }elseif(isset($_POST['tipo'], $_POST['periodo'])){
+            return redirect('home')->with(['periodo' =>  $periodo ,'tipo' =>  $tipo]);
+        
+        }elseif(isset($_POST['tipo'], $_POST['avalia'])){
+            return redirect('home')->with(['avalia' =>  $avalia ,'tipo' =>  $tipo]);
+        
+        }elseif(isset($_POST['periodo'], $_POST['avalia'])){
+            return redirect('home')->with(['periodo' =>  $periodo ,'avalia' =>  $avalia]);
+            
+        }elseif(isset($_POST['tipo'])){
+            return redirect('home')->with(['tipo' =>  $tipo]);
+        
+        }elseif(isset($_POST['periodo'])){
+            return redirect('home')->with(['periodo' =>  $periodo]);
+        
+        }elseif(isset($_POST['avalia'])){
+            return redirect('home')->with(['avalia' =>  $avalia]);
+        }else{
+            echo "ERRO";
+        }
     }
 
     public function reset()
-    {   
+    {
         session_start();
         unset($_SESSION['filtro'], $_SESSION['tipo'], $_SESSION['periodo'], $_SESSION['avalia']);
         return redirect('home'); 

@@ -98,17 +98,6 @@
   border-radius: 0.50rem;
 }
 
-.contorno-pequeno {
-  background-color: #a9a9a9;
-  background-image: url("img/texture.png");
-  background-clip: border-box;
-  padding: 0.45rem;
-  border: 2px solid #00000020;
-  border-radius: 0.25rem;
-  margin: 25px 75% 0px auto;
-  box-shadow: 3px 3px 6px grey;
-}
-
 .card-home {
   position: relative;
   display: flex;

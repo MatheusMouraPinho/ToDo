@@ -88,9 +88,8 @@ $denuncia = Session::get('denuncia');
   <!--||Fim Nav bar||-->
 
   <div class="fundo" style="background-color: #E5E5E5">
-    
+    <!-- Filtro SmartPhone  -->
     <?php if (isset($smartphone)){?>
-      <!-- Filtro SmartPhone  -->
       <div class="filtro-smartphone">
         <div class="filtro-esquerda">  
           <a class="fix" data-toggle="modal" data-target="#ordenacao">Ordenação</a>
@@ -99,8 +98,8 @@ $denuncia = Session::get('denuncia');
           <a class="fix" data-toggle="modal" data-target="#filtros">Filtros</a>
         </div>
       </div>
-      <!-- FIM filtro SmartPhone  -->
     <?php }?>
+    <!-- FIM filtro SmartPhone  -->
 
     <div style="padding:12px"></div>
     @yield('content') <!-- Puxa a pagina aqui -->

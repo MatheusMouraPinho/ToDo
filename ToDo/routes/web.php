@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() { 
 
     Route::get('/home', 'HomeController@home');
         Route::post('/filtro', 'HomeController@filtro');
+        Route::post('/filtro2', 'HomeController@filtro2');
         Route::get('/reset', 'HomeController@reset');
         Route::post('/pesquisa', 'HomeController@pesquisa');
         Route::get('/reset_search', 'HomeController@reset_search');
