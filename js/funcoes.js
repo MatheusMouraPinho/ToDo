@@ -112,7 +112,6 @@ function calcular (id_post) {
         var media = soma / 3;
         media = media / 100;
         id('media'+id_post).value = media.toFixed(2);
-        alert("oi");
     }
 }
 
