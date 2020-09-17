@@ -561,7 +561,7 @@ p {
 .popup_avali {
   display: inline-block;
   border-bottom: 2px solid #3490dc;
-  width: 32.5%;
+  width: 32%;
   background-color: transparent;
   text-align: center;
   padding: 0px;
@@ -655,7 +655,7 @@ p {
   overflow: hidden;
   background: url(new_arrow.png) no-repeat right #ddd;
   border: 1px solid #000000;
-
+  border-radius: 3px;
 }
 
 .subdados {
@@ -794,11 +794,16 @@ input[type='file'] {
 }
 
 .data-coment {
-  position: relative;
-  top: 5px;
-  float: right !important;
+  display: inline;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  width: 150px;
+  text-align: right;
   margin: 0px;
   margin-top: 3px;
+  vertical-align: top;
 }
 
 .user {
@@ -808,7 +813,8 @@ input[type='file'] {
   text-overflow: ellipsis;
   word-wrap: break-word;
   width: auto;
-  max-width: 140px;
+  min-width: 100px;
+  max-width: 150px;
   background-color: transparent;
   border: 0px;
   text-align: left;
@@ -898,6 +904,10 @@ input[type='file'] {
   resize: none;
   overflow-y: hidden;
   background-color: transparent;
+}
+
+#comentario {
+  display: block;
 }
 
 .comentario:focus {
@@ -1124,6 +1134,10 @@ input[type='file'] {
   margin: 0;
 }
 
+.data-coment_foot {
+  display: none;
+}
+
 @media (max-width: 1000px) {
   .notas {
     width: 55%;
@@ -1148,6 +1162,20 @@ input[type='file'] {
   }
   .comentarios {
     width: 100%;
+  }
+
+  .data-coment_foot {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    max-width: 50%;
+    margin-right: 20px;
+    padding: 0px;
+    display: inline-block;
+    top: 10px;
+    vertical-align: bottom;
+    position: relative;
   }
 }
 
@@ -1204,6 +1232,10 @@ input[type='file'] {
     visibility: visible;
   }
 
+  .data-coment {
+    display: none;
+  }
+
 }
 
 .btn_fechar{
@@ -1226,7 +1258,7 @@ input[type='file'] {
   text-overflow: ellipsis;
   word-wrap: break-word;
   display: inline-block;
-  width: 150px;
+  width: 130px;
   border: 0px;
   text-align: left;
   margin: 0px;
@@ -1293,18 +1325,20 @@ input[type='file'] {
     max-width: 100px;
   }
 
-  .data-coment {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-    width: 25%;
-    text-align: right;
-  }
-
   .user {
-    width: 40%;
+    width: 105px;
   }
+}
+
+.bola {
+  background-color: black;
+  border-radius: 50%;
+  width: 4px;
+  height: 4px;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -1361,6 +1395,94 @@ input[type='file'] {
 
   td {
     max-width: 140px;
+  }
+}
+
+.div_ordenar {
+  width: 35%;
+  margin-left: 0px;
+  float: left;
+}
+
+.show_selo{
+  display: none;
+}
+
+.selo {
+  display: inline;
+  width: auto;
+}
+
+@media(max-width: 400px) {
+  .subdados {
+    display: block;
+    text-align: left;
+    width: auto;
+    margin: 0px;
+  }
+
+  .btn-popup {
+    width: 95%;
+  }
+
+  .bola {
+    display: none;
+  }
+
+  .user {
+    width: 50%;
+  }
+
+  .password {
+    text-align: left;
+    margin-left: 0px;
+  }
+
+  .select {
+    width: 95%;
+    margin-top: 5px;
+  }
+
+  .data-coment {
+    display: none;
+  }
+
+  .show_selo{
+    display: block;
+  }
+
+  .selo {
+    display: none;
+  }
+
+  #table_conta {
+    font-size: 0.75em;
+  }
+
+  .popup_coment {
+    width: 70%;
+  }
+
+  .div_ordenar {
+    width: 60%;
+  }
+
+  .modal-dialog {
+    width: 95%;
+  }
+
+  .data-coment_foot {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    max-width: 90px;
+    margin-right: 20px;
+    padding: 0px;
+    display: inline-block;
+    top: 10px;
+    vertical-align: bottom;
+    position: relative;
   }
 }
 

@@ -117,17 +117,25 @@ $comments = [
                   @if($post['avaliacao'][$c]->id_postagem === $posts->id_postagem)
                     <div class="div_notas">
                       <p class="popup_avali">
-                        <span class="bold">Inovação: </span><span style="font-size: 1.1em">{{ $post['avaliacao'][$c]->inovacao_avaliacao }}</span>
+                        <span class="bold d-block">Inovação: </span><span style="font-size: 1.1em">{{ $post['avaliacao'][$c]->inovacao_avaliacao }}</span>
                       </p>
                       <p class="popup_avali">
-                        <span class="bold">Potencial: </span><span style="font-size: 1.1em">{{ $post['avaliacao'][$c]->potencial_avaliacao }}</span>
+                        <span class="bold d-block">Potencial: </span><span style="font-size: 1.1em">{{ $post['avaliacao'][$c]->potencial_avaliacao }}</span>
                       </p>
                       <p class="popup_avali">
-                        <span class="bold">Complexidade: </span><span style="font-size: 1.1em">{{ $post['avaliacao'][$c]->complexidade_avaliacao }}</span>
+                        <span class="bold d-block">Complexidade: </span><span style="font-size: 1.1em">{{ $post['avaliacao'][$c]->complexidade_avaliacao }}</span>
                       </p>
                     </div>
                     <div class="popup_coment_aval" id="avaliacao">
                       <div class="header-coment">
+                        @if($dados['avaliador'][$c]->nivel > 1)
+                          <div class="p-1 w-50 show_selo">
+                            <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zm4.854-7.85a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                            </svg>
+                            <span>Avaliador</span>
+                          </div>
+                        @endif
                         @if($dados['avaliador'][$c]->img_usuarios === null)
                             <img class="img-dados-coment" src="{{asset('img/semuser.png')}}">
                           @else
@@ -139,7 +147,8 @@ $comments = [
                             <input class="bold user" type="submit" value="{{ $dados['avaliador'][$c]->usuario}}">
                           </form>
                           @if($dados['avaliador'][$c]->nivel > 1)
-                            <div class="d-inline-block p-1 ml-2 w-25">
+                            <div class="bola"> </div>
+                            <div class="selo p-1 ml-2">
                               <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zm4.854-7.85a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
                               </svg>
@@ -149,7 +158,7 @@ $comments = [
                         <span class="underline data-coment" style="margin-right: 10px">{{ Helper::tempo_corrido($post['avaliacao'][$c]->data_comentarios)}}</span>
                       </div>
                       
-                      <p class="conteudo-coment text-justify">{{ $post['avaliacao'][$c]->conteudo_comentarios }}</p>
+                      <p class="conteudo-coment text-justify" id="comentario">{{ $post['avaliacao'][$c]->conteudo_comentarios }}</p>
                       <div class="footer-coment">
                         <?php $resultados = Helper::verifica_like_coment($post['avaliacao'][$c]->id_comentarios)?>
                           @if($resultados == 0)
@@ -159,6 +168,7 @@ $comments = [
                           <span href="#" id="btn_like" class="curtir fa-thumbs-up fa" onclick="like(this)" data-id="{{ $post['avaliacao'][$c]->id_comentarios }}"></span>
                           <span class="likes" id="likes_{{ $post['avaliacao'][$c]->id_comentarios }}">{{ $post['avaliacao'][$c]->likes_comentarios }}</span>
                           @endif
+                          <span class="underline data-coment_foot" style="margin-right: 10px">{{ Helper::tempo_corrido($post['avaliacao'][$c]->data_comentarios)}}</span>
                       </div>
                     </div>
                   @endif
@@ -204,8 +214,8 @@ $comments = [
                   @if($comments['comentarios'][$f]->id_postagem === $posts->id_postagem)
                     <form action="{{ route('ordenar') }}" method="POST">
                       @csrf
-                      <div class="container w-25 float-left pl-0">
-                        <p class="font-weight-bold h-6 m-0 p-1">
+                      <div class="div_ordenar">
+                        <p class="font-weight-bold m-0 p-1">
                           <svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-sliders" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
                           </svg>&nbsp;
@@ -234,6 +244,14 @@ $comments = [
                     
                     <div class="popup_coment_aval" id="id_comentario{{ $comments['comentarios'][$f]->id_comentarios }}">
                       <div class="header-coment">
+                        @if($comments['comentarios'][$f]->nivel > 1)
+                          <div class="p-1 w-50 show_selo">
+                            <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zm4.854-7.85a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                            </svg>
+                            <span>Avaliador</span>
+                          </div>
+                        @endif
                         @if($comments['comentarios'][$f]->img_usuarios === null)
                           <img class="img-dados-coment" src="{{asset('img/semuser.png')}}">
                         @else
@@ -245,7 +263,8 @@ $comments = [
                           <input class="bold user" type="submit" value="{{ $comments['comentarios'][$f]->usuario}}">
                         </form>
                         @if($comments['comentarios'][$f]->nivel > 1)
-                          <div class="d-inline-block p-1 ml-2 w-25">
+                          <div class="bola"> </div>
+                          <div class="selo p-1 ml-2">
                             <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                               <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zm4.854-7.85a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
                             </svg>
@@ -256,7 +275,7 @@ $comments = [
 
                           <!--Trigger-->
                          
-                          <a class="btn-floating btn-lg "type="button" id="dropdownMenu2" data-toggle="dropdown"
+                          <a class="btn-floating btn-lg"type="button" id="dropdownMenu2" data-toggle="dropdown"
                           aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
                         
                         
@@ -282,47 +301,16 @@ $comments = [
                             @endif
                           </div>
                         </div> 
-                        <!-- Modal denunciar comentario -->
-                        <div class="modal fade id" id="den_comen{{$comments['comentarios'][$f]->id_comentarios}}" role="dialog">
-                            <div class="modal-dialog modal-content">
-                                <div class="modal-header"></div>
-                                <form action="{{url('/denunciar_comentario')}}" method="POST">
-                                    @csrf
-                                    <div class="modal-body">
-                                        <h3><p>Denunciar Comentario por:</p></h3><br>
-                                        <h6>
-                                            <label class="radio-custom">Conteúdo Inadequado
-                                                <input type="radio" id="radio1" type="radio" name="option" value="3" required>
-                                                <span class="checkmark"></span>
-                                            </label>
-                                            <label class="radio-custom">Spam
-                                                <input type="radio" id="radio2" type="radio" name="option" value="1" required>
-                                                <span class="checkmark"></span>
-                                            </label>
-                                            <label class="radio-custom">Copia
-                                                <input type="radio" id="radio3" type="radio" name="option" value="2" required>
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </h6>
-                                        <input type="hidden" value="{{$posts->id_postagem}}" name="id_postagem">
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                            <input name="id_comentario" type="hidden" value="{{$comments['comentarios'][$f]->id_comentarios}}">
-                                            <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
-                                            <input data-toggle="modal" type="submit" class="btn btn-primary" value="Confirmar">
-                                        </div> 
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- FIM Modal denunciar comentario -->
+                        
                         @if(empty($comments['comentarios'][$f]->edit_comentarios))
                           <span class="underline data-coment">{{ Helper::tempo_corrido($comments['comentarios'][$f]->data_comentarios)}}</span>
                         @else
                           <span class="underline data-coment"><?='(editado) '. Helper::tempo_corrido($comments['comentarios'][$f]->data_comentarios)?></span>
                         @endif
                       </div>
-                      <p class="conteudo-coment text-justify">{{ $comments['comentarios'][$f]->conteudo_comentarios }}</p>
+                      <div class="body_coment">
+                      <p class="conteudo-coment" id="comentario">{{ $comments['comentarios'][$f]->conteudo_comentarios }}</p>
+                      </div>
                       <div class="footer-coment">
                         <span class="mostrar">Responder</span>
                         <?php $resultados = Helper::verifica_like_coment($comments['comentarios'][$f]->id_comentarios);$id_comentario = $comments['comentarios'][$f]->id_comentarios;?>
@@ -333,6 +321,11 @@ $comments = [
                             <span href="#" id="btn_like" onclick="like(this)" class="curtir fa-thumbs-up fa" data-id="{{ $comments['comentarios'][$f]->id_comentarios }}"></span>
                             <span class="likes" id="likes_{{ $comments['comentarios'][$f]->id_comentarios }}">{{ $comments['comentarios'][$f]->likes_comentarios }}</span>
                           @endif
+                        @if(empty($comments['comentarios'][$f]->edit_comentarios))
+                          <span class="underline data-coment_foot">{{ Helper::tempo_corrido($comments['comentarios'][$f]->data_comentarios)}}</span>
+                        @else
+                          <span class="underline data-coment_foot"><?='(editado) '. Helper::tempo_corrido($comments['comentarios'][$f]->data_comentarios)?></span>
+                        @endif
 
                         <!--  Modal de edição de comentários -->
                           <div class="painel-dados">
@@ -379,6 +372,41 @@ $comments = [
                       </div>
                       
                     </div> 
+
+                    <!-- Modal denunciar comentario -->
+                    <div class="modal fade id" id="den_comen{{$comments['comentarios'][$f]->id_comentarios}}" role="dialog">
+                      <div class="modal-dialog modal-content">
+                          <div class="modal-header"></div>
+                          <form action="{{url('/denunciar_comentario')}}" method="POST">
+                              @csrf
+                              <div class="modal-body">
+                                  <h3><p>Denunciar Comentario por:</p></h3><br>
+                                  <h6>
+                                      <label class="radio-custom">Conteúdo Inadequado
+                                          <input type="radio" id="radio1" type="radio" name="option" value="3" required>
+                                          <span class="checkmark"></span>
+                                      </label>
+                                      <label class="radio-custom">Spam
+                                          <input type="radio" id="radio2" type="radio" name="option" value="1" required>
+                                          <span class="checkmark"></span>
+                                      </label>
+                                      <label class="radio-custom">Copia
+                                          <input type="radio" id="radio3" type="radio" name="option" value="2" required>
+                                          <span class="checkmark"></span>
+                                      </label>
+                                  </h6>
+                                  <input type="hidden" value="{{$posts->id_postagem}}" name="id_postagem">
+                                  <div class="modal-footer">
+                                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                      <input name="id_comentario" type="hidden" value="{{$comments['comentarios'][$f]->id_comentarios}}">
+                                      <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
+                                      <input data-toggle="modal" type="submit" class="btn btn-primary" value="Confirmar">
+                                  </div> 
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+                  <!-- FIM Modal denunciar comentario -->
                     
                     <!--  Modal para apagar comentários -->
                   <div class="painel-dados">
@@ -413,7 +441,7 @@ $comments = [
 
                             <!--Trigger-->
                            
-                            <a class="btn-floating btn-lg black"type="button" id="dropdownMenu3" data-toggle="dropdown"
+                            <a class="btn-floating btn-lg"type="button" id="dropdownMenu3" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
                           
                           
@@ -445,46 +473,16 @@ $comments = [
                               @endif
                             </div>
                           </div>
-                          <!-- Modal denunciar comentario Reply -->
-                          <div class="modal fade id" id="den_comen_reply{{$comments['reply_coment'][$g]->id_comentarios }}" role="dialog">
-                              <div class="modal-dialog modal-content">
-                                  <div class="modal-header"></div>
-                                  <form action="/denunciar_comentario" method="POST">
-                                      @csrf
-                                      <div class="modal-body">
-                                          <h3><p>Denunciar Comentario por:</p></h3><br>
-                                          <h6>
-                                              <label class="radio-custom">Conteúdo Inadequado
-                                                  <input type="radio" id="radio1" type="radio" name="option" value="3" required>
-                                                  <span class="checkmark"></span>
-                                              </label>
-                                              <label class="radio-custom">Spam
-                                                  <input type="radio" id="radio3" type="radio" name="option" value="1" required>
-                                                  <span class="checkmark"></span>
-                                              </label>
-                                              <label class="radio-custom">Copia
-                                                  <input type="radio" id="radio3" type="radio" name="option" value="2" required>
-                                                  <span class="checkmark"></span>
-                                              </label>
-                                          </h6>
-                                          <input type="hidden" value="{{$posts->id_postagem}}" name="id_postagem">
-                                          <div class="modal-footer">
-                                              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                              <input name="id_comentario" type="hidden" value="{{$comments['reply_coment'][$g]->id_comentarios }}">
-                                              <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
-                                              <input data-toggle="modal" type="submit" class="btn btn-primary" value="Confirmar">
-                                          </div> 
-                                      </div>
-                                  </form>
-                              </div>
-                          </div>
-                          <!-- FIM Modal denunciar comentario reply -->
-                          @if(empty($comments['reply_coment'][$g]->edit_comentarios))
-                            <span class="underline data-coment">{{ Helper::tempo_corrido($comments['reply_coment'][$g]->data_comentarios)}}</span>
-                          @else
-                            <span class="underline data-coment"><?='(editado) '. Helper::tempo_corrido($comments['reply_coment'][$g]->data_comentarios)?></span>
-                          @endif
+                        </div>
                           <div>
+                            @if($comments['reply_coment'][$g]->nivel > 1)
+                              <div class="p-1 w-50 show_selo">
+                                <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                  <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zm4.854-7.85a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                </svg>
+                                <span>Avaliador</span>
+                              </div>
+                            @endif
                             @if($comments['reply_coment'][$g]->img_usuarios === null)
                               <img class="img-dados-coment" src="{{asset('img/semuser.png')}}">
                             @else
@@ -496,27 +494,33 @@ $comments = [
                               <input alt="" class="bold user" type="submit" value="{{ $comments['reply_coment'][$g]->usuario}}">
                             </form>
                             @if($comments['reply_coment'][$g]->nivel > 1)
-                              <div class="d-inline-block p-1 ml-2 w-25">
+                              <div class="bola"> </div>
+                              <div class="selo p-1 ml-2">
                                 <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                   <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zm4.854-7.85a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
                                 </svg>
                                 <span>Avaliador</span>
                               </div>
                             @endif
-                          </div>
                           
+                        @if(empty($comments['reply_coment'][$g]->edit_comentarios))
+                          <span class="underline data-coment">{{ Helper::tempo_corrido($comments['reply_coment'][$g]->data_comentarios)}}</span>
+                        @else
+                          <span class="underline data-coment clearfix"><?='(editado) '. Helper::tempo_corrido($comments['reply_coment'][$g]->data_comentarios)?></span>
+                        @endif
+                      </div>
+                        <div class="body_coment d-block>
+                          @for($k=0; $k<sizeof($post['mencionado']);$k++)
+                            @if($post['mencionado'][$k]->id_comentarios === $comments['reply_coment'][$g]->id_comentarios)
+                              <form id="perfil" action="{{ route('perfil') }}" method="get">
+                                @csrf
+                                <input type="hidden" name="id_usuario" value="{{ $post['mencionado'][$k]->id }}">
+                                <input class="mencionado" type="submit" value="{{'@'. $post['mencionado'][$k]->usuario }}">
+                              </form>
+                            @endif
+                          @endfor
+                          <p class="conteudo-coment">{{ $comments['reply_coment'][$g]->conteudo_comentarios }}</p>
                         </div>
-                        @for($k=0; $k<sizeof($post['mencionado']);$k++)
-                          @if($post['mencionado'][$k]->id_comentarios === $comments['reply_coment'][$g]->id_comentarios)
-                            <form id="perfil" action="{{ route('perfil') }}" method="get">
-                              @csrf
-                              <input type="hidden" name="id_usuario" value="{{ $post['mencionado'][$k]->id }}">
-                              <input class="mencionado" type="submit" value="{{'@'. $post['mencionado'][$k]->usuario }}">
-                            </form>
-                          @endif
-                        @endfor
-                        <p class="conteudo-coment">{{ $comments['reply_coment'][$g]->conteudo_comentarios }}</p>
-                      
                         <div class="footer-coment">
                           <span class="mostrar">Responder</span>
                           <?php $resultados = Helper::verifica_like_coment($comments['reply_coment'][$g]->id_comentarios)?>
@@ -526,6 +530,11 @@ $comments = [
                           @else 
                             <span href="#" id="{{ $comments['reply_coment'][$g]->id_comentarios }}" onclick="like(this)" class="curtir fa-thumbs-up fa" data-id="{{ $comments['reply_coment'][$g]->id_comentarios }}"></span>
                             <span class="likes" id="likes_{{ $comments['reply_coment'][$g]->id_comentarios }}">{{$comments['reply_coment'][$g]->likes_comentarios }}</span>
+                          @endif
+                          @if(empty($comments['reply_coment'][$g]->edit_comentarios))
+                            <span class="underline data-coment_foot">{{ Helper::tempo_corrido($comments['reply_coment'][$g]->data_comentarios)}}</span>
+                          @else
+                            <span class="underline data-coment_foot"><?='(editado) '. Helper::tempo_corrido($comments['reply_coment'][$g]->data_comentarios)?></span>
                           @endif
                           <div id="comentarios">
                             <form action="{{ route('comentario') }}" method="POST">
@@ -540,6 +549,41 @@ $comments = [
                         </div>
 
                       </div>
+
+                      <!-- Modal denunciar comentario Reply -->
+                      <div class="modal fade id" id="den_comen_reply{{$comments['reply_coment'][$g]->id_comentarios }}" role="dialog">
+                        <div class="modal-dialog modal-content">
+                            <div class="modal-header"></div>
+                            <form action="/denunciar_comentario" method="POST">
+                                @csrf
+                                <div class="modal-body">
+                                    <h3><p>Denunciar Comentario por:</p></h3><br>
+                                    <h6>
+                                        <label class="radio-custom">Conteúdo Inadequado
+                                            <input type="radio" id="radio1" type="radio" name="option" value="3" required>
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="radio-custom">Spam
+                                            <input type="radio" id="radio3" type="radio" name="option" value="1" required>
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="radio-custom">Copia
+                                            <input type="radio" id="radio3" type="radio" name="option" value="2" required>
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </h6>
+                                    <input type="hidden" value="{{$posts->id_postagem}}" name="id_postagem">
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                        <input name="id_comentario" type="hidden" value="{{$comments['reply_coment'][$g]->id_comentarios }}">
+                                        <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
+                                        <input data-toggle="modal" type="submit" class="btn btn-primary" value="Confirmar">
+                                    </div> 
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- FIM Modal denunciar comentario reply -->
 
                       <!--  Modal de edição de respostas de comentários -->
                       <div class="painel-dados">
