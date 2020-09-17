@@ -231,7 +231,8 @@ class ComentController extends Controller
                     $delete_like = DB::delete('delete from like_comentarios where id_comentarios = ?', [$search['id_comentario'][$c]->id_comentarios]);
                 }
             }
-            $delete_denun = DB::delete('delete from check_denuncia_comentarios where id_comentario = ?', [$id_comentario]);
+            $delete_checkdenun = DB::delete('delete from check_denuncia_comentarios where id_comentario = ?', [$id_comentario]);
+            $delete_denun = DB::delete('delete from denuncias_comentarios where id_comentario = ?', [$id_comentario]);
             $delete = DB::delete('delete from like_comentarios where id_comentarios = ?', [$id_comentario]);
             $deletando = DB::delete('delete from comentarios where id_comentarios = ?', [$id_comentario]);
             $deletando_ref = DB::delete('delete from comentarios where id_comentarios_ref = ?', [$id_comentario]);

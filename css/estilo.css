@@ -803,7 +803,7 @@ input[type='file'] {
   text-align: right;
   margin: 0px;
   margin-top: 3px;
-  vertical-align: top;
+  vertical-align: middle;
 }
 
 .user {
