@@ -153,7 +153,95 @@ class AdminController extends Controller
         $usu = $_POST ['nome'];
         $mail = $_POST ['email'];
         $notific = 2;
+        
+        $sql = "DELETE FROM check_denuncia WHERE id_usuario = $id_sql";
+        mysqli_query($conn, $sql);
 
+        $sql = "DELETE FROM check_denuncia_comentarios WHERE id_usuario = $id_sql";
+        mysqli_query($conn, $sql);
+
+        $query = "SELECT * FROM postagens WHERE id_usuarios = $id_sql";
+        $result = mysqli_query($conn, $query);
+        while($rows = mysqli_fetch_assoc($result)){
+            $id_post = $rows['id_postagem'];
+            $sql = "DELETE FROM check_denuncia WHERE id_postagem = $id_post";
+            mysqli_query($conn, $sql);
+        }
+
+        $query = "SELECT * FROM postagens WHERE id_usuarios = $id_sql";
+        $result = mysqli_query($conn, $query);
+        while($rows = mysqli_fetch_assoc($result)){
+            $id_post = $rows['id_postagem'];
+            $sql = "DELETE FROM denuncias WHERE id_postagem = $id_post";
+            mysqli_query($conn, $sql);
+        }
+
+        $sql = "DELETE FROM like_comentarios WHERE id_usuarios = $id_sql";
+        mysqli_query($conn, $sql);
+
+        $query = "SELECT * FROM comentarios WHERE id_usuarios = $id_sql";
+        $result = mysqli_query($conn, $query);
+        while($rows = mysqli_fetch_assoc($result)){
+            $id_com = $rows['id_comentarios'];
+            $sql = "DELETE FROM check_denuncia_comentarios WHERE id_comentario = $id_com";
+            mysqli_query($conn, $sql);
+        }
+
+        $query = "SELECT * FROM comentarios WHERE id_usuarios = $id_sql";
+        $result = mysqli_query($conn, $query);
+        while($rows = mysqli_fetch_assoc($result)){
+            $id_com = $rows['id_comentarios'];
+            $sql = "DELETE FROM denuncias_comentarios WHERE id_comentario = $id_com";
+            mysqli_query($conn, $sql);
+        }
+
+        $query3 = "SELECT * FROM comentarios WHERE id_usuarios = $id_sql";
+        $result3 = mysqli_query($conn, $query3);
+        while($rows = mysqli_fetch_assoc($result3)){
+            $id_com = $rows['id_comentarios'];
+            $sql = "DELETE FROM like_comentarios WHERE id_comentarios = $id_com";
+            mysqli_query($conn, $sql);
+        }
+
+        $sql = "DELETE FROM comentarios WHERE id_usuarios = $id_sql";
+        mysqli_query($conn, $sql);
+        
+        $query = "SELECT * FROM avaliacao_postagem WHERE id_avaliador = $id_sql";
+        $result = mysqli_query($conn, $query);
+        while($rows = mysqli_fetch_assoc($result)){
+            $id = $rows['id_usuario'];
+            $sql = "DELETE FROM comentarios WHERE id_usuarios = $id";
+            mysqli_query($conn, $sql);
+        }
+
+        $sql = "DELETE FROM avaliacao_postagem WHERE id_avaliador = $id_sql";
+        mysqli_query($conn, $sql);
+
+        $sql = "DELETE FROM avaliacao_postagem WHERE id_usuario = $id_sql";
+        mysqli_query($conn, $sql);
+
+        $sql = "DELETE FROM like_postagens WHERE id_usuarios = $id_sql";
+        mysqli_query($conn, $sql);
+
+        $query = "SELECT * FROM postagens WHERE id_usuarios = $id_sql";
+        $result = mysqli_query($conn, $query);
+        while($rows = mysqli_fetch_assoc($result)){
+            $id_post = $rows['id_postagem'];
+            $sql = "DELETE FROM img_postagem WHERE id_postagem = $id_post";
+            mysqli_query($conn, $sql);
+        }
+
+        $query = "SELECT * FROM postagens WHERE id_usuarios = $id_sql";
+        $result = mysqli_query($conn, $query);
+        while($rows = mysqli_fetch_assoc($result)){
+            $id_post = $rows['id_postagem'];
+            $sql = "DELETE FROM like_postagens WHERE id_postagens = $id_post";
+            mysqli_query($conn, $sql);
+        }
+
+        $sql = "DELETE FROM postagens WHERE id_usuarios = $id_sql";
+        mysqli_query($conn, $sql);
+        
         $sql = "DELETE FROM usuarios WHERE id = $id_sql";
         mysqli_query($conn, $sql);
 
@@ -203,11 +291,19 @@ class AdminController extends Controller
             $nom = $_POST ['nome_post'];
             $notific = 2;
 
-            $sql = "DELETE FROM denuncias WHERE id_denuncia = $id_den";
-            mysqli_query($conn, $sql);
-            
             $sql = "DELETE FROM check_denuncia WHERE id_postagem = $id_post";
             mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM denuncias WHERE id_denuncia = $id_den";
+            mysqli_query($conn, $sql);
+
+            $query = "SELECT * FROM comentarios WHERE id_postagem = $id_post";
+            $result = mysqli_query($conn, $query);
+            while($rows = mysqli_fetch_assoc($result)){
+                $id_com = $rows['id_comentarios'];
+                $sql = "DELETE FROM check_denuncia_comentarios WHERE id_comentario = $id_com";
+                mysqli_query($conn, $sql);
+            }
 
             $query = "SELECT * FROM comentarios WHERE id_postagem = $id_post";
             $result = mysqli_query($conn, $query);
@@ -216,9 +312,6 @@ class AdminController extends Controller
                 $sql = "DELETE FROM denuncias_comentarios WHERE id_comentario = $id_com";
                 mysqli_query($conn, $sql);
             }
-
-            $sql = "DELETE FROM avaliacao_postagem WHERE id_postagem = $id_post";
-            mysqli_query($conn, $sql);
             
             $query3 = "SELECT * FROM comentarios WHERE id_postagem = $id_post";
             $result3 = mysqli_query($conn, $query3);
@@ -229,6 +322,9 @@ class AdminController extends Controller
             }
 
             $sql = "DELETE FROM comentarios WHERE id_postagem = $id_post";
+            mysqli_query($conn, $sql);
+
+            $sql = "DELETE FROM avaliacao_postagem WHERE id_postagem = $id_post";
             mysqli_query($conn, $sql);
 
             $sql = "DELETE FROM img_postagem WHERE id_postagem = $id_post";

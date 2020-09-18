@@ -293,8 +293,19 @@ class HomeController extends Controller
 
         $id = $_POST['id_postagem'];
 
+        $sql = "DELETE FROM check_denuncia WHERE id_postagem = $id";
+        mysqli_query($conn, $sql);
+
         $sql = "DELETE FROM denuncias WHERE id_postagem = $id";
         mysqli_query($conn, $sql);
+
+        $query = "SELECT * FROM comentarios WHERE id_postagem = $id";
+        $result = mysqli_query($conn, $query);
+        while($rows = mysqli_fetch_assoc($result)){
+            $id_com = $rows['id_comentarios'];
+            $sql = "DELETE FROM check_denuncia_comentarios WHERE id_comentario = $id_com";
+            mysqli_query($conn, $sql);
+        }
 
         $query = "SELECT * FROM comentarios WHERE id_postagem = $id";
         $result = mysqli_query($conn, $query);
@@ -303,9 +314,6 @@ class HomeController extends Controller
             $sql = "DELETE FROM denuncias_comentarios WHERE id_comentario = $id_com";
             mysqli_query($conn, $sql);
         }
-
-        $sql = "DELETE FROM avaliacao_postagem WHERE id_postagem = $id";
-        mysqli_query($conn, $sql);
         
         $query3 = "SELECT * FROM comentarios WHERE id_postagem = $id";
         $result3 = mysqli_query($conn, $query3);
@@ -318,7 +326,13 @@ class HomeController extends Controller
         $sql = "DELETE FROM comentarios WHERE id_postagem = $id";
         mysqli_query($conn, $sql);
 
+        $sql = "DELETE FROM avaliacao_postagem WHERE id_postagem = $id";
+        mysqli_query($conn, $sql);
+
         $sql = "DELETE FROM img_postagem WHERE id_postagem = $id";
+        mysqli_query($conn, $sql);
+
+        $sql = "DELETE FROM like_postagens WHERE id_postagens = $id";
         mysqli_query($conn, $sql);
 
         $sql = "DELETE FROM postagens WHERE id_postagem = $id";

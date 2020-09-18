@@ -299,15 +299,15 @@ $smartphone = true;
                         <h3><p>Denunciar postagem por:</p></h3><br>
                         <h6>
                             <label class="radio-custom">Conteúdo Inadequado
-                                <input type="radio" id="radio1" type="radio" name="option" value="3" required>
+                                <input type="radio" id="radio1" name="option" value="3" required>
                                 <span class="checkmark"></span>
                             </label>
                             <label class="radio-custom">Spam
-                                <input type="radio" id="radio3" type="radio" name="option" value="1" required>
+                                <input type="radio" id="radio3" name="option" value="1" required>
                                 <span class="checkmark"></span>
                             </label>
                             <label class="radio-custom">Cópia
-                                <input type="radio" id="radio3" type="radio" name="option" value="2" required>
+                                <input type="radio" id="radio3" name="option" value="2" required>
                                 <span class="checkmark"></span>
                             </label>
                         </h6>
