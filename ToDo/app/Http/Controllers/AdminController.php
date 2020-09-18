@@ -288,7 +288,7 @@ class AdminController extends Controller
         }
     }
         
-    public function avaliar(Request $request) {
+    public function avaliar(Request $request) {       
         $data = $request->all();
         $datetime = new DateTime();
         $datetime->format('d-m-Y H:i:s');
@@ -311,7 +311,7 @@ class AdminController extends Controller
             $query = intval($query[0]->id_avaliacao);
 
             $insert_coment = DB::insert('insert into comentarios (id_avaliacao, id_usuarios, id_postagem, conteudo_comentarios, data_comentarios)
-            values (?, ?, ?, ?, ?)', [$query, $data['id_usuario'], $data['id_postagem'], $data['comentarios'], $data['data_postagem']]);
+            values (?, ?, ?, ?, ?)', [$query, $data['id_avaliador'], $data['id_postagem'], $data['comentarios'], $data['data_postagem']]);
 
             $update = DB::update('update postagens set media = ?, id_situacao_postagem = ? where id_postagem = ?', [$media, 1, $data['id_postagem']]);
         }
