@@ -127,7 +127,6 @@
   align-items: flex-start;
   justify-content: space-between;
   padding: 1rem 1rem;
-  border-bottom: 1px solid #ffffff;
   border-top-left-radius: calc(0.3rem - 1px);
   border-top-right-radius: calc(0.3rem - 1px);
   background-color: #3490dc;
@@ -298,10 +297,17 @@
   position: relative;
 }
 
+.div_icon  {
+  position: relative;
+  bottom: 50px;
+  left:280px;
+}
+
+.perfil {
+  width: auto;
+}
+
 .icon_cam {
-  position: absolute;
-  bottom: 15px;
-  left: 285px;
   margin-left: auto;
   margin-right: auto;
   width: 50px;
@@ -651,15 +657,22 @@ p {
 
 .select  {
   width: 60%;
-  height: 34px;
+  padding: 5px;
+  background-color: white;
+  height: 40px;
   overflow: hidden;
-  background: url(new_arrow.png) no-repeat right #ddd;
   border: 1px solid #000000;
   border-radius: 3px;
 }
 
+.select:focus {
+  border: 2px solid #3490dc;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
 .subdados {
-  width: 100px;
+  padding-left: 25px;
+  width: 120px;
   display: inline-block;
   text-align: right;
 }
@@ -728,7 +741,7 @@ input[type='file'] {
 
 .password {
   display: inline-block;
-  margin-left: 100px;
+  margin-left: 125px;
 }
 
 .configuracoes {
@@ -1415,14 +1428,27 @@ input[type='file'] {
 
 @media(max-width: 400px) {
   .subdados {
+    margin-left: 10px;
     display: block;
     text-align: left;
     width: auto;
-    margin: 0px;
+  }
+
+  .div_icon {
+    left: 200px;
+  }
+
+  .icon_cam {
+    left: 10%;
+    bottom: 15px;
   }
 
   .btn-popup {
-    width: 95%;
+    display: block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
   }
 
   .bola {
@@ -1435,11 +1461,14 @@ input[type='file'] {
 
   .password {
     text-align: left;
-    margin-left: 0px;
+    margin-left: 30px;
   }
 
   .select {
-    width: 95%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
     margin-top: 5px;
   }
 
@@ -1483,6 +1512,12 @@ input[type='file'] {
     top: 10px;
     vertical-align: bottom;
     position: relative;
+  }
+}
+
+@media (min-width:401px) and (max-width:475px) {
+  .div_icon {
+    left: 230px;
   }
 }
 

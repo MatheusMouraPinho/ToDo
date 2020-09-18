@@ -9,13 +9,15 @@ $nivel = Auth::user()->nivel;
 @section('content')
 
         @if(session('success'))
-          <div class="alert alert-success text-center">
+          <div class="alert alert-success alert-dismissible">
+            <button class="close" type="button" data-dismiss="alert">&times;</button>
             {{ session('success') }}
           </div>
         @endif
 
         @if(session('error'))
-          <div class="alert alert-danger text-center">
+          <div class="alert alert-danger alert-dismissible">
+            <button class="close" type="button" data-dismiss="alert">&times;</button>
             {{ session('error') }}
           </div>
         @endif
@@ -295,10 +297,10 @@ $nivel = Auth::user()->nivel;
         <div class="modal fade id" id="popup{{$dados['id']}}" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" style="color: white">&times;</button>
+              <div class="modal-header m-0" style=" border-bottom: none">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
-              <div class="modal-body">
+              <div class="modal-body m-0 p-0">
                 <form action="{{route('profile.update')}}" method="POST" enctype="multipart/form-data">
                   @csrf
                       <div id="area_capa_edit">
@@ -311,55 +313,60 @@ $nivel = Auth::user()->nivel;
 
                       <div class="area_dados_edit">
                         <div class="img_perfil">
-                          @if($dados['img_perfil'] === null)
-                            <img width="150px" name="img_usuarios" class="img" src="{{asset('img/semuser.png')}}">  
-                          @else
-                            <img width="200px" alt="{{ Auth::user()->img_usuarios }}" name="img_usuarios" class="img" src="{{url('/ToDo/storage/app/public/users/'.Auth::user()->img_usuarios)}}">
-                          @endif
-                          <div class="dropdown" style="position: absolute">
-                            <button class="btn btn-secondary dropdown-toggle icon_cam" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    
-                              <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-camera-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-                                <path fill-rule="evenodd" d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
-                              </svg>
-
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                              <label>
-                                <input name="img_usuarios" type="file" style="display: none; cursor:pointer" accept="image/jpeg, image/png">
-                                <a name="img_usuarios" class="dropdown-item">
-                                  <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-file-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M12 1H4a1 1 0 0 0-1 1v10.755S4 11 8 11s5 1.755 5 1.755V2a1 1 0 0 0-1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
-                                    <path fill-rule="evenodd" d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                                  </svg>&nbsp;
-                                  Alterar foto de perfil
-                                </a>
-                              </label>
-                              <label>
-                                <input name="img_capa" type="file" style="display: none; cursor: pointer;" accept="image/jpeg, image/png">
-                                <a name="img_capa" class="dropdown-item">
-                                  <svg width="1.2em" height="1.2em" viewBox="0 0 17 16" class="bi bi-image" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M14.002 2h-12a1 1 0 0 0-1 1v9l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094L15.002 9.5V3a1 1 0 0 0-1-1zm-12-1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm4 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                                  </svg>&nbsp;
-                                  Alterar foto da capa
-                                </a>
-                              </label>
-                              <div class="dropdown-divider"></div>
-
-                              <a class="dropdown-item" href="{{route('remove_perfil')}}">
-                                <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                  <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
-                                </svg>&nbsp;
-                                Remover foto de perfil
-                              </a>
-                              <a class="dropdown-item" href="{{route('remove_capa')}}">
-                                <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                </svg>&nbsp;
-                                Remover foto da capa
-                              </a>
+                          <div class="perfil">
+                            @if($dados['img_perfil'] === null)
+                              <img width="150px" name="img_usuarios" class="img" src="{{asset('img/semuser.png')}}">  
+                            @else
+                              <img width="200px" alt="{{ Auth::user()->img_usuarios }}" name="img_usuarios" class="img" src="{{url('/ToDo/storage/app/public/users/'.Auth::user()->img_usuarios)}}">
+                            @endif
+                            <div class="dropdown div_icon">
+                              <button class="btn btn-secondary dropdown-toggle icon_cam" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      
+                                <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-camera-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                  <path fill-rule="evenodd" d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
+                                </svg>
+  
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <label class="d-block">
+                                  <input name="img_usuarios" type="file" style="display: none; cursor:pointer" accept="image/jpeg, image/png">
+                                  <a name="img_usuarios" class="dropdown-item">
+                                    <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-file-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                      <path fill-rule="evenodd" d="M12 1H4a1 1 0 0 0-1 1v10.755S4 11 8 11s5 1.755 5 1.755V2a1 1 0 0 0-1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
+                                      <path fill-rule="evenodd" d="M8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                    </svg>&nbsp;
+                                    Alterar foto de perfil
+                                  </a>
+                                </label>
+                                <label class="d-block">
+                                  <input name="img_capa" type="file" style="display: none; cursor: pointer;" accept="image/jpeg, image/png">
+                                  <a name="img_capa" class="dropdown-item">
+                                    <svg width="1.2em" height="1.2em" viewBox="0 0 17 16" class="bi bi-image" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                      <path fill-rule="evenodd" d="M14.002 2h-12a1 1 0 0 0-1 1v9l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094L15.002 9.5V3a1 1 0 0 0-1-1zm-12-1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm4 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                                    </svg>&nbsp;
+                                    Alterar foto da capa
+                                  </a>
+                                </label>
+                                <div class="dropdown-divider"></div>
+                                <label class="d-block">
+                                  <a class="dropdown-item" href="{{route('remove_perfil')}}">
+                                    <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                      <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                                    </svg>&nbsp;
+                                    Remover foto de perfil
+                                  </a>
+                                </label>
+                                <label class="d-block">
+                                  <a class="dropdown-item" href="{{route('remove_capa')}}">
+                                    <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                      <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                    </svg>&nbsp;
+                                    Remover foto da capa
+                                  </a>
+                                </label>
+                              </div>
                             </div>
                           </div>
                         </div>                      
@@ -417,7 +424,11 @@ $nivel = Auth::user()->nivel;
                               Instituição:
                             </label>
                             <select name="id_instituicao" class="select" title="Selecione uma opção">
-                            <option value="">{{ $dados['instituicao'] }}</option>
+                            @if(isset($dados['instituicao']))
+                              <option value="">{{ $dados['instituicao'] }}</option>
+                            @else
+                              <option value="">Selecione uma opção</option>
+                            @endif
                               @for($a = 0; $a<sizeof($dados['instituicoes']);$a++)
                                 <option value="{{ $dados['instituicoes'][$a]->id_instituicao }}">
                                   {{ $dados['instituicoes'][$a]->nome_instituicao }}
@@ -434,7 +445,13 @@ $nivel = Auth::user()->nivel;
                               Curso:
                             </label>
                             <select name="id_area" class="select" title="Selecione uma opção" class="btn btn-primary">
-                              <option value="">{{$dados['area']}}</option>
+                              
+                              @if(isset($dados['area']))
+                                <option value="">{{$dados['area']}}</option>
+                              @else
+                                <option value="">Selecione uma opção</option>
+                              @endif
+                              
                                 @for($a = 0; $a<sizeof($dados['areas']);$a++)
                                   <option value="{{ $dados['areas'][$a]->id_area }}">
                                     {{ $dados['areas'][$a]->nome_area }}
@@ -452,7 +469,12 @@ $nivel = Auth::user()->nivel;
                               Região:
                             </label>
                             <select name="id_regiao_cidade" class="select" title="Selecione uma opção">
-                              <option value="">{{$dados['cidade']}}</option>
+                              @if(isset($dados['cidade']))
+                                <option value="">{{$dados['cidade']}}</option>
+                              @else
+                                <option value="">Selecione uma opção</option>
+                              @endif
+                              
                               @for($a = 0; $a<sizeof($dados['cidades']);$a++)
                                 <option value="{{ $dados['cidades'][$a]->id_regiao_cidade }}">
                                   {{ $dados['cidades'][$a]->nome_cidade }}
