@@ -95,7 +95,7 @@ $denuncia = Session::get('denuncia');
           <a class="fix" style="padding:30px;padding-top:11px;padding-bottom:13px;" data-toggle="modal" data-target="#ordenacao">Ordenação</a>
         </div>
         <div class="filtro-direita">  
-          <a class="fix" style="padding:50px; padding-top:11px;padding-bottom:13px;" data-toggle="modal" data-target="#filtros">Filtros</a>
+          <a class="fix" style="padding:49.5px; padding-top:11px;padding-bottom:13px;" data-toggle="modal" data-target="#filtros">Filtros</a>
         </div>
       </div>
     <?php }?>
