@@ -1,3 +1,7 @@
+.t1{
+  font-size: 14px;
+}
+
 .aviso-home {
   background-color: #ffffff;
   height: 250px;
@@ -403,7 +407,7 @@ fw{
 }
 
 /* PC (Med) res  */
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1201px) {
   .card-home{
     width: 1050px;
   }
@@ -413,7 +417,7 @@ fw{
 }
 
  /* PC (Low) OR IPAD (High) Res  */
-@media screen and (min-width: 999px) and (max-width: 1200px) {
+@media screen and (min-width: 999px) and (max-width: 1201px) {
   .card-home{
     width: 850px;
   }
@@ -428,7 +432,7 @@ fw{
     display: none;
   }
   .pesquisa-home{
-    width: 200px;
+    width: 250px;
     height: 30px;
   }
 }
@@ -443,28 +447,56 @@ fw{
   }
 }
 
-/* IPAD/tablet (Med) Res  */
-@media screen and (min-width: 710px) and (max-width: 999px) {
+/* IPAD/tablet (Med) Res */
+@media screen and (min-width: 767px) and (max-width: 999px) {
   .card-home{
-    width: 690px;
+    width: 720px;
   }
   .aviso-home {
-    width: 690px;
+    width: 720px;
   }
 }
 
-/* IPAD/tablet (Low) Res  */
-@media screen and (min-width: 555px) and (max-width: 710px) {
+/* IPAD/tablet (Low) Res */
+@media screen and (min-width: 555px) and (max-width: 767px) {
   .card-home{
-    width: 530px;
+    width: 540px;
   }
   .aviso-home {
-    width: 530px;
+    width: 540px;
+  }
+  .filtro-tablet {
+    display: none;
+  }
+  .espaço-filtro{
+    display: none;
+  }
+  .aviso-home {
+    display: block;
+    width: 100%;
+  }
+
+  .aviso-img {
+    position: absolute;
+    top: 300px;
+    left: 50%;
+    width: 120px;
+    height: 120px;
+    margin-left: -60px ;
+  }
+  
+  .aviso-text {
+    position: absolute;
+    text-align: center;
+    top: 450px;
+    left: 0;
+    right: 0;
+    font-size: 20px;
   }
 }
 
 /* Style Switch bigger than smarphone  */
-@media screen and (min-width: 555px) { 
+@media screen and (min-width: 767px) { 
   .aviso-img {
     position: absolute;
     top: 370px;
@@ -484,8 +516,21 @@ fw{
   }
 }
 
+@media screen and (min-width: 425px) { 
+  .selecionar-op{
+    width: 130px;
+  }
+  s3{
+    padding-left: 15px;
+  }
+}
+
 /* Style Switch smarphone  */
 @media screen and (max-width: 555px) { 
+  .pesquisa-home{
+    width: 200px;
+    height: 30px;
+  }
   .filtro-tablet {
     display: none;
   }
@@ -511,7 +556,6 @@ fw{
     height: 30px;
     font-size: 12px;
   }
-
   .aviso-home {
     display: block;
     width: 100%;
@@ -534,10 +578,9 @@ fw{
     right: 0;
     font-size: 20px;
   }
-
 }
 
-@media screen and (min-width: 555px) { 
+@media screen and (min-width: 767px) { 
   .filtro-smartphone{
     display: none;
   }

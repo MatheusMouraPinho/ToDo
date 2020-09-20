@@ -124,8 +124,8 @@ $smartphone = true;
             @csrf
             <div class="row contorno">
                 <div class="dropdown">
-                    <button class="btn btn btn-outline-primary-custom dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?php if($filtro == "media"){?> <img width="22px" src="{{asset('img/avaliacao.png')}}"> <?php echo "Mais avaliados"; }elseif($filtro == "likes_postagem"){?><img width="23px" src="{{asset('img/like.png')}}"><?php  echo "Populares"; } elseif($filtro == "data_postagem"){?> <img width="21px" src="{{asset('img/new.png')}}"> <?php echo "Novos";}else{echo $filtro;}?> 
+                    <button class="btn btn btn-outline-primary-custom dropdown-toggle t1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <?php if($filtro == "media"){?> <img width="20px" src="{{asset('img/avaliacao.png')}}"> <?php echo "<t1>Mais avaliados</t1>"; }elseif($filtro == "likes_postagem"){?><img width="20px" src="{{asset('img/like.png')}}"><?php  echo "Populares"; } elseif($filtro == "data_postagem"){?> <img width="18px" src="{{asset('img/new.png')}}"> <?php echo "Novos";}else{echo $filtro;}?> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <?php if($filtro != "data_postagem"){?><button class="dropdown-item" name="filtro" value="novos"><img width="21px" src="{{asset('img/new.png')}}"> Novos</button><?php }?>
@@ -134,8 +134,8 @@ $smartphone = true;
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?php echo $setup3;?> 
+                    <button class="btn btn-primary dropdown-toggle t1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <?php echo $setup3;?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <?php if($avalia != "1"){?><button class="dropdown-item" name="avalia" value="1">Avaliados</button><?php }?>
@@ -144,7 +144,7 @@ $smartphone = true;
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-primary dropdown-toggle t1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo $setup2;?> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -157,7 +157,7 @@ $smartphone = true;
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-primary dropdown-toggle t1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo $setup; ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -168,9 +168,9 @@ $smartphone = true;
                     </div>
                 </div>
                 <div class="dropdown">
-                    <a id="navbarDropdown" role="button" style="cursor: pointer" data-toggle="dropdown"><img style="padding-top:5px" width="38px" src="{{asset('img/option.png')}}"></a>
+                    <a id="navbarDropdown" role="button" style="cursor: pointer" data-toggle="dropdown"><img style="padding-top:11px" width="26px" src="{{asset('img/option.png')}}"></a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{url('reset')}}">Limpar Filtro</a>
+                        <a class="dropdown-item" href="{{url('reset')}}">Limpar</a>
                     </div>
                 </div>
             </div>  
@@ -413,13 +413,13 @@ $smartphone = true;
                 <div class="modal-body">
                     <div class="justify-content-center alinhamento-filtro">
                         <select name="avalia" class="selecionar-op">
-                            <option class="op" selected disabled hidden><?php if($avalia == "1 OR 2"){ echo "&nbsp&nbsp Situação"; }else{ echo $setup3; } ?></option>
+                            <option class="op" selected disabled hidden><?php if($avalia == "1 OR 2"){ echo "Situação"; }else{ echo $setup3; } ?></option>
                             <option class="op" value="1">Avaliados</option>
                             <option class="op" value="2">Pendentes</option>
                             <option class="op" value="3">Todos</option>
                         </select>
                         <select name="tipo" class="selecionar-op">
-                            <option class="op" selected disabled hidden><?php if($tipo == "1 OR 2 OR 3 OR 4 OR 5"){ echo "&nbspCategorias"; }else{ echo $setup2; } ?></option>
+                            <option class="op" selected disabled hidden><?php if($tipo == "1 OR 2 OR 3 OR 4 OR 5"){ echo "Categorias"; }else{ echo $setup2; } ?></option>
                             <option class="op" value="1">Web, Mobile & Software</option>
                             <option class="op" value="2">Design & Criação</option>
                             <option class="op" value="3">Engenharia & Arquitetura</option>
@@ -430,13 +430,13 @@ $smartphone = true;
                     </div>
                     <div class="justify-content-center alinhamento-filtro">
                         <select name="periodo" class="selecionar-op">
-                            <option class="op" selected disabled hidden><?php if($setup == "Periodo"){ echo "&nbsp&nbsp Periodo"; }else{ echo $setup; } ?></option>
+                            <option class="op" selected disabled hidden><?php if($setup == "Periodo"){ echo "Periodo"; }else{ echo $setup; } ?></option>
                             <option class="op" value="1">Última Semana</option>
                             <option class="op" value="2">Último Mês</option>
                             <option class="op" value="3">Último Ano</option>
                             <option class="op" value="4">Todas as postagens</option>
                         </select>
-                        <a class="ajuste-link selecionar-op" href="{{url('reset')}}">Limpar</a>
+                        <a class="ajuste-link selecionar-op" href="{{url('reset')}}"><s3>Limpar</s3></a>
                     </div>
                 </div>
                 <div class="modal-footer">
