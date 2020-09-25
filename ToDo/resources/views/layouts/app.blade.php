@@ -91,12 +91,8 @@ $denuncia = Session::get('denuncia');
     <!-- Filtro SmartPhone  -->
     <?php if (isset($smartphone)){?>
       <div class="filtro-smartphone">
-        <div class="filtro-esquerda">  
-          <a class="fix" style="padding:30px;padding-top:11px;padding-bottom:13px;" data-toggle="modal" data-target="#ordenacao">Ordenação</a>
-        </div>
-        <div class="filtro-direita">  
-          <a class="fix" style="padding:49.5px; padding-top:11px;padding-bottom:13px;" data-toggle="modal" data-target="#filtros">Filtros</a>
-        </div>
+        <a class="fix filtro-esquerda" data-toggle="modal" data-target="#ordenacao">Ordenação</a>
+        <a class="fix filtro-direita" data-toggle="modal" data-target="#filtros">Filtros</a>
       </div>
     <?php }?>
     <!-- FIM filtro SmartPhone  -->

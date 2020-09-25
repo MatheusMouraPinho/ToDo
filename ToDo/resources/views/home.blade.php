@@ -111,8 +111,8 @@ $smartphone = true;
                 </div>
                 <div class="dropdown">
                     <a id="navbarDropdown" role="button" style="cursor: pointer" data-toggle="dropdown"><img style="padding-top:5px" width="38px" src="{{asset('img/option.png')}}"></a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{url('reset')}}">Limpar Filtro</a>
+                    <div class="dropdown-menu ajuste-drop3">
+                    <a class="dropdown-item" href="{{url('reset')}}"><img width="33px"src="{{asset('img/reset.png')}}">Limpar</a>
                     </div>
                 </div>
             </div>  
@@ -169,8 +169,8 @@ $smartphone = true;
                 </div>
                 <div class="dropdown">
                     <a id="navbarDropdown" role="button" style="cursor: pointer" data-toggle="dropdown"><img style="padding-top:11px" width="26px" src="{{asset('img/option.png')}}"></a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{url('reset')}}">Limpar</a>
+                    <div class="dropdown-menu ajuste-drop3">
+                        <a class="dropdown-item" href="{{url('reset')}}"><img width="33px"src="{{asset('img/reset.png')}}">Limpar</a>
                     </div>
                 </div>
             </div>  
@@ -185,7 +185,7 @@ $smartphone = true;
             <input class="form-control-sm ml-1 pesquisa-home" type="text" name="pesquisa" placeholder="Procurar ideias..." aria-label="Search">
         </form>
     </div>
-    <div style="padding:12px"></div>
+    <div style="padding-top:14px"></div>
     <div class="row justify-content-center"> 
         <hr class="accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 80%;">
     </div>
@@ -199,10 +199,13 @@ $smartphone = true;
     </div>
 <?php }?>
 
-<?php while($rows = mysqli_fetch_assoc($result2)){ $situation = $rows['id_situacao_postagem']; $id_post = $rows['id_postagem']; $user_post = $rows['id_usuarios']; $name = $rows['usuario']; $scroll = $s +1;?>
+<?php while($rows = mysqli_fetch_assoc($result2)){ $situation = $rows['id_situacao_postagem']; $id_post = $rows['id_postagem']; $user_post = $rows['id_usuarios']; $name = $rows['usuario']; $scroll = $s +1;
+$nome_file = "ToDo/storage/app/public/posts/" .'1'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg';
+$nome_file_png = "ToDo/storage/app/public/posts/".'1'.$id_post.Str::kebab($rows['titulo_postagem']).'.png';
+?>
     <nav id="scroll<?php echo $scroll?>"></nav>
     <div class="card-home">
-        <div class="linha1">
+        <div class="usu-home">
             <?php if($rows['img_usuarios'] == NULL){?>
                 <img class="img-home" src="{{asset('img/semuser.png')}}">
             <?php }else{?>
@@ -213,65 +216,65 @@ $smartphone = true;
                 <form action="{{url('perfil')}}" method="GET">
                     @csrf
                     <input type="hidden" name="id_usuario" value="<?php echo $rows['id']?>">
-                    <button style="text-decoration:underline" class="no-border-button" type="submit"><?php echo $name ; ?></button>
+                    <button style="text-decoration:underline" class="no-border-button" type="submit"><b><?php echo mb_strimwidth($name, 0, 35, "...") ; ?></b></button>
                 </form>
             </f2>
         </div>
-        <div class="temporario">
-            <div class="title-home"><h3><b><?php echo mb_strimwidth(mb_strtoupper($rows['titulo_postagem']), 0, 7, "..."); ?></b></h3></div>
-            <div class="desc-home"><?php echo mb_strimwidth($rows['descricao_postagem'], 0, 20, "..."); ?></div>
-            
-            <?php $sql = "SELECT * FROM like_postagens WHERE id_postagens = $id_post AND id_usuarios = $user";
-            $result3 = mysqli_query($conn, $sql); 
-            $like_check = mysqli_num_rows($result3);
-
-            if($like_check == 0){?>
-                <form method="POST" action="{{url('like_post')}}">
-                    @csrf
-                    <input type="hidden" name="id_post" value="<?php echo $rows['id_postagem'];?>">
-                    <input type="hidden" name="id_usuario" value="<?php echo Auth::user()->id;?>">
-                    <input type="hidden" name="scroll" value="<?php echo $s?>">
-                    <div class="like-home like-border"><b><button type="submit" class="row no-border-button"><img width="30px" src="{{asset('img/like.png')}}"><div class="num-like-home"><?php echo $rows['likes_postagem']; ?></div></button></b></div>
-                </form>
-            <?php }else{?>
-                <form method="POST" action="{{url('remov_like_post')}}">
-                    @csrf
-                    <input type="hidden" name="id_post" value="<?php echo $rows['id_postagem'];?>">
-                    <input type="hidden" name="id_usuario" value="<?php echo $user?>">
-                    <input type="hidden" name="scroll" value="<?php echo $s?>">
-                    <div class="like-home like-border"><b><button type="submit" class="row no-border-button"><img class="ajuste-unlike" width="30px" src="{{asset('img/liked.png')}}"><div class="num-like-home"><?php echo $rows['likes_postagem']; ?></div></button></b></div>
-                </form>
-            <?php }?>
-            <div class="link-home"> <a style="text-decoration:underline" type="button"  data-toggle="modal" data-target="#post<?php echo $id_post ?>">Visualizar</a> </div>
-            <div class="situation-home"><b>
-                <?php if ($situation == 1) { echo "<f3> Média: ". number_format((float)$rows['media'], 2, '.', ''). "</f3>";}else{ echo "<f4>" . "Pendente" . "</f4>";} ?>
-            </b></div>
-            <div class="data-home"><f2><?php echo date('d/m/Y', strtotime($rows['data_postagem'])); ?></f2></div>
-            <div class="denuncia-home">
-                <div class="dropdown">
-                    <a id="navbarDropdown" role="button" style="cursor: pointer" data-toggle="dropdown"><img class="danger-icon" width="30px" src="{{asset('img/danger.png')}}"></a>
-                    <div class="dropdown-menu">
-                        <?php if($rows['id_usuarios'] == Auth::user()->id){?>
-                            <a class="dropdown-item" style="cursor: pointer"  data-toggle="modal" data-target="#del-post<?php echo $rows['id_postagem'];?>">
-                                <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                </svg>&nbsp;
-                                Apagar
-                            </a>
-                        <?php }else{ ?>
-                            <a class="dropdown-item" style="cursor: pointer" data-toggle="modal" data-target="#den-post<?php echo $rows['id_postagem'];?>">
-                                <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-exclamation-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
-                                </svg>&nbsp;
-                                Denunciar
-                            </a>
-                        <?php } ?>
-                    </div>
-                </div>
+        <div class="option-home dropdown">
+            <a id="navbarDropdown" role="button" style="cursor: pointer" data-toggle="dropdown"><img class="img-option" src="{{asset('img/option.png')}}"></a>
+            <div class="dropdown-menu ajuste-drop2">
+                <?php if($rows['id_usuarios'] == Auth::user()->id){?>
+                    <a class="dropdown-item" style="cursor: pointer"  data-toggle="modal" data-target="#del-post<?php echo $rows['id_postagem'];?>">
+                        <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                        </svg>&nbsp;
+                        Apagar
+                    </a>
+                <?php }else{ ?>
+                    <a class="dropdown-item" style="cursor: pointer" data-toggle="modal" data-target="#den-post<?php echo $rows['id_postagem'];?>">
+                        <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-exclamation-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                        </svg>&nbsp;
+                        Denunciar
+                    </a>
+                <?php } ?>
             </div>
         </div>
+        <div class="title-home"><b><?php echo mb_strtoupper($rows['titulo_postagem']); ?></b></div>
+        <div class="desc-home"><textarea readonly class="<?php if(file_exists($nome_file)){echo "text-desc";}elseif(file_exists($nome_file_png)){echo "text-desc";}else{echo "text-desc2";} ?>"><?php echo mb_strimwidth($rows['descricao_postagem'], 0, 255, "..."); ?></textarea></div>
+        <?php $sql = "SELECT * FROM like_postagens WHERE id_postagens = $id_post AND id_usuarios = $user";
+            $result3 = mysqli_query($conn, $sql); 
+            $like_check = mysqli_num_rows($result3);
+        if($like_check == 0){?>
+            <form method="POST" action="{{url('like_post')}}">
+                @csrf
+                <input type="hidden" name="id_post" value="<?php echo $rows['id_postagem'];?>">
+                <input type="hidden" name="id_usuario" value="<?php echo Auth::user()->id;?>">
+                <input type="hidden" name="scroll" value="<?php echo $s?>">
+                <div class="like-home"><b><button type="submit" class="row no-border-button"><img width="30px" src="{{asset('img/like.png')}}"><div style="margin-top:8px;margin-left:2px;"><?php echo $rows['likes_postagem']; ?></div></button></b></div>
+            </form>
+        <?php }else{?>
+            <form method="POST" action="{{url('remov_like_post')}}">
+                @csrf
+                <input type="hidden" name="id_post" value="<?php echo $rows['id_postagem'];?>">
+                <input type="hidden" name="id_usuario" value="<?php echo $user?>">
+                <input type="hidden" name="scroll" value="<?php echo $s?>">
+                <div class="like-home"><b><button type="submit" class="row no-border-button"><img width="30px" src="{{asset('img/liked.png')}}"><div style="margin-top:8px;margin-left:2px;"><?php echo $rows['likes_postagem']; ?></div></button></b></div>
+            </form>
+        <?php }?>
+        <div class="data-home"><f2><?php echo date('d/m/Y', strtotime($rows['data_postagem'])); ?></f2></div>
+        <div class="situation-home">
+            <img width="28px" height="25px" src="{{asset('img/avaliacao.png')}}"></img>
+            <div style="margin-top:8px;margin-left:2px;"><?php if ($situation == 1) { echo number_format((float)$rows['media'], 2, '.', '');}else{ echo "N/A";} ?></div>
+        </div>
+        <div class="visualizar-home"> <a style="text-decoration:underline" type="button"  data-toggle="modal" data-target="#post<?php echo $id_post ?>">Visualizar</a> </div>
+        @if(file_exists($nome_file))
+            <img class="destaque-home" data-toggle="modal" data-target="#img1<?php echo $id_post ?>" src="{{url('/ToDo/storage/app/public/posts/'.'1'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg')}}">
+        @elseif(file_exists($nome_file_png))
+            <img class="destaque-home" data-toggle="modal" data-target="#img1<?php echo $id_post ?>" src="{{url('/ToDo/storage/app/public/posts/'.'1'.$id_post.Str::kebab($rows['titulo_postagem']).'.png')}}">
+        @endif
     </div>
     @include('layouts.post')
     <!-- Modal deletar postagem -->
