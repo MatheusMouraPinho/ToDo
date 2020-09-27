@@ -292,6 +292,7 @@ class HomeController extends Controller
         mysqli_set_charset($conn, 'utf8');
 
         $id = $_POST['id_postagem'];
+        $filename = $_POST['filename'];
 
         $sql = "DELETE FROM check_denuncia WHERE id_postagem = $id";
         mysqli_query($conn, $sql);
@@ -328,6 +329,13 @@ class HomeController extends Controller
 
         $sql = "DELETE FROM avaliacao_postagem WHERE id_postagem = $id";
         mysqli_query($conn, $sql);
+
+        storage::disk('public')->delete("posts/1$filename.png");
+        storage::disk('public')->delete("posts/2$filename.png");
+        storage::disk('public')->delete("posts/3$filename.png");
+        storage::disk('public')->delete("posts/1$filename.jpg");
+        storage::disk('public')->delete("posts/2$filename.jpg");
+        storage::disk('public')->delete("posts/3$filename.jpg");
 
         $sql = "DELETE FROM img_postagem WHERE id_postagem = $id";
         mysqli_query($conn, $sql);
@@ -444,4 +452,53 @@ class HomeController extends Controller
 
         return redirect(url()->previous().'#scroll'. $id3);
     }
+
+    /*
+    public function like_post2(Request $request) {
+        $db_config = Config::get('database.connections.'.Config::get('database.default'));
+        $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
+        mysqli_set_charset($conn, 'utf8');
+
+        $id_user = Auth::user()->id;
+        if(isset($request->post_id)) {
+            $post_id = $request->post_id;
+            $action = $request->action;
+
+            switch($action){
+                case 'like':
+                    $sql = "SELECT * FROM like_postagens WHERE id_postagens = $post_id AND id_usuarios = $id_user";
+                    $result = mysqli_query($conn, $sql);
+                    $check = mysqli_num_rows($result);//consulta se ja existe esse like
+
+                    if($check == 0){
+                        $sql = "INSERT INTO like_postagens (id_comentarios, id_usuarios) values ($post_id, $id_user)";
+                        $sql1 = "UPDATE postagens SET likes_postagem = likes_postagem + 1 WHERE id_postagem = $post_id";
+                        break;
+                    }//executa se não ouver like do usuario nesse post
+                case 'unlike':
+                    $sql = "DELETE FROM like_postagens WHERE id_usuarios = $id_user AND id_postagens = $post_id";
+                    
+                    $sql1 = "UPDATE postagens SET like_postagem = (SELECT COUNT(id_like) FROM like_postagens WHERE id_postagens = $post_id) 
+                    WHERE id_postagem = $post_id";
+                    break;
+                default:
+                    break;
+            }
+
+            mysqli_query($conn, $sql);
+            mysqli_query($conn, $sql1);
+
+            $sql_count = "SELECT likes_postagem from postagens where id_postagem = $post_id";
+            $count_likes = mysqli_query($conn, $sql_count);
+            $likes = mysqli_fetch_array($count_likes);
+
+            $rating = [
+                'likes' => $likes[0]
+            ];
+
+            echo json_encode($rating);
+
+        }
+    }
+    */
 }

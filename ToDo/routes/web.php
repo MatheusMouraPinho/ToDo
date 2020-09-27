@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() { 
         Route::post('/denunciar_post', 'HomeController@denunciar_post');
         Route::post('/like_post', 'HomeController@like_post');
         Route::post('/remov_like_post', 'HomeController@remov_like_post');
+        // Route::post('/like_post2', 'HomeController@like_post2');
 
     Route::post('/denunciar_comentario', 'HomeController@denunciar_comentario');
 

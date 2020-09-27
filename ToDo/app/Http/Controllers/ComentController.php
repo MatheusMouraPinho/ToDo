@@ -90,16 +90,22 @@ class ComentController extends Controller
 
             switch($action){
                 case 'like':
-                    $sql = "insert into like_comentarios(id_comentarios, id_usuarios)
-                            values($coment_id, $id_user)";
-                    $sql1 = "update comentarios set likes_comentarios = likes_comentarios+1 
-                            where id_comentarios = $coment_id";
-                    break;
+                    $sql = "SELECT * FROM like_comentarios WHERE id_comentarios = $coment_id AND id_usuarios = $id_user";
+                    $result = mysqli_query($conn, $sql);
+                    $check = mysqli_num_rows($result);//consulta se ja existe esse like
+
+                    if($check == 0){
+                        $sql = "insert into like_comentarios(id_comentarios, id_usuarios)
+                                values($coment_id, $id_user)";
+                        $sql1 = "update comentarios set likes_comentarios = likes_comentarios+1 
+                                where id_comentarios = $coment_id";
+                        break;
+                    }//executa se não ouver like do usuario nesse post
                 case 'unlike':
                     $sql = "delete from like_comentarios
                     where id_usuarios=$id_user and id_comentarios=$coment_id";
-                    $sql1 = "update comentarios set likes_comentarios = likes_comentarios-1 
-                    where id_comentarios = $coment_id";
+                    
+                    $sql1 = "UPDATE comentarios SET likes_comentarios = (SELECT COUNT(id_likes) FROM like_comentarios WHERE id_comentarios = $coment_id) WHERE id_comentarios = $coment_id";
                     break;
                 default:
                     break;

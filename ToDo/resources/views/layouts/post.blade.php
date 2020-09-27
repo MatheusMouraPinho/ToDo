@@ -246,7 +246,6 @@
                         <input type="hidden" name="id_postagem" value="{{ $id_post }}">
                       </div>
                     </form>
-                    <?php break; ?>
                   @endif
                 @endfor
               @endif

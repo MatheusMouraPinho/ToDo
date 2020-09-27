@@ -48,7 +48,7 @@ $denuncia = Session::get('denuncia');
     </ul>
     <ul class="nav ml-auto" style="cursor: pointer">
       <li style="margin-right:22px" class="nav-item dropdown">
-        <a id="navbarDropdown" role="button" data-toggle="dropdown"> <img src="{{asset('img/op-icon.png')}}" width="95px"> </a>
+        <a id="navbarDropdown" role="button" data-toggle="dropdown"> <img src="{{asset('img/op-icon.png')}}" width="90px"> </a>
         <div class="dropdown-menu ajuste-drop" aria-labelledby="navbarDropdown">
           <?php if(3 == $nivel){?>
           <a class="dropdown-item" href="{{ url('adm') }}">

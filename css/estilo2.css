@@ -1,3 +1,10 @@
+.img-ava{
+  width:28px; 
+  height:25px;
+}
+.img-like{
+  width:29px; 
+}
 .destaque-home{
   position: absolute;
   border: 1px solid blue;
@@ -9,11 +16,16 @@
   position: absolute;
   display: flex; 
 }
+.result-situation-home{
+  margin-top:8px;
+  margin-left:2px;
+}
 .data-home{
   position: absolute;
 }
 .img-home{
-  margin-top: 4px;
+  margin-left: 2px;
+  margin-top: 3px;
   width: 30px;
   height: 30px;
 }
@@ -21,25 +33,44 @@
   position: absolute;
   display: flex;
   white-space: nowrap;
+  margin-top: 4px;
 }
 .like-home{
   position: absolute;
+}
+.result-like-home{
+  margin-top:8px;
+  margin-left:2px;
 }
 .text-desc{
   position: absolute;
   resize: none;
   border: none;
+  overflow: hidden;
 }
 .text-desc2{
   position: absolute;
   resize: none;
   border: none;
+  overflow: hidden;
 }
 .desc-home{
   position: absolute;
   display: flex;
 }
 .title-home{
+  position: absolute;
+  display: flex;
+  white-space: nowrap;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.title-home2{
   position: absolute;
   display: flex;
   white-space: nowrap;
@@ -93,10 +124,14 @@ f2{
 }
 
 .img-home{
-  width: 40px;
-  height: 40px;
+  margin-top: 5px;
+  margin-left: 5px;
+  width: 35px;
+  height: 35px;
   border: 1px solid black;
   border-radius: 50%;
+  width: 30px;
+  height: 30px;
 }
 
 .temporario{
@@ -146,8 +181,8 @@ f2{
   display: flex;
   background-color: #ffffff;
   height: 50px;
-  border-bottom: 1px solid black;
   border-top: 1px solid black;
+  border-bottom: 1px solid black;
   line-height: 46px;
   font-weight: bold;
   font-size: 17px;
@@ -158,13 +193,14 @@ f2{
   width: 50%;
   text-align: center;
   border-right: 1px solid black;
+  box-shadow: 1px 3px 5px grey;
 }
 
 .filtro-direita{
   width: 50%;
   text-align: center;
-  
   border-left: 1px solid black;
+  box-shadow: 1px 3px 5px grey;
 }
 
 .btn{
@@ -196,6 +232,7 @@ f2{
 .pesquisa-home{
   border-radius: 30px;
   border-color: black;
+  box-shadow: 2px 2px 6px grey;
 }
 
 .ajuste-drop{
@@ -205,6 +242,11 @@ f2{
   left: -50px;
   margin-top: 5px;
   margin-right: 20px;
+}
+.ajuste-drop4{
+  left: -50px;
+  margin-top: 5px;
+  margin-right: 15px;
 }
 
 .no-border-button {
@@ -220,6 +262,7 @@ f2{
   padding: 0.45rem;
   border: 2px solid black;
   border-radius: 0.50rem;
+  box-shadow: 3px 3px 6px grey;
 }
 
 .modal-content-white {
@@ -485,15 +528,192 @@ fw{
   .aviso-home {
     width: 1050px;
   }
+  .ajuste-drop4{
+    left: -50px;
+    margin-top: 5px;
+    margin-right: 35px;
+  }
+  /*---*/
+  .destaque-home{
+  margin-left:865px;
+  margin-Top: 58px;
+  width: auto;
+  max-width: 160px;
+  height: auto;
+  max-height: 100px;
+  }
+  .visualizar-home{
+  margin-left: 85px;
+  margin-Top: 173px;
+  color: blue;
+  }
+  .data-home{
+  margin-left: 965px;
+  margin-Top: 178px;
+  }
+  .like-home{
+  margin-left: 26px;
+  margin-Top: 140px;
+  }
+  .result-like-home{
+  position: absolute;
+  margin-top:28px;
+  margin-left:10px;
+  }
+  .situation-home{
+  margin-left: 0.8em;
+  margin-Top: 80px;
+  }
+  .result-situation-home{
+  position: absolute;
+  margin-top:31px;
+  margin-left:3.5px;
+  }
+  .img-ava{
+  width:30px; 
+  height: 33px;
+  }
+  .img-like{
+  width:32px; 
+  }
+  .text-desc{
+  margin-top: 5px;
+  width: 760px;
+  height: 65px;
+  }
+  .text-desc2{
+  margin-top: 8px;
+  width: 900px;
+  height: 65px;
+  }
+  .desc-home{
+  margin-top: 85px;
+  margin-left: 65px;
+  }
+  .title-home{
+  margin-top: 47px;
+  margin-left: 55px;
+  font-size: 23px;
+  max-width: 740px;
+  }
+  .title-home2{
+  margin-top: 47px;
+  margin-left: 55px;
+  font-size: 23px;
+  max-width: 860px;
+  }
+  .option-home{
+  padding-top: 1.5px;
+  margin-left: 1020px;
+  }
+  .usu-home{
+  width: 30px;
+  height: 30px;
+  font-size: 13px;
+  }
+  .img-home{
+  margin-left: 9px;
+  margin-top: 3px;
+  width: 30px;
+  height: 30px;
+  }
 }
 
- /* PC (Low) OR IPAD (High) Res  */
+ /* PC (Low) Res  */
 @media screen and (min-width: 999px) and (max-width: 1201px) {
   .card-home{
     width: 850px;
   }
   .aviso-home {
     width: 850px;
+  }
+  .ajuste-drop4{
+    left: -50px;
+    margin-top: 5px;
+    margin-right: 35px;
+  }
+  /*---*/
+  .destaque-home{
+    margin-left:690px;
+    margin-Top: 58px;
+    width: auto;
+    max-width: 140px;
+    height: auto;
+    max-height: 100px;
+  }
+  .visualizar-home{
+    margin-left: 85px;
+    margin-Top: 173px;
+    color: blue;
+  }
+  .data-home{
+    margin-left: 765px;
+    margin-Top: 178px;
+  }
+  .like-home{
+    margin-left: 26px;
+    margin-Top: 140px;
+  }
+  .result-like-home{
+    position: absolute;
+    margin-top:28px;
+    margin-left:10px;
+  }
+  .situation-home{
+    margin-left: 0.8em;
+    margin-Top: 80px;
+  }
+  .result-situation-home{
+    position: absolute;
+    margin-top:31px;
+    margin-left:3.5px;
+  }
+  .img-ava{
+    width:30px; 
+    height: 33px;
+  }
+  .img-like{
+    width:32px; 
+  }
+  .text-desc{
+    margin-top: 5px;
+    width: 620px;
+    height: 65px;
+  }
+  .text-desc2{
+    width: 750px;
+    height: 65px;
+  }
+  .desc-home{
+    margin-top: 85px;
+    margin-left: 65px;
+  }
+  .title-home{
+    margin-top: 47px;
+    margin-left: 55px;
+    font-size: 23px;
+    max-width: 590px;
+  }
+  .title-home2{
+    margin-top: 47px;
+    margin-left: 55px;
+    font-size: 23px;
+    max-width: 700px;
+  }
+  .option-home{
+    padding-top: 1.5px;
+    margin-left: 820px;
+  }
+  .usu-home{
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+  .img-home{
+    margin-left: 9px;
+    margin-top: 3px;
+    width: 30px;
+    height: 30px;
   }
 }
 
@@ -518,13 +738,101 @@ fw{
   }
 }
 
-/* IPAD/tablet (Med) Res */
+/* IPAD/tablet (Med-high) Res */
 @media screen and (min-width: 767px) and (max-width: 999px) {
   .card-home{
     width: 720px;
   }
   .aviso-home {
     width: 720px;
+  }
+  .ajuste-drop4{
+    left: -50px;
+    margin-top: 5px;
+    margin-right: 75px;
+  }
+  /*---*/
+  .destaque-home{
+    margin-left:580px;
+    margin-Top: 58px;
+    width: auto;
+    max-width: 120px;
+    height: auto;
+    max-height: 100px;
+  }
+  .visualizar-home{
+    margin-left: 85px;
+    margin-Top: 173px;
+    color: blue;
+  }
+  .data-home{
+    margin-left: 635px;
+    margin-Top: 178px;
+  }
+  .like-home{
+    margin-left: 26px;
+    margin-Top: 140px;
+  }
+  .result-like-home{
+    position: absolute;
+    margin-top:28px;
+    margin-left:10px;
+  }
+  .situation-home{
+    margin-left: 0.8em;
+    margin-Top: 80px;
+  }
+  .result-situation-home{
+    position: absolute;
+    margin-top:31px;
+    margin-left:3.5px;
+  }
+  .img-ava{
+    width:30px; 
+    height: 33px;
+  }
+  .img-like{
+    width:32px; 
+  }
+  .text-desc{
+    margin-top: 5px;
+    width: 500px;
+    height: 65px;
+  }
+  .text-desc2{
+    width: 600px;
+    height: 65px;
+  }
+  .desc-home{
+    margin-top: 85px;
+    margin-left: 65px;
+  }
+  .title-home{
+    margin-top: 47px;
+    margin-left: 55px;
+    font-size: 23px;
+    max-width: 480px;
+  }
+  .title-home2{
+    margin-top: 47px;
+    margin-left: 55px;
+    font-size: 23px;
+    max-width: 580px;
+  }
+  .option-home{
+    padding-top: 1.5px;
+    margin-left: 690px;
+  }
+  .usu-home{
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+  .img-home{
+    margin-left: 9px;
+    margin-top: 3px;
+    width: 30px;
+    height: 30px;
   }
 }
 
@@ -562,6 +870,81 @@ fw{
     right: 0;
     font-size: 20px;
   }
+  .ajuste-drop4{
+    left: -50px;
+    margin-top: 5px;
+    margin-right: 75px;
+  }
+  /*---*/
+  .destaque-home{
+    margin-left:400px;
+    margin-Top: 58px;
+    width: auto;
+    max-width: 120px;
+    height: auto;
+    max-height: 100px;
+  }
+  .visualizar-home{
+    margin-left: 420px;
+    margin-Top: 178px;
+    font-size: 13px;
+    color: blue;
+  }
+  .data-home{
+    margin-left: 14px;
+    margin-Top: 178px;
+    font-size: 13px;
+  }
+  .like-home{
+    margin-left: 175px;
+    margin-Top: 164px;
+    font-size: 13px;
+  }
+  .situation-home{
+    margin-left: 270px;
+    margin-Top: 172px;
+    font-size: 13px;
+  }
+  .text-desc{
+    width: 380px;
+    height: 65px;
+  }
+  .text-desc2{
+    width: 490px;
+    height: 65px;
+  }
+  .desc-home{
+    margin-top: 85px;
+    margin-left: 8px;
+    font-size: 13px;
+  }
+  .title-home{
+    margin-top: 48px;
+    margin-left: 20px;
+    font-size: 21px;
+    max-width: 340px;
+  }
+  .title-home2{
+    margin-top: 48px;
+    margin-left: 20px;
+    font-size: 21px;
+    max-width: 440px;
+  }
+  .option-home{
+    padding-top: 1.5px;
+    margin-left: 510px;
+  }
+  .usu-home{
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+  .img-home{
+    margin-left: 7px;
+    margin-top: 3px;
+    width: 30px;
+    height: 30px;
+  }
 }
 
 /* smartphone/tablet */
@@ -582,7 +965,6 @@ fw{
     display: block;
     width: 100%;
   }
-
   .aviso-img {
     top: 40px;
     left: 50%;
@@ -590,13 +972,87 @@ fw{
     height: 120px;
     margin-left: -60px ;
   }
-  
   .aviso-text {
     text-align: center;
     top: 60px;
     left: 0;
     right: 0;
     font-size: 20px;
+  }
+  .ajuste-drop4{
+    left: -50px;
+    margin-top: 5px;
+    margin-right: 75px;
+  }
+  /*---*/
+  .destaque-home{
+    margin-left:286px;
+    margin-Top: 60px;
+    width: auto;
+    max-width: 100px;
+    height: auto;
+    max-height: 100px;
+  }
+  .visualizar-home{
+    margin-left: 320px;
+    margin-Top: 178px;
+    font-size: 13px;
+    color: blue;
+  }
+  .data-home{
+    margin-left: 14px;
+    margin-Top: 178px;
+    font-size: 13px;
+  }
+  .like-home{
+    margin-left: 150px;
+    margin-Top: 164px;
+    font-size: 13px;
+  }
+  .situation-home{
+    margin-left: 218px;
+    margin-Top: 172px;
+    font-size: 13px;
+  }
+  .text-desc{
+    width: 275px;
+    height: 65px;
+  }
+  .text-desc2{
+    width: 370px;
+    height: 65px;
+  }
+  .desc-home{
+    margin-top: 85px;
+    margin-left: 8px;
+    font-size: 13px;
+  }
+  .title-home{
+    margin-top: 48px;
+    margin-left: 20px;
+    font-size: 21px;
+    max-width: 240px;
+  }
+  .title-home2{
+    margin-top: 48px;
+    margin-left: 20px;
+    font-size: 21px;
+    max-width: 330px;
+  }
+  .option-home{
+    padding-top: 1.5px;
+    margin-left: 380px;
+  }
+  .usu-home{
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+  .img-home{
+    margin-left: 7px;
+    margin-top: 3px;
+    width: 30px;
+    height: 30px;
   }
 }
 
@@ -628,16 +1084,16 @@ fw{
 /* Style Switch smarphone  */
 @media screen and (max-width: 425px) {
   .destaque-home{
-    margin-left:204px;
+    margin-left:200px;
     margin-Top: 60px;
     width: auto;
-    max-width: 95px;
+    max-width: 100px;
     height: auto;
-    max-height: 95px;
+    max-height: 100px;
   }
   .visualizar-home{
     margin-left:77%;
-    margin-Top: 179px;
+    margin-Top: 178px;
     font-size: 13px;
     color: blue;
   }
@@ -675,6 +1131,12 @@ fw{
     font-size: 21px;
     max-width: 160px;
   }
+  .title-home2{
+    margin-top: 48px;
+    margin-left: 20px;
+    font-size: 21px;
+    max-width: 270px;
+  }
   .option-home{
     padding-top: 1.5px;
     margin-left: 90%;
@@ -698,16 +1160,13 @@ fw{
     box-shadow: 4px 5px 5px grey;
   }
   .img-home{
-    margin-top: 4px;
+    margin-left: 2px;
+    margin-top: 3px;
     width: 30px;
     height: 30px;
   }
   .usu-home{
-    position: absolute;
-    display: flex;
-    white-space: nowrap;
     left: 1%;
-    margin-top: 2px;
     width: 30px;
     height: 30px;
     font-size: 12px;
@@ -747,6 +1206,9 @@ fw{
   .title-home{
     max-width: 180px;
   }
+  .title-home2{
+    max-width: 300px;
+  }
   .text-desc{
     width: 220px;
   }
@@ -754,12 +1216,15 @@ fw{
     width: 325px;
   }
   .destaque-home{
-    margin-left:230px;
+    margin-left:226px;
   }
 }
 @media screen and (min-width: 376px) and (max-width: 425px) {
   .title-home{
     max-width: 200px;
+  }
+  .title-home2{
+    max-width: 360px;
   }
   .text-desc{
     width: 255px;
@@ -768,6 +1233,6 @@ fw{
     width: 370px;
   }
   .destaque-home{
-    margin-left:275px;
+    margin-left:270px;
   }
 }

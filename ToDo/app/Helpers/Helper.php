@@ -44,4 +44,17 @@ class Helper
         $user_liked = (empty($resultado)) ? 0 : 1;
         return $user_liked;
     }
+
+    /*
+    public static function verifica_like_post($id_post) {
+        $id_usuario = Auth::user()->id;
+        $resultado = DB::table('like_postagens')
+                ->where('id_postagens', $id_post, 'and')
+                ->where('id_usuarios', $id_usuario)
+                ->value('id_like');  
+        
+        $user_liked = (empty($resultado)) ? 0 : 1;
+        return $user_liked;
+    }
+    */
 }

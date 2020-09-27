@@ -222,7 +222,7 @@ $nome_file_png = "ToDo/storage/app/public/posts/".'1'.$id_post.Str::kebab($rows[
         </div>
         <div class="option-home dropdown">
             <a id="navbarDropdown" role="button" style="cursor: pointer" data-toggle="dropdown"><img class="img-option" src="{{asset('img/option.png')}}"></a>
-            <div class="dropdown-menu ajuste-drop2">
+            <div class="dropdown-menu ajuste-drop4">
                 <?php if($rows['id_usuarios'] == Auth::user()->id){?>
                     <a class="dropdown-item" style="cursor: pointer"  data-toggle="modal" data-target="#del-post<?php echo $rows['id_postagem'];?>">
                         <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -242,8 +242,8 @@ $nome_file_png = "ToDo/storage/app/public/posts/".'1'.$id_post.Str::kebab($rows[
                 <?php } ?>
             </div>
         </div>
-        <div class="title-home"><b><?php echo mb_strtoupper($rows['titulo_postagem']); ?></b></div>
-        <div class="desc-home"><textarea readonly class="<?php if(file_exists($nome_file)){echo "text-desc";}elseif(file_exists($nome_file_png)){echo "text-desc";}else{echo "text-desc2";} ?>"><?php echo mb_strimwidth($rows['descricao_postagem'], 0, 255, "..."); ?></textarea></div>
+        <div class="<?php if(file_exists($nome_file)){echo "title-home";}elseif(file_exists($nome_file_png)){echo "title-home";}else{echo "title-home2";} ?>"><b><?php echo mb_strtoupper($rows['titulo_postagem']); ?></b></div>
+        <div class="desc-home"><textarea readonly class="<?php if(file_exists($nome_file)){echo "text-desc";}elseif(file_exists($nome_file_png)){echo "text-desc";}else{echo "text-desc2";} ?>"><?php echo mb_strimwidth($rows['descricao_postagem'], 0, 300, "..."); ?></textarea></div>
         <?php $sql = "SELECT * FROM like_postagens WHERE id_postagens = $id_post AND id_usuarios = $user";
             $result3 = mysqli_query($conn, $sql); 
             $like_check = mysqli_num_rows($result3);
@@ -253,7 +253,7 @@ $nome_file_png = "ToDo/storage/app/public/posts/".'1'.$id_post.Str::kebab($rows[
                 <input type="hidden" name="id_post" value="<?php echo $rows['id_postagem'];?>">
                 <input type="hidden" name="id_usuario" value="<?php echo Auth::user()->id;?>">
                 <input type="hidden" name="scroll" value="<?php echo $s?>">
-                <div class="like-home"><b><button type="submit" class="row no-border-button"><img width="30px" src="{{asset('img/like.png')}}"><div style="margin-top:8px;margin-left:2px;"><?php echo $rows['likes_postagem']; ?></div></button></b></div>
+                <div class="like-home"><b><button type="submit" class="row no-border-button"><img class="img-like" src="{{asset('img/like.png')}}"><div class="result-like-home"><?php echo $rows['likes_postagem']; ?></div></button></b></div>
             </form>
         <?php }else{?>
             <form method="POST" action="{{url('remov_like_post')}}">
@@ -261,13 +261,23 @@ $nome_file_png = "ToDo/storage/app/public/posts/".'1'.$id_post.Str::kebab($rows[
                 <input type="hidden" name="id_post" value="<?php echo $rows['id_postagem'];?>">
                 <input type="hidden" name="id_usuario" value="<?php echo $user?>">
                 <input type="hidden" name="scroll" value="<?php echo $s?>">
-                <div class="like-home"><b><button type="submit" class="row no-border-button"><img width="30px" src="{{asset('img/liked.png')}}"><div style="margin-top:8px;margin-left:2px;"><?php echo $rows['likes_postagem']; ?></div></button></b></div>
+                <div class="like-home"><b><button type="submit" class="row no-border-button"><img class="img-like" src="{{asset('img/liked.png')}}"><div class="result-like-home"><?php echo $rows['likes_postagem']; ?></div></button></b></div>
             </form>
         <?php }?>
+        
+        <!-- <?php// $resultados = Helper::verifica_like_post($id_post)?>
+        @//if($resultados == 0)
+        <span href="#" id="btn_like" class="curtir fa-thumbs-o-up fa" onclick="like_post(this)" data-id="<?php echo $id_post ;?>"></span> 
+        <span class="likes" id="<?php// echo $id_post ;?>"><?php// echo $rows['likes_postagem']; ?></span>
+        @//else 
+        <span href="#" id="btn_like" class="curtir fa-thumbs-up fa" onclick="like_post(this)" data-id="<?php echo $id_post ;?>"></span>
+        <span class="likes" id="<?php// echo $id_post ;?>"><?php// echo $rows['likes_postagem']; ?></span>
+        @//endif -->
+        
         <div class="data-home"><f2><?php echo date('d/m/Y', strtotime($rows['data_postagem'])); ?></f2></div>
         <div class="situation-home">
-            <img width="28px" height="25px" src="{{asset('img/avaliacao.png')}}"></img>
-            <div style="margin-top:8px;margin-left:2px;"><?php if ($situation == 1) { echo number_format((float)$rows['media'], 2, '.', '');}else{ echo "N/A";} ?></div>
+            <img class="img-ava" src="{{asset('img/avaliacao.png')}}"></img>
+            <div class="result-situation-home"><?php if ($situation == 1) { echo number_format((float)$rows['media'], 2, '.', '');}else{ echo "N/A";} ?></div>
         </div>
         <div class="visualizar-home"> <a style="text-decoration:underline" type="button"  data-toggle="modal" data-target="#post<?php echo $id_post ?>">Visualizar</a> </div>
         @if(file_exists($nome_file))
@@ -288,6 +298,7 @@ $nome_file_png = "ToDo/storage/app/public/posts/".'1'.$id_post.Str::kebab($rows[
                         @csrf
                         <input name="id_postagem" type="hidden" value="<?php echo $rows['id_postagem'];?>">
                         <input type="hidden" name="identificador" value="0">
+                        <input type="hidden" name="filename" value="<?php echo $rows['id_postagem']. $rows['titulo_postagem']; ?>">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Confirmar</button>
                     </form>

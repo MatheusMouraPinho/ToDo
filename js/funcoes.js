@@ -74,6 +74,48 @@ function like(data){
     })
 };
 
+/*
+function like_post(data){
+    var post_id = $(data).data('id');
+    $btn_clicado = $(data);
+    
+
+    if($btn_clicado.hasClass("fa-thumbs-o-up")){
+        action = 'like';
+    } else if ($btn_clicado.hasClass("fa-thumbs-up")) {
+        action = 'unlike';
+    }
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax ({
+        type: 'post',
+        url: "like_post2",
+        data: {
+            'action': action,
+            'post_id': post_id 
+        },
+        success: function(data){
+            res = JSON.parse(data);
+
+            if(action == 'like') {
+                $btn_clicado.removeClass('fa-thumbs-o-up');
+                $btn_clicado.addClass('fa-thumbs-up');
+            } else if(action = 'unlike') {
+                $btn_clicado.removeClass('fa-thumbs-up');
+                $btn_clicado.addClass('fa-thumbs-o-up');
+            }
+
+            $btn_clicado.siblings('span.likes').text(res.likes);
+        }
+    })
+};
+*/
+
 
 function update() {
     var input = document.getElementById('file'); //define o id do input
