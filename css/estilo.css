@@ -880,18 +880,6 @@ input[type='file'] {
   cursor: pointer;
 }
 
-.curtir_home {
-  position: absolute;
-  margin-left: 15px;
-  margin-Top: 150px;
-}
-
-.like_count {
-  position: absolute;
-  margin-left: 20px;
-  margin-Top: 175px;
-}
-
 .subcurtir {
   cursor: pointer;
   position: relative;
@@ -1403,18 +1391,6 @@ input[type='file'] {
   .user {
     width: 105px;
   }
-
-  .curtir_home {
-    position: absolute;
-    margin-left: 150px;
-    margin-Top: 175px;
-  }
-  
-  .like_count {
-    position: absolute;
-    margin-left: 175px;
-    margin-Top: 175px;
-  }
 }
 
 .bola {
@@ -1631,18 +1607,6 @@ input[type='file'] {
 
   .calcular {
     margin: 0px 0px 0px 0px;
-  }
-
-  .curtir_home {
-    position: absolute;
-    margin-left: 115px;
-    margin-Top: 175px;
-  }
-  
-  .like_count {
-    position: absolute;
-    margin-left: 140px;
-    margin-Top: 175px;
   }
 }
 

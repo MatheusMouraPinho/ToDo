@@ -244,35 +244,13 @@ $nome_file_png = "ToDo/storage/app/public/posts/".'1'.$id_post.Str::kebab($rows[
         </div>
         <div class="<?php if(file_exists($nome_file)){echo "title-home";}elseif(file_exists($nome_file_png)){echo "title-home";}else{echo "title-home2";} ?>"><b><?php echo mb_strtoupper($rows['titulo_postagem']); ?></b></div>
         <div class="desc-home"><textarea readonly class="<?php if(file_exists($nome_file)){echo "text-desc";}elseif(file_exists($nome_file_png)){echo "text-desc";}else{echo "text-desc2";} ?>"><?php echo mb_strimwidth($rows['descricao_postagem'], 0, 300, "..."); ?></textarea></div>
-        <!--
-        <?php// $sql = "SELECT * FROM like_postagens WHERE id_postagens = $id_post AND id_usuarios = $user";
-            //$result3 = mysqli_query($conn, $sql); 
-            //$like_check = mysqli_num_rows($result3);
-        //if($like_check == 0){?>
-            <form method="POST" action="<?php //url('like_post')?>">
-                @//csrf
-                <input type="hidden" name="id_post" value="<?php //echo $rows['id_postagem'];?>">
-                <input type="hidden" name="id_usuario" value="<?php //echo Auth::user()->id;?>">
-                <input type="hidden" name="scroll" value="<?php// echo $s?>">
-                <div class="like-home"><b><button type="submit" class="row no-border-button"><img class="img-like" src="<?php //asset('img/like.png')?>"><div class="result-like-home"><?php //echo $rows['likes_postagem']; ?></div></button></b></div>
-            </form>
-        <?php// }else{?>
-        <form method="POST" action="<? //url('remov_like_post')?>">
-                @//csrf
-                <input type="hidden" name="id_post" value="<?php// echo $rows['id_postagem'];?>">
-                <input type="hidden" name="id_usuario" value="<?php// echo $user?>">
-                <input type="hidden" name="scroll" value="<?php// echo $s?>">
-        <div class="like-home"><b><button type="submit" class="row no-border-button"><img class="img-like" src="<?php //asset('img/liked.png')?>"><div class="result-like-home"><?php// echo $rows['likes_postagem']; ?></div></button></b></div>
-            </form>
-        <?php// }?>
-        -->
         
         <?php $resultados = Helper::verifica_like_post($id_post)?>
         @if($resultados == 0)
-        <span href="#" id="btn_like" class="curtir_home fa-thumbs-o-up fa" onclick="like_post(this)" data-id="<?php echo $id_post ;?>"></span> 
+        <span href="#" id="btn_like" class="like_home fa-thumbs-o-up fa" onclick="like_post(this)" data-id="<?php echo $id_post ;?>"></span> 
         <span class="like_count" id="<?php echo $id_post ;?>"><?php echo $rows['likes_postagem']; ?></span>
         @else 
-        <span href="#" id="btn_like" class="curtir_home fa-thumbs-up fa" onclick="like_post(this)" data-id="<?php echo $id_post ;?>"></span>
+        <span href="#" id="btn_like" class="like_home fa-thumbs-up fa" onclick="like_post(this)" data-id="<?php echo $id_post ;?>"></span>
         <span class="like_count" id="<?php echo $id_post ;?>"><?php echo $rows['likes_postagem']; ?></span>
         @endif
         
