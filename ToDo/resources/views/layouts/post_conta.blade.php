@@ -44,9 +44,9 @@ $comments = [
           <div class="modal-body">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <div class="popup-title">
-              <h4 class="" style="text-align: center; font-weight:bold">
+              <p class="h4 title-popup" style="text-align: center; font-weight:bold">
                 {{$posts->titulo_postagem}}
-              </h4>
+              </p>
             </div>
             <div class="popup_desc">
               <span style="vertical-align: top" class="popup_sub bold">

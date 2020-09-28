@@ -74,7 +74,7 @@ function like(data){
     })
 };
 
-/*
+
 function like_post(data){
     var post_id = $(data).data('id');
     $btn_clicado = $(data);
@@ -110,11 +110,11 @@ function like_post(data){
                 $btn_clicado.addClass('fa-thumbs-o-up');
             }
 
-            $btn_clicado.siblings('span.likes').text(res.likes);
+            $btn_clicado.siblings('span.like_count').text(res.likes);
         }
     })
 };
-*/
+
 
 
 function update() {

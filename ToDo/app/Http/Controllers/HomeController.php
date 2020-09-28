@@ -410,6 +410,8 @@ class HomeController extends Controller
         
         return back()->with(['denuncia' =>  $denuncia])->with(['id_postagem' => $id_postagem]);
     }
+
+    /*
     public function like_post()
     {   
         $db_config = Config::get('database.connections.'.Config::get('database.default'));
@@ -434,6 +436,8 @@ class HomeController extends Controller
         
         return redirect(url()->previous().'#scroll'. $id3);
     }
+    */
+
     public function remov_like_post()
     {   
         $db_config = Config::get('database.connections.'.Config::get('database.default'));
@@ -453,7 +457,6 @@ class HomeController extends Controller
         return redirect(url()->previous().'#scroll'. $id3);
     }
 
-    /*
     public function like_post2(Request $request) {
         $db_config = Config::get('database.connections.'.Config::get('database.default'));
         $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
@@ -471,14 +474,14 @@ class HomeController extends Controller
                     $check = mysqli_num_rows($result);//consulta se ja existe esse like
 
                     if($check == 0){
-                        $sql = "INSERT INTO like_postagens (id_comentarios, id_usuarios) values ($post_id, $id_user)";
+                        $sql = "INSERT INTO like_postagens (id_postagens, id_usuarios) values ($post_id, $id_user)";
                         $sql1 = "UPDATE postagens SET likes_postagem = likes_postagem + 1 WHERE id_postagem = $post_id";
                         break;
                     }//executa se não ouver like do usuario nesse post
                 case 'unlike':
                     $sql = "DELETE FROM like_postagens WHERE id_usuarios = $id_user AND id_postagens = $post_id";
                     
-                    $sql1 = "UPDATE postagens SET like_postagem = (SELECT COUNT(id_like) FROM like_postagens WHERE id_postagens = $post_id) 
+                    $sql1 = "UPDATE postagens SET likes_postagem = (SELECT COUNT(id_like) FROM like_postagens WHERE id_postagens = $post_id) 
                     WHERE id_postagem = $post_id";
                     break;
                 default:
@@ -500,5 +503,4 @@ class HomeController extends Controller
 
         }
     }
-    */
 }

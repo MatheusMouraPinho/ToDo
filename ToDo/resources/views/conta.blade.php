@@ -10,14 +10,14 @@ $nivel = Auth::user()->nivel;
 
         @if(session('success'))
           <div class="alert alert-success alert-dismissible">
-            <button class="close" type="button" data-dismiss="alert">&times;</button>
+            <button class="close mt-0" type="button" data-dismiss="alert">&times;</button>
             {{ session('success') }}
           </div>
         @endif
 
         @if(session('error'))
           <div class="alert alert-danger alert-dismissible">
-            <button class="close" type="button" data-dismiss="alert">&times;</button>
+            <button class="close mt-0" type="button" data-dismiss="alert">&times;</button>
             {{ session('error') }}
           </div>
         @endif
@@ -208,8 +208,8 @@ $nivel = Auth::user()->nivel;
             </div>
 
             <div class="scroll_table">
-              <table id="table_conta">
-                <thead>
+              <table id="table_conta" class="">
+                <thead class="sticky-top">
                   <tr>
                     <th>Nome da Ideia</th>
                     <th>Data</th>

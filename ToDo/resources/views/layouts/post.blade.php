@@ -50,9 +50,9 @@
           <div class="modal-body">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <div class="popup-title">
-              <h4 class="" style="text-align: center; font-weight:bold">
+              <p class="h4 text-center" style="text-align: center; font-weight:bold">
                 <?php echo $rows['titulo_postagem']; ?>
-              </h4>
+              </p>
             </div>
             <div class="popup_desc">
               <span style="vertical-align: top" class="popup_sub bold">
@@ -768,36 +768,57 @@
             @csrf
             <div class="modal-body">
                 <div class="notas">
-                    <div style="margin: 10px">
-                        <label for="inovacao" class="sub">Inovação:</label>
-                        <input type="number" name="inovacao" id="inovacao{{$id_post}}" class="nota" step = "0.1" min="0" max="10" required>
-                    </div>
-                    <div style="margin: 10px">
-                        <label for="complexidade" class="sub">Complexidade:</label>
-                        <input type="number" name="complexidade" id="complexidade{{$id_post}}" class="nota" step = "0.1" min="0" max="10" required>
-                    </div>
-                    <div style="margin: 10px">
-                        <label for="potencial" class="sub">Potencial de Mercado:</label>
-                        <input type="number" name="potencial" id="potencial{{$id_post}}" class="nota" step = "0.1" min="0" max="10"  required>
-                    </div>
+                  <div class="mb-2 ml-2 mt-2 mr-0">
+                      <label for="inovacao" class="sub">
+                        <img src="{{asset('img/inovacao.png')}}" style="width: 30px" alt="">
+                        Inovação:
+                      </label>
+                      <input type="number" name="inovacao" id="inovacao{{$id_post}}" class="nota" step = "0.1" min="0" max="10" required>
+                  </div>
+                  <div class="mb-2 ml-2 mt-2 mr-0">
+                      <label for="complexidade" class="sub">
+                        <svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-diagram-3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6v1H14a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 2 7h5.5V6A1.5 1.5 0 0 1 6 4.5v-1zM8.5 5a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1zM0 11.5A1.5 1.5 0 0 1 1.5 10h1A1.5 1.5 0 0 1 4 11.5v1A1.5 1.5 0 0 1 2.5 14h-1A1.5 1.5 0 0 1 0 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5A1.5 1.5 0 0 1 7.5 10h1a1.5 1.5 0 0 1 1.5 1.5v1A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5a1.5 1.5 0 0 1 1.5-1.5h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"/>
+                        </svg>
+                        Complexidade:
+                      </label>
+                      <input type="number" name="complexidade" id="complexidade{{$id_post}}" class="nota" step = "0.1" min="0" max="10" required>
+                  </div>
+                  <div class="mb-2 ml-2 mt-2 mr-0">
+                      
+                      <label for="potencial" class="sub">
+                        <img src="{{asset('/img/potencial.png')}}" class="m-0 p-0" style="width: 27px" alt="">
+                        Potencial de Mercado:
+                      </label>
+                      <input type="number" name="potencial" id="potencial{{$id_post}}" class="nota" step = "0.1" min="0" max="10"  required>
+                  </div>
                 </div>
-                <div class="media">
+                <div class="media container">
                     <div class="center_media">
-                        <label for="media" class="sub_media">Média:</label>
+                        <label for="media" class="sub_media no-gutters">
+                          <img src="{{asset('img/avaliacao.png')}}" class="m-0 mb-1 p-0" width="27px">
+                          Média:
+                        </label>
                         <input class="nota nota_media" name="media" id="media{{$id_post}}" placeholder="Calculado pelo sistema" readonly>
-                        <button type="button" class="calcular" onclick="calcular({{$id_post}})"><i class="fas fa-spinner"></i></button>
+                        <button type="button" class="calcular btn btn-primary" onclick="calcular({{$id_post}})">Calcular Média</button>
                     </div>
                     
                 </div>
                 <div class="coment_avaliador">
-                    <label for="comentarios" style="vertical-align: top" class="sub_comentario">Comentários:</label>
+                    <label for="comentarios" style="vertical-align: top" class="sub_comentario">
+                      <svg width="1.1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-chat-right-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M2 1h12a1 1 0 0 1 1 1v11.586l-2-2A2 2 0 0 0 11.586 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"/>
+                        <path fill-rule="evenodd" d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                      </svg>&nbsp;
+                      Comentário:
+                    </label>
                     <textarea name="comentarios" class="comentarios" cols="80" rows="4" placeholder="Digite seu comentário..." required></textarea>
                 </div>
                 <input type="hidden" name="id_postagem" id="id_postagem1" value="{{ $id_post }}">
                 <?php if(isset($rows['id'])){?><input type="hidden" name="id_usuario" value="{{ $rows['id'] }}"><?php }?>
                 <input type="hidden" name="id_avaliador" value="{{ Auth::user()->id }}">
             </div>
-            <div class="modal-footer-custom grey">
+            <div class="modal-footer-custom" style="border-top: 1px solid #ccc">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 <button type="submit" class="btn btn-primary">Finalizar avaliação</button>
             </div>

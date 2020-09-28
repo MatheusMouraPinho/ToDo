@@ -368,8 +368,8 @@ textarea:focus, input:focus{
   margin-left: 15px;
   margin-right: auto;
   border-radius: 10px 10px 0 0;
-  overflow: scroll;
   min-height: 150px;
+  overflow: scroll;
 }
 
 .scroll_table {
@@ -487,7 +487,8 @@ ul {
 }
 
 .popup-title {
-  margin: 15px 0 20px 0px;
+  margin: 15px auto 20px auto;
+  text-align: center;
 }
 
 
@@ -879,6 +880,18 @@ input[type='file'] {
   cursor: pointer;
 }
 
+.curtir_home {
+  position: absolute;
+  margin-left: 15px;
+  margin-Top: 150px;
+}
+
+.like_count {
+  position: absolute;
+  margin-left: 20px;
+  margin-Top: 175px;
+}
+
 .subcurtir {
   cursor: pointer;
   position: relative;
@@ -1059,13 +1072,22 @@ input[type='file'] {
   }
 }
 
+.title-popup {
+  margin-left: auto;
+  margin-right: auto;
+  height: auto;
+  width: 80%;
+  display: inline-block;
+  text-align: center;
+}
+
 .notas {
   width: 50%;
   display: inline-block;
 }
 
 .nota {
-  width: 50px;
+  width: 40px;
   border: 1px solid black;
   border-radius: 5px;
   height: 50%;
@@ -1074,25 +1096,29 @@ input[type='file'] {
 
 .sub {
   width: 80%;
+  margin: 0px;
   text-align: right;
   font-weight: bold;
   font-size: 1.3em;
 }
 
 .sub_comentario {
-  width: 15%;
+  width: 20%;
   text-align: right;
   font-weight: bold;
   font-size: 1.3em;
   margin-bottom: 0px;
+  margin-left: 65px;
 }
 
 .sub_media {
-  width: 15%;
-  text-align: right;
+  display: block;
+  width: 45%;
+  text-align: left;
   font-weight: bold;
   font-size: 1.3em;
   margin-bottom: 0px;
+  padding: 0px;
 }
 
 .media {
@@ -1103,27 +1129,26 @@ input[type='file'] {
 }
 
 .nota_media {
-  width: 50%;
+  width: 54%;
   text-align: center;
   margin-left: 5px;
 }
 
 .calcular {
-  border: 1px solid black;
   border-radius: 5px;
   display: inline-block;
-  width: 35px;
+  width: 120px;
   margin: 2px;
   padding: 5px;
 
 }
 
-.calcular:hover {
-  background-color: rgb(218, 218, 218);
-}
-
 .center_media {
-  margin-top: 60px;
+  margin-top: 24px;
+  align-content: center;
+  align-self: center;
+  vertical-align: middle;
+  align-items: center;
   width: 85%;
 }
 
@@ -1132,14 +1157,14 @@ input[type='file'] {
 }
 
 .comentarios {
-  width: 80%;
+  width:80%;
   padding: 10px;
   line-height: 1.5;
   border-radius: 5px;
   border: 1px solid black;
   box-shadow: 5px 5px 5px #999;
   resize: none;  
-  
+  margin-left: 80px;
 }
 
 .cor {
@@ -1153,28 +1178,65 @@ input[type='file'] {
 
 @media (max-width: 1000px) {
   .notas {
-    width: 55%;
+    width: 60%;
+    padding-right: 0px;
+    padding: 0px;
   }
+
+  .nota {
+    margin: 0px;
+  }
+
   .sub {
-    width: 50%;
+    width: 78%;
+    text-align: left;
+    vertical-align: middle;
   }
+
+  .center_media {
+    align-self: ;
+    width: 100%;
+  }
+
+  .sub_comentario {
+    width: 100%;
+    text-align: left;
+    margin-left: 0px;
+  }
+
   .media {
-    width: 45%;
+    width: 40%;
   }
+
+  .nota_media {
+    width: 100%;
+    margin-left: 5px;
+  }
+
   .sub_media {
     display: block;
-    width: 30%;
+    width: 100%;
   }
+
+  .calcular {
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+
   #media {
     width: 70%;
     float: left;
     margin: 0;
   }
+
   .sub_comentario {
     display: block;
+    margin-left: 0px;
   }
+
   .comentarios {
     width: 100%;
+    margin-left: 0px;
   }
 
   .data-coment_foot {
@@ -1341,6 +1403,18 @@ input[type='file'] {
   .user {
     width: 105px;
   }
+
+  .curtir_home {
+    position: absolute;
+    margin-left: 150px;
+    margin-Top: 175px;
+  }
+  
+  .like_count {
+    position: absolute;
+    margin-left: 175px;
+    margin-Top: 175px;
+  }
 }
 
 .bola {
@@ -1496,10 +1570,6 @@ input[type='file'] {
     width: 60%;
   }
 
-  .modal-dialog {
-    width: 95%;
-  }
-
   .data-coment_foot {
     white-space: nowrap;
     overflow: hidden;
@@ -1512,6 +1582,67 @@ input[type='file'] {
     top: 10px;
     vertical-align: bottom;
     position: relative;
+  }
+
+  .notas {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .media {
+    display: block;
+    width: 100%;
+    float: none;
+    height: auto;
+    margin: 0px;
+    padding: 5px;
+  }
+
+  .center_media {
+    margin-top: 0px;
+    width: 100%;
+  }
+
+  .sub {
+    text-align: left;
+    width: 70%;
+    vertical-align: middle;
+  }
+
+  .sub_media {
+    text-align: left;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .sub_comentario {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 5px;
+    margin-left: 0px;
+  }
+
+  .nota_media {
+    margin-left: 5px;
+    width: 47%;
+  }
+
+  .calcular {
+    margin: 0px 0px 0px 0px;
+  }
+
+  .curtir_home {
+    position: absolute;
+    margin-left: 115px;
+    margin-Top: 175px;
+  }
+  
+  .like_count {
+    position: absolute;
+    margin-left: 140px;
+    margin-Top: 175px;
   }
 }
 
