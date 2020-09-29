@@ -647,7 +647,7 @@ $comments = [
               @endif
             </div>  
                 
-            <div class="modal-footer mt-3"> 
+            <div class="modal-footer mt-2"> 
               <p class="data-post">
                 Postado em {{date('d/m/Y', strtotime($posts->data_postagem))}} às  {{date('H:i:s', strtotime($posts->data_postagem))}} horas
               </p>

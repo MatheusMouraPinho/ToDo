@@ -162,7 +162,7 @@ class UserController extends Controller
                         ->where('id_usuarios', $dados_usr->id)
                         ->select('categoria_postagem.*', 'postagens.*', 'situacao_postagem.*')
                         ->orderBy('postagens.id_postagem', 'asc')
-                        ->paginate(5),
+                        ->get(),
 
                 'date' => DB::table('postagens')
                         ->where('id_usuarios', $dados_usr->id)

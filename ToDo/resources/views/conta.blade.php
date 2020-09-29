@@ -269,6 +269,7 @@ $nivel = Auth::user()->nivel;
                               @csrf
                               <input name="id_postagem" type="hidden" value="{{$posts->id_postagem}}">
                               <input type="hidden" name="identificador" value="1">
+                              <input type="hidden" name="filename" value="<?php echo $posts->id_postagem. $posts->titulo_postagem; ?>">
                               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                               <button type="submit" class="btn btn-primary">Confirmar</button>
                           </form>
@@ -378,7 +379,7 @@ $nivel = Auth::user()->nivel;
                               </svg>&nbsp;
                               Usuário: 
                             </label>
-                            <input type="text" class="btn-popup mr-sm-2 wd-sm-100" value="{{ Auth::user()->usuario }}" placeholder="Usuário" name="usuario">
+                            <input type="text" class="btn-popup wd-sm-100" maxlength="50" value="{{ Auth::user()->usuario }}" placeholder="Usuário" name="usuario">
                           </div>
 
                           <div class="popup-title">
@@ -388,7 +389,7 @@ $nivel = Auth::user()->nivel;
                               </svg>&nbsp;
                               E-mail:
                             </label>
-                            <input type="text" class="btn-popup mr-sm-2" value="{{ Auth::user()->email }}" name="email" placeholder="E-mail" readonly>
+                            <input type="text" class="btn-popup" value="{{ Auth::user()->email }}" name="email" placeholder="E-mail" readonly>
                           </div>
 
                           <div class="popup-title">
@@ -399,8 +400,10 @@ $nivel = Auth::user()->nivel;
                               </svg>&nbsp;
                               Senha:
                             </label>
-                            <input type="password" class="btn-popup mr-sm-2" value="{{ Auth::user()->senha }}" name="senha" placeholder="Senha" readonly>
-                            <a href="{{ url('/password/reset') }}" class="password">Alterar senha</a>
+                            <input type="password" class="btn-popup" value="{{ Auth::user()->senha }}" name="senha" placeholder="Senha" readonly>
+                            <div class="div_pass">
+                              <a href="{{ url('/password/reset') }}" class="password">Alterar senha</a>
+                            </div>
                           </div>
 
                           <div class="popup-title">
@@ -410,10 +413,8 @@ $nivel = Auth::user()->nivel;
                               </svg>&nbsp;
                               Celular:
                             </label>
-                            <input onkeypress="return onlynumber();" minlength="10" maxlength="11" id="telefone_usuario" value="{{ Auth::user()->telefone_usuario }}" type="text" class="btn-popup mr-sm-2 phones" name="telefone_usuario" placeholder="Ex: (11) 11111-1111"/>
+                            <input onkeypress="return onlynumber();" minlength="10" maxlength="11" id="telefone_usuario" value="{{ Auth::user()->telefone_usuario }}" type="text" class="btn-popup phones" name="telefone_usuario" placeholder="Ex: (11) 11111-1111"/>
                           </div>
-
-                          <hr>
 
                           <div class="popup-title">
                             <label for="id_instituicao" class="bold subdados">

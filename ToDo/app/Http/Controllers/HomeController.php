@@ -436,7 +436,7 @@ class HomeController extends Controller
         
         return redirect(url()->previous().'#scroll'. $id3);
     }
-    */
+    
 
     public function remov_like_post()
     {   
@@ -456,6 +456,7 @@ class HomeController extends Controller
 
         return redirect(url()->previous().'#scroll'. $id3);
     }
+    */
 
     public function like_post2(Request $request) {
         $db_config = Config::get('database.connections.'.Config::get('database.default'));
