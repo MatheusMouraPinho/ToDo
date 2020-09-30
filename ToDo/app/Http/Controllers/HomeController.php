@@ -411,54 +411,7 @@ class HomeController extends Controller
         return back()->with(['denuncia' =>  $denuncia])->with(['id_postagem' => $id_postagem]);
     }
 
-    /*
-    public function like_post()
-    {   
-        $db_config = Config::get('database.connections.'.Config::get('database.default'));
-        $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
-        mysqli_set_charset($conn, 'utf8');
-
-        $id = $_POST['id_post'];
-        $id2 = $_POST['id_usuario'];
-        $id3 = $_POST['scroll'];
-
-        $sql = "SELECT * FROM like_postagens WHERE id_postagens = $id AND id_usuarios = $id2";
-        $result = mysqli_query($conn, $sql);
-        $check = mysqli_num_rows($result);//consulta se ja existe esse like
-
-        if($check == 0){
-            $sql = "INSERT INTO like_postagens (id_postagens, id_usuarios) VALUES ($id, $id2)";
-            mysqli_query($conn, $sql);
-
-            $sql = "UPDATE postagens SET likes_postagem = likes_postagem + 1 WHERE id_postagem = $id";
-            mysqli_query($conn, $sql);
-        }//executa se não ouver like do usuario nesse post
-        
-        return redirect(url()->previous().'#scroll'. $id3);
-    }
-    
-
-    public function remov_like_post()
-    {   
-        $db_config = Config::get('database.connections.'.Config::get('database.default'));
-        $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
-        mysqli_set_charset($conn, 'utf8');
-        
-        $id = $_POST['id_post'];
-        $id2 = $_POST['id_usuario'];
-        $id3 = $_POST['scroll'];
-
-        $sql = "DELETE FROM like_postagens WHERE id_postagens = $id AND id_usuarios = $id2";
-        mysqli_query($conn, $sql);
-
-        $sql = "UPDATE postagens SET likes_postagem = (SELECT COUNT(id_like) FROM like_postagens WHERE id_postagens = $id) WHERE id_postagem = $id";
-        mysqli_query($conn, $sql);//subquery pra não dar update varias vezes
-
-        return redirect(url()->previous().'#scroll'. $id3);
-    }
-    */
-
-    public function like_post2(Request $request) {
+    public function like_post(Request $request) {
         $db_config = Config::get('database.connections.'.Config::get('database.default'));
         $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
         mysqli_set_charset($conn, 'utf8');
