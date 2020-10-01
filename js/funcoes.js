@@ -94,7 +94,7 @@ function like_post(data){
 
     $.ajax ({
         type: 'post',
-        url: "like_post2",
+        url: "like_post",
         data: {
             'action': action,
             'post_id': post_id 
@@ -154,6 +154,17 @@ function calcular (id_post) {
         var media = soma / 3;
         media = media / 100;
         id('media'+id_post).value = media.toFixed(2);
+    }
+}
+
+function limite_textarea(valor) {
+    quant = 20000;
+    total = valor.length;
+    if(total <= quant) {
+        resto = quant - total;
+        document.getElementById('cont').innerHTML = resto;
+    } else {
+        document.getElementById('texto').value = valor.substr(0,quant);
     }
 }
 
