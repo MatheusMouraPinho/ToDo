@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 18-Set-2020 às 04:36
+-- Tempo de geração: 02-Out-2020 às 22:13
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.10
 
@@ -336,6 +336,13 @@ CREATE TABLE `postagens` (
   `data_postagem` datetime NOT NULL,
   `media` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `postagens`
+--
+
+INSERT INTO `postagens` (`id_postagem`, `id_usuarios`, `id_situacao_postagem`, `id_categoria`, `titulo_postagem`, `descricao_postagem`, `likes_postagem`, `data_postagem`, `media`) VALUES
+(68, 128, 2, 1, 'gwrgwrg', 'rgewrgewr', 0, '2020-10-02 17:11:32', NULL);
 
 -- --------------------------------------------------------
 
@@ -999,25 +1006,6 @@ INSERT INTO `situacao_postagem` (`id_situacao_postagem`, `situacao_postagem`) VA
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `situacao_usuario`
---
-
-CREATE TABLE `situacao_usuario` (
-  `id_situacao_usuario` int(11) NOT NULL,
-  `situacao_usuario` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Extraindo dados da tabela `situacao_usuario`
---
-
-INSERT INTO `situacao_usuario` (`id_situacao_usuario`, `situacao_usuario`) VALUES
-(1, 'Ativo'),
-(2, 'Pendente');
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `usuarios`
 --
 
@@ -1029,7 +1017,6 @@ CREATE TABLE `usuarios` (
   `senha` varchar(200) NOT NULL,
   `nivel` int(11) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `id_situacao` int(11) NOT NULL DEFAULT 2,
   `id_area` int(11) DEFAULT NULL,
   `id_instituicao` int(11) DEFAULT NULL,
   `id_regiao_cidade` int(11) DEFAULT NULL,
@@ -1042,12 +1029,12 @@ CREATE TABLE `usuarios` (
 -- Extraindo dados da tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `email_verified_at`, `id_situacao`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`, `img_capa`) VALUES
-(12, 'Matheus Moura', 'Matheusmpinho@Outlook.com', '20867000', '$2y$10$rZ0C2fvYHoHI0xA7LOuCFu4FiJqIs1B6GEnAUqUPvf6aq/JZMeOOa', 3, '2000-01-27 04:00:00', 1, 2, 10, 457, NULL, NULL, NULL),
-(17, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', '22132066', '$2y$10$WhwODqAMm.PNYkDrXSBmPekQEPHLE9ep8yCxHE0anlLLpprez6LI6', 3, '2020-05-01 02:23:51', 1, 2, 10, 398, NULL, NULL, NULL),
-(24, 'Vinicius Vieira', 'vinicius_vieira_pereira@hotmail.com', '20541929', '$2y$10$Boy1Hsp7VHD0pHy9XombaODQSyRmS2Wb7RPxFOFYc0jAOjtGEyr4G', 3, '2020-05-19 06:00:00', 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(25, 'Mauricio Freire', 'mauriciofreire520@gmail.com', '20530625', '$2y$10$R2GsC/k2SSEIjr4NmL2bOe.MT.P5gdUrJYYe6TOtPKAQxxg4fG67G', 3, '2020-05-19 06:00:00', 1, 2, NULL, NULL, NULL, NULL, NULL),
-(127, 'Usuario 1', 'usu@usu.com', '12345678', '$2y$10$sB3QjwsgknsV3NB6WW8B6e64NmaYEhflU37TLJ1LZ7XuvCzisu9Ie', 3, '2020-09-17 03:00:00', 1, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `email_verified_at`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`, `img_capa`) VALUES
+(128, 'Matheus Moura', 'Matheusmpinho@Outlook.com', '20867000', '$2y$10$I7h/qi.AzqnPx5E2rbcshOCJxr98DkA9OuorMdSKgsWHqhA0wjzhe', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
+(129, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', '22132066', '$2y$10$ySjdFDsV9NTzugT2.SYHUe47tNYsQhjGHjLOvTrC7RUSsy3GBLc92', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
+(130, 'Vinicius Vieira', 'vinicius_vieira_pereira@hotmail.com', '20541929', '$2y$10$.fAi./fsqoOj/dCe/ubcXuA0l7jKfTdRnYVvV/5JMDZaHSQdJ3H7m', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
+(131, 'Mauricio Freire', 'mauriciofreire520@gmail.com', '20530625', '$2y$10$kWsQWU/6Q1bletW3G0xnUuN/9zo19TAwoH7qBfzow5rXlnSQ20BPS', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
+(132, 'Usuario Teste', 'usu@usu.com', '12345678', '$2y$10$ZAXpXdDZyrVIILPd9cb9DeQObTUIY2LgC6zECNrC0dZmIsnKDkarq', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1205,12 +1192,6 @@ ALTER TABLE `situacao_postagem`
   ADD PRIMARY KEY (`id_situacao_postagem`);
 
 --
--- Índices para tabela `situacao_usuario`
---
-ALTER TABLE `situacao_usuario`
-  ADD PRIMARY KEY (`id_situacao_usuario`);
-
---
 -- Índices para tabela `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -1218,7 +1199,6 @@ ALTER TABLE `usuarios`
   ADD UNIQUE KEY `email_usuarios` (`email`),
   ADD UNIQUE KEY `usuario` (`usuario`),
   ADD UNIQUE KEY `registro_usuarios` (`registro`),
-  ADD KEY `id_situacao_user` (`id_situacao`),
   ADD KEY `id_nivel` (`nivel`),
   ADD KEY `id_area` (`id_area`),
   ADD KEY `id_instituicao` (`id_instituicao`),
@@ -1304,7 +1284,7 @@ ALTER TABLE `nivel_acesso`
 -- AUTO_INCREMENT de tabela `postagens`
 --
 ALTER TABLE `postagens`
-  MODIFY `id_postagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id_postagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT de tabela `regiao_cidade`
@@ -1325,16 +1305,10 @@ ALTER TABLE `situacao_postagem`
   MODIFY `id_situacao_postagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de tabela `situacao_usuario`
---
-ALTER TABLE `situacao_usuario`
-  MODIFY `id_situacao_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
 
 --
 -- Restrições para despejos de tabelas

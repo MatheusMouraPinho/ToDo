@@ -51,7 +51,6 @@ class User extends Authenticatable implements MustVerifyEmail
     const ADMIN = '3';
     const AVALIADOR = '2';
     const USUARIO = '1';
-    const ALT = '1';
 
     public function admin()    {        
         return $this->nivel == self::ADMIN;  //função pra definir adm
@@ -59,10 +58,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function Avaliador()    {        
         return $this->nivel == self::AVALIADOR;  //ainda não utilizado
-    }
-
-    public function Altoriza()    {        
-        return $this->id_situacao == self::ALT;  //função altorizado
     }
 
 }

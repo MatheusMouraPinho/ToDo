@@ -185,7 +185,7 @@ $smartphone = true;
             <input class="form-control-sm ml-1 pesquisa-home" type="text" name="pesquisa" placeholder="Procurar ideias..." aria-label="Search">
         </form>
     </div>
-    <div style="padding-top:14px"></div>
+    <div style="padding-top:16px"></div>
     <div class="row justify-content-center"> 
         <hr class="accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 80%;">
     </div>

@@ -33,7 +33,7 @@ Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/logout', 'HomeController@logout')->middleware('auth');
 
-Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() { //grupo middleware
+Route::group(['middleware' => ['auth', 'verified']], function() { //grupo middleware
 
     Route::get('/home', 'HomeController@home');
         Route::post('/filtro', 'HomeController@filtro');
@@ -77,7 +77,7 @@ Route::group(['middleware' => ['auth', 'verified', 'Altorizado']], function() { 
 
 });
 
-Route::group(['middleware' => ['auth', 'verified', 'Altorizado', 'admin']], function() {
+Route::group(['middleware' => ['auth', 'verified', 'admin']], function() {
 
     Route::get('/adm', 'AdminController@admin');
         Route::post('/alt', 'AdminController@altorizar');

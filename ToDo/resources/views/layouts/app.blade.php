@@ -165,7 +165,7 @@ $denuncia = Session::get('denuncia');
               <div class="espaço_cria">
                 <div class="titulo_cria">
                   <b style="font-size:18px;">Titulo:</b>
-                  <input class="custom_input espaço-input" type="text" name="titulo" placeholder="Titulo da Ideia" maxlength="45" required>
+                  <input class="custom_input espaço-input" type="text" name="titulo" placeholder="Titulo da ideia" maxlength="45" required>
                 </div>
                 <div class="categoria_cria">
                   <b style="font-size:18px;"> Categoria:</b>
@@ -196,7 +196,7 @@ $denuncia = Session::get('denuncia');
                   <label class="form-control-range">
                     <input type="file" name="img_post2" id="file2" accept="image/jpeg, image/png" multiple onchange="javascript:update_file2()"/>
                     <a name="img_post" class="img_cria">Adicionar Imagem Capa</a>
-                    <div class="file-name" id="file-name2">Arquivo: Sem Capa</div>
+                    <div class="file-name" id="file-name2">Arquivo: Sem capa</div>
                   </label>
                 </div>
                 <div class="alinhamento-img3">
