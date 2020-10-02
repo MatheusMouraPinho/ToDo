@@ -14,7 +14,7 @@ if(NULL !== Session::get('pesquisa2')){   $_SESSION['pesquisa2'] = Session::get(
 if(isset($_SESSION['pesquisa2'])){$pesquisa2 = $_SESSION['pesquisa2'];}
 if(!isset($pesquisa2)){ $pesquisa2 = NULL;}
 
-$sql = "SELECT * FROM usuarios WHERE id_situacao = '1' AND (usuario LIKE '%$pesquisa2%' OR registro LIKE '%$pesquisa2%')";
+$sql = "SELECT * FROM usuarios WHERE (usuario LIKE '%$pesquisa2%' OR registro LIKE '%$pesquisa2%')";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
@@ -24,7 +24,7 @@ $num_pagina = ceil($total_pesquisa/$quantidade);
 
 $inicio = ($quantidade*$pagina)-$quantidade;
 
-$sql = "SELECT * FROM usuarios WHERE id_situacao = '1' AND (usuario LIKE '%$pesquisa2%' OR registro LIKE '%$pesquisa2%') ORDER BY nivel DESC LIMIT $inicio, $quantidade ";
+$sql = "SELECT * FROM usuarios WHERE (usuario LIKE '%$pesquisa2%' OR registro LIKE '%$pesquisa2%') ORDER BY nivel DESC LIMIT $inicio, $quantidade ";
 $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
 $pagina_anterior = $pagina - 1; //paginação
