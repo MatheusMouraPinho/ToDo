@@ -10,7 +10,7 @@ $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 $notific = Session::get('notific');
 $usu = Session::get('usu');
 
-$sql = "SELECT * FROM usuarios WHERE id_situacao = '2' AND email_verified_at IS NOT NULL";
+$sql = "SELECT * FROM usuarios WHERE email_verified_at";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
@@ -20,7 +20,7 @@ $num_pagina = ceil($total_pesquisa/$quantidade);
 
 $inicio = ($quantidade*$pagina)-$quantidade;
 
-$sql = "SELECT * FROM usuarios WHERE id_situacao = '2' AND email_verified_at IS NOT NULL ORDER BY email_verified_at ASC LIMIT $inicio, $quantidade ";
+$sql = "SELECT * FROM usuarios WHERE email_verified_at ORDER BY email_verified_at DESC LIMIT $inicio, $quantidade ";
 $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
 $pagina_anterior = $pagina - 1; //paginação
@@ -45,7 +45,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
     <br>
 
     <div class="row">
-        <div class="text-centro contorno-titulo"><h3>Cadastros Pendentes</h3></div>
+        <div class="text-centro contorno-titulo"><h3>Historico de Cadastros</h3></div>
         <table class="col-12" id="table_conta">
             <caption><br></caption>
             <?php if(isset($check)){ ?>
@@ -55,7 +55,6 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <th scope="col">Nome</th>
                         <th scope="col">RGM/CPF</th>
                         <th scope="col">Tipo</th>
-                        <th scope="col">Autorizar</th>
                         <th scope="col">Deletar</th>
                     </tr>
                 </thead>
@@ -70,30 +69,9 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                         }else if ($setup == 3) { echo "Admin";}
                                 ?>
                             </td>
-                            <td><a data-dismiss="modal" data-toggle="modal" data-target="#alt<?php echo $id_usuario;?>"><img width="40px" src="{{asset('img/correct.png')}}"></a></td>
                             <td><a data-dismiss="modal" data-toggle="modal" data-target="#del<?php echo $id_usuario;?>"><img width="40px" src="{{asset('img/denie.png')}}"></a></td>
                         </tr>
                     </tbody>
-                    <!-- Modal  confirmar aceitar cadastro -->
-                    <div class="modal fade id" id="alt<?php echo $id_usuario; ?>" role="dialog">
-                        <div class="modal-dialog modal-content">
-                            <div class="modal-header"></div>
-                            <div class="modal-body">
-                                <h4><p>Deseja aceitar o cadastro de <b><?php echo $name ?></b>?</p><h4><br>
-                                <form action="{{ url('alt') }}" method="POST">
-                                    @csrf
-                                    <div class="modal-footer">
-                                        <input type='hidden' name="nome" value="<?php echo $name ?>"/>
-                                        <input type='hidden' name="email" value="<?php echo $mail ?>"/>
-                                        <input type='hidden' name="alt" value="<?php echo $id_usuario ?>">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary">Confirmar</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- FIM Modal aceitar cadastro -->
                     <!-- Modal deletar cadastro -->
                     <div class="modal fade id" id="del<?php echo $id_usuario; ?>" role="dialog">
                         <div class="modal-dialog modal-content">
@@ -107,7 +85,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                         <input type='hidden' name="email" value="<?php echo $mail ?>"/>
                                         <input type='hidden' name="del" value="<?php echo $id_usuario ?>">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                                       <!-- <button type="submit" class="btn btn-primary">Confirmar</button> -->
                                     </div>
                                 </form>
                             </div>
