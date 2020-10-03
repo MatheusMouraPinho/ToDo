@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02-Out-2020 às 22:13
+-- Tempo de geração: 03-Out-2020 às 05:23
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.10
 
@@ -336,13 +336,6 @@ CREATE TABLE `postagens` (
   `data_postagem` datetime NOT NULL,
   `media` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Extraindo dados da tabela `postagens`
---
-
-INSERT INTO `postagens` (`id_postagem`, `id_usuarios`, `id_situacao_postagem`, `id_categoria`, `titulo_postagem`, `descricao_postagem`, `likes_postagem`, `data_postagem`, `media`) VALUES
-(68, 128, 2, 1, 'gwrgwrg', 'rgewrgewr', 0, '2020-10-02 17:11:32', NULL);
 
 -- --------------------------------------------------------
 
@@ -1022,19 +1015,20 @@ CREATE TABLE `usuarios` (
   `id_regiao_cidade` int(11) DEFAULT NULL,
   `img_usuarios` longblob DEFAULT NULL,
   `telefone_usuario` bigint(20) DEFAULT NULL,
-  `img_capa` longblob DEFAULT NULL
+  `img_capa` longblob DEFAULT NULL,
+  `data_cadastro` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `email_verified_at`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`, `img_capa`) VALUES
-(128, 'Matheus Moura', 'Matheusmpinho@Outlook.com', '20867000', '$2y$10$I7h/qi.AzqnPx5E2rbcshOCJxr98DkA9OuorMdSKgsWHqhA0wjzhe', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
-(129, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', '22132066', '$2y$10$ySjdFDsV9NTzugT2.SYHUe47tNYsQhjGHjLOvTrC7RUSsy3GBLc92', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
-(130, 'Vinicius Vieira', 'vinicius_vieira_pereira@hotmail.com', '20541929', '$2y$10$.fAi./fsqoOj/dCe/ubcXuA0l7jKfTdRnYVvV/5JMDZaHSQdJ3H7m', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
-(131, 'Mauricio Freire', 'mauriciofreire520@gmail.com', '20530625', '$2y$10$kWsQWU/6Q1bletW3G0xnUuN/9zo19TAwoH7qBfzow5rXlnSQ20BPS', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL),
-(132, 'Usuario Teste', 'usu@usu.com', '12345678', '$2y$10$ZAXpXdDZyrVIILPd9cb9DeQObTUIY2LgC6zECNrC0dZmIsnKDkarq', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `email_verified_at`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`, `img_capa`, `data_cadastro`) VALUES
+(128, 'Matheus Moura', 'Matheusmpinho@Outlook.com', '20867000', '$2y$10$I7h/qi.AzqnPx5E2rbcshOCJxr98DkA9OuorMdSKgsWHqhA0wjzhe', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-03 02:19:16'),
+(129, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', '22132066', '$2y$10$ySjdFDsV9NTzugT2.SYHUe47tNYsQhjGHjLOvTrC7RUSsy3GBLc92', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-03 02:19:16'),
+(130, 'Vinicius Vieira', 'vinicius_vieira_pereira@hotmail.com', '20541929', '$2y$10$.fAi./fsqoOj/dCe/ubcXuA0l7jKfTdRnYVvV/5JMDZaHSQdJ3H7m', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-03 02:19:16'),
+(131, 'Mauricio Freire', 'mauriciofreire520@gmail.com', '20530625', '$2y$10$kWsQWU/6Q1bletW3G0xnUuN/9zo19TAwoH7qBfzow5rXlnSQ20BPS', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-03 02:19:16'),
+(132, 'Usuario Teste', 'usu@usu.com', '12345678', '$2y$10$ZAXpXdDZyrVIILPd9cb9DeQObTUIY2LgC6zECNrC0dZmIsnKDkarq', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-03 02:19:16');
 
 -- --------------------------------------------------------
 
