@@ -84,25 +84,6 @@ class AdminController extends Controller
         return view('adm4');
     }
 
-    public function altorizar()
-    {  
-        $db_config = Config::get('database.connections.'.Config::get('database.default'));
-        $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
-        mysqli_set_charset($conn, 'utf8');
-
-        $id_sql = $_POST ['alt'];
-        $mail = $_POST ['email'];
-        $usu = $_POST ['nome'];
-        $notific = 1;
-
-        $sql = "UPDATE usuarios SET id_situacao = 1 WHERE id = $id_sql";
-        mysqli_query($conn, $sql);
- 
-        Mail::to($mail)->send(new cadastro_aceito());
-
-        return redirect('adm')->with(['notific' =>  $notific])->with(['usu' => $usu]);
-    }
-
     public function recusar()
     {  
         $db_config = Config::get('database.connections.'.Config::get('database.default'));
@@ -113,8 +94,6 @@ class AdminController extends Controller
         $mail = $_POST ['email'];
         $usu = $_POST ['nome'];
         $notific = 2;
-
-        Mail::to($mail)->send(new cadastro_recusado());
 
         $sql = "DELETE FROM usuarios WHERE id = $id_sql";
         mysqli_query($conn, $sql);

@@ -1398,7 +1398,6 @@ ALTER TABLE `regiao_cidade`
 -- Limitadores para a tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`id_situacao`) REFERENCES `situacao_usuario` (`id_situacao_usuario`),
   ADD CONSTRAINT `usuarios_ibfk_2` FOREIGN KEY (`nivel`) REFERENCES `nivel_acesso` (`id_nivel`),
   ADD CONSTRAINT `usuarios_ibfk_3` FOREIGN KEY (`id_area`) REFERENCES `area_estudo` (`id_area`),
   ADD CONSTRAINT `usuarios_ibfk_4` FOREIGN KEY (`id_instituicao`) REFERENCES `instituicao_ensino` (`id_instituicao`),

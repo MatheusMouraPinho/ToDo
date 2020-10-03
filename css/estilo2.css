@@ -156,7 +156,7 @@
   resize: none;
   border: none;
   overflow: hidden;
-  height: 66px;
+  height: 67px;
 }
 .desc-home{
   position: absolute;
@@ -591,7 +591,7 @@ fw{
   }
   /*---*/
   .like_home {
-    margin-left: 17px;
+    margin-left: 18px;
     margin-Top: 150px;
   }
   .destaque-home{
@@ -603,7 +603,7 @@ fw{
   max-height: 100px;
   }
   .visualizar-home{
-  margin-left: 85px;
+  margin-left: 71px;
   margin-Top: 173px;
   color: blue;
   }
@@ -618,7 +618,7 @@ fw{
   }
   .situation-home{
   margin-left: 0.8em;
-  margin-Top: 80px;
+  margin-Top: 72px;
   }
   .result-situation-home{
   position: absolute;
@@ -633,25 +633,25 @@ fw{
   }
   .text-desc{
   margin-top: 5px;
-  width: 760px;
+  width: 740px;
   }
   .text-desc2{
   margin-top: 8px;
-  width: 900px;
+  width: 890px;
   }
   .desc-home{
   margin-top: 85px;
-  margin-left: 65px;
+  margin-left: 67px;
   }
   .title-home{
   margin-top: 47px;
-  margin-left: 55px;
+  margin-left: 67px;
   font-size: 23px;
   max-width: 740px;
   }
   .title-home2{
   margin-top: 47px;
-  margin-left: 55px;
+  margin-left: 67px;
   font-size: 23px;
   max-width: 860px;
   }
@@ -687,7 +687,7 @@ fw{
   }
   /*---*/
   .like_home {
-    margin-left: 17px;
+    margin-left: 18px;
     margin-Top: 150px;
   }
   .destaque-home{
@@ -699,7 +699,7 @@ fw{
     max-height: 100px;
   }
   .visualizar-home{
-    margin-left: 85px;
+    margin-left: 71px;
     margin-Top: 173px;
     color: blue;
   }
@@ -714,7 +714,7 @@ fw{
   }
   .situation-home{
     margin-left: 0.8em;
-    margin-Top: 80px;
+    margin-Top: 72px;
   }
   .result-situation-home{
     position: absolute;
@@ -730,24 +730,24 @@ fw{
   }
   .text-desc{
     margin-top: 5px;
-    width: 620px;
+    width: 600px;
   }
   .text-desc2{
-    width: 750px;
+    width: 730px;
   }
   .desc-home{
     margin-top: 85px;
-    margin-left: 65px;
+    margin-left: 67px;
   }
   .title-home{
     margin-top: 47px;
-    margin-left: 55px;
+    margin-left: 67px;
     font-size: 23px;
     max-width: 590px;
   }
   .title-home2{
     margin-top: 47px;
-    margin-left: 55px;
+    margin-left: 67px;
     font-size: 23px;
     max-width: 700px;
   }
@@ -804,7 +804,7 @@ fw{
   }
   /*---*/
   .like_home {
-    margin-left: 17px;
+    margin-left: 18px;
     margin-Top: 150px;
   }
   .destaque-home{
@@ -816,7 +816,7 @@ fw{
     max-height: 100px;
   }
   .visualizar-home{
-    margin-left: 85px;
+    margin-left: 71px;
     margin-Top: 173px;
     color: blue;
   }
@@ -831,7 +831,7 @@ fw{
   }
   .situation-home{
     margin-left: 0.8em;
-    margin-Top: 80px;
+    margin-Top: 72px;
   }
   .result-situation-home{
     position: absolute;
@@ -847,24 +847,24 @@ fw{
   }
   .text-desc{
     margin-top: 5px;
-    width: 500px;
+    width: 490px;
   }
   .text-desc2{
-    width: 600px;
+    width: 610px;
   }
   .desc-home{
     margin-top: 85px;
-    margin-left: 65px;
+    margin-left: 67px;
   }
   .title-home{
     margin-top: 47px;
-    margin-left: 55px;
+    margin-left: 67px;
     font-size: 23px;
     max-width: 480px;
   }
   .title-home2{
     margin-top: 47px;
-    margin-left: 55px;
+    margin-left: 67px;
     font-size: 23px;
     max-width: 580px;
   }
@@ -943,9 +943,9 @@ fw{
     max-height: 100px;
   }
   .visualizar-home{
-    margin-left: 420px;
-    margin-Top: 178px;
-    font-size: 13px;
+    margin-left: 419px;
+    margin-Top: 177px;
+    font-size: 14px;
     color: blue;
   }
   .data-home{
@@ -954,30 +954,30 @@ fw{
     font-size: 14px;
   }
   .situation-home{
-    margin-left: 270px;
+    margin-left: 272px;
     margin-Top: 172px;
     font-size: 14px;
   }
   .text-desc{
-    width: 380px;
+    width: 370px;
   }
   .text-desc2{
-    width: 490px;
+    width: 480px;
   }
   .desc-home{
     margin-top: 85px;
-    margin-left: 8px;
+    margin-left: 15px;
     font-size: 13px;
   }
   .title-home{
     margin-top: 48px;
-    margin-left: 20px;
+    margin-left: 15px;
     font-size: 21px;
     max-width: 340px;
   }
   .title-home2{
     margin-top: 48px;
-    margin-left: 20px;
+    margin-left: 15px;
     font-size: 21px;
     max-width: 440px;
   }
@@ -1070,25 +1070,25 @@ fw{
     font-size: 13px;
   }
   .text-desc{
-    width: 275px;
+    width: 260px;
   }
   .text-desc2{
-    width: 370px;
+    width: 360px;
   }
   .desc-home{
     margin-top: 85px;
-    margin-left: 8px;
+    margin-left: 15px;
     font-size: 13px;
   }
   .title-home{
     margin-top: 48px;
-    margin-left: 20px;
+    margin-left: 15px;
     font-size: 21px;
     max-width: 240px;
   }
   .title-home2{
     margin-top: 48px;
-    margin-left: 20px;
+    margin-left: 15px;
     font-size: 21px;
     max-width: 330px;
   }
@@ -1170,25 +1170,25 @@ fw{
     font-size: 14px;
   }
   .text-desc{
-    width: 190px;
+    width: 175px;
   }
   .text-desc2{
-    width: 300px;
+    width: 285px;
   }
   .desc-home{
     margin-top: 85px;
-    margin-left: 5px;
+    margin-left: 15px;
     font-size: 13px;
   }
   .title-home{
     margin-top: 48px;
-    margin-left: 20px;
+    margin-left: 15px;
     font-size: 21px;
     max-width: 160px;
   }
   .title-home2{
     margin-top: 48px;
-    margin-left: 20px;
+    margin-left: 15px;
     font-size: 21px;
     max-width: 270px;
   }
@@ -1265,10 +1265,10 @@ fw{
     max-width: 300px;
   }
   .text-desc{
-    width: 220px;
+    width: 205px;
   }
   .text-desc2{
-    width: 325px;
+    width: 310px;
   }
   .destaque-home{
     margin-left:226px;
@@ -1282,10 +1282,10 @@ fw{
     max-width: 345px;
   }
   .text-desc{
-    width: 255px;
+    width: 245px;
   }
   .text-desc2{
-    width: 365px;
+    width: 360px;
   }
   .destaque-home{
     margin-left:270px;
