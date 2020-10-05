@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Config;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -25,10 +25,18 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+
+    $db_config = Config::get('database.connections.'.Config::get('database.default'));
+    $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
+    mysqli_set_charset($conn, 'utf8');
+
+    $sql = "DELETE FROM usuarios WHERE email_verified_at is NULL AND data_cadastro < (NOW() - INTERVAL 3 HOUR)";
+    mysqli_query($conn, $sql);
+
     if(auth()->user()->admin()){
         return redirect('home');
     }else
-     return redirect('home');
+        return redirect('home');
     }
 
     /**

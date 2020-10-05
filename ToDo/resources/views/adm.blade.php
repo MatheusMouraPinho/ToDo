@@ -45,7 +45,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
     <br>
 
     <div class="row">
-        <div class="text-centro contorno-titulo"><h3>Cadastros Pendentes</h3></div>
+        <div class="text-centro contorno-titulo"><h3>Historico de cadastros</h3></div>
         <table class="col-12" id="table_conta">
             <caption><br></caption>
             <?php if(isset($check)){ ?>
@@ -54,8 +54,8 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <th scope="col">Data de cadastro</th>
                         <th scope="col">Nome</th>
                         <th scope="col">RGM/CPF</th>
-                        <th scope="col">Email pendente</th>
-                        <th scope="col">Deletar</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Situação Email</th>
                     </tr>
                 </thead>
                 <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel']; $mail = $rows['email']; $name = $rows['usuario']; $id_usuario = $rows['id'];?>
@@ -65,29 +65,16 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                             <td><?php echo mb_strimwidth($rows['usuario'], 0, 25, "..."); ?></td>
                             <td><?php echo $rows['registro']; ?></td>
                             <td><?php echo $rows['email']; ?></td>
-                            <td><a data-dismiss="modal" data-toggle="modal" data-target="#del<?php echo $id_usuario;?>"><img width="40px" src="{{asset('img/denie.png')}}"></a></td>
+                            <td><?php 
+                                if($rows['email_verified_at'] == NULL){
+                                    $situ = "Pendente";
+                                }else{
+                                    $situ = "Comfirmado";
+                                }
+                                echo $situ; 
+                            ?></td>
                         </tr>
                     </tbody>
-                    <!-- Modal deletar cadastro -->
-                    <div class="modal fade id" id="del<?php echo $id_usuario; ?>" role="dialog">
-                        <div class="modal-dialog modal-content">
-                            <div class="modal-header"></div>
-                            <div class="modal-body">
-                                <h4><p>Deseja deletar o cadastro de <b><?php echo $name ?></b>?</p><h4><br>
-                                <form action="{{ url('del') }}" method="POST">
-                                    @csrf
-                                    <div class="modal-footer">
-                                        <input type='hidden' name="nome" value="<?php echo $name ?>"/>
-                                        <input type='hidden' name="email" value="<?php echo $mail ?>"/>
-                                        <input type='hidden' name="del" value="<?php echo $id_usuario ?>">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                       <!-- <button type="submit" class="btn btn-primary">Confirmar</button> -->
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- FIM Modal deletar cadastro -->
                 <?php }?>
             <?php }else{?>
                 <tbody class="texture">  
