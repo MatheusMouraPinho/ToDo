@@ -10,7 +10,7 @@ $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 $notific = Session::get('notific');
 $usu = Session::get('usu');
 
-$sql = "SELECT * FROM usuarios WHERE email_verified_at IS NULL";
+$sql = "SELECT * FROM usuarios";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
@@ -20,7 +20,7 @@ $num_pagina = ceil($total_pesquisa/$quantidade);
 
 $inicio = ($quantidade*$pagina)-$quantidade;
 
-$sql = "SELECT * FROM usuarios WHERE email_verified_at IS NULL ORDER BY data_cadastro DESC LIMIT $inicio, $quantidade ";
+$sql = "SELECT * FROM usuarios ORDER BY data_cadastro DESC LIMIT $inicio, $quantidade ";
 $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
 $pagina_anterior = $pagina - 1; //paginação
@@ -64,7 +64,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                             <td><?php echo date('d/m/Y', strtotime($rows['data_cadastro'])). " às ". date('H:i', strtotime($rows['email_verified_at'])); ?></td>
                             <td><?php echo mb_strimwidth($rows['usuario'], 0, 25, "..."); ?></td>
                             <td><?php echo $rows['registro']; ?></td>
-                            <td><?php echo $rows['email']; ?></td>
+                            <td><?php echo mb_strimwidth($rows['email'], 0, 20, "..."); ?></td>
                             <td><?php 
                                 if($rows['email_verified_at'] == NULL){
                                     $situ = "Pendente";
