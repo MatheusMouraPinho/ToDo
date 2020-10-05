@@ -57,4 +57,12 @@ class Helper
         return $user_liked;
     }
     
+    public static function count_post($id_post) {
+        $resultado = DB::table('comentarios')
+                ->where('id_postagem', $id_post, 'and')
+                ->where('id_comentarios_ref', null)
+                ->count();  
+        
+        return $resultado;
+    }
 }

@@ -203,7 +203,7 @@ $smartphone = true;
 $nome_file2 = "ToDo/storage/app/public/posts/" .'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg';
 $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.png';
 ?>
-    <nav id="scroll<?php echo $scroll?>"></nav>
+    <nav class="" id="scroll<?php echo $scroll?>"></nav>
     <div class="card-home">
         <div class="usu-home">
             <?php if($rows['img_usuarios'] == NULL){?>

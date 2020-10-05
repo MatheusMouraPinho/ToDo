@@ -147,6 +147,17 @@ class ComentController extends Controller
         return back()->with(compact('filtro_coment', 'selected', 'id_postagem'));
     }
 
+    public function MostrarComents(Request $request) {
+        $data = $request->count;
+        
+        $limit = $data + 10;
+
+        $id_postagem = $_POST['id_postagem'];
+
+        $id_postagem_coment = $_POST['id_postagem'];
+
+        return back()->with(compact('limit', 'id_postagem', 'id_postagem_coment'));
+    }
 
     /**
      * Store a newly created resource in storage.

@@ -16,7 +16,15 @@
     if(isset($_SESSION['selected'])){$selected = $_SESSION['selected'];}
     if(!isset($selected)){$selected = "1";}
 
-    // dd($filtro);
+
+    if(NULL !== Session::get('id_postagem_coment')){$_SESSION['id_postagem_coment'] = Session::get('id_postagem_coment');}
+    if(isset($_SESSION['id_postagem_coment'])){$id_postagem_coment = $_SESSION['id_postagem_coment'];}
+    if(!isset($id_postagem_coment)){$id_postagem_coment = null;}
+
+    if(NULL !== Session::get('limit')){$_SESSION['limit'] = Session::get('limit');}
+    if(isset($_SESSION['limit'])){$limit = $_SESSION['limit'];}
+    if($id_post !== $id_postagem_coment) {$limit = 5;}
+    if(!isset($limit)){$limit = 5;}
 
     $comments = [
                 'comentarios' => DB::table('comentarios')
@@ -222,6 +230,7 @@
                 </form>
               </div>
 
+              <?php // var_dump($count = Helper::count_post($id_post)); $count1 = 0 ?>
               @if(!empty($comments['comentarios'][0]))  
                 @for($f=0; $f<sizeof($comments['comentarios']); $f++)
                   @if($comments['comentarios'][$f]->id_postagem == $id_post)
@@ -251,9 +260,11 @@
                 @endfor
               @endif
 
+              
               @if(!empty($comments['comentarios'][0]))  
                 @for($f=0; $f<sizeof($comments['comentarios']); $f++)
                   @if($comments['comentarios'][$f]->id_postagem == $id_post)
+                    
                     <div class="popup_coment_aval" id="id_comentario{{ $comments['comentarios'][$f]->id_comentarios }}">
                       <div class="header-coment">
                         @if($comments['comentarios'][$f]->nivel > 1)
@@ -425,241 +436,258 @@
                     </div> 
                     
                     <!--  Modal para apagar comentários -->
-                  <div class="painel-dados">
-                    <div class="modal fade id" id="popup{{$comments['comentarios'][$f]->id_comentarios}}_apagar2" role="dialog">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                          </div>
-                          <div class="modal-body"> 
-                            <p>Deseja realmente apagar este comentário?</p>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                              <form action="{{route('apagar-coment')}}" method="POST">
-                                @csrf
-                                <input name="id_comentario" type="hidden" value="{{ $comments['comentarios'][$f]->id_comentarios }}">
-                                <input type="hidden" value="{{$id_post}}" name="id_postagem">
-                                <input data-toggle="modal" type="submit" class="btn btn-primary dropright" value="Apagar comentário">
-                              </form>
-                            </div> 
+                    <div class="painel-dados">
+                      <div class="modal fade id" id="popup{{$comments['comentarios'][$f]->id_comentarios}}_apagar2" role="dialog">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                            </div>
+                            <div class="modal-body"> 
+                              <p>Deseja realmente apagar este comentário?</p>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                <form action="{{route('apagar-coment')}}" method="POST">
+                                  @csrf
+                                  <input name="id_comentario" type="hidden" value="{{ $comments['comentarios'][$f]->id_comentarios }}">
+                                  <input type="hidden" value="{{$id_post}}" name="id_postagem">
+                                  <input data-toggle="modal" type="submit" class="btn btn-primary dropright" value="Apagar comentário">
+                                </form>
+                              </div> 
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>         
-                  @endif
-                  @for($g=0; $g<sizeof($comments['reply_coment']); $g++)
-                    @if($comments['reply_coment'][$g]->id_postagem == $id_post && $comments['comentarios'][$f]->id_comentarios === $comments['reply_coment'][$g]->id_comentarios_ref)
-                      <div class="popup_coment_aval" id="respostas" style="margin-top: 10px; width: 95%;margin-left:5%">
-                        
-                        <div class="header-coment">
-                          @if($comments['reply_coment'][$g]->nivel > 1)
-                            <div class="p-1 w-50 show_selo">
-                              <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zm4.854-7.85a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-                              </svg>
-                              <span>Avaliador</span>
-                            </div>
-                          @endif
-                          <div class="dropdown dropdown1">
-
-                            <!--Trigger-->
-                           
-                            <a class="btn-floating btn-lg black"type="button" id="dropdownMenu3" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
+                    </div>         
+                  
+                    @for($g=0; $g<sizeof($comments['reply_coment']); $g++)
+                      @if($comments['reply_coment'][$g]->id_postagem == $id_post && $comments['comentarios'][$f]->id_comentarios === $comments['reply_coment'][$g]->id_comentarios_ref)
+                        <div class="popup_coment_aval" id="respostas" style="margin-top: 10px; width: 95%;margin-left:5%">
                           
-                          
-                            <!--Menu-->
-                            <div class="dropdown-menu dropdown-primary">
-                              @if($comments['reply_coment'][$g]->id === Auth::user()->id)
-                                <a class="dropdown-item" data-toggle="modal" style="cursor: pointer" data-target="#popup{{$comments['reply_coment'][$g]->id_comentarios }}_edit">
-                                  <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
-                                    <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
-                                  </svg>&nbsp;
-                                  Editar
-                                </a>
-                                <a class="dropdown-item" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$comments['reply_coment'][$g]->id_comentarios }}_apagar1">
-                                  <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                  </svg>&nbsp;
-                                  Apagar
-                                </a>
-                              @else
-                                <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#den_comen_reply{{$comments['reply_coment'][$g]->id_comentarios }}">
-                                  <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-exclamation-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
-                                  </svg>&nbsp;
-                                  Denunciar
-                                </a>
-                              @endif
-                            </div>
-                          </div>
-                          <!-- Modal denunciar comentario Reply -->
-                          <div class="modal fade id" id="den_comen_reply{{$comments['reply_coment'][$g]->id_comentarios }}" role="dialog">
-                              <div class="modal-dialog modal-content">
-                                  <div class="modal-header"></div>
-                                  <form action="{{url('denunciar_comentario')}}" method="POST">
-                                      @csrf
-                                      <div class="modal-body">
-                                          <h3><p>Denunciar Comentario por:</p></h3><br>
-                                          <h6>
-                                              <label class="radio-custom">Conteúdo Inadequado
-                                                  <input type="radio" id="radio1" type="radio" name="option" value="3" required>
-                                                  <span class="checkmark"></span>
-                                              </label>
-                                              <label class="radio-custom">Spam
-                                                  <input type="radio" id="radio3" type="radio" name="option" value="1" required>
-                                                  <span class="checkmark"></span>
-                                              </label>
-                                              <label class="radio-custom">Copia
-                                                  <input type="radio" id="radio3" type="radio" name="option" value="2" required>
-                                                  <span class="checkmark"></span>
-                                              </label>
-                                          </h6>
-                                          <input type="hidden" value="{{$id_post}}" name="id_postagem">
-                                          <div class="modal-footer">
-                                              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                              <input name="id_comentario" type="hidden" value="{{$comments['reply_coment'][$g]->id_comentarios }}">
-                                              <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
-                                              <input data-toggle="modal" type="submit" class="btn btn-primary" value="Confirmar">
-                                          </div> 
-                                      </div>
-                                  </form>
-                              </div>
-                          </div>
-                          <!-- FIM Modal denunciar comentario reply -->
-                          @if(empty($comments['reply_coment'][$g]->edit_comentarios))
-                            <span class="underline data-coment">{{ Helper::tempo_corrido($comments['reply_coment'][$g]->data_comentarios)}}</span>
-                          @else
-                            <span class="underline data-coment"><?='(editado) '. Helper::tempo_corrido($comments['reply_coment'][$g]->data_comentarios)?></span>
-                          @endif
-                          <div>
-                            @if($comments['reply_coment'][$g]->img_usuarios === null)
-                              <img class="img-dados-coment" src="{{asset('img/semuser.png')}}">
-                            @else
-                              <img alt="{{ $comments['reply_coment'][$g]->img_usuarios }}" name="img_usuarios" class="img-dados-coment" src="{{asset('/ToDo/storage/app/public/users/'.$comments['reply_coment'][$g]->img_usuarios)}}">
-                            @endif
-                            <form id="perfil" action="{{ route('perfil') }}" method="get">
-                              @csrf
-                              <input type="hidden" name="id_usuario" value="{{ $comments['reply_coment'][$g]->id }}">
-                              <input alt="" class="bold user" type="submit" value="{{ $comments['reply_coment'][$g]->usuario}}">
-                            </form>
+                          <div class="header-coment">
                             @if($comments['reply_coment'][$g]->nivel > 1)
-                              <div class="bola"> </div>
-                              <div class="selo p-1 ml-2">
+                              <div class="p-1 w-50 show_selo">
                                 <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                   <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zm4.854-7.85a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
                                 </svg>
                                 <span>Avaliador</span>
                               </div>
                             @endif
-                          </div>
-                          
-                        </div>
-                        <div class="body_coment">
-                          @for($k=0; $k<sizeof($post['mencionado']);$k++)
-                            @if($post['mencionado'][$k]->id_comentarios === $comments['reply_coment'][$g]->id_comentarios)
+                            <div class="dropdown dropdown1">
+
+                              <!--Trigger-->
+                            
+                              <a class="btn-floating btn-lg black"type="button" id="dropdownMenu3" data-toggle="dropdown"
+                              aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v"></i></a>
+                            
+                            
+                              <!--Menu-->
+                              <div class="dropdown-menu dropdown-primary">
+                                @if($comments['reply_coment'][$g]->id === Auth::user()->id)
+                                  <a class="dropdown-item" data-toggle="modal" style="cursor: pointer" data-target="#popup{{$comments['reply_coment'][$g]->id_comentarios }}_edit">
+                                    <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                      <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
+                                      <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
+                                    </svg>&nbsp;
+                                    Editar
+                                  </a>
+                                  <a class="dropdown-item" style="cursor: pointer" data-toggle="modal" data-target="#popup{{$comments['reply_coment'][$g]->id_comentarios }}_apagar1">
+                                    <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                      <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                    </svg>&nbsp;
+                                    Apagar
+                                  </a>
+                                @else
+                                  <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#den_comen_reply{{$comments['reply_coment'][$g]->id_comentarios }}">
+                                    <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-exclamation-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                      <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                      <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                                    </svg>&nbsp;
+                                    Denunciar
+                                  </a>
+                                @endif
+                              </div>
+                            </div>
+                            <!-- Modal denunciar comentario Reply -->
+                            <div class="modal fade id" id="den_comen_reply{{$comments['reply_coment'][$g]->id_comentarios }}" role="dialog">
+                                <div class="modal-dialog modal-content">
+                                    <div class="modal-header"></div>
+                                    <form action="{{url('denunciar_comentario')}}" method="POST">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <h3><p>Denunciar Comentario por:</p></h3><br>
+                                            <h6>
+                                                <label class="radio-custom">Conteúdo Inadequado
+                                                    <input type="radio" id="radio1" type="radio" name="option" value="3" required>
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                                <label class="radio-custom">Spam
+                                                    <input type="radio" id="radio3" type="radio" name="option" value="1" required>
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                                <label class="radio-custom">Copia
+                                                    <input type="radio" id="radio3" type="radio" name="option" value="2" required>
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </h6>
+                                            <input type="hidden" value="{{$id_post}}" name="id_postagem">
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                                <input name="id_comentario" type="hidden" value="{{$comments['reply_coment'][$g]->id_comentarios }}">
+                                                <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
+                                                <input data-toggle="modal" type="submit" class="btn btn-primary" value="Confirmar">
+                                            </div> 
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- FIM Modal denunciar comentario reply -->
+                            @if(empty($comments['reply_coment'][$g]->edit_comentarios))
+                              <span class="underline data-coment">{{ Helper::tempo_corrido($comments['reply_coment'][$g]->data_comentarios)}}</span>
+                            @else
+                              <span class="underline data-coment"><?='(editado) '. Helper::tempo_corrido($comments['reply_coment'][$g]->data_comentarios)?></span>
+                            @endif
+                            <div>
+                              @if($comments['reply_coment'][$g]->img_usuarios === null)
+                                <img class="img-dados-coment" src="{{asset('img/semuser.png')}}">
+                              @else
+                                <img alt="{{ $comments['reply_coment'][$g]->img_usuarios }}" name="img_usuarios" class="img-dados-coment" src="{{asset('/ToDo/storage/app/public/users/'.$comments['reply_coment'][$g]->img_usuarios)}}">
+                              @endif
                               <form id="perfil" action="{{ route('perfil') }}" method="get">
                                 @csrf
-                                <input type="hidden" name="id_usuario" value="{{ $post['mencionado'][$k]->id }}">
-                                <input class="mencionado" type="submit" value="{{'@'. $post['mencionado'][$k]->usuario }}">
+                                <input type="hidden" name="id_usuario" value="{{ $comments['reply_coment'][$g]->id }}">
+                                <input alt="" class="bold user" type="submit" value="{{ $comments['reply_coment'][$g]->usuario}}">
                               </form>
+                              @if($comments['reply_coment'][$g]->nivel > 1)
+                                <div class="bola"> </div>
+                                <div class="selo p-1 ml-2">
+                                  <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zm4.854-7.85a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                  </svg>
+                                  <span>Avaliador</span>
+                                </div>
+                              @endif
+                            </div>
+                            
+                          </div>
+                          <div class="body_coment">
+                            @for($k=0; $k<sizeof($post['mencionado']);$k++)
+                              @if($post['mencionado'][$k]->id_comentarios === $comments['reply_coment'][$g]->id_comentarios)
+                                <form id="perfil" action="{{ route('perfil') }}" method="get">
+                                  @csrf
+                                  <input type="hidden" name="id_usuario" value="{{ $post['mencionado'][$k]->id }}">
+                                  <input class="mencionado" type="submit" value="{{'@'. $post['mencionado'][$k]->usuario }}">
+                                </form>
+                              @endif
+                            @endfor
+                            <p class="conteudo-coment">
+                              {{ $comments['reply_coment'][$g]->conteudo_comentarios }}
+                            </p>
+                          </div>
+                          <div class="footer-coment">
+                            <span class="mostrar">Responder</span>
+                            <?php $resultados = Helper::verifica_like_coment($comments['reply_coment'][$g]->id_comentarios)?>
+                            @if($resultados == 0)
+                              <span href="#" id="{{ $comments['reply_coment'][$g]->id_comentarios }}" onclick="like(this)" class="curtir fa-thumbs-o-up fa" data-id="{{ $comments['reply_coment'][$g]->id_comentarios }}"></span> 
+                              <span class="likes" id="likes_{{ $comments['reply_coment'][$g]->id_comentarios }}">{{ $comments['reply_coment'][$g]->likes_comentarios }}</span>
+                            @else 
+                              <span href="#" id="{{ $comments['reply_coment'][$g]->id_comentarios }}" onclick="like(this)" class="curtir fa-thumbs-up fa" data-id="{{ $comments['reply_coment'][$g]->id_comentarios }}"></span>
+                              <span class="likes" id="likes_{{ $comments['reply_coment'][$g]->id_comentarios }}">{{$comments['reply_coment'][$g]->likes_comentarios }}</span>
                             @endif
-                          @endfor
-                          <p class="conteudo-coment">
-                            {{ $comments['reply_coment'][$g]->conteudo_comentarios }}
-                          </p>
-                        </div>
-                        <div class="footer-coment">
-                          <span class="mostrar">Responder</span>
-                          <?php $resultados = Helper::verifica_like_coment($comments['reply_coment'][$g]->id_comentarios)?>
-                          @if($resultados == 0)
-                            <span href="#" id="{{ $comments['reply_coment'][$g]->id_comentarios }}" onclick="like(this)" class="curtir fa-thumbs-o-up fa" data-id="{{ $comments['reply_coment'][$g]->id_comentarios }}"></span> 
-                            <span class="likes" id="likes_{{ $comments['reply_coment'][$g]->id_comentarios }}">{{ $comments['reply_coment'][$g]->likes_comentarios }}</span>
-                          @else 
-                            <span href="#" id="{{ $comments['reply_coment'][$g]->id_comentarios }}" onclick="like(this)" class="curtir fa-thumbs-up fa" data-id="{{ $comments['reply_coment'][$g]->id_comentarios }}"></span>
-                            <span class="likes" id="likes_{{ $comments['reply_coment'][$g]->id_comentarios }}">{{$comments['reply_coment'][$g]->likes_comentarios }}</span>
-                          @endif
-                          @if(empty($comments['reply_coment'][$g]->edit_comentarios))
-                            <span class="underline data-coment_foot">{{ Helper::tempo_corrido($comments['reply_coment'][$g]->data_comentarios)}}</span>
-                          @else
-                            <span class="underline data-coment_foot"><?='(editado) '. Helper::tempo_corrido($comments['reply_coment'][$g]->data_comentarios)?></span>
-                          @endif
-                          <div id="comentarios">
-                            <form action="{{ route('comentario') }}" method="POST">
-                              @csrf
-                              <input name="conteudo" maxlength="255" style="width: 100%" type="text" class="btn-popup mr-sm-2" placeholder="<?='Em resposta a '.'@'. $comments['reply_coment'][$g]->usuario?>">
-                              <input type="hidden" name="id_coment" value="{{ $comments['comentarios'][$f]->id_comentarios }}">
-                              <input type="hidden" name="id_postagem" value="{{ $id_post }}">
-                              <input type="hidden" name="id_mencionado" value="{{ $comments['reply_coment'][$g]->id }}">
-                              <input type="submit" style="display: none" name="respostas">
-                            </form>
+                            @if(empty($comments['reply_coment'][$g]->edit_comentarios))
+                              <span class="underline data-coment_foot">{{ Helper::tempo_corrido($comments['reply_coment'][$g]->data_comentarios)}}</span>
+                            @else
+                              <span class="underline data-coment_foot"><?='(editado) '. Helper::tempo_corrido($comments['reply_coment'][$g]->data_comentarios)?></span>
+                            @endif
+                            <div id="comentarios">
+                              <form action="{{ route('comentario') }}" method="POST">
+                                @csrf
+                                <input name="conteudo" maxlength="255" style="width: 100%" type="text" class="btn-popup mr-sm-2" placeholder="<?='Em resposta a '.'@'. $comments['reply_coment'][$g]->usuario?>">
+                                <input type="hidden" name="id_coment" value="{{ $comments['comentarios'][$f]->id_comentarios }}">
+                                <input type="hidden" name="id_postagem" value="{{ $id_post }}">
+                                <input type="hidden" name="id_mencionado" value="{{ $comments['reply_coment'][$g]->id }}">
+                                <input type="submit" style="display: none" name="respostas">
+                              </form>
+                            </div>
                           </div>
+
                         </div>
 
-                      </div>
-
-                      <!--  Modal de edição de respostas de comentários -->
-                      <div class="painel-dados">
-                        <div class="modal fade id" id="popup{{$comments['reply_coment'][$g]->id_comentarios}}_edit" role="dialog">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              </div>
-                              <div class="modal-body"> 
-                                <form action="{{ route('edit.coment') }}" method="POST"> 
-                                  @csrf                   
-                                  <div class="popup-title">
-                                    <label style="vertical-align: top" for="editcomentario" class="bold subdados">Descrição:</label>
-                                    <textarea name="editcomentario" id="edit_desc" cols="60" rows="1">{{$comments['reply_coment'][$g]->conteudo_comentarios }}</textarea>
-                                    <input type="hidden" name="id_coment" value="{{ $comments['reply_coment'][$g]->id_comentarios }}">
-                                    <input type="hidden" value="{{$id_post}}" name="id_postagem">
-                                  </div>
-                                
-
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                  <input data-toggle="modal" data-target="#hiddenDiv" type="submit" class="btn btn-primary dropright" value="Salvar Alterações">
+                        <!--  Modal de edição de respostas de comentários -->
+                        <div class="painel-dados">
+                          <div class="modal fade id" id="popup{{$comments['reply_coment'][$g]->id_comentarios}}_edit" role="dialog">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body"> 
+                                  <form action="{{ route('edit.coment') }}" method="POST"> 
+                                    @csrf                   
+                                    <div class="popup-title">
+                                      <label style="vertical-align: top" for="editcomentario" class="bold subdados">Descrição:</label>
+                                      <textarea name="editcomentario" id="edit_desc" cols="60" rows="1">{{$comments['reply_coment'][$g]->conteudo_comentarios }}</textarea>
+                                      <input type="hidden" name="id_coment" value="{{ $comments['reply_coment'][$g]->id_comentarios }}">
+                                      <input type="hidden" value="{{$id_post}}" name="id_postagem">
+                                    </div>
                                   
-                                </div> 
-                              </form> 
 
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                    <input data-toggle="modal" data-target="#hiddenDiv" type="submit" class="btn btn-primary dropright" value="Salvar Alterações">
+                                    
+                                  </div> 
+                                </form> 
+
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
 
-                      <!--  Modal para apagar subcomentários -->
-                      <div class="painel-dados">
-                        <div class="modal fade id" id="popup{{$comments['reply_coment'][$g]->id_comentarios}}_apagar1" role="dialog">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                              </div>
-                              <div class="modal-body"> 
-                                <p>Deseja realmente apagar este comentário?</p>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                  <form action="{{route('apagar-coment')}}" method="POST">
-                                    @csrf
-                                    <input name="id_comentario" type="hidden" value="{{ $comments['reply_coment'][$g]->id_comentarios }}">
-                                    <input data-toggle="modal" type="submit" class="btn btn-primary dropright" value="Apagar comentário">
-                                    <input type="hidden" value="{{$id_post}}" name="id_postagem">
-                                  </form>
-                                </div> 
+                        <!--  Modal para apagar subcomentários -->
+                        <div class="painel-dados">
+                          <div class="modal fade id" id="popup{{$comments['reply_coment'][$g]->id_comentarios}}_apagar1" role="dialog">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                </div>
+                                <div class="modal-body"> 
+                                  <p>Deseja realmente apagar este comentário?</p>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                    <form action="{{route('apagar-coment')}}" method="POST">
+                                      @csrf
+                                      <input name="id_comentario" type="hidden" value="{{ $comments['reply_coment'][$g]->id_comentarios }}">
+                                      <input data-toggle="modal" type="submit" class="btn btn-primary dropright" value="Apagar comentário">
+                                      <input type="hidden" value="{{$id_post}}" name="id_postagem">
+                                    </form>
+                                  </div> 
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
+                        
+                      @endif
+                    @endfor   
+                    
+                    <?php $count1 = $count1 + 1; ?>
+                    @if($count > $limit && $count1 == $limit)
+                      <?php break; ?>
                     @endif
-                  @endfor                
+                    
+
+                  @endif
                 @endfor
+                @if($count > $limit && $count1 == $limit)
+                  <form action="{{ url('/mostrar_coments') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="id_postagem" value="{{ $id_post }}">
+                    <input name="count" type="hidden" value="{{ $count }}">
+                    <button type="submit" class="hide btn btn-block btn-outline-primary" onclick="MostrarComents(this)">Mostrar mais comentários</button>
+                  </form>
+                @endif
               @endif
             </div>         
             <div class="modal-footer" style="margin-top: 10px"> 

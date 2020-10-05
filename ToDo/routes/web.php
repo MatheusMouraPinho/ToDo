@@ -75,6 +75,8 @@ Route::group(['middleware' => ['auth', 'verified']], function() { //grupo middle
 
     Route::get('/remove_perfil', 'UserController@destroy_perfil')->name('remove_perfil');
 
+    Route::post('/mostrar_coments', 'ComentController@MostrarComents');
+
 });
 
 Route::group(['middleware' => ['auth', 'verified', 'admin']], function() {
