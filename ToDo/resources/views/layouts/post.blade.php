@@ -230,7 +230,7 @@
                 </form>
               </div>
 
-              <?php // var_dump($count = Helper::count_post($id_post)); $count1 = 0 ?>
+              <?php $count = Helper::count_post($id_post); $count1 = 0 ?>
               @if(!empty($comments['comentarios'][0]))  
                 @for($f=0; $f<sizeof($comments['comentarios']); $f++)
                   @if($comments['comentarios'][$f]->id_postagem == $id_post)
