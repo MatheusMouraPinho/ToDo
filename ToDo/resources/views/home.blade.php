@@ -216,7 +216,7 @@ $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows
                 <form action="{{url('perfil')}}" method="GET">
                     @csrf
                     <input type="hidden" name="id_usuario" value="<?php echo $rows['id']?>">
-                    <button style="text-decoration:underline" class="no-border-button" type="submit"><b><?php echo mb_strimwidth($name, 0, 35, "...") ; ?></b></button>
+                    <button style="text-decoration:underline" class="no-border-button" type="submit"><b><?php echo mb_strimwidth($name, 0, 26, "...") ; ?></b></button>
                 </form>
             </f2>
         </div>

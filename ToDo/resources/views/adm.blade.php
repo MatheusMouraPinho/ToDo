@@ -69,7 +69,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                 if($rows['email_verified_at'] == NULL){
                                     $situ = "Pendente";
                                 }else{
-                                    $situ = "Comfirmado";
+                                    $situ = "Confirmado";
                                 }
                                 echo $situ; 
                             ?></td>
