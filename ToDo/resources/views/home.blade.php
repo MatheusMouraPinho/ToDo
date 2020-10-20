@@ -362,6 +362,9 @@ $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows
             </li>
         </ul>
     </nav>
+
+    
+
 <?php }?>
 <!-- Modal ordenação -->
 <div class="modal fade" id="ordenacao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

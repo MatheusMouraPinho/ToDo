@@ -65,4 +65,11 @@ class Helper
         
         return $resultado;
     }
+
+    public static function add_session($id_post) {
+        $post_id = array('legal');
+        array_push($post_id, $id_post);
+        
+        return $post_id;
+    }
 }

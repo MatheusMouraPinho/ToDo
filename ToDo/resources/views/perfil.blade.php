@@ -29,7 +29,7 @@ $_SESSION['id_usuario'] = $dados['id'];
           @if($dados['img_capa'] === null)
             <img id="img_capa" src="{{asset('img/fundo_azul.jpg')}}">
           @else
-            <img id="img_capa" src="{{url('/ToDo/storage/app/public/users_capa/'.$dados['img_perfil'])}}">
+            <img id="img_capa" src="{{url('/ToDo/storage/app/public/users_capa/'.$dados['img_capa'])}}">
           @endif
         </div>
 

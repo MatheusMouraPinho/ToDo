@@ -16,14 +16,28 @@
     if(isset($_SESSION['selected'])){$selected = $_SESSION['selected'];}
     if(!isset($selected)){$selected = "1";}
 
-
-    if(NULL !== Session::get('id_postagem_coment')){$_SESSION['id_postagem_coment'] = Session::get('id_postagem_coment');}
-    if(isset($_SESSION['id_postagem_coment'])){$id_postagem_coment = $_SESSION['id_postagem_coment'];}
-    if(!isset($id_postagem_coment)){$id_postagem_coment = null;}
+    if(!isset($_SESSION['post_id'])){$_SESSION['post_id'] = array();}
+    if(NULL !== Session::get('id_postagem_coment')){
+      $id_postagem_coment = Session::get('id_postagem_coment'); 
+      array_push($_SESSION['post_id'], $id_postagem_coment); 
+    }
+    
+    //dd($_SESSION['post_id']);
 
     if(NULL !== Session::get('limit')){$_SESSION['limit'] = Session::get('limit');}
     if(isset($_SESSION['limit'])){$limit = $_SESSION['limit'];}
-    if($id_post !== $id_postagem_coment) {$limit = 5;}
+
+    if(!empty($_SESSION['post_id'])) {
+      for($d=0;$d<sizeof($_SESSION['post_id']);$d++) {
+        $cont = 0;
+        if($_SESSION['post_id'][$d] != $id_post) {
+          $cont+= 1 ;
+        }
+      }
+      if($cont == sizeof($_SESSION['post_id'])) {
+        $limit = 5;
+      }
+    }
     if(!isset($limit)){$limit = 5;}
 
     $comments = [
@@ -159,6 +173,7 @@
                             <input class="bold user" type="submit" value="{{ $post['avaliador'][$c]->usuario}}">
                           </form>
                           @if($post['avaliador'][$c]->nivel > 1)
+                            <div class="bola"></div>
                             <div class="selo p-1 ml-2">
                               <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zm4.854-7.85a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
@@ -705,79 +720,79 @@
 </div>
 </div>
 
-<!-- Popup de visualização de imagens -->
-<div class="popup_img_post">
-  <div class="modal modal_img fade" id="img1<?php echo $id_post ?>" role="dialog">
-      <button type="button" class="close btn_fechar" data-dismiss="modal">&times;</button>
-    <div class="modal-dialog">
-      <div class="modal-content modal_content">
-          <div class="modal-body">
-              <button type="button" class="close btn_fechar_body" data-dismiss="modal">&times;</button>
-              <?php 
-                  $nome_file = "ToDo/storage/app/public/posts/".'1'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg';
-                  $nome_file_png = "ToDo/storage/app/public/posts/".'1'.$id_post.Str::kebab($rows['titulo_postagem']).'.png';  
-              ?>
-              @if(file_exists($nome_file))
-                  <img id="img_post1" src="{{url('/ToDo/storage/app/public/posts/'.'1'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg')}}">
-              @elseif(file_exists($nome_file_png))
-                  <img id="img_post1" src="{{url('/ToDo/storage/app/public/posts/'.'1'.$id_post.Str::kebab($rows['titulo_postagem']).'.png')}}">
-              @endif
+    <!-- Popup de visualização de imagens -->
+    <div class="popup_img_post">
+      <div class="modal modal_img fade" id="img1<?php echo $id_post ?>" role="dialog">
+          <button type="button" class="close btn_fechar" data-dismiss="modal">&times;</button>
+        <div class="modal-dialog">
+          <div class="modal-content modal_content">
+              <div class="modal-body">
+                  <button type="button" class="close btn_fechar_body" data-dismiss="modal">&times;</button>
+                  <?php 
+                      $nome_file = "ToDo/storage/app/public/posts/".'1'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg';
+                      $nome_file_png = "ToDo/storage/app/public/posts/".'1'.$id_post.Str::kebab($rows['titulo_postagem']).'.png';  
+                  ?>
+                  @if(file_exists($nome_file))
+                      <img id="img_post1" src="{{url('/ToDo/storage/app/public/posts/'.'1'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg')}}">
+                  @elseif(file_exists($nome_file_png))
+                      <img id="img_post1" src="{{url('/ToDo/storage/app/public/posts/'.'1'.$id_post.Str::kebab($rows['titulo_postagem']).'.png')}}">
+                  @endif
+              </div>
           </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<!-- Fim Popup de visualização de imagens -->
-
-<!-- Popup de visualização de imagens2 -->
-<div class="popup_img_post">
-<div class="modal modal_img fade" id="img2<?php echo $id_post ?>" role="dialog">
-  <button type="button" class="close btn_fechar" data-dismiss="modal">&times;</button>
-  <div class="modal-dialog">
-      
-    <div class="modal-content modal_content">
-        <div class="modal-body">
-          <button type="button" class="close btn_fechar_body" data-dismiss="modal">&times;</button>
-
-          <?php 
-              $nome_file2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg';
-              $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.png';  
-          ?>
-          @if(file_exists($nome_file2))
-              <img id="img_post1" src="{{url('/ToDo/storage/app/public/posts/'.'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg')}}">
-          @elseif(file_exists($nome_file_png2))
-              <img id="img_post1" src="{{url('/ToDo/storage/app/public/posts/'.'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.png')}}">
-          @endif
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-<!-- Fim Popup de visualização de imagens2 -->
-
-<!-- Popup de visualização de imagens3 -->
-<div class="popup_img_post">
-  <div class="modal modal_img fade" id="img3<?php echo $id_post ?>" role="dialog">
+    <!-- Fim Popup de visualização de imagens -->
+    
+    <!-- Popup de visualização de imagens2 -->
+    <div class="popup_img_post">
+    <div class="modal modal_img fade" id="img2<?php echo $id_post ?>" role="dialog">
       <button type="button" class="close btn_fechar" data-dismiss="modal">&times;</button>
       <div class="modal-dialog">
-      <div class="modal-content modal_content">
-          <div class="modal-body">
+          
+        <div class="modal-content modal_content">
+            <div class="modal-body">
               <button type="button" class="close btn_fechar_body" data-dismiss="modal">&times;</button>
+    
               <?php 
-                  $nome_file3 = "ToDo/storage/app/public/posts/".'3'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg';
-                  $nome_file_png3 = "ToDo/storage/app/public/posts/".'3'.$id_post.Str::kebab($rows['titulo_postagem']).'.png';  
+                  $nome_file2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg';
+                  $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.png';  
               ?>
-              @if(file_exists($nome_file3))
-                  <img id="img_post1" src="{{url('/ToDo/storage/app/public/posts/'.'3'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg')}}">
-              @elseif(file_exists($nome_file_png3))
-                  <img id="img_post1" src="{{url('/ToDo/storage/app/public/posts/'.'3'.$id_post.Str::kebab($rows['titulo_postagem']).'.png')}}">
+              @if(file_exists($nome_file2))
+                  <img id="img_post1" src="{{url('/ToDo/storage/app/public/posts/'.'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg')}}">
+              @elseif(file_exists($nome_file_png2))
+                  <img id="img_post1" src="{{url('/ToDo/storage/app/public/posts/'.'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.png')}}">
               @endif
           </div>
+        </div>
       </div>
+    </div>
+    </div>
+    <!-- Fim Popup de visualização de imagens2 -->
+    
+    <!-- Popup de visualização de imagens3 -->
+    <div class="popup_img_post">
+      <div class="modal modal_img fade" id="img3<?php echo $id_post ?>" role="dialog">
+          <button type="button" class="close btn_fechar" data-dismiss="modal">&times;</button>
+          <div class="modal-dialog">
+          <div class="modal-content modal_content">
+              <div class="modal-body">
+                  <button type="button" class="close btn_fechar_body" data-dismiss="modal">&times;</button>
+                  <?php 
+                      $nome_file3 = "ToDo/storage/app/public/posts/".'3'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg';
+                      $nome_file_png3 = "ToDo/storage/app/public/posts/".'3'.$id_post.Str::kebab($rows['titulo_postagem']).'.png';  
+                  ?>
+                  @if(file_exists($nome_file3))
+                      <img id="img_post1" src="{{url('/ToDo/storage/app/public/posts/'.'3'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg')}}">
+                  @elseif(file_exists($nome_file_png3))
+                      <img id="img_post1" src="{{url('/ToDo/storage/app/public/posts/'.'3'.$id_post.Str::kebab($rows['titulo_postagem']).'.png')}}">
+                  @endif
+              </div>
+          </div>
+          </div>
       </div>
-  </div>
-</div>
-<!-- Fim Popup de visualização de imagens3 -->
+    </div>
+    <!-- Fim Popup de visualização de imagens3 -->
 
 
 <!--  Modal de avaliação  -->
@@ -871,9 +886,8 @@
     var coment_id = $(data).data('id');
       // Requisição.
       
-      $(coment_id).modal('show');
-      $('#post68').modal('hide');
-  
+      
+      window.open('#post'+75);
         
   };
 </script> --}}
