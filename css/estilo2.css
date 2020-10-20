@@ -1,3 +1,5 @@
+/* Area Adm */
+
 /* modal criar ideia */
 .espaço-input{
   margin-left: 12px;
@@ -97,7 +99,6 @@
   position: absolute;
   display: flex;
 }
-
 .like_count {
   position: absolute;
   margin-Top: 28px;
@@ -110,12 +111,14 @@
 .img-like{
   width:29px; 
 }
-.destaque-home{
+.destaque-container {
   position: absolute;
-  border: 1px solid blue;
-  background-color: blue;
-  width: 30px;
-  height: 30px;
+  text-align: center;
+}
+.destaque-home{
+  max-width: 100%;
+  max-height: 100%;
+  border: solid 1px blue;
 }
 .situation-home{
   position: absolute;
@@ -133,6 +136,13 @@
   margin-top: 3px;
   width: 30px;
   height: 30px;
+}
+f1{
+  padding-top: 8px;
+  padding-left: 4px;
+}
+f2{
+  padding-top: 3px;
 }
 .usu-home{
   position: absolute;
@@ -190,43 +200,25 @@
   position: absolute;
   padding-top: 1.5px;
 }
-
-.t1{
-  font-size: 14px;
-}
-
 .img-option{
   width: 30px;
   height: 30px;
 }
-
 .aviso-home {
   background-color: #ffffff;
   height: 250px;
   box-shadow: 5px 6px 6px grey;
   margin: auto;
 }
-
 .aviso-img {
   position: relative;
   width: 150px;
   height: 150px;
 }
-
 .aviso-text {
   position: relative;
   font-size: 30px;
 }
-
-f1{
-  padding-top: 8px;
-  padding-left: 4px;
-}
-
-f2{
-  padding-top: 3px;
-}
-
 .img-home{
   margin-top: 5px;
   margin-left: 5px;
@@ -237,7 +229,6 @@ f2{
   width: 30px;
   height: 30px;
 }
-
 .temporario{
   position: absolute;
   left: 65%;
@@ -254,7 +245,6 @@ f2{
   margin-right: auto;
   box-shadow: 5px 6px 6px grey;
 }
-
 .ajuste-link{
   padding-top: 4px;
   padding-left: 26px;
@@ -269,18 +259,15 @@ f2{
   height: 35px;
   margin: 12px 17px 12px 12px;
 }
-
 .op{
   font-weight: bold;
 }
-
 .alinhamento-filtro{
   display: flex;
 }
 .espaço-filtro{
   padding:30px;
 }
-
 .filtro-smartphone{
   display: flex;
   background-color: #ffffff;
@@ -292,53 +279,45 @@ f2{
   font-size: 16.5px;
   font-family: "Arial Black";
 }
-
 .filtro-esquerda{
   width: 50%;
   text-align: center;
   border-right: 1px solid black;
   box-shadow: 0px 3px 5px grey;
 }
-
 .filtro-direita{
   width: 50%;
   text-align: center;
   border-left: 1px solid black;
   box-shadow: 0px 3px 5px grey;
 }
-
 .btn{
   border-radius: 20px;
   font-weight: bold;
 }
-
 .btn-outline-primary-custom {
   color: #000000;
   border: 2px solid black;
   background-color: #F5F5F5;
   font-weight: bold;
 }
-
 .selecionado {
   color: #fff;
   background-color: #3490dc;
   border-color: #3490dc;
   border: 2px solid black;
 }
-
 .selecionado:hover {
   color: #fff;
   background-color: #3490dc;
   border-color: #3490dc;
   border: 2px solid black;
 }
-
 .pesquisa-home{
   border-radius: 30px;
   border-color: black;
   box-shadow: 2px 2px 6px grey;
 }
-
 .ajuste-drop{
   left: -35px;
 }
@@ -352,14 +331,12 @@ f2{
   margin-top: 5px;
   margin-right: 15px;
 }
-
 .no-border-button {
   border: none;
   padding: 0;
   background: none;
   outline: 0 !important;
 }
-
 .contorno {
   background-color: white;
   background-clip: border-box;
@@ -368,7 +345,6 @@ f2{
   border-radius: 0.50rem;
   box-shadow: 3px 3px 6px grey;
 }
-
 .modal-content-white {
   position: relative;
   display: flex;
@@ -381,7 +357,6 @@ f2{
   border-radius: 0.3rem;
   outline: 0;
 }
-
 .modal-header {
   display: flex;
   align-items: flex-start;
@@ -392,7 +367,6 @@ f2{
   border-top-right-radius: calc(0.3rem - 1px);
   background-color: white;
 }
-
 .modal-footer-custom {
   display: flex;
   flex-wrap: wrap;
@@ -403,14 +377,12 @@ f2{
   border-bottom-left-radius: calc(0.3rem - 1px);
   font-size: 0.9em;
 }
-
 .modal-body-white {
   position: relative;
   flex: 1 1 auto;
   padding: 1rem;
   background-color: #fff;
 }
-
 .radio-custom {
   display: block;
   position: relative;
@@ -423,13 +395,11 @@ f2{
   -ms-user-select: none;
   user-select: none;
 }
-
 .radio-custom input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
 }
-
 .checkmark {
   position: absolute;
   top: 0;
@@ -440,25 +410,20 @@ f2{
   border: 1px solid black;
   border-radius: 50%;
 }
-
 .radio-custom:hover input ~ .checkmark {
   background-color: #ccc;
 }
-
 .radio-custom input:checked ~ .checkmark {
   background-color: #ccc;
 }
-
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
-
 .radio-custom input:checked ~ .checkmark:after {
   display: block;
 }
-
 .radio-custom .checkmark:after {
  	top: 8px;
 	left: 8px;
@@ -467,110 +432,57 @@ f2{
 	border-radius: 50%;
 	background: black;
 }
-
 .layout-footer {
   margin-top: 50px;
   background-color:rgba(0, 0, 0, 0.753);
   color: white;
 }
-
 .white {
   border-color: white;
 }
-
 .space {
  border-top: 1px solid #000000;
 }
-
 .space2 {
   background-color: black;
   color: white;
 }
-
-ff{
-  font-family: "Arial Black";
-}
-
-fw{
-  font-weight: 900;
-}
-
 .grey {
   background-color: #757575;
 }
-
 .pisca tr:hover {
   background-color: rgb(221, 221, 221);
 }
-
 .Bselect {
   width: 185px;
   height: 28px;
   margin-left: 5px;
 }
-
 .text-centro {
   font-family: "Arial Black";
   font-weight: 900;
   margin-left: auto;
   margin-right: auto;
 }
-
-.contorno-titulo {
-  background-color: #a9a9a9;
-  background-clip: border-box;
-  padding: 0.60rem;
-  border: 2px solid #00000020;
-  border-radius: 1.45rem;
-  margin-bottom: 30px;
-  margin-top: 20px;
-  box-shadow: 4px 4px 7px grey;
-}
-
 .tr-custom{
   background-color:#aaaaaa;
   border-bottom: 4px solid grey;
 }
-
-.texture{
-  background-image: url("img/texture.png");
-}
-
 .fundo{
   background-color: #ececec; 
 }
-
 .cor{
   background-color: white;
 }
-
 .aviso{
   position: relative;
   margin-left: 30%;
   margin-right: auto;
   padding-top: 8px;
 }
-
-.nav-tabs {
-  border-bottom: 1px solid #a9a9a9;
-}
-
-.nav-tabs .nav-link {
-  border: 1px solid transparent;
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-}
-
-.ativo, .ativo:hover{
-  background-color: #3490dc ;
-  color: white;
-  
-}
-
 .fix {
   color: black;
 }
-
 .fix:hover{
   background-color: #3490dc;
   color: white;
@@ -592,83 +504,81 @@ fw{
   /*---*/
   .like_home {
     margin-left: 18px;
-    margin-Top: 150px;
+    margin-Top: 146px;
   }
-  .destaque-home{
-  margin-left:865px;
-  margin-Top: 58px;
-  width: auto;
-  max-width: 160px;
-  height: auto;
-  max-height: 100px;
+  .destaque-container {
+    margin-left:855px;
+    margin-Top: 58px;
+    width: 160px;
+    height: 100px;
   }
   .visualizar-home{
-  margin-left: 71px;
-  margin-Top: 173px;
-  color: blue;
+    margin-left: 71px;
+    margin-Top: 173px;
+    color: blue;
   }
   .data-home{
-  margin-left: 965px;
-  margin-Top: 178px;
+    margin-left: 965px;
+    margin-Top: 178px;
   }
   .result-like-home{
-  position: absolute;
-  margin-top:28px;
-  padding-right: 20px;
+    position: absolute;
+    margin-top:28px;
+    padding-right: 20px;
   }
   .situation-home{
-  margin-left: 0.8em;
-  margin-Top: 72px;
+    margin-left: 0.8em;
+    margin-Top: 72px;
   }
   .result-situation-home{
-  position: absolute;
-  margin-top:31px;
+    position: absolute;
+    margin-top:31px;
   }
   .img-ava{
-  width:30px; 
-  height: 33px;
+    width:30px; 
+    height: 33px;
   }
   .img-like{
-  width:32px; 
+    width:32px; 
   }
   .text-desc{
-  margin-top: 5px;
-  width: 740px;
+    margin-top: 5px;
+    width: 740px;
   }
   .text-desc2{
-  margin-top: 8px;
-  width: 890px;
+    margin-top: 8px;
+    width: 890px;
   }
   .desc-home{
-  margin-top: 85px;
-  margin-left: 67px;
+    margin-top: 85px;
+    margin-left: 67px;
   }
   .title-home{
-  margin-top: 47px;
-  margin-left: 67px;
-  font-size: 23px;
-  max-width: 740px;
+    margin-top: 47px;
+    margin-left: 67px;
+    font-size: 23px;
+    max-width: 740px;
   }
   .title-home2{
-  margin-top: 47px;
-  margin-left: 67px;
-  font-size: 23px;
-  max-width: 860px;
+    margin-top: 47px;
+    margin-left: 67px;
+    font-size: 23px;
+    max-width: 860px;
   }
   .option-home{
-  padding-top: 1.5px;
-  margin-left: 1020px;
+    padding-top: 1.5px;
+    margin-left: 1020px;
   }
   .usu-home{
-  width: 30px;
-  height: 30px;
-  font-size: 13px;
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
   }
   .img-home{
-  margin-left: 9px;
-  margin-top: 3px;
-  width: 30px;
-  height: 30px;
+    margin-left: 9px;
+    margin-top: 3px;
+    width: 30px;
+    height: 30px;
   }
 }
 
@@ -688,15 +598,13 @@ fw{
   /*---*/
   .like_home {
     margin-left: 18px;
-    margin-Top: 150px;
+    margin-Top: 146px;
   }
-  .destaque-home{
+  .destaque-container {
     margin-left:690px;
     margin-Top: 58px;
-    width: auto;
-    max-width: 140px;
-    height: auto;
-    max-height: 100px;
+    width: 140px;
+    height: 100px;
   }
   .visualizar-home{
     margin-left: 71px;
@@ -805,15 +713,13 @@ fw{
   /*---*/
   .like_home {
     margin-left: 18px;
-    margin-Top: 150px;
+    margin-Top: 146px;
   }
-  .destaque-home{
+  .destaque-container {
     margin-left:580px;
     margin-Top: 58px;
-    width: auto;
-    max-width: 120px;
-    height: auto;
-    max-height: 100px;
+    width: 120px;
+    height: 100px;
   }
   .visualizar-home{
     margin-left: 71px;
@@ -934,13 +840,11 @@ fw{
     margin-left: 25.5px;
     font-size: 14px;
   }
-  .destaque-home{
+  .destaque-container {
     margin-left:400px;
     margin-Top: 58px;
-    width: auto;
-    max-width: 120px;
-    height: auto;
-    max-height: 100px;
+    width: 120px;
+    height: 100px;
   }
   .visualizar-home{
     margin-left: 419px;
@@ -1045,9 +949,13 @@ fw{
     margin-left: 25.5px;
     font-size: 14px;
   }
-  .destaque-home{
+  .destaque-container {
     margin-left:286px;
     margin-Top: 60px;
+    width: 100px;
+    height: 100px;
+  }
+  .destaque-home{
     width: auto;
     max-width: 100px;
     height: auto;
@@ -1136,13 +1044,17 @@ fw{
 
 /* Style Switch smarphone  */
 @media screen and (max-width: 425px) {
-  .destaque-home{
+  .text-desc{
+    height: 66px;
+  }
+  .text-desc2{
+    height: 66px;
+  }
+  .destaque-container{
     margin-left:200px;
     margin-Top: 60px;
-    width: auto;
-    max-width: 100px;
-    height: auto;
-    max-height: 100px;
+    width: 100px;
+    height: 100px;
   }
   .visualizar-home{
     margin-left:77%;
@@ -1270,7 +1182,7 @@ fw{
   .text-desc2{
     width: 310px;
   }
-  .destaque-home{
+  .destaque-container{
     margin-left:226px;
   }
 }
@@ -1287,7 +1199,7 @@ fw{
   .text-desc2{
     width: 360px;
   }
-  .destaque-home{
+  .destaque-container{
     margin-left:270px;
   }
 }

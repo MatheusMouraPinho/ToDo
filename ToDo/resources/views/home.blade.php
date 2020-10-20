@@ -211,7 +211,7 @@ $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows
             <?php }else{?>
                 <img class="img-home" src="{{asset('/ToDo/storage/app/public/users/'.$rows['img_usuarios'])}}">
             <?php }?>
-            <f1>Postado por</f1>
+            <f1>&nbsp; Postado por</f1>
             <f2>
                 <form action="{{url('perfil')}}" method="GET">
                     @csrf
@@ -265,9 +265,13 @@ $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows
         </div>
         <div class="visualizar-home"> <a style="text-decoration:underline" type="button"  data-toggle="modal" data-target="#post<?php echo $id_post ?>">Visualizar</a> </div>
         @if(file_exists($nome_file2))
-            <img class="destaque-home" data-toggle="modal" data-target="#img2<?php echo $id_post ?>" src="{{url('/ToDo/storage/app/public/posts/'.'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg')}}">
+            <div class="destaque-container">
+                <img class="destaque-home" data-toggle="modal" data-target="#img2<?php echo $id_post ?>" src="{{url('/ToDo/storage/app/public/posts/'.'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg')}}">
+            </div>
         @elseif(file_exists($nome_file_png2))
-            <img class="destaque-home" data-toggle="modal" data-target="#img2<?php echo $id_post ?>" src="{{url('/ToDo/storage/app/public/posts/'.'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.png')}}">
+            <div class="destaque-container">
+                <img class="destaque-home" data-toggle="modal" data-target="#img2<?php echo $id_post ?>" src="{{url('/ToDo/storage/app/public/posts/'.'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.png')}}">
+                </div>
         @endif
     </div>
     @include('layouts.post')

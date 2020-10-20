@@ -46,7 +46,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
     <br>
     <div class="row">
         <div class="text-centro contorno-titulo"><h3>Denúncias de Comentários</h3></div>
-        <table class="col-12" id="table_conta">
+        <table class="col-12">
             <caption><br></caption>
             <?php if(isset($check)){ ?>
                 <thead>

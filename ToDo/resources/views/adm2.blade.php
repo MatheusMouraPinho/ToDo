@@ -61,11 +61,10 @@ if ($total_pesquisa > 0 ){ //se tiver rows
         </form>
     </div>
     <br>
-    <hr class="justify-content-md-center accent-2 mb-3 mt-0" style="width: 800px;">
     <?php if(NULL !== $pesquisa2){?><div class="contorno-pequeno"><a href="{{url('reset_search2')}}"><img width="20px" src="{{asset('img/close.png')}}"></a> Resultados da Pesquisa "<?php echo $pesquisa2 ?>"</div><?php }?>
     <br>
     <div class="row">
-        <table class="col-12" id="table_conta">
+        <table class="col-12">
             <caption><br></caption>
             <?php if(isset($check)){ ?>
                 <thead>
