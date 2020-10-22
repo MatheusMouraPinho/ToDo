@@ -49,113 +49,113 @@ if ($total_pesquisa > 0 ){ //se tiver rows
     </div>
     </nav>
     <br>
-    <div class="row">
-    <div class="text-centro contorno-titulo"><h3>Nível de acesso Usuários</h3></div>
-    </div>
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-center"><h3>Nível de acesso Usuários</h3></div><br>
+    <div class="row justify-content-center">
         <form class="form-inline my-2 my-lg-0" method="POST" action="{{url('pesquisa_user')}}">
             @csrf
             <label><b style="margin-right:10px;">Procurar Usuários:</b></label>
-            <input class="form-control mr-sm-2" type="text" name="pesquisa_user" placeholder="Procure o usuário pelo Nome ou RGM/CPF" aria-label="Search" style="width: 400px">
+            <input class="form-control mr-sm-2" type="text" name="pesquisa_user" placeholder="Procure o usuário pelo Nome ou RGM/CPF" aria-label="Search" style="width: 250px">
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Procurar</button>
         </form>
     </div>
     <br>
     <?php if(NULL !== $pesquisa2){?><div class="contorno-pequeno"><a href="{{url('reset_search2')}}"><img width="20px" src="{{asset('img/close.png')}}"></a> Resultados da Pesquisa "<?php echo $pesquisa2 ?>"</div><?php }?>
     <br>
-    <div class="row">
-        <table class="col-12">
-            <caption><br></caption>
-            <?php if(isset($check)){ ?>
-                <thead>
-                    <tr class="tr-custom">
-                        <th scope="col">Nome</th>
-                        <th scope="col">RGM/CPF</th>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Alterar</th>
-                    </tr>
-                </thead>
-                <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel'];$id_usuario = $rows['id'];$nome = $rows['usuario']; $mail = $rows['email'];?>
-                <!-- Modal alterar -->
-                <div class="modal fade" id="modal<?php echo $id_usuario ?>" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table" id="table_admin" width="100%" cellspacing="0">
+                <caption class="aredonda"></caption>
+                <?php if(isset($check)){ ?>
+                    <thead>
+                        <tr class="tr-custom">
+                            <th>Nome</th>
+                            <th>RGM/CPF</th>
+                            <th>Tipo</th>
+                            <th>Alterar</th>
+                        </tr>
+                    </thead>
+                    <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel'];$id_usuario = $rows['id'];$nome = $rows['usuario']; $mail = $rows['email'];?>
+                    <!-- Modal alterar -->
+                    <div class="modal fade" id="modal<?php echo $id_usuario ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="{{url('alterar')}}" method="POST">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <p class="text-center"><h5>Alterar o acesso de <b><?php echo $nome ?></b></h5></p>
+                                        <br>
+                                        <input name="nome" type="hidden" value="<?php echo $nome; ?>"/>
+                                        <input type='hidden' name="alterar" value="<?php echo $id_usuario ?>"/>
+                                        <label for="tipo" class="bold subdados">Tipo</label>
+                                        <select name="tipo" class="select" class="btn btn-primary">
+                                            <option>Usuario</option><option>Avaliador</option><option>Admin</option>
+                                        </select>
+                                        <br><br>
+                                        <a data-dismiss="modal" data-toggle="modal" data-target="#del_usu<?php echo $id_usuario;?>" style="text-decoration:underline;color:red;cursor:pointer;">Deletar usuário</a>
+                                    </div>
+                                    <div class="modal-footer-custom grey">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary">Salvar mudanças</button>
+                                    </div>
+                                </form>
                             </div>
-                            <form action="{{url('alterar')}}" method="POST">
-                                @csrf
-                                <div class="modal-body">
-                                    <p class="text-center"><h5>Alterar o acesso de <b><?php echo $nome ?></b></h5></p>
-                                    <br>
-                                    <input name="nome" type="hidden" value="<?php echo $nome; ?>"/>
-                                    <input type='hidden' name="alterar" value="<?php echo $id_usuario ?>"/>
-                                    <label for="tipo" class="bold subdados">Tipo</label>
-                                    <select name="tipo" class="select" class="btn btn-primary">
-                                        <option>Usuario</option><option>Avaliador</option><option>Admin</option>
-                                    </select>
-                                    <br><br>
-                                    <a data-dismiss="modal" data-toggle="modal" data-target="#del_usu<?php echo $id_usuario;?>" style="text-decoration:underline;color:red;cursor:pointer;">Deletar usuário</a>
-                                </div>
-                                <div class="modal-footer-custom grey">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary">Salvar mudanças</button>
-                                </div>
-                            </form>
                         </div>
                     </div>
-                </div>
-                <!-- Fim Modal alterar -->
-                <!-- Modal deletar usuario -->
-                <div class="modal fade id" id="del_usu<?php echo $id_usuario; ?>" role="dialog">
-                    <div class="modal-dialog modal-content">
-                        <div class="modal-header"></div>
-                        <div class="modal-body">
-                            <h4><p>Deseja realmente deletar <b><?php echo $nome ?></b>?</p><h4><br>
-                            <form action="{{url('del_usu')}}" method="POST">
-                                @csrf
-                                <div class="modal-footer">
-                                    <input name="nome" type="hidden" value="<?php echo $nome; ?>"/>
-                                    <input name="email" type="hidden" value="<?php echo $mail; ?>"/>
-                                    <input name="del_usu" type="hidden" value="<?php echo $id_usuario; ?>"/>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary">Confirmar</button>
-                                </div> 
-                            </form>
+                    <!-- Fim Modal alterar -->
+                    <!-- Modal deletar usuario -->
+                    <div class="modal fade id" id="del_usu<?php echo $id_usuario; ?>" role="dialog">
+                        <div class="modal-dialog modal-content">
+                            <div class="modal-header"></div>
+                            <div class="modal-body">
+                                <h4><p>Deseja realmente deletar <b><?php echo $nome ?></b>?</p><h4><br>
+                                <form action="{{url('del_usu')}}" method="POST">
+                                    @csrf
+                                    <div class="modal-footer">
+                                        <input name="nome" type="hidden" value="<?php echo $nome; ?>"/>
+                                        <input name="email" type="hidden" value="<?php echo $mail; ?>"/>
+                                        <input name="del_usu" type="hidden" value="<?php echo $id_usuario; ?>"/>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                                    </div> 
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- FIM Modal deletar usuario -->
-                <tbody class="texture pisca">
-                    <tr>
-                        <td><?php echo mb_strimwidth($rows['usuario'], 0, 30, "..."); ?></td>
-                        <td><?php echo $rows['registro']; ?></td>
-                        <td><?php   if ($setup == 1) { echo "Usuário";    
-                                    }else if ($setup == 2) { echo "Avaliador";
-                                    }else if ($setup == 3) { echo "Admin";}
-                            ?>
-                        </td>
-                        <td><a type="button"  data-toggle="modal" data-target="#modal<?php echo $id_usuario ?>">
-                        <img width="40px" src="{{asset('img/edit.png')}}">
-                        </a></td>
-                    </tr>
-                </tbody>
-                <?php $i++; } ?>
-            <?php }else{?>
-                <tbody class="texture">  
-                    <tr>
-                        <td rowspan="10">
-                            <div>
-                                <img width="20%" height="20%" style="margin-top:8px;" src="{{asset('img/clock.png')}}"><br>
-                                <p><h4><b>Nenhum usuário disponível para alteração de nível</h4></b></p>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            <?php } ?>
-        </table>    
+                    <!-- FIM Modal deletar usuario -->
+                    <tbody class="pisca">
+                        <tr class="linha">
+                            <td><?php echo $rows['usuario']; ?></td>
+                            <td><?php echo $rows['registro']; ?></td>
+                            <td><?php   if ($setup == 1) { echo "Usuário";    
+                                        }else if ($setup == 2) { echo "Avaliador";
+                                        }else if ($setup == 3) { echo "Admin";}
+                                ?>
+                            </td>
+                            <td><a type="button"  data-toggle="modal" data-target="#modal<?php echo $id_usuario ?>">
+                            <img width="33px" src="{{asset('img/edit.png')}}">
+                            </a></td>
+                        </tr>
+                    </tbody>
+                    <?php $i++; } ?>
+                <?php }else{?>
+                    <tbody class="texture">  
+                        <tr>
+                            <td rowspan="10">
+                                <div>
+                                    <img width="20%" height="20%" style="margin-top:8px;" src="{{asset('img/clock.png')}}"><br>
+                                    <p><h4><b>Nenhum usuário disponível para alteração de nível</h4></b></p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                <?php } ?>
+            </table>
+        </div>
     </div>
     <br>
     <?php if(isset($check)){ ?>

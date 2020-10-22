@@ -43,52 +43,53 @@ if ($total_pesquisa > 0 ){ //se tiver rows
     </div>
     </nav>
     <br>
-
-    <div class="row">
-        <div class="text-centro contorno-titulo"><h3>Historico de cadastros</h3></div>
-        <table class="col-12">
-            <caption><br></caption>
-            <?php if(isset($check)){ ?>
-                <thead>
-                    <tr class="tr-custom">
-                        <th scope="col">Data de cadastro</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">RGM/CPF</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Situação Email</th>
-                    </tr>
-                </thead>
-                <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel']; $mail = $rows['email']; $name = $rows['usuario']; $id_usuario = $rows['id'];?>
-                    <tbody class="texture pisca">
-                        <tr class="">
-                            <td><?php echo date('d/m/Y', strtotime($rows['data_cadastro'])). " às ". date('H:i', strtotime($rows['email_verified_at'])); ?></td>
-                            <td><?php echo mb_strimwidth($rows['usuario'], 0, 25, "..."); ?></td>
-                            <td><?php echo $rows['registro']; ?></td>
-                            <td><?php echo mb_strimwidth($rows['email'], 0, 20, "..."); ?></td>
-                            <td><?php 
-                                if($rows['email_verified_at'] == NULL){
-                                    $situ = "Pendente";
-                                }else{
-                                    $situ = "Confirmado";
-                                }
-                                echo $situ; 
-                            ?></td>
+    <div class="card-body">
+        <div class="row justify-content-center"><h3> Historico de casdatros </h3></div>
+        <div class="table-responsive">
+            <table class="table" id="table_admin" width="100%" cellspacing="0">
+                <caption class="aredonda"></caption>
+                <?php if(isset($check)){ ?>
+                    <thead>
+                        <tr class="tr-custom">
+                            <th>Data de cadastro</th>
+                            <th>Nome</th>
+                            <th>RGM/CPF</th>
+                            <th>Email</th>
+                            <th>Situação Email</th>
+                        </tr>
+                    </thead>
+                    <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel']; $mail = $rows['email']; $name = $rows['usuario']; $id_usuario = $rows['id'];?>
+                        <tbody>
+                            <tr class="linha">
+                                <td class="resumo"><?php echo date('d/m/Y', strtotime($rows['data_cadastro'])). " às ". date('H:i', strtotime($rows['email_verified_at'])); ?></td>
+                                <td class="resumo"><?php echo $rows['usuario']; ?></td>
+                                <td class="resumo"><?php echo $rows['registro']; ?></td>
+                                <td class="resumo"><?php echo $rows['email']; ?></td>
+                                <td><?php 
+                                    if($rows['email_verified_at'] == NULL){
+                                        $situ = "Pendente";
+                                    }else{
+                                        $situ = "Confirmado";
+                                    }
+                                    echo $situ; 
+                                ?></td>
+                            </tr>
+                        </tbody>
+                    <?php }?>
+                <?php }else{?>
+                    <tbody class="texture">  
+                        <tr>
+                            <td rowspan="10">
+                                <div>
+                                    <img width="20%" height="20%" style="margin-top:8px;" src="{{asset('img/clock.png')}}"><br>
+                                    <p><h4><b>Nenhum cadastro disponível para gerenciamento</h4></b></p>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
-                <?php }?>
-            <?php }else{?>
-                <tbody class="texture">  
-                    <tr>
-                        <td rowspan="10">
-                            <div>
-                                <img width="20%" height="20%" style="margin-top:8px;" src="{{asset('img/clock.png')}}"><br>
-                                <p><h4><b>Nenhum cadastro disponível para gerenciamento</h4></b></p>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            <?php } ?>
-        </table>    
+                <?php } ?>
+            </table>
+        </div>
     </div>
     <br>
     <?php if(isset($check)){ ?>

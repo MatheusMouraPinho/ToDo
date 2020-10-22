@@ -243,7 +243,7 @@ $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows
             </div>
         </div>
         <div class="<?php if(file_exists($nome_file2)){echo "title-home";}elseif(file_exists($nome_file_png2)){echo "title-home";}else{echo "title-home2";} ?>"><b><?php echo mb_strtoupper($rows['titulo_postagem']); ?></b></div>
-        <div class="desc-home"><textarea readonly class="<?php if(file_exists($nome_file2)){echo "text-desc";}elseif(file_exists($nome_file_png2)){echo "text-desc";}else{echo "text-desc2";} ?>"><?php echo mb_strimwidth($rows['descricao_postagem'], 0, 300, "..."); ?></textarea></div>
+        <div class="desc-home"><textarea readonly class="<?php if(file_exists($nome_file2)){echo "text-desc";}elseif(file_exists($nome_file_png2)){echo "text-desc";}else{echo "text-desc2";} ?>"><?php echo mb_strimwidth($rows['descricao_postagem'], 0, 500, "..."); ?></textarea></div>
         
         <?php $resultados = Helper::verifica_like_post($id_post)?>
         @if($resultados == 0)
