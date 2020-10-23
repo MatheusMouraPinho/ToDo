@@ -81,21 +81,25 @@ Route::group(['middleware' => ['auth', 'verified']], function() { //grupo middle
 
 Route::group(['middleware' => ['auth', 'verified', 'admin']], function() {
 
-    Route::get('/adm', 'AdminController@admin');
+    Route::get('/admin/historico', 'AdminController@admin');
         Route::post('/alt', 'AdminController@altorizar');
         Route::post('/del', 'AdminController@recusar');
 
-    Route::get('/adm2', 'AdminController@admin2');
+    Route::get('/admin/usuarios', 'AdminController@admin2');
         Route::post('/alterar', 'AdminController@alterar');
         Route::post('/pesquisa_user', 'AdminController@pesquisa');
         Route::post('/del_usu', 'AdminController@del_usu');
         Route::get('/reset_search2', 'AdminController@reset_search');
 
-    Route::get('/adm3', 'AdminController@admin3');
+    Route::get('/admin/denuncias/postagem', 'AdminController@admin3');
         Route::post('/option', 'AdminController@option');
     
-    Route::get('/adm4', 'AdminController@admin4');
+    Route::get('/admin/denuncias/comentario', 'AdminController@admin4');
         Route::post('/option2', 'AdminController@option2');
+
+    Route::get('/admin/denuncias', 'AdminController@admin5');
+
+    Route::get('/admin/solicitacoes', 'AdminController@admin6');
 
     Route::post('/avaliar', 'AdminController@avaliar');
     

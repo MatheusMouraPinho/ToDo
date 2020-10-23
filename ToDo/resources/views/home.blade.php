@@ -182,10 +182,10 @@ $smartphone = true;
         <form class="form-inline d-flex justify-content-center md-form form-sm mt-0" method="POST" action="{{url('pesquisa')}}">
             @csrf
             <button type="submit" class="fas fa-search no-border-button" aria-hidden="true"></button>
-            <input class="form-control-sm ml-1 pesquisa-home" type="text" name="pesquisa" placeholder="Procurar ideias..." aria-label="Search">
+            <input class="form-control-sm ml-1 pesquisa" type="text" name="pesquisa" placeholder="Procurar ideias..." aria-label="Search">
         </form>
     </div>
-    <div style="padding-top:16px"></div>
+    <div style="padding:10px"></div>
     <div class="row justify-content-center"> 
         <hr class="accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 80%;">
     </div>

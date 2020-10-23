@@ -21,12 +21,12 @@ class AdminController extends Controller
     }
     public function admin()
     {
-        return view('adm');
+        return view('/admin/historico');
     }
 
     public function admin2()
     {
-        return view('adm2');
+        return view('/admin/usuarios');
     }
 
     public function admin3()
@@ -76,12 +76,22 @@ class AdminController extends Controller
                                 ->get()
         ];
 
-        return view('adm3', compact('post'));
+        return view('/admin/denuncias/postagem', compact('post'));
     }
 
     public function admin4()
     {   
-        return view('adm4');
+        return view('/admin/denuncias/comentario');
+    }
+
+    public function admin5()
+    {   
+        return view('/admin/denuncias');
+    }
+
+    public function admin6()
+    {   
+        return view('/admin/solicitacoes');
     }
 
     public function recusar()
@@ -98,7 +108,7 @@ class AdminController extends Controller
         $sql = "DELETE FROM usuarios WHERE id = $id_sql";
         mysqli_query($conn, $sql);
 
-        return redirect('adm')->with(['notific' =>  $notific])->with(['usu' => $usu]); 
+        return redirect()->back()->with(['notific' =>  $notific])->with(['usu' => $usu]); 
     }
     
     public function alterar()
@@ -119,7 +129,7 @@ class AdminController extends Controller
         $sql = "UPDATE usuarios SET nivel = $result WHERE id = $id_sql";
         mysqli_query($conn, $sql);
 
-        return redirect('adm2')->with(['notific' =>  $notific])->with(['usu' => $usu]);
+        return redirect()->back()->with(['notific' =>  $notific])->with(['usu' => $usu]);
 
     }
 
@@ -238,14 +248,14 @@ class AdminController extends Controller
         $sql = "DELETE FROM usuarios WHERE id = $id_sql";
         mysqli_query($conn, $sql);
 
-        return redirect('adm2')->with(['notific' =>  $notific])->with(['usu' => $usu]);
+        return redirect()->back()->with(['notific' =>  $notific])->with(['usu' => $usu]);
     }
 
     public function pesquisa()
     {   
         if(isset($_POST['pesquisa_user'])){
             $pesquisa2 = $_POST['pesquisa_user'];
-            return redirect('adm2')->with(['pesquisa2' =>  $pesquisa2]);
+            return redirect()->back()->with(['pesquisa2' =>  $pesquisa2]);
         }
     }
 
@@ -253,7 +263,7 @@ class AdminController extends Controller
     {   
         session_start();
         unset($_SESSION["pesquisa2"]);
-        return redirect('adm2'); 
+        return redirect()->back(); 
     }
 
     public function option(){  
@@ -272,7 +282,7 @@ class AdminController extends Controller
             $sql = "DELETE FROM check_denuncia WHERE id_postagem = $id_post";
             mysqli_query($conn, $sql);
 
-            return redirect('adm3')->with(['notific' =>  $notific])->with(['nom' => $nom]);
+            return redirect()->back()->with(['notific' =>  $notific])->with(['nom' => $nom]);
         }
         if($_POST['option'] == 'del_post'){
             $db_config = Config::get('database.connections.'.Config::get('database.default'));
@@ -342,7 +352,7 @@ class AdminController extends Controller
             $sql = "DELETE FROM postagens WHERE id_postagem = $id_post";
             mysqli_query($conn, $sql);
 
-            return redirect('adm3')->with(['notific' =>  $notific])->with(['nom' => $nom]);
+            return redirect()->back()->with(['notific' =>  $notific])->with(['nom' => $nom]);
         }
     }
 
@@ -362,7 +372,7 @@ class AdminController extends Controller
             $sql = "DELETE FROM check_denuncia_comentarios WHERE id_comentario = $id_com";
             mysqli_query($conn, $sql);
 
-            return redirect('adm4')->with(['notific' =>  $notific])->with(['nom' => $nom]);
+            return redirect()->back()->with(['notific' =>  $notific])->with(['nom' => $nom]);
         }
         if($_POST['option'] == 'del_comen'){
             $db_config = Config::get('database.connections.'.Config::get('database.default'));
@@ -386,7 +396,7 @@ class AdminController extends Controller
             $sql = "DELETE FROM comentarios WHERE id_comentarios = $id_com";
             mysqli_query($conn, $sql);
 
-            return redirect('adm4')->with(['notific' =>  $notific])->with(['nom' => $nom]);
+            return redirect()->back()->with(['notific' =>  $notific])->with(['nom' => $nom]);
         }
     }
         
