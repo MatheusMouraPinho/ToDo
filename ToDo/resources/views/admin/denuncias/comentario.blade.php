@@ -203,4 +203,11 @@ if(isset($notific)){ ?>
         });
     </script>
 <?php } ?>
+
+<script>
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+});
+</script>
 @endsection
