@@ -16,12 +16,13 @@
                 </a>
             <?php }  ?>
         </li>
-        <?php $pagina = $inicio + 1; ?>
-        <?php $pagina_pos = $inicio + 2; ?>
+        <?php $pagina_ant = $pagina - 1; ?>
+        <?php $pagina_atual = $pagina; ?>
+        <?php $pagina_pos = $pagina + 1; ?>
         <?php if($pagina_anterior != 0){ ?>
-            <li class="page-item"><a class="page-link" href="?pagina=<?php echo $inicio; ?>"><?php echo $inicio; ?></a></li>
+            <li class="page-item"><a class="page-link" href="?pagina=<?php echo $pagina_ant; ?>"><?php echo $pagina_ant; ?></a></li>
         <?php }?>
-        <li class="page-item"><a style="color:black"class="page-link"><?php echo $pagina; ?></a></li>
+        <li class="page-item"><a style="color:black"class="page-link"><?php echo $pagina_atual; ?></a></li>
         <?php if($pagina_posterior <= $num_pagina){ ?>
             <li class="page-item"><a class="page-link" href="?pagina=<?php echo $pagina_pos; ?>"><?php echo $pagina_pos; ?></a></li>
         <?php } ?>
