@@ -33,7 +33,7 @@ $sql = "SELECT * FROM postagens LEFT JOIN usuarios ON (postagens.id_usuarios = u
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
-$quantidade = 6; //quantidade de rows
+$quantidade = 10; //quantidade de rows
 
 $num_pagina = ceil($total_pesquisa/$quantidade);
 
@@ -336,35 +336,45 @@ $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows
                 <?php
                 if($pagina_anterior != 0){ ?>
                     <a class="page-link" href="?pagina=<?php echo $pagina_anterior; ?>" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z"/>
+                        </svg>
                     </a>
                 <?php }else{ ?>
                     <a class="page-link" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z"/>
+                        </svg>
                     </a>
                 <?php }  ?>
             </li>
-            <?php 
-            for($i = 1; $i < $num_pagina + 1; $i++){ ?>
-                <li class="page-item"><a class="page-link" href="?pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+            <?php $pagina = $inicio + 1; ?>
+            <?php $pagina_pos = $inicio + 2; ?>
+            <?php if($pagina_anterior != 0){ ?>
+                <li class="page-item"><a class="page-link" href="?pagina=<?php echo $inicio; ?>"><?php echo $inicio; ?></a></li>
+            <?php }?>
+            <li class="page-item"><a style="color:black"class="page-link"><?php echo $pagina; ?></a></li>
+            <?php if($pagina_posterior <= $num_pagina){ ?>
+                <li class="page-item"><a class="page-link" href="?pagina=<?php echo $pagina_pos; ?>"><?php echo $pagina_pos; ?></a></li>
             <?php } ?>
             <li>
                 <?php
                 if($pagina_posterior <= $num_pagina){ ?>
                     <a class="page-link" href="?pagina=<?php echo $pagina_posterior; ?>" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-11.5.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z"/>
+                        </svg>
                     </a>
                 <?php }else{ ?>
                     <a class="page-link" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-11.5.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z"/>
+                        </svg>
                     </a>
                 <?php }  ?>
             </li>
         </ul>
     </nav>
-
-    
-
 <?php }?>
 <!-- Modal ordenação -->
 <div class="modal fade" id="ordenacao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

@@ -18,7 +18,7 @@ $sql = "SELECT * FROM usuarios WHERE email_verified_at IS NOT NULL AND (usuario 
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
-$quantidade = 8; //quantidade de rows
+$quantidade = 10; //quantidade de rows
 
 $num_pagina = ceil($total_pesquisa/$quantidade);
 
