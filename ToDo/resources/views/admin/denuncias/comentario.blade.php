@@ -77,15 +77,15 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <?php while($rows = mysqli_fetch_assoc($result)){ $nome_autor = $rows['usuario'];?>
                             <tbody class="texture pisca">
                                 <tr class="linha">
-                                    <td><?php echo mb_strimwidth($rows['usuario'], 0, 30, "..."); ?></td>
-                                    <td>
+                                    <td class="ajuste3"><?php echo $rows['usuario']; ?></td>
+                                    <td class="ajuste1">
                                         <?php 
                                         if ($rows['id_motivo'] == 1 ) { echo "Spam";    
                                         }elseif($rows['id_motivo'] == 2 ){ echo "Cópia";
                                         }else{ echo "Conteúdo Inadequado";}
                                         ?>
                                     </td>
-                                    <td>
+                                    <td class="ajuste1">
                                         <?php 
                                         echo $rows['quantidade'];
                                         ?>
@@ -94,7 +94,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                     <div class="modal fade" id="post<?php echo $rows['id_comentarios'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
-                                            <div class="modal-header">
+                                            <div class="modal-header-custom">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                                                 <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -121,7 +121,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                     <div class="modal fade" id="modal<?php echo $rows['id_comentarios'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
-                                            <div class="modal-header">
+                                            <div class="modal-header-custom">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                                                 <span aria-hidden="true">&times;</span>
                                                 </button>

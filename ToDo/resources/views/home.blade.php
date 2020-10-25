@@ -278,9 +278,15 @@ $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows
     <!-- Modal deletar postagem -->
     <div class="modal fade id" id="del-post<?php echo $rows['id_postagem'];?>" role="dialog">
         <div class="modal-dialog modal-content">
-            <div class="modal-header"></div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <div class="modal-body">
-            <h4><b><p>Deseja realmente apagar essa Postagem?</p></b><h4>
+                <br>
+                <h5><b><p>Deseja realmente apagar essa Postagem?</p></b><h5>
+                <br>
                 <div class="modal-footer">
                     <form action="{{url('apagar_post')}}" method="POST">
                         @csrf
@@ -298,11 +304,15 @@ $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows
     <!-- Modal denunciar postagem -->
     <div class="modal fade id" id="den-post<?php echo $rows['id_postagem'];?>" role="dialog">
         <div class="modal-dialog modal-content">
-            <div class="modal-header"></div>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <form action="{{url('denunciar_post')}}" method="POST">
                 @csrf
                 <div class="modal-body">
-                    <h3><p>Denunciar postagem por:</p></h3><br>
+                    <h4><p><b>Denunciar postagem por:</b></p></h4><br>
                     <h6>
                         <label class="radio-custom">Conteúdo Inadequado
                             <input type="radio" id="radio1" name="option" value="3" required>
@@ -321,7 +331,7 @@ $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                         <input name="id_postagem" type="hidden" value="<?php echo $rows['id_postagem'];?>">
                         <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
-                        <input data-toggle="modal" type="submit" class="btn btn-primary" value="Confirmar">
+                        <button type="submit" class="btn btn-primary">Confirmar</button>
                     </div> 
                 </div>
             </form>
@@ -335,22 +345,22 @@ $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows
             <li class="page-item">
                 <?php
                 if($pagina_anterior != 0){ ?>
-                    <a class="page-link" href="?pagina=<?php echo $pagina_anterior; ?>" aria-label="Previous">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z"/>
-                        </svg>
+                    <a class="page-link" href="?pagina=<?php echo "1"; ?>" aria-label="Primeiro">
+                        <i class="fa fa-angle-double-left" style="font-size:15px"></i>
                     </a>
                 <?php }else{ ?>
-                    <a class="page-link" aria-label="Previous">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z"/>
-                        </svg>
+                    <a class="page-link" aria-label="Primeiro">
+                        <i class="fa fa-angle-double-left" style="font-size:15px"></i>
                     </a>
                 <?php }  ?>
             </li>
             <?php $pagina_ant = $pagina - 1; ?>
             <?php $pagina_atual = $pagina; ?>
             <?php $pagina_pos = $pagina + 1; ?>
+
+            <?php if($pagina_anterior - 1 > 0){ ?>
+                <li class="page-item"><a class="page-link" href="?pagina=<?php echo $pagina_ant - 1; ?>"><?php echo $pagina_ant - 1; ?></a></li>
+            <?php }?>
             <?php if($pagina_anterior != 0){ ?>
                 <li class="page-item"><a class="page-link" href="?pagina=<?php echo $pagina_ant; ?>"><?php echo $pagina_ant; ?></a></li>
             <?php }?>
@@ -358,19 +368,18 @@ $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows
             <?php if($pagina_posterior <= $num_pagina){ ?>
                 <li class="page-item"><a class="page-link" href="?pagina=<?php echo $pagina_pos; ?>"><?php echo $pagina_pos; ?></a></li>
             <?php } ?>
+            <?php if($pagina_posterior + 1 <= $num_pagina){ ?>
+                <li class="page-item"><a class="page-link" href="?pagina=<?php echo $pagina_pos + 1; ?>"><?php echo $pagina_pos + 1; ?></a></li>
+            <?php } ?>
             <li>
                 <?php
                 if($pagina_posterior <= $num_pagina){ ?>
-                    <a class="page-link" href="?pagina=<?php echo $pagina_posterior; ?>" aria-label="Next">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-11.5.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z"/>
-                        </svg>
+                    <a class="page-link" href="?pagina=<?php echo $num_pagina; ?>" aria-label="Ultimo">
+                        <i class="fa fa-angle-double-right" style="font-size:15px"></i>
                     </a>
                 <?php }else{ ?>
-                    <a class="page-link" aria-label="Next">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-11.5.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z"/>
-                        </svg>
+                    <a class="page-link" aria-label="Ultimo">
+                        <i class="fa fa-angle-double-right" style="font-size:15px"></i>
                     </a>
                 <?php }  ?>
             </li>
@@ -390,17 +399,16 @@ $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows
             <form action="{{ url('filtro') }}" method="POST">
                 @csrf
                 <div class="modal-body">
-                    <label class="radio-custom"><h6><b>Novos</b></h6>
+                    <br>
+                    <label class="radio-custom"><b>Novos</b>
                         <input type="radio" id="radio1" name="filtro" value="novo" <?php if($filtro == "data_postagem"){ echo "checked"; }else{ echo "required";} ?>>
                         <span class="checkmark"></span>
                     </label>
-                    <br>
-                    <label class="radio-custom"><h6><b>Populares</b></h6>
+                    <label class="radio-custom"><b>Populares</b>
                         <input type="radio" id="radio2" name="filtro" value="popu" <?php if($filtro == "likes_postagem"){ echo "checked"; }else{ echo "required";} ?>>
                         <span class="checkmark"></span>
                     </label>
-                    <br>
-                    <label class="radio-custom"><h6><b>Mais avaliados</b></h6>
+                    <label class="radio-custom"><b>Mais avaliados</b>
                         <input type="radio" id="radio3" name="filtro" value="melh" <?php if($filtro == "media"){ echo "checked"; }else{ echo "required";} ?>>
                         <span class="checkmark"></span>
                     </label>

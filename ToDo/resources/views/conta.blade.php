@@ -263,7 +263,7 @@ $nivel = Auth::user()->nivel;
               <div class="modal-dialog modal-content">
                   <div class="modal-header"></div>
                   <div class="modal-body">
-                  <h4><b><p>Deseja realmente apagar essa Postagem?</p></b><h4>
+                  <h5><b><p>Deseja realmente apagar essa Postagem?</p></b><h5>
                       <div class="modal-footer">
                           <form action="{{url('apagar_post')}}" method="POST">
                               @csrf

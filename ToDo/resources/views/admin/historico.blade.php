@@ -14,7 +14,7 @@ $sql = "SELECT * FROM usuarios";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
-$quantidade = 10; //quantidade de rows
+$quantidade = 8; //quantidade de rows
 
 $num_pagina = ceil($total_pesquisa/$quantidade);
 
@@ -41,7 +41,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
 </style>
 
 @section('content')
-<div class="d-flex admin" id="wrapper">
+<div class="d-flex" id="wrapper">
     @include('admin/layout/slide')
     <!-- Page Content -->
     <div id="page-content-wrapper">
@@ -79,7 +79,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                             <tbody>
                                 <tr class="linha">
                                     <td class="ajuste1"><?php echo date('d/m/Y', strtotime($rows['data_cadastro'])). " às ". date('H:i', strtotime($rows['email_verified_at'])); ?></td>
-                                    <td class="ajuste1"><?php echo $rows['usuario']; ?></td>
+                                    <td class="ajuste3"><?php echo $rows['usuario']; ?></td>
                                     <td class="ajuste1"><?php echo $rows['registro']; ?></td>
                                     <td class="ajuste1"><?php echo $rows['email']; ?></td>
                                     <td class="ajuste2"><?php 

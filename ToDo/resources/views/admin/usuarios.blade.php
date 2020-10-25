@@ -18,7 +18,7 @@ $sql = "SELECT * FROM usuarios WHERE email_verified_at IS NOT NULL AND (usuario 
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
-$quantidade = 10; //quantidade de rows
+$quantidade = 8; //quantidade de rows
 
 $num_pagina = ceil($total_pesquisa/$quantidade);
 
@@ -47,7 +47,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
 </style>
 
 @section('content')
-<div class="d-flex admin" id="wrapper">
+<div class="d-flex" id="wrapper">
     @include('admin/layout/slide')
     <!-- Page Content -->
     <div id="page-content-wrapper">
@@ -95,7 +95,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <div class="modal fade" id="modal<?php echo $id_usuario ?>" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
-                                    <div class="modal-header">
+                                    <div class="modal-header-custom">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                                         <span aria-hidden="true">&times;</span>
                                         </button>
@@ -107,8 +107,8 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                             <br>
                                             <input name="nome" type="hidden" value="<?php echo $nome; ?>"/>
                                             <input type='hidden' name="alterar" value="<?php echo $id_usuario ?>"/>
-                                            <label for="tipo" class="bold subdados">Tipo</label>
-                                            <select name="tipo" class="select" class="btn btn-primary">
+                                            <label for="tipo" class="bold subdados">Tipo: </label>
+                                            <select name="tipo" class="Bselect" class="btn btn-primary">
                                                 <option>Usuario</option><option>Avaliador</option><option>Admin</option>
                                             </select>
                                             <br><br>
@@ -145,7 +145,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <!-- FIM Modal deletar usuario -->
                         <tbody class="pisca">
                             <tr class="linha">
-                                <td><?php echo $rows['usuario']; ?></td>
+                                <td class="ajuste3"><?php echo $rows['usuario']; ?></td>
                                 <td><?php echo $rows['registro']; ?></td>
                                 <td><?php   if ($setup == 1) { echo "Usuário";    
                                             }else if ($setup == 2) { echo "Avaliador";

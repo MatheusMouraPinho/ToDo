@@ -348,7 +348,11 @@
                         <!-- Modal denunciar comentario -->
                         <div class="modal fade id" id="den_comen{{$comments['comentarios'][$f]->id_comentarios}}" role="dialog">
                             <div class="modal-dialog modal-content">
-                                <div class="modal-header"></div>
+                              <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                  <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
                                 <form action="{{url('denunciar_comentario')}}" method="POST">
                                     @csrf
                                     <div class="modal-body">
@@ -372,7 +376,7 @@
                                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                             <input name="id_comentario" type="hidden" value="{{$comments['comentarios'][$f]->id_comentarios}}">
                                             <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
-                                            <input data-toggle="modal" type="submit" class="btn btn-primary" value="Confirmar">
+                                            <button type="submit" class="btn btn-primary">Confirmar</button>
                                         </div> 
                                     </div>
                                 </form>
@@ -456,16 +460,19 @@
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
                             <div class="modal-body"> 
-                              <p>Deseja realmente apagar este comentário?</p>
+                              <p><h5>Deseja realmente apagar este comentário?</h5></p>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                 <form action="{{route('apagar-coment')}}" method="POST">
                                   @csrf
                                   <input name="id_comentario" type="hidden" value="{{ $comments['comentarios'][$f]->id_comentarios }}">
                                   <input type="hidden" value="{{$id_post}}" name="id_postagem">
-                                  <input data-toggle="modal" type="submit" class="btn btn-primary dropright" value="Apagar comentário">
+                                  <button type="submit" class="btn btn-primary">Confirmar</button>
                                 </form>
                               </div> 
                             </div>

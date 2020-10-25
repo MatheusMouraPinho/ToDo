@@ -1,36 +1,5 @@
 @extends('layouts.app')
 
-<?php  
-$db_config = Config::get('database.connections.'.Config::get('database.default'));
-$conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
-mysqli_set_charset($conn, 'utf8');
-
-$pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
-
-$notific = Session::get('notific');
-$usu = Session::get('usu');
-
-$sql = "SELECT * FROM usuarios";
-$result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
-$total_pesquisa = mysqli_num_rows($result); //conta o total de rows
-
-$quantidade = 10; //quantidade de rows
-
-$num_pagina = ceil($total_pesquisa/$quantidade);
-
-$inicio = ($quantidade*$pagina)-$quantidade;
-
-$sql = "SELECT * FROM usuarios ORDER BY data_cadastro DESC LIMIT $inicio, $quantidade ";
-$result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
-
-$pagina_anterior = $pagina - 1; //paginação
-$pagina_posterior = $pagina + 1;
-
-if ($total_pesquisa > 0 ){ //se tiver rows
-    $check = TRUE;
-}
-?>
-
 <style type="text/css">
     .espaco{
         display:none;
@@ -41,7 +10,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
 </style>
 
 @section('content')
-<div class="d-flex admin" id="wrapper">
+<div class="d-flex" id="wrapper">
     @include('admin/layout/slide')
     <!-- Page Content -->
     <div id="page-content-wrapper">
@@ -75,27 +44,6 @@ if ($total_pesquisa > 0 ){ //se tiver rows
         </div>
     </div>
 </div>
-<!-- Modal notificação -->
-<div class="modal fade id" id="notific" role="dialog">
-    <div class="modal-dialog modal-content">
-        <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
-        <div class="modal-body">
-                <h4><?php if($notific == 1){ echo "Cadastro do Usuario <b>". $usu ."</b> Aceito."; }else{echo "Cadastro do Usuario <b>". $usu ."</b> Recusado";}?></h4><br>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-            </div> 
-        </div>
-    </div>
-</div>
-<!-- FIM Modal notificação -->
-<?php
-if(isset($notific)){?>
-    <script>
-        $(function(){
-            $("#notific").modal('show');
-        });
-    </script>
-<?php }?>
 
 <script>
 $("#menu-toggle").click(function(e) {
