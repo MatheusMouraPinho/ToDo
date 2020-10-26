@@ -10,7 +10,7 @@
 
                 <div class="card-corpo">
                     Olá! percebemos que você esta utilizando um dispositivo Mobile porem o nosso site
-                    ainda não esta responsivo por enquanto, acesse o site através de um computador ou notebook.
+                    ainda não esta 100% responsivo por enquanto. <a href="http://todoideias.gq/login">Continuar mesmo assim</a>
                     <br><br>
                 </div>
             </div>

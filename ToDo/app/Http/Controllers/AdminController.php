@@ -94,6 +94,11 @@ class AdminController extends Controller
         return view('/admin/solicitacoes');
     }
 
+    public function admin7()
+    {   
+        return view('/admin/bloqueados');
+    }
+
     public function recusar()
     {  
         $db_config = Config::get('database.connections.'.Config::get('database.default'));

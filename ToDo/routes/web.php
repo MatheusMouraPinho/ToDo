@@ -101,6 +101,8 @@ Route::group(['middleware' => ['auth', 'verified', 'admin']], function() {
 
     Route::get('/admin/solicitacoes', 'AdminController@admin6');
 
+    Route::get('/admin/bloqueados', 'AdminController@admin7');
+
     Route::post('/avaliar', 'AdminController@avaliar');
     
 });

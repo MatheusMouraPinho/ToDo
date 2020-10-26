@@ -108,7 +108,7 @@ $denuncia = Session::get('denuncia');
           <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-5">
             <h6 class="text-uppercase font-weight-bold"><ff>Desenvolvimento</ff></h6>
             <hr class="accent-2 mb-4 mt-0 d-inline-block mx-auto white" style="width: 160px;">
-            <p>Site desenvolvido por <br> alunos da Universidade <br> Módulo - Campus <br> Módulo Caraguatatuba, <br> Ministrado pelo Professor<br> Fabio Lippi.
+            <p>Site desenvolvido por <br> alunos da Universidade <br> Módulo - Campus <br> Módulo Caraguatatuba, <br> orientado pelo professor<br> Fabio Lippi.
             </p>
           </div>
           <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4" style="padding-right:20px">
