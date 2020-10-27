@@ -394,7 +394,7 @@ th, td {
   font-size: 1.1em;
   padding: 10px;
   max-width: 150px;
-  min-width: 7px;
+  min-width: 140px;
 }
 
 caption {
@@ -630,6 +630,14 @@ p {
   margin-top: 10px;
 }
 
+.div-edit {
+  position: relative;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
 .bold {
   font-weight: bold;
 } 
@@ -672,6 +680,16 @@ p {
 .select:focus {
   border: 2px solid #3490dc;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.subedit {
+  padding: 0px;
+  width: 100px;
+  display: block;
+  text-align: left;
+  margin-left: 10px;
+  margin-bottom: 0px;
+  font-size: 1.1em;
 }
 
 .subdados {
@@ -995,15 +1013,16 @@ input[type='file'] {
 }
 
 #edit_desc {
-  display: inline-block;
-  border: 1px solid black;
+  display: block;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  width: 78%;
+  width: 95%;
   background-color: white;
-  height: 100px;
+  margin-left: 10px;
+  height: 130px;
   padding: 5px;
-  margin-left: 5px;
   resize: none;
+  margin-bottom: 20px;
 }
 
 .tim {

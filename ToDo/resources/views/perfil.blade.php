@@ -4,9 +4,8 @@
 use Symfony\Component\Console\Input\Input;
 session_start();
 $nivel = Auth::user()->nivel;
-$_SESSION['id_usuario'] = $dados['id'];
+$user = Auth::user()->id;
 
-// echo tempo_corrido("m/d/Y H:i:s");
 ?>
 
 @section('content')
@@ -202,7 +201,7 @@ $_SESSION['id_usuario'] = $dados['id'];
             </div>
 
             <div class="scroll_table">
-              <table id="table_conta">
+              <table id="table_conta" style="font-size: 1.1em">
                 <thead class="sticky-top">
                   <tr>
                     <th>Nome da Ideia</th>
@@ -233,6 +232,13 @@ $_SESSION['id_usuario'] = $dados['id'];
                               </svg>&nbsp;
                               Visualizar postagem
                             </a>
+                            <a class="dropdown-item" href="" data-toggle="modal" data-target="#den-post{{$posts->id_postagem }}">
+                              <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-exclamation-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                            </svg>&nbsp;
+                              Denunciar postagem
+                            </a>
                           </div>
                         </div>
                         
@@ -241,38 +247,51 @@ $_SESSION['id_usuario'] = $dados['id'];
                     
                       @include('layouts.post_conta')
 
+                      <!-- Modal denunciar postagem -->
+                      <div class="modal fade id" id="den-post{{$posts->id_postagem }}" role="dialog">
+                        <div class="modal-dialog modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="{{url('denunciar_post')}}" method="POST">
+                                @csrf
+                                <div class="modal-body">
+                                    <h4><p><b>Denunciar postagem por:</b></p></h4><br>
+                                    <h6>
+                                        <label class="radio-custom">Conteúdo Inadequado
+                                            <input type="radio" id="radio1" name="option" value="3" required>
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="radio-custom">Spam
+                                            <input type="radio" id="radio3" name="option" value="1" required>
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <label class="radio-custom">Cópia
+                                            <input type="radio" id="radio3" name="option" value="2" required>
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </h6>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                        <input name="id_postagem" type="hidden" value="{{$posts->id_postagem }}">
+                                        <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
+                                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                                    </div> 
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- FIM Modal denunciar postagem -->
+
                   @endforeach
                 </tbody>
               </table>
 
-              <!-- Modal deletar postagem -->
-            <div class="modal fade id" id="del-post{{$dados['id']}}" role="dialog">
-              <div class="modal-dialog modal-content">
-                  <div class="modal-header"></div>
-                  <div class="modal-body">
-                  <h5><b><p>Deseja realmente apagar essa Postagem?</p></b><h5>
-                      <div class="modal-footer">
-                          <form action="{{url('apagar_post')}}" method="POST">
-                              @csrf
-                              <input name="id_postagem" type="hidden" value="{{$posts->id_postagem}}">
-                              <input type="hidden" name="identificador" value="1">
-                              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                              <button type="submit" class="btn btn-primary">Confirmar</button>
-                          </form>
-                      </div> 
-                  </div>
-              </div>
-            </div>
-            <!-- FIM Modal deletar postagem -->
-
             </div>
             <!-- Fim da tabela de ideias -->
 
-            {{-- <div class="" style="padding: 8px">
-              <p id="contagem-ideias">
-                {{ $dados['posts']->links() }}
-              </p>
-            </div> --}}
           </div>
       </div>
         @endif

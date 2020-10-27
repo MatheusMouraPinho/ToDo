@@ -419,9 +419,9 @@
                                   <div class="modal-body"> 
                                     <form action="{{ route('edit.coment') }}" method="POST"> 
                                       @csrf                   
-                                      <div class="popup-title">
-                                        <label style="vertical-align: top" for="editcomentario" class="bold subdados">Descrição:</label>
-                                        <textarea name="editcomentario" id="edit_desc" cols="60" rows="1">{{$comments['comentarios'][$f]->conteudo_comentarios }}</textarea>
+                                      <div class="div-edit">
+                                        <label style="vertical-align: top" for="editcomentario" class="bold subedit">Descrição:</label>
+                                        <textarea name="editcomentario" id="edit_desc" cols="60" rows="1" required  maxlength="255">{{$comments['comentarios'][$f]->conteudo_comentarios }}</textarea>
                                         <input type="hidden" name="id_coment" value="{{ $comments['comentarios'][$f]->id_comentarios }}">
                                         <input type="hidden" value="{{$id_post}}" name="id_postagem">
                                       </div>
@@ -429,8 +429,7 @@
 
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                      <input data-toggle="modal" data-target="#hiddenDiv" type="submit" class="btn btn-primary dropright" value="Salvar Alterações">
-                                      
+                                      <button data-toggle="modal" data-target="#hiddenDiv" type="submit" class="btn btn-primary">Salvar Alterações</button> 
                                     </div> 
                                   </form> 
 
@@ -646,9 +645,9 @@
                                 <div class="modal-body"> 
                                   <form action="{{ route('edit.coment') }}" method="POST"> 
                                     @csrf                   
-                                    <div class="popup-title">
-                                      <label style="vertical-align: top" for="editcomentario" class="bold subdados">Descrição:</label>
-                                      <textarea name="editcomentario" id="edit_desc" cols="60" rows="1">{{$comments['reply_coment'][$g]->conteudo_comentarios }}</textarea>
+                                    <div class="div-edit">
+                                      <label style="vertical-align: top" for="editcomentario" class="bold subedit">Descrição:</label>
+                                      <textarea name="editcomentario" id="edit_desc" cols="60" rows="1" required maxlength="255">{{$comments['reply_coment'][$g]->conteudo_comentarios }}</textarea>
                                       <input type="hidden" name="id_coment" value="{{ $comments['reply_coment'][$g]->id_comentarios }}">
                                       <input type="hidden" value="{{$id_post}}" name="id_postagem">
                                     </div>
@@ -656,7 +655,7 @@
 
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                    <input data-toggle="modal" data-target="#hiddenDiv" type="submit" class="btn btn-primary dropright" value="Salvar Alterações">
+                                    <button data-toggle="modal" data-target="#hiddenDiv" type="submit" class="btn btn-primary">Salvar Alterações</button>
                                     
                                   </div> 
                                 </form> 
