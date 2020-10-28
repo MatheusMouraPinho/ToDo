@@ -166,6 +166,52 @@ function limite_textarea(valor) {
     }
 }
 
+// function mostrarTexto(div) {
+//     var display = document.getElementById(div).style.display;
+//     document.getElementById(div).style.display = 'inline-block';
+// }
+
+// function ocultar(div) {
+//     document.getElementById(div).style.display = 'none';
+// }
+
+function buscar_cidades(){
+    var select = document.getElementById('id_regiao_estado');
+	var value = select.options[select.selectedIndex].value;
+
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax ({
+        type: 'post',
+        url: "buscar_cidades",
+        data: {
+            'id_estado': value 
+        },
+        success: function(data){
+            res = JSON.parse(data);
+            cidades = res;
+            var listCidades = document.getElementById("id_regiao_cidade");
+
+            while (listCidades.length) {
+                listCidades.remove(0);
+            }
+
+            for(i = 0; i < cidades[0].length; i = i + 1) {
+                var opt0 = document.createElement("option");
+                opt0.value = cidades[0][i]['id_regiao_cidade'];
+                opt0.text = cidades[0][i]['nome_cidade'];
+                listCidades.add(opt0, listCidades.options[0]);
+                
+            }
+        }
+    })
+};
+
 
 
 

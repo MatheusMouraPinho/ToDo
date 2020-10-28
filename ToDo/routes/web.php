@@ -77,6 +77,8 @@ Route::group(['middleware' => ['auth', 'verified']], function() { //grupo middle
 
     Route::post('/mostrar_coments', 'ComentController@MostrarComents');
 
+    Route::post('/buscar_cidades', 'UserController@buscar_cidades');
+
 });
 
 Route::group(['middleware' => ['auth', 'verified', 'admin']], function() {

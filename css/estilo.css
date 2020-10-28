@@ -1012,6 +1012,12 @@ input[type='file'] {
   background-color: rgb(221, 221, 221);
 }
 
+#info_rgm {
+  position: absolute;
+  top: 270px;
+  right: 30px;
+}
+
 #edit_desc {
   display: block;
   border: 1px solid #ccc;

@@ -39,6 +39,14 @@ class UserController extends Controller
                                 ->where('id_regiao_cidade', $user_cidade)
                                 ->value('nome_cidade'),
 
+            'estado' => DB::select('SELECT nome_estado, id_regiao_estado from regiao_estado where id_regiao_estado = (
+                SELECT id_estado from regiao_cidade where id_regiao_cidade = :cidade
+                )' , ['cidade' => $user_cidade]),
+
+            'estados' => DB::table('regiao_estado')
+                            ->select('nome_estado', 'id_regiao_estado')
+                            ->get(),
+
             'area' => DB::table('area_estudo')
                                 ->where('id_area', $user_area)
                                 ->value('nome_area'),
@@ -71,9 +79,10 @@ class UserController extends Controller
                         ->get(),
 
             'cidades' => DB::table('regiao_cidade')
-                            ->select('nome_cidade', 'id_regiao_cidade')
-                            ->orderBy('nome_cidade' ,'asc')
-                            ->get(),
+                        ->where('id_estado', Auth::user()->id_regiao_estado)
+                        ->orderBy('nome_cidade' ,'asc')
+                        ->get(),
+           
 
             'instituicoes' => DB::table('instituicao_ensino')
                             ->select('nome_instituicao', 'id_instituicao')
@@ -89,7 +98,9 @@ class UserController extends Controller
         ];
         
 
-        $post = [                
+        $post = [  
+            
+            
             'avaliacao' => DB::table('postagens')
                             ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
                             ->where('postagens.id_usuarios', $user_id)
@@ -290,6 +301,9 @@ class UserController extends Controller
 
         if($data['id_regiao_cidade'] === null)
             unset($data['id_regiao_cidade']);
+
+        if($data['id_regiao_estado'] === null)
+            unset($data['id_regiao_cidade']);
     /*
         if ($data['senha'] != null)
             $data['senha'] = bcrypt($data['senha']);
@@ -409,5 +423,18 @@ class UserController extends Controller
             return redirect()
                     ->route('conta')
                     ->with('error', 'O usuário não tem capa para apagar!');
+    }
+
+    public function buscar_cidades(Request $request) {
+        $id_estado = $request->id_estado;
+        $buscando = [
+            DB::table('regiao_cidade')
+                ->where('id_estado', $id_estado)
+                ->select('nome_cidade', 'id_regiao_cidade')
+                ->orderBy('nome_cidade','asc')
+                ->get()
+        ];
+
+        echo json_encode($buscando);
     }
 }

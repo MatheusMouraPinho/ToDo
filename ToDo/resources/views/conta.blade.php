@@ -5,6 +5,7 @@ use Symfony\Component\Console\Input\Input;
 
 $nivel = Auth::user()->nivel;
 
+//dd($dados['estado'][0]->nome_estado);
 ?>
 @section('content')
 
@@ -54,6 +55,11 @@ $nivel = Auth::user()->nivel;
               </a>
             
               <div id="conteudo-dados">
+                {{-- <div id="info_rgm" style="display: none">
+                  <p class="bg-dark text-center text-light p-1 m-0 rounded">
+                    Seu RGM/CPF está oculto para outros usuários
+                  </p>
+                </div> --}}
                 <div class="dados-pessoais">
                   <p style="padding: 5px; margin: 0px;">
                     <span class="type_data">
@@ -61,6 +67,11 @@ $nivel = Auth::user()->nivel;
                       <path fill-rule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
                     </svg>&nbsp;
                     RGM/CPF:</span> {{ $dados['rgm'] }}
+                    {{-- <span class="float-right mt-1">
+                    <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                    </svg>
+                    </span> --}}
                   </p>
                 </div>
 
@@ -462,6 +473,25 @@ $nivel = Auth::user()->nivel;
                                 @endfor
                             </select>
                           </div>
+                          <div class="popup-title">
+                            <label for="id_regiao_cidade" class="bold subdados">
+                              <img src="img/mapa.png" width="20px" alt="">&nbsp;
+                              Estado:
+                            </label>
+                            <select id="id_regiao_estado" name="id_regiao_estado" class="select" title="Selecione uma opção" onchange="buscar_cidades()">
+                              @if(isset($dados['cidade']))
+                                <option value="">{{$dados['estado'][0]->nome_estado}}</option>
+                              @else
+                                <option value="">Selecione uma opção</option>
+                              @endif
+                              
+                              @for($a = 0; $a<sizeof($dados['estados']);$a++)
+                                <option value="{{ $dados['estados'][$a]->id_regiao_estado }}">
+                                  {{ $dados['estados'][$a]->nome_estado }}
+                                </option>
+                              @endfor
+                            </select>
+                          </div>
 
                           <div class="popup-title">
                             <label for="id_regiao_cidade" class="bold subdados">
@@ -469,20 +499,22 @@ $nivel = Auth::user()->nivel;
                                 <path fill-rule="evenodd" d="M12.166 8.94C12.696 7.867 13 6.862 13 6A5 5 0 0 0 3 6c0 .862.305 1.867.834 2.94.524 1.062 1.234 2.12 1.96 3.07A31.481 31.481 0 0 0 8 14.58l.208-.22a31.493 31.493 0 0 0 1.998-2.35c.726-.95 1.436-2.008 1.96-3.07zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
                                 <path fill-rule="evenodd" d="M8 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                               </svg>&nbsp;
-                              Região:
+                              Cidade:
                             </label>
-                            <select name="id_regiao_cidade" class="select" title="Selecione uma opção">
+                            <select id="id_regiao_cidade" name="id_regiao_cidade" class="select" title="Selecione uma opção">
                               @if(isset($dados['cidade']))
                                 <option value="">{{$dados['cidade']}}</option>
+
+                                @for($a = 0; $a<sizeof($dados['cidades']);$a++)
+                                  <option value="{{ $dados['cidades'][$a]->id_regiao_cidade }}">
+                                    {{ $dados['cidades'][$a]->nome_cidade }}
+                                  </option>
+                                @endfor
                               @else
                                 <option value="">Selecione uma opção</option>
                               @endif
                               
-                              @for($a = 0; $a<sizeof($dados['cidades']);$a++)
-                                <option value="{{ $dados['cidades'][$a]->id_regiao_cidade }}">
-                                  {{ $dados['cidades'][$a]->nome_cidade }}
-                                </option>
-                              @endfor
+                               --}}
                             </select>
                           </div>
                         </div>
