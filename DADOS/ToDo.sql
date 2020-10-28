@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.9.5deb2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Tempo de geração: 03-Out-2020 às 05:23
--- Versão do servidor: 10.4.8-MariaDB
--- versão do PHP: 7.3.10
+-- Host: localhost:3306
+-- Tempo de geração: 27-Out-2020 às 23:20
+-- Versão do servidor: 8.0.21-0ubuntu0.20.04.4
+-- versão do PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,9 +31,9 @@ USE `repositorio_de_ideias`;
 --
 
 CREATE TABLE `area_estudo` (
-  `id_area` int(11) NOT NULL,
+  `id_area` int NOT NULL,
   `nome_area` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `area_estudo`
@@ -100,15 +100,15 @@ INSERT INTO `area_estudo` (`id_area`, `nome_area`) VALUES
 --
 
 CREATE TABLE `avaliacao_postagem` (
-  `id_avaliacao` int(11) NOT NULL,
-  `id_postagem` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
+  `id_avaliacao` int NOT NULL,
+  `id_postagem` int NOT NULL,
+  `id_usuario` int NOT NULL,
   `inovacao_avaliacao` double NOT NULL,
   `complexidade_avaliacao` double NOT NULL,
   `potencial_avaliacao` double NOT NULL,
   `media_avaliacao` double NOT NULL,
-  `id_avaliador` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_avaliador` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -117,9 +117,9 @@ CREATE TABLE `avaliacao_postagem` (
 --
 
 CREATE TABLE `categoria_postagem` (
-  `id_categoria` int(11) NOT NULL,
+  `id_categoria` int NOT NULL,
   `categoria_postagem` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `categoria_postagem`
@@ -139,10 +139,10 @@ INSERT INTO `categoria_postagem` (`id_categoria`, `categoria_postagem`) VALUES
 --
 
 CREATE TABLE `check_denuncia` (
-  `id_denuncia` int(11) NOT NULL,
-  `id_postagem` int(11) DEFAULT NULL,
-  `id_usuario` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_denuncia` int NOT NULL,
+  `id_postagem` int DEFAULT NULL,
+  `id_usuario` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -151,10 +151,10 @@ CREATE TABLE `check_denuncia` (
 --
 
 CREATE TABLE `check_denuncia_comentarios` (
-  `id_denuncia` int(11) NOT NULL,
-  `id_comentario` int(11) DEFAULT NULL,
-  `id_usuario` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_denuncia` int NOT NULL,
+  `id_comentario` int DEFAULT NULL,
+  `id_usuario` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -163,17 +163,17 @@ CREATE TABLE `check_denuncia_comentarios` (
 --
 
 CREATE TABLE `comentarios` (
-  `id_comentarios` int(11) NOT NULL,
-  `id_avaliacao` int(11) DEFAULT NULL,
-  `id_usuarios` int(11) NOT NULL,
-  `id_postagem` int(11) NOT NULL,
+  `id_comentarios` int NOT NULL,
+  `id_avaliacao` int DEFAULT NULL,
+  `id_usuarios` int NOT NULL,
+  `id_postagem` int NOT NULL,
   `conteudo_comentarios` varchar(255) NOT NULL,
   `data_comentarios` datetime NOT NULL,
-  `likes_comentarios` int(11) NOT NULL DEFAULT 0,
+  `likes_comentarios` int NOT NULL DEFAULT '0',
   `edit_comentarios` datetime DEFAULT NULL,
-  `id_mencionado` int(11) DEFAULT NULL,
-  `id_comentarios_ref` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_mencionado` int DEFAULT NULL,
+  `id_comentarios_ref` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -182,11 +182,11 @@ CREATE TABLE `comentarios` (
 --
 
 CREATE TABLE `denuncias` (
-  `id_denuncia` int(11) NOT NULL,
-  `id_postagem` int(11) DEFAULT NULL,
-  `id_motivo` int(11) DEFAULT NULL,
-  `quantidade` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_denuncia` int NOT NULL,
+  `id_postagem` int DEFAULT NULL,
+  `id_motivo` int DEFAULT NULL,
+  `quantidade` int NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -195,11 +195,11 @@ CREATE TABLE `denuncias` (
 --
 
 CREATE TABLE `denuncias_comentarios` (
-  `id_denunciacomentario` int(11) NOT NULL,
-  `id_comentario` int(11) DEFAULT NULL,
-  `id_motivo` int(11) DEFAULT NULL,
-  `quantidade` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_denunciacomentario` int NOT NULL,
+  `id_comentario` int DEFAULT NULL,
+  `id_motivo` int DEFAULT NULL,
+  `quantidade` int NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -208,10 +208,10 @@ CREATE TABLE `denuncias_comentarios` (
 --
 
 CREATE TABLE `img_postagem` (
-  `id_img` int(11) NOT NULL,
-  `id_postagem` int(11) NOT NULL,
-  `img_post` longblob DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_img` int NOT NULL,
+  `id_postagem` int NOT NULL,
+  `img_post` longblob
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -220,10 +220,10 @@ CREATE TABLE `img_postagem` (
 --
 
 CREATE TABLE `instituicao_ensino` (
-  `id_instituicao` int(11) NOT NULL,
+  `id_instituicao` int NOT NULL,
   `nome_instituicao` varchar(100) NOT NULL,
   `sigla_instituicao` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `instituicao_ensino`
@@ -250,10 +250,10 @@ INSERT INTO `instituicao_ensino` (`id_instituicao`, `nome_instituicao`, `sigla_i
 --
 
 CREATE TABLE `like_comentarios` (
-  `id_likes` int(11) NOT NULL,
-  `id_comentarios` int(11) NOT NULL,
-  `id_usuarios` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_likes` int NOT NULL,
+  `id_comentarios` int NOT NULL,
+  `id_usuarios` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -262,10 +262,10 @@ CREATE TABLE `like_comentarios` (
 --
 
 CREATE TABLE `like_postagens` (
-  `id_like` int(11) NOT NULL,
-  `id_postagens` int(11) NOT NULL,
-  `id_usuarios` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_like` int NOT NULL,
+  `id_postagens` int NOT NULL,
+  `id_usuarios` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -274,9 +274,9 @@ CREATE TABLE `like_postagens` (
 --
 
 CREATE TABLE `motivo_denuncia` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `motivo` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `motivo_denuncia`
@@ -294,9 +294,9 @@ INSERT INTO `motivo_denuncia` (`id`, `motivo`) VALUES
 --
 
 CREATE TABLE `nivel_acesso` (
-  `id_nivel` int(11) NOT NULL,
+  `id_nivel` int NOT NULL,
   `nivel` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `nivel_acesso`
@@ -314,8 +314,8 @@ INSERT INTO `nivel_acesso` (`id_nivel`, `nivel`) VALUES
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -326,16 +326,16 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `postagens` (
-  `id_postagem` int(11) NOT NULL,
-  `id_usuarios` int(11) NOT NULL,
-  `id_situacao_postagem` int(11) NOT NULL DEFAULT 2,
-  `id_categoria` int(11) NOT NULL,
+  `id_postagem` int NOT NULL,
+  `id_usuarios` int NOT NULL,
+  `id_situacao_postagem` int NOT NULL DEFAULT '2',
+  `id_categoria` int NOT NULL,
   `titulo_postagem` varchar(50) NOT NULL,
   `descricao_postagem` text NOT NULL,
-  `likes_postagem` int(11) NOT NULL DEFAULT 0,
+  `likes_postagem` int NOT NULL DEFAULT '0',
   `data_postagem` datetime NOT NULL,
   `media` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -344,10 +344,10 @@ CREATE TABLE `postagens` (
 --
 
 CREATE TABLE `regiao_cidade` (
-  `id_regiao_cidade` int(11) NOT NULL,
-  `id_estado` int(11) NOT NULL,
+  `id_regiao_cidade` int NOT NULL,
+  `id_estado` int NOT NULL,
   `nome_cidade` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `regiao_cidade`
@@ -939,10 +939,10 @@ INSERT INTO `regiao_cidade` (`id_regiao_cidade`, `id_estado`, `nome_cidade`) VAL
 --
 
 CREATE TABLE `regiao_estado` (
-  `id_regiao_estado` int(11) NOT NULL,
+  `id_regiao_estado` int NOT NULL,
   `nome_estado` varchar(50) NOT NULL,
   `uf_regiao_estado` varchar(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `regiao_estado`
@@ -984,9 +984,9 @@ INSERT INTO `regiao_estado` (`id_regiao_estado`, `nome_estado`, `uf_regiao_estad
 --
 
 CREATE TABLE `situacao_postagem` (
-  `id_situacao_postagem` int(11) NOT NULL,
+  `id_situacao_postagem` int NOT NULL,
   `situacao_postagem` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `situacao_postagem`
@@ -1003,32 +1003,32 @@ INSERT INTO `situacao_postagem` (`id_situacao_postagem`, `situacao_postagem`) VA
 --
 
 CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `usuario` varchar(50) NOT NULL,
   `email` varchar(200) NOT NULL,
   `registro` varchar(11) NOT NULL COMMENT 'Esse campo se refere ao RGM/CPF do usuário',
   `senha` varchar(200) NOT NULL,
-  `nivel` int(11) NOT NULL,
+  `nivel` int NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `id_area` int(11) DEFAULT NULL,
-  `id_instituicao` int(11) DEFAULT NULL,
-  `id_regiao_cidade` int(11) DEFAULT NULL,
-  `img_usuarios` longblob DEFAULT NULL,
-  `telefone_usuario` bigint(20) DEFAULT NULL,
-  `img_capa` longblob DEFAULT NULL,
-  `data_cadastro` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id_area` int DEFAULT NULL,
+  `id_instituicao` int DEFAULT NULL,
+  `id_regiao_cidade` int DEFAULT NULL,
+  `img_usuarios` longblob,
+  `telefone_usuario` bigint DEFAULT NULL,
+  `img_capa` longblob,
+  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_regiao_estado` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `email_verified_at`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`, `img_capa`, `data_cadastro`) VALUES
-(128, 'Matheus Moura', 'Matheusmpinho@Outlook.com', '20867000', '$2y$10$I7h/qi.AzqnPx5E2rbcshOCJxr98DkA9OuorMdSKgsWHqhA0wjzhe', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-03 02:19:16'),
-(129, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', '22132066', '$2y$10$ySjdFDsV9NTzugT2.SYHUe47tNYsQhjGHjLOvTrC7RUSsy3GBLc92', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-03 02:19:16'),
-(130, 'Vinicius Vieira', 'vinicius_vieira_pereira@hotmail.com', '20541929', '$2y$10$.fAi./fsqoOj/dCe/ubcXuA0l7jKfTdRnYVvV/5JMDZaHSQdJ3H7m', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-03 02:19:16'),
-(131, 'Mauricio Freire', 'mauriciofreire520@gmail.com', '20530625', '$2y$10$kWsQWU/6Q1bletW3G0xnUuN/9zo19TAwoH7qBfzow5rXlnSQ20BPS', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-03 02:19:16'),
-(132, 'Usuario Teste', 'usu@usu.com', '12345678', '$2y$10$ZAXpXdDZyrVIILPd9cb9DeQObTUIY2LgC6zECNrC0dZmIsnKDkarq', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-03 02:19:16');
+INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `email_verified_at`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`, `img_capa`, `data_cadastro`, `id_regiao_estado`) VALUES
+(128, 'Matheus Moura', 'Matheusmpinho@Outlook.com', '20867000', '$2y$10$I7h/qi.AzqnPx5E2rbcshOCJxr98DkA9OuorMdSKgsWHqhA0wjzhe', 2, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, 0x3132386d6174686575732d6d6f7572612e6a706567, '2020-10-03 02:19:16', NULL),
+(129, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', '22132066', '$2y$10$ySjdFDsV9NTzugT2.SYHUe47tNYsQhjGHjLOvTrC7RUSsy3GBLc92', 3, '2020-10-02 03:00:00', 2, 3, 236, 0x3132396a6f6e617468616e2d646961732e6a7065672e6a706567, NULL, 0x3132396a6f6e617468616e2d646961732e6a7065672e6a706567, '2020-10-03 02:19:16', 18),
+(130, 'Vinicius Vieira', 'vinicius_vieira_pereira@hotmail.com', '20541929', '$2y$10$.fAi./fsqoOj/dCe/ubcXuA0l7jKfTdRnYVvV/5JMDZaHSQdJ3H7m', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-03 02:19:16', NULL),
+(131, 'Mauricio Freire', 'mauriciofreire520@gmail.com', '20530625', '$2y$10$kWsQWU/6Q1bletW3G0xnUuN/9zo19TAwoH7qBfzow5rXlnSQ20BPS', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-03 02:19:16', NULL);
 
 -- --------------------------------------------------------
 
@@ -1037,8 +1037,8 @@ INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, 
 --
 
 CREATE TABLE `verifica` (
-  `user_id` int(11) NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1196,7 +1196,8 @@ ALTER TABLE `usuarios`
   ADD KEY `id_nivel` (`nivel`),
   ADD KEY `id_area` (`id_area`),
   ADD KEY `id_instituicao` (`id_instituicao`),
-  ADD KEY `id_regiao_cidade` (`id_regiao_cidade`);
+  ADD KEY `id_regiao_cidade` (`id_regiao_cidade`),
+  ADD KEY `id_regiao_estado` (`id_regiao_estado`);
 
 --
 -- AUTO_INCREMENT de tabelas despejadas
@@ -1206,103 +1207,103 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `area_estudo`
 --
 ALTER TABLE `area_estudo`
-  MODIFY `id_area` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id_area` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de tabela `avaliacao_postagem`
 --
 ALTER TABLE `avaliacao_postagem`
-  MODIFY `id_avaliacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_avaliacao` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `categoria_postagem`
 --
 ALTER TABLE `categoria_postagem`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_categoria` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `check_denuncia`
 --
 ALTER TABLE `check_denuncia`
-  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_denuncia` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de tabela `check_denuncia_comentarios`
 --
 ALTER TABLE `check_denuncia_comentarios`
-  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_denuncia` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id_comentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_comentarios` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT de tabela `img_postagem`
 --
 ALTER TABLE `img_postagem`
-  MODIFY `id_img` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_img` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `instituicao_ensino`
 --
 ALTER TABLE `instituicao_ensino`
-  MODIFY `id_instituicao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_instituicao` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `like_comentarios`
 --
 ALTER TABLE `like_comentarios`
-  MODIFY `id_likes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_likes` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `like_postagens`
 --
 ALTER TABLE `like_postagens`
-  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_like` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de tabela `motivo_denuncia`
 --
 ALTER TABLE `motivo_denuncia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `nivel_acesso`
 --
 ALTER TABLE `nivel_acesso`
-  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_nivel` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `postagens`
 --
 ALTER TABLE `postagens`
-  MODIFY `id_postagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id_postagem` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT de tabela `regiao_cidade`
 --
 ALTER TABLE `regiao_cidade`
-  MODIFY `id_regiao_cidade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=591;
+  MODIFY `id_regiao_cidade` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=591;
 
 --
 -- AUTO_INCREMENT de tabela `regiao_estado`
 --
 ALTER TABLE `regiao_estado`
-  MODIFY `id_regiao_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_regiao_estado` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de tabela `situacao_postagem`
 --
 ALTER TABLE `situacao_postagem`
-  MODIFY `id_situacao_postagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_situacao_postagem` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- Restrições para despejos de tabelas
@@ -1395,7 +1396,8 @@ ALTER TABLE `usuarios`
   ADD CONSTRAINT `usuarios_ibfk_2` FOREIGN KEY (`nivel`) REFERENCES `nivel_acesso` (`id_nivel`),
   ADD CONSTRAINT `usuarios_ibfk_3` FOREIGN KEY (`id_area`) REFERENCES `area_estudo` (`id_area`),
   ADD CONSTRAINT `usuarios_ibfk_4` FOREIGN KEY (`id_instituicao`) REFERENCES `instituicao_ensino` (`id_instituicao`),
-  ADD CONSTRAINT `usuarios_ibfk_6` FOREIGN KEY (`id_regiao_cidade`) REFERENCES `regiao_cidade` (`id_regiao_cidade`);
+  ADD CONSTRAINT `usuarios_ibfk_6` FOREIGN KEY (`id_regiao_cidade`) REFERENCES `regiao_cidade` (`id_regiao_cidade`),
+  ADD CONSTRAINT `usuarios_ibfk_7` FOREIGN KEY (`id_regiao_estado`) REFERENCES `regiao_estado` (`id_regiao_estado`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
