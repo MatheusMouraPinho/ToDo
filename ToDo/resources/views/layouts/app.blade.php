@@ -242,7 +242,8 @@ $denuncia = Session::get('denuncia');
   </script>
 <!-- Modal notificação denuncia -->
 <div class="modal fade id" id="denuncia" role="dialog">
-    <div class="modal-dialog modal-content">
+    <div class="modal-dialog">
+      <div class="modal-content">
         <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
         <div class="modal-body">
                 <h4><?php if($denuncia == 1){ echo "<b> Denuncia efetuada </b>"; }else{echo "<b> Esta postagem ja foi denúnciada </b>";}?></h4><br>
@@ -250,6 +251,7 @@ $denuncia = Session::get('denuncia');
                 <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
             </div> 
         </div>
+      </div>
     </div>
 </div>
 <!-- FIM Modal notificação denuncia -->

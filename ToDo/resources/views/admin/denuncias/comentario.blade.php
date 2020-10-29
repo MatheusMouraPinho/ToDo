@@ -178,13 +178,15 @@ if ($total_pesquisa > 0 ){ //se tiver rows
 </div>
 <!-- Modal notificação -->
 <div class="modal fade id" id="notific" role="dialog">
-    <div class="modal-dialog modal-content">
-        <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
-        <div class="modal-body">
-                <h5><?php if($notific == 1){ echo "Todas a denúncias foram removidas do comentario de <b>". $nom .".</b>"; }else{echo "O Comentario de <b>". $nom ."</b> foi deletado.";}?></h5><br>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-            </div> 
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
+            <div class="modal-body">
+                    <h5><?php if($notific == 1){ echo "Todas a denúncias foram removidas do comentario de <b>". $nom .".</b>"; }else{echo "O Comentario de <b>". $nom ."</b> foi deletado.";}?></h5><br>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div> 
+            </div>
         </div>
     </div>
 </div>

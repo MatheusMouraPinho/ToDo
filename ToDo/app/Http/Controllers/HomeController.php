@@ -371,7 +371,7 @@ class HomeController extends Controller
             $sql = "INSERT INTO check_denuncia (id_postagem, id_usuario) VALUES ($id, $id2)";
             mysqli_query($conn, $sql);
 
-            $sql = "INSERT INTO denuncias (id_denuncia, id_postagem, id_motivo) VALUES ($id ,$id, $motivo) ON DUPLICATE KEY UPDATE quantidade = quantidade + 1";
+            $sql = "INSERT INTO denuncias (id_denuncia, id_postagem, id_motivo) VALUES ($id ,$id, $motivo) ON DUPLICATE KEY UPDATE id_motivo = $motivo , quantidade = quantidade + 1";
             mysqli_query($conn, $sql);
 
             $denuncia = 1;
@@ -400,7 +400,7 @@ class HomeController extends Controller
             $sql = "INSERT INTO check_denuncia_comentarios (id_comentario, id_usuario) VALUES ($id, $id2)";
             mysqli_query($conn, $sql);
 
-            $sql = "INSERT INTO denuncias_comentarios (id_denunciacomentario, id_comentario, id_motivo) VALUES ($id ,$id, $motivo) ON DUPLICATE KEY UPDATE quantidade = quantidade + 1";
+            $sql = "INSERT INTO denuncias_comentarios (id_denunciacomentario, id_comentario, id_motivo) VALUES ($id ,$id, $motivo) ON DUPLICATE KEY UPDATE id_motivo = $motivo , quantidade = quantidade + 1";
             mysqli_query($conn, $sql);
 
             $denuncia = 1;

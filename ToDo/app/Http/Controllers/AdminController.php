@@ -122,16 +122,22 @@ class AdminController extends Controller
         mysqli_set_charset($conn, 'utf8');
 
         $id_sql = $_POST ['alterar'];
-        $tipo = $_POST ['tipo'];
         $usu = $_POST ['nome'];
         $registro = $_POST ['registro'];
         $notific = 1;
 
-        if($tipo =='Admin'){$result = '3';}
-        else if($tipo == 'Avaliador'){ $result = '2';}
-        else{ $result = '1';}
+        if(isset($_POST ['tipo'])){
+            $tipo = $_POST ['tipo'];
+        
+            if($tipo =='Admin'){$result = '3';}
+            else if($tipo == 'Avaliador'){ $result = '2';}
+            else{ $result = '1';}
 
-        $sql = "UPDATE usuarios SET nivel = $result , registro = $registro WHERE id = $id_sql";
+            $sql = "UPDATE usuarios SET nivel = $result WHERE id = $id_sql";
+            mysqli_query($conn, $sql);
+        }
+
+        $sql = "UPDATE usuarios SET registro = $registro WHERE id = $id_sql";
         mysqli_query($conn, $sql);
 
         return redirect()->back()->with(['notific' =>  $notific])->with(['usu' => $usu]);

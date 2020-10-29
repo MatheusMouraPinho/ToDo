@@ -1,3 +1,24 @@
+<?php
+
+$db_config = Config::get('database.connections.'.Config::get('database.default'));
+$conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
+mysqli_set_charset($conn, 'utf8');
+
+$sql = "SELECT COUNT(id_denuncia) FROM denuncias";
+$rs1 = mysqli_query($conn, $sql);
+$denun1 = mysqli_fetch_array($rs1);
+
+$sql = "SELECT COUNT(id_denunciacomentario) FROM denuncias_comentarios";
+$rs2 = mysqli_query($conn, $sql);
+$denun2 = mysqli_fetch_array($rs2);
+
+$denun = $denun1[0] + $denun2[0];
+
+$sql = "SELECT COUNT(id_solicitacao) FROM solicitacoes";
+$rs1 = mysqli_query($conn, $sql);
+$soli = mysqli_fetch_array($rs1);
+
+?>
 <!-- Sidebar -->
 <div class="bg-light border-right" id="sidebar-wrapper">
     <div class="sidebar-heading">Painel Admin </div>
@@ -17,12 +38,18 @@
     <a href="{{ url('admin/denuncias') }}" class="list-group-item list-group-item-action bg-light">
         <svg width="1.1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-exclamation-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-        </svg>&nbsp Denuncias
+        </svg>&nbsp Denuncias &nbsp
+        <?php if( $denun >= 1 ){ ?>
+            <span class="notifi"><?php echo $denun ?></span>
+        <?php } ?>
     </a>
     <a href="{{ url('admin/solicitacoes') }}" class="list-group-item list-group-item-action bg-light">
         <svg width="1.1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-question-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033a.237.237 0 0 1-.24-.247C5.35 4.091 6.737 3.5 8.005 3.5c1.396 0 2.672.73 2.672 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.105a.25.25 0 0 1-.25.25h-.81a.25.25 0 0 1-.25-.246l-.004-.217c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.803 0-1.253.478-1.342 1.134-.018.137-.128.25-.266.25h-.825zm2.325 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z"/>
-        </svg>&nbsp Solicitações
+        </svg>&nbsp Solicitações &nbsp
+        <?php if( $soli[0] >= 1 ){ ?>
+            <span class="notifi"><?php echo $soli[0] ?></span>
+        <?php } ?>
     </a>
     <a href="{{ url('admin/bloqueados') }}" class="list-group-item list-group-item-action bg-light">
         <svg width="1.1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-shield-fill-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

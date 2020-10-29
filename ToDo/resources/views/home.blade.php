@@ -277,64 +277,68 @@ $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows
     @include('layouts.post')
     <!-- Modal deletar postagem -->
     <div class="modal fade id" id="del-post<?php echo $rows['id_postagem'];?>" role="dialog">
-        <div class="modal-dialog modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <br>
-                <h5><b><p>Deseja realmente apagar essa Postagem?</p></b><h5>
-                <br>
-                <div class="modal-footer">
-                    <form action="{{url('apagar_post')}}" method="POST">
-                        @csrf
-                        <input name="id_postagem" type="hidden" value="<?php echo $rows['id_postagem'];?>">
-                        <input type="hidden" name="identificador" value="0">
-                        <input type="hidden" name="filename" value="<?php echo $rows['id_postagem']. $rows['titulo_postagem']; ?>">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Confirmar</button>
-                    </form>
-                </div> 
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <br>
+                    <h5><b><p>Deseja realmente apagar essa Postagem?</p></b><h5>
+                    <br>
+                    <div class="modal-footer">
+                        <form action="{{url('apagar_post')}}" method="POST">
+                            @csrf
+                            <input name="id_postagem" type="hidden" value="<?php echo $rows['id_postagem'];?>">
+                            <input type="hidden" name="identificador" value="0">
+                            <input type="hidden" name="filename" value="<?php echo $rows['id_postagem']. $rows['titulo_postagem']; ?>">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Confirmar</button>
+                        </form>
+                    </div> 
+                </div>
             </div>
         </div>
     </div>
     <!-- FIM Modal deletar postagem -->
     <!-- Modal denunciar postagem -->
     <div class="modal fade id" id="den-post<?php echo $rows['id_postagem'];?>" role="dialog">
-        <div class="modal-dialog modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="{{url('denunciar_post')}}" method="POST">
-                @csrf
-                <div class="modal-body">
-                    <h4><p><b>Denunciar postagem por:</b></p></h4><br>
-                    <h6>
-                        <label class="radio-custom">Conteúdo Inadequado
-                            <input type="radio" id="radio1" name="option" value="3" required>
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="radio-custom">Spam
-                            <input type="radio" id="radio3" name="option" value="1" required>
-                            <span class="checkmark"></span>
-                        </label>
-                        <label class="radio-custom">Cópia
-                            <input type="radio" id="radio3" name="option" value="2" required>
-                            <span class="checkmark"></span>
-                        </label>
-                    </h6>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                        <input name="id_postagem" type="hidden" value="<?php echo $rows['id_postagem'];?>">
-                        <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
-                        <button type="submit" class="btn btn-primary">Confirmar</button>
-                    </div> 
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </form>
+                <form action="{{url('denunciar_post')}}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <h4><p><b>Denunciar postagem por:</b></p></h4><br>
+                        <h6>
+                            <label class="radio-custom">Conteúdo Inadequado
+                                <input type="radio" id="radio1" name="option" value="3" required>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-custom">Spam
+                                <input type="radio" id="radio3" name="option" value="1" required>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-custom">Cópia
+                                <input type="radio" id="radio3" name="option" value="2" required>
+                                <span class="checkmark"></span>
+                            </label>
+                        </h6>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            <input name="id_postagem" type="hidden" value="<?php echo $rows['id_postagem'];?>">
+                            <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
+                            <button type="submit" class="btn btn-primary">Confirmar</button>
+                        </div> 
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <!-- FIM Modal denunciar postagem -->

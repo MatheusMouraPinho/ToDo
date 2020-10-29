@@ -103,7 +103,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                     <form action="{{url('alterar')}}" method="POST">
                                         @csrf
                                         <div class="modal-body">
-                                            <p class="text-center"><h5>Alterar o acesso de <b><?php echo $nome ?></b></h5></p>
+                                            <p class="text-center"><h5>Alterar o dados de <b><?php echo $nome ?></b></h5></p>
                                             <br>
                                             <input name="nome" type="hidden" value="<?php echo $nome; ?>"/>
                                             <input type='hidden' name="alterar" value="<?php echo $id_usuario ?>"/>
@@ -112,6 +112,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                             <br><br>
                                             <label for="tipo" class="bold subdados">Tipo: </label>
                                             <select name="tipo" class="Bselect" class="btn btn-primary">
+                                                <option value="" disabled selected> Selecionar tipo </option>
                                                 <option>Usuario</option><option>Avaliador</option><option>Admin</option>
                                             </select>
                                             <br><br>
@@ -128,24 +129,26 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <!-- Fim Modal alterar -->
                         <!-- Modal deletar usuario -->
                         <div class="modal fade id" id="del_usu<?php echo $id_usuario; ?>" role="dialog">
-                            <div class="modal-dialog modal-content">
-                                <div class="modal-header-custom">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <h5><p>Deseja realmente deletar <b><?php echo $nome ?></b>?</p><h5><br>
-                                    <form action="{{url('del_usu')}}" method="POST">
-                                        @csrf
-                                        <div class="modal-footer">
-                                            <input name="nome" type="hidden" value="<?php echo $nome; ?>"/>
-                                            <input name="email" type="hidden" value="<?php echo $mail; ?>"/>
-                                            <input name="del_usu" type="hidden" value="<?php echo $id_usuario; ?>"/>
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                            <button type="submit" class="btn btn-primary">Confirmar</button>
-                                        </div> 
-                                    </form>
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header-custom">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5><p>Deseja realmente deletar <b><?php echo $nome ?></b>?</p><h5><br>
+                                        <form action="{{url('del_usu')}}" method="POST">
+                                            @csrf
+                                            <div class="modal-footer">
+                                                <input name="nome" type="hidden" value="<?php echo $nome; ?>"/>
+                                                <input name="email" type="hidden" value="<?php echo $mail; ?>"/>
+                                                <input name="del_usu" type="hidden" value="<?php echo $id_usuario; ?>"/>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary">Confirmar</button>
+                                            </div> 
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -153,13 +156,13 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <tbody class="pisca">
                             <tr class="linha">
                                 <td class="ajuste3"><?php echo $rows['usuario']; ?></td>
-                                <td><?php echo $rows['registro']; ?></td>
-                                <td><?php   if ($setup == 1) { echo "Usuário";    
+                                <td class="ajuste1"><?php echo $rows['registro']; ?></td>
+                                <td class="ajuste1"><?php   if ($setup == 1) { echo "Usuário";    
                                             }else if ($setup == 2) { echo "Avaliador";
                                             }else if ($setup == 3) { echo "Admin";}
                                     ?>
                                 </td>
-                                <td><a type="button"  data-toggle="modal" data-target="#modal<?php echo $id_usuario ?>">
+                                <td class="ajuste1"><a type="button"  data-toggle="modal" data-target="#modal<?php echo $id_usuario ?>">
                                 <img width="33px" src="{{asset('img/edit.png')}}">
                                 </a></td>
                             </tr>
@@ -190,13 +193,15 @@ if ($total_pesquisa > 0 ){ //se tiver rows
 </div>
 <!-- Modal notificação -->
 <div class="modal fade id" id="notific" role="dialog">
-    <div class="modal-dialog modal-content">
-        <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
-        <div class="modal-body">
-                <h5><?php if($notific == 1){ echo "Os dados de <b>". $usu ."</b> foram alterados."; }else{echo "Usuario <b>". $usu ."</b> Deletado";}?></h5><br>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-            </div> 
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
+            <div class="modal-body">
+                    <h5><?php if($notific == 1){ echo "Os dados de <b>". $usu ."</b> foram alterados."; }else{echo "Usuario <b>". $usu ."</b> Deletado";}?></h5><br>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div> 
+            </div>
         </div>
     </div>
 </div>
