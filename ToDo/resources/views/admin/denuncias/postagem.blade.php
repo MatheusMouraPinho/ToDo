@@ -20,7 +20,7 @@ $num_pagina = ceil($total_pesquisa/$quantidade);
 
 $inicio = ($quantidade*$pagina)-$quantidade;
 
-$sql = "SELECT * FROM denuncias LEFT JOIN postagens ON (denuncias.id_postagem = postagens.id_postagem) ORDER BY quantidade DESC LIMIT $inicio, $quantidade";
+$sql = "SELECT * FROM denuncias LEFT JOIN postagens ON (denuncias.id_postagem = postagens.id_postagem) LEFT JOIN motivo_denuncia ON (id_motivo = motivo_denuncia.id_motivo_denuncia) ORDER BY quantidade DESC LIMIT $inicio, $quantidade";
 $result = mysqli_query($conn, $sql);//pesquisa limitada com paginação
 
 $pagina_anterior = $pagina - 1; //paginação
@@ -82,13 +82,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                             <tbody class="texture pisca">
                                 <tr class="linha">
                                     <td class="ajuste3"><?php echo $rows['titulo_postagem']; ?></td>
-                                    <td class="ajuste1">
-                                        <?php 
-                                        if ($rows['id_motivo'] == 1 ) { echo "Spam";    
-                                        }elseif($rows['id_motivo'] == 2 ){ echo "Cópia";
-                                        }else{ echo "Conteúdo Inadequado";}
-                                        ?>
-                                    </td>
+                                    <td class="ajuste1"><?php echo $rows['nome_motivo']; ?></td>
                                     <td class="ajuste1">
                                         <?php 
                                         echo $rows['quantidade'];
@@ -131,7 +125,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                     </div>
                                     <!-- Fim Modal -->
                                     <td><a type="button" data-toggle="modal" data-target="#post<?php echo $id_post ?>">
-                                        <img width="33px" src="{{asset('img/lupe.png')}}">
+                                        <img width="30px" src="{{asset('img/lupe.png')}}">
                                     </a></td>
                                     @include('layouts.post')
                                     <td><a type="button" data-toggle="modal" data-target="#modal<?php echo $id_post ?>">
@@ -168,7 +162,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
     <div class="modal-dialog modal-content">
         <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
         <div class="modal-body">
-                <h4><?php if($notific == 1){ echo "Todas a denuncias foram removidas da postagem <b>". $nom .".</b>"; }else{echo "Postagem <b>". $nom ."</b> foi deletada.";}?></h4><br>
+                <h5><?php if($notific == 1){ echo "Todas a denuncias foram removidas da postagem <b>". $nom .".</b>"; }else{echo "Postagem <b>". $nom ."</b> foi deletada.";}?></h5><br>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
             </div> 

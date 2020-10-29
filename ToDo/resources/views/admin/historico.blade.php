@@ -7,9 +7,6 @@ mysqli_set_charset($conn, 'utf8');
 
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
-$notific = Session::get('notific');
-$usu = Session::get('usu');
-
 $sql = "SELECT * FROM usuarios";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
@@ -78,7 +75,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel']; $mail = $rows['email']; $name = $rows['usuario']; $id_usuario = $rows['id'];?>
                             <tbody>
                                 <tr class="linha">
-                                    <td class="ajuste1"><?php echo date('d/m/Y', strtotime($rows['data_cadastro'])). " às ". date('H:i', strtotime($rows['email_verified_at'])); ?></td>
+                                    <td class="ajuste1"><?php echo date('d/m/Y', strtotime($rows['data_cadastro'])). " às ". date('H:i', strtotime($rows['data_cadastro'])); ?></td>
                                     <td class="ajuste3"><?php echo $rows['usuario']; ?></td>
                                     <td class="ajuste1"><?php echo $rows['registro']; ?></td>
                                     <td class="ajuste1"><?php echo $rows['email']; ?></td>
@@ -116,27 +113,6 @@ if ($total_pesquisa > 0 ){ //se tiver rows
         </div>
     </div>
 </div>
-<!-- Modal notificação -->
-<div class="modal fade id" id="notific" role="dialog">
-    <div class="modal-dialog modal-content">
-        <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
-        <div class="modal-body">
-                <h4><?php if($notific == 1){ echo "Cadastro do Usuario <b>". $usu ."</b> Aceito."; }else{echo "Cadastro do Usuario <b>". $usu ."</b> Recusado";}?></h4><br>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-            </div> 
-        </div>
-    </div>
-</div>
-<!-- FIM Modal notificação -->
-<?php
-if(isset($notific)){?>
-    <script>
-        $(function(){
-            $("#notific").modal('show');
-        });
-    </script>
-<?php }?>
 
 <script>
 $("#menu-toggle").click(function(e) {

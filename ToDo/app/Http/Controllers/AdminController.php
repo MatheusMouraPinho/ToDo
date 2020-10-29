@@ -7,9 +7,8 @@ use DB;
 use Illuminate\Support\Facades\DB as FacadesDB;
 use intval;
 use Mail;
-use App\Mail\cadastro_aceito;
-use App\Mail\cadastro_recusado;
-use App\Mail\usuario_deletado;
+use App\Mail\solicitacao_aceita;
+use App\Mail\solicitacao_recusada;
 use Config;
 use Storage;
 
@@ -125,13 +124,14 @@ class AdminController extends Controller
         $id_sql = $_POST ['alterar'];
         $tipo = $_POST ['tipo'];
         $usu = $_POST ['nome'];
+        $registro = $_POST ['registro'];
         $notific = 1;
 
         if($tipo =='Admin'){$result = '3';}
         else if($tipo == 'Avaliador'){ $result = '2';}
         else{ $result = '1';}
 
-        $sql = "UPDATE usuarios SET nivel = $result WHERE id = $id_sql";
+        $sql = "UPDATE usuarios SET nivel = $result , registro = $registro WHERE id = $id_sql";
         mysqli_query($conn, $sql);
 
         return redirect()->back()->with(['notific' =>  $notific])->with(['usu' => $usu]);
@@ -271,7 +271,7 @@ class AdminController extends Controller
         return redirect()->back(); 
     }
 
-    public function option(){  
+    public function option(){  //denuncia postagem
         if($_POST['option'] == 'rem_den'){
             $db_config = Config::get('database.connections.'.Config::get('database.default'));
             $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
@@ -361,7 +361,7 @@ class AdminController extends Controller
         }
     }
 
-    public function option2(){
+    public function option2(){ //denuncia comentario
         if($_POST['option'] == 'rem_den'){
             $db_config = Config::get('database.connections.'.Config::get('database.default'));
             $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
@@ -399,6 +399,42 @@ class AdminController extends Controller
             mysqli_query($conn, $sql);
 
             $sql = "DELETE FROM comentarios WHERE id_comentarios = $id_com";
+            mysqli_query($conn, $sql);
+
+            return redirect()->back()->with(['notific' =>  $notific])->with(['nom' => $nom]);
+        }
+    }
+    public function option3(){ //solicitacao
+        if($_POST['option'] == 'aceita'){
+            $db_config = Config::get('database.connections.'.Config::get('database.default'));
+            $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
+            mysqli_set_charset($conn, 'utf8');
+
+            $id_soli = $_POST ['id_soli'];
+            $nom = $_POST ['usu'];
+            $mail = $_POST ['mail'];
+            $notific = 1;
+
+            Mail::to($mail)->send(new solicitacao_aceita());
+
+            $sql = "DELETE FROM solicitacoes WHERE id_solicitacao = $id_soli";
+            mysqli_query($conn, $sql);
+
+            return redirect()->back()->with(['notific' =>  $notific])->with(['nom' => $nom]);
+        }
+        if($_POST['option'] == 'recusada'){
+            $db_config = Config::get('database.connections.'.Config::get('database.default'));
+            $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
+            mysqli_set_charset($conn, 'utf8');
+            
+            $id_soli = $_POST ['id_soli'];
+            $nom = $_POST ['usu'];
+            $mail = $_POST ['mail'];
+            $notific = 2;
+
+            Mail::to($mail)->send(new solicitacao_recusada());
+
+            $sql = "DELETE FROM solicitacoes WHERE id_solicitacao = $id_soli";
             mysqli_query($conn, $sql);
 
             return redirect()->back()->with(['notific' =>  $notific])->with(['nom' => $nom]);

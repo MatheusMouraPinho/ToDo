@@ -1,7 +1,6 @@
 @component('mail::message')
 Olá,  {{-- use double space for line break --}}
-O seu cadastro foi recusado devido a decisão do administrador  
-tente fazer outro cadastro porem com dados corretos.
+A sua solicitação foi recusada devido a decisão do administrador.
 
 Clique no botão abaixo para acessar o nosso site
 @component('mail::button', ['url' => 'http://localhost/ToDo/'])

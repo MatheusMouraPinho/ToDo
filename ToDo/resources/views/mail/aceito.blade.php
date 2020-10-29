@@ -1,6 +1,6 @@
 @component('mail::message')
 Olá,  {{-- use double space for line break --}}
-O seu cadastro foi aceito
+A sua solicitação foi aceita.
 
 Clique no botão abaixo para acessar o nosso site
 @component('mail::button', ['url' => 'http://localhost/ToDo/'])

@@ -5,12 +5,15 @@ $db_config = Config::get('database.connections.'.Config::get('database.default')
 $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
 mysqli_set_charset($conn, 'utf8');
 
+$user = Auth::user()->id;
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
+$notific = Session::get('notific');
+$nom = Session::get('nom');
 
 $notific = Session::get('notific');
 $usu = Session::get('usu');
 
-$sql = "SELECT * FROM usuarios";
+$sql = "SELECT * FROM solicitacoes";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
@@ -20,7 +23,7 @@ $num_pagina = ceil($total_pesquisa/$quantidade);
 
 $inicio = ($quantidade*$pagina)-$quantidade;
 
-$sql = "SELECT * FROM usuarios ORDER BY data_cadastro DESC LIMIT $inicio, $quantidade ";
+$sql = "SELECT * FROM solicitacoes LEFT JOIN usuarios ON (usuario_solicitacao = usuarios.id) LEFT JOIN tipo_solicitacoes ON (tipo_solicitacao = tipo_solicitacoes.id_tipo_solicitacao) ORDER BY data_solicitacao DESC LIMIT $inicio, $quantidade ";
 $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
 $pagina_anterior = $pagina - 1; //paginação
@@ -63,24 +66,140 @@ if ($total_pesquisa > 0 ){ //se tiver rows
             <div class="table-responsive">
                 <table class="table" id="table_admin" width="100%" cellspacing="0">
                     <caption class="aredonda"></caption>
-                    <tbody>  
-                        <tr>
-                            <td rowspan="10">
-                                <div style="padding-top:20px">
-                                    <svg width="60%" height="60%" viewBox="0 0 16 16" class="bi bi-clock-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-                                    </svg>
-                                    <p style="margin-top:35px" ><h4><b>Work In Progress</h4></b></p>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <?php if(isset($check)){ ?>
+                        <thead>
+                            <tr class="custom">
+                                <th>Data da solicitação</th>
+                                <th>Nome do usuario</th>
+                                <th>RGM/CPF</th>
+                                <th>Tipo</th>
+                                <th>Pedido</th>
+                                <th>Opções</th>
+                            </tr>
+                        </thead>
+                        <?php while($rows = mysqli_fetch_assoc($result2)){?>
+                            <tbody>
+                                <tr class="linha">
+                                    <td class="ajuste1"><?php echo date('d/m/Y', strtotime($rows['data_solicitacao'])). " às ". date('H:i', strtotime($rows['data_solicitacao'])); ?></td>
+                                    <td class="ajuste3"><?php echo $rows['usuario']; ?></td>
+                                    <td class="ajuste1"><?php echo $rows['registro']; ?></td>
+                                    <td class="ajuste1"><?php echo $rows['nome_tipo_solicitacao']; ?></td>
+                                    <!-- Modal visualizar -->
+                                    <div class="modal fade" id="post<?php echo $rows['id_solicitacao'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header-custom">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="{{url('alterar')}}" method="POST">
+                                                @csrf
+                                                <div class="modal-body">
+                                                    <p class="text-center"><h5>Pedido da solicitação <b></b></h5></p>
+                                                    <br>
+                                                    <textarea style="resize: none" cols="60" rows="6" readonly><?php echo $rows['conteudo_solicitacao'] ?></textarea>
+                                                </div>
+                                                <div class="modal-footer-custom grey">
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                                                </div>
+                                            </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Fim Modal visualizar -->
+                                    <td><a type="button" data-toggle="modal" data-target="#post<?php echo $rows['id_solicitacao'] ?>">
+                                        <img width="30px" src="{{asset('img/lupe.png')}}">
+                                    </a></td>
+                                    <!-- Modal Opções --> 
+                                    <div class="modal fade" id="modal<?php echo $rows['id_solicitacao'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header-custom">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="{{url('option3')}}" method="POST">
+                                                @csrf
+                                                <div class="modal-body">
+                                                    <p><h4>Opções:</h4></p>
+                                                    <br>
+                                                    <h6>
+                                                        <label class="radio-custom">Aceitar solicitação
+                                                            <input type="radio" id="radio1" type="radio" name="option" value="aceita" required>
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                        <label class="radio-custom">Recusar solicitação
+                                                            <input type="radio" id="radio2" type="radio" name="option" value="recusada" required>
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                    </h6>
+                                                </div>
+                                                <div class="modal-footer-custom grey">
+                                                    <input type='hidden' name="id_soli" value="<?php echo $rows['id_solicitacao']; ?>"/>
+                                                    <input type='hidden' name="usu" value="<?php echo $rows['usuario']; ?>"/>
+                                                    <input type='hidden' name="mail" value="<?php echo $rows['email']; ?>"/>
+                                                    <input type='hidden' name="url" value="{{env('APP_URL')}}"/>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                                                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- Fim Modal Opções -->
+                                    <td><a type="button" data-toggle="modal" data-target="#modal<?php echo $rows['id_solicitacao'] ?>">
+                                            <img width="33px" src="{{asset('img/options.png')}}">
+                                    </a></td>
+                                </tr>
+                            </tbody>
+                        <?php }?>
+                    <?php }else{?>
+                        <tbody>  
+                            <tr>
+                                <td rowspan="10">
+                                    <div style="padding-top:20px">
+                                        <svg width="60%" height="60%" viewBox="0 0 16 16" class="bi bi-clock-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                                        </svg>
+                                        <p style="margin-top:35px" ><h4><b>Nenhuma solicitação no momento</h4></b></p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    <?php } ?>
                 </table>
             </div>
             <br>
+            <?php if(isset($check)){ ?>
+                @include('admin/layout/page')
+            <?php } ?>
         </div>
     </div>
 </div>
+
+<!-- Modal notificação -->
+<div class="modal fade id" id="notific" role="dialog">
+    <div class="modal-dialog modal-content">
+        <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
+        <div class="modal-body">
+                <h5><?php if($notific == 1){ echo "Solicitação de <b>". $nom . "</b> foi aceita e notificada ao usuário."; }else{echo "Solicitação de <b>". $nom ."</b> foi recusada e notificada ao usuário.";}?></h5><br>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div> 
+        </div>
+    </div>
+</div>
+<!-- FIM Modal notificação -->
+<?php
+if(isset($notific)){ ?>
+    <script>
+        $(function(){
+            $("#notific").modal('show');
+        });
+    </script>
+<?php } ?>
+
 
 <script>
 $("#menu-toggle").click(function(e) {

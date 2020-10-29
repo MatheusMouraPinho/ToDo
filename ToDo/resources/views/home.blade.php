@@ -270,7 +270,7 @@ $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows
             </div>
         @elseif(file_exists($nome_file_png2))
             <div class="destaque-container">
-                <img class="destaque-home" data-toggle="modal" data-target="#img2<?php echo $id_post ?>" src="{{url('/ToDo/storage/app/public/posts/'.'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.png')}}">
+                <img class="destaque-home" style="cursor: pointer" data-toggle="modal" data-target="#img2<?php echo $id_post ?>" src="{{url('/ToDo/storage/app/public/posts/'.'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.png')}}">
                 </div>
         @endif
     </div>

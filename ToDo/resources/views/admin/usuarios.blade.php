@@ -107,6 +107,9 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                             <br>
                                             <input name="nome" type="hidden" value="<?php echo $nome; ?>"/>
                                             <input type='hidden' name="alterar" value="<?php echo $id_usuario ?>"/>
+                                            <label for="tipo" class="bold subdados">RGM/CPF: </label>
+                                            <input type="text" class="Bselect" name="registro" value="{{ $rows['registro'] }}">
+                                            <br><br>
                                             <label for="tipo" class="bold subdados">Tipo: </label>
                                             <select name="tipo" class="Bselect" class="btn btn-primary">
                                                 <option>Usuario</option><option>Avaliador</option><option>Admin</option>
@@ -126,9 +129,13 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <!-- Modal deletar usuario -->
                         <div class="modal fade id" id="del_usu<?php echo $id_usuario; ?>" role="dialog">
                             <div class="modal-dialog modal-content">
-                                <div class="modal-header"></div>
+                                <div class="modal-header-custom">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                                 <div class="modal-body">
-                                    <h4><p>Deseja realmente deletar <b><?php echo $nome ?></b>?</p><h4><br>
+                                    <h5><p>Deseja realmente deletar <b><?php echo $nome ?></b>?</p><h5><br>
                                     <form action="{{url('del_usu')}}" method="POST">
                                         @csrf
                                         <div class="modal-footer">
@@ -186,7 +193,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
     <div class="modal-dialog modal-content">
         <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
         <div class="modal-body">
-                <h4><?php if($notific == 1){ echo "Acesso de <b>". $usu ."</b> Alterado."; }else{echo "Usuario <b>". $usu ."</b> Deletado";}?></h4><br>
+                <h5><?php if($notific == 1){ echo "Os dados de <b>". $usu ."</b> foram alterados."; }else{echo "Usuario <b>". $usu ."</b> Deletado";}?></h5><br>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
             </div> 
