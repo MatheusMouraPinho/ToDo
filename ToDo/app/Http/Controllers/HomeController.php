@@ -390,7 +390,6 @@ class HomeController extends Controller
         $motivo = $_POST['option'];
         $id = $_POST ['id_comentario'];
         $id2 = $_POST ['id_usuario'];
-        $id_postagem = $_POST['id_postagem'];
         
         $sql = "SELECT * FROM check_denuncia_comentarios WHERE id_comentario = $id AND id_usuario = $id2";
         $result = mysqli_query($conn, $sql);
@@ -408,7 +407,7 @@ class HomeController extends Controller
             $denuncia = 2;
         }
         
-        return back()->with(['denuncia' =>  $denuncia])->with(['id_postagem' => $id_postagem]);
+        return back()->with(['denuncia' =>  $denuncia]);
     }
 
     public function like_post(Request $request) {

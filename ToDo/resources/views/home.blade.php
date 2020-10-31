@@ -263,7 +263,7 @@ $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows
             <img class="img-ava" src="{{asset('img/avaliacao.png')}}"></img>
             <div class="result-situation-home"><?php if ($situation == 1) { echo number_format((float)$rows['media'], 2, '.', '');}else{ echo "N/A";} ?></div>
         </div>
-        <div class="visualizar-home"> <a style="text-decoration:underline" type="button"  data-toggle="modal" data-target="#post<?php echo $id_post ?>">Visualizar</a> </div>
+        <div class="visualizar-home"> <a style="text-decoration:underline" type="button"  data-toggle="modal" onclick="modal(<?php echo $id_post ;?>)" data-target="#post<?php echo $id_post ?>">Visualizar</a> </div>
         @if(file_exists($nome_file2))
             <div class="destaque-container">
                 <img class="destaque-home" data-toggle="modal" data-target="#img2<?php echo $id_post ?>" src="{{url('/ToDo/storage/app/public/posts/'.'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg')}}">

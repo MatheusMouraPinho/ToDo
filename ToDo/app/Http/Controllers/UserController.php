@@ -155,6 +155,14 @@ class UserController extends Controller
                                     ->where('id_regiao_cidade',$dados_usr->id_regiao_cidade)
                                     ->value('nome_cidade'),
 
+                'estado' => DB::select('SELECT nome_estado, id_regiao_estado from regiao_estado where id_regiao_estado = (
+                                    SELECT id_estado from regiao_cidade where id_regiao_cidade = :cidade
+                                    )' , ['cidade' => $dados_usr->id_regiao_cidade]),
+                    
+                'estados' => DB::table('regiao_estado')
+                                    ->select('nome_estado', 'id_regiao_estado')
+                                    ->get(),
+
                 'area' => DB::table('area_estudo')
                                     ->where('id_area', $dados_usr->id_area)
                                     ->value('nome_area'),

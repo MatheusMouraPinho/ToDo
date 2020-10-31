@@ -1679,7 +1679,7 @@ input[type='file'] {
     margin: 0px 0px 0px 0px;
   }
 
-  th, tr {
+  th, td {
     max-width: 70px;
     min-width: 40px;
   }
@@ -1688,6 +1688,10 @@ input[type='file'] {
 @media (min-width:401px) and (max-width:475px) {
   .div_icon {
     left: 230px;
+  }
+  th, td {
+    max-width: 90px;
+    min-width: 40px;
   }
 }
 

@@ -4,8 +4,38 @@ session_start();
 use Symfony\Component\Console\Input\Input;
 
 $nivel = Auth::user()->nivel;
+$user = Auth::user()->id;
 
-//dd($dados['estado'][0]->nome_estado);
+if(NULL !== Session::get('filtro_coment')){$_SESSION['filtro_coment'] = Session::get('filtro_coment');}
+if(isset($_SESSION['filtro_coment'])){$filtro_coment = $_SESSION['filtro_coment'];}
+if(!isset($filtro_coment)){$filtro_coment = "data_comentarios";}
+
+
+if(NULL !== Session::get('selected')){$_SESSION['selected'] = Session::get('selected');}
+if(isset($_SESSION['selected'])){$selected = $_SESSION['selected'];}
+if(!isset($selected)){$selected = "1";}
+
+
+$comments = [
+            'comentarios' => DB::table('comentarios')
+                                ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
+                                ->where('comentarios.id_mencionado', '=', null, 'and')
+                                ->where('comentarios.id_avaliacao', '=', null)
+                                ->join('usuarios', 'comentarios.id_usuarios', '=', 'usuarios.id')
+                                ->select('comentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
+                                ->orderBy($filtro_coment, 'desc')
+                                ->get(),
+
+
+            'reply_coment' => DB::table('comentarios')
+                                ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
+                                ->where('comentarios.id_mencionado', '!=', null)
+                                ->leftJoin('usuarios as users', 'comentarios.id_usuarios', '=', 'users.id')
+                                ->select('comentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'users.*')                               
+                                ->orderBy($filtro_coment, 'desc')
+                                ->get(),
+];
+
 ?>
 @section('content')
 
@@ -243,7 +273,7 @@ $nivel = Auth::user()->nivel;
                             </svg>
                           </button>
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="" data-toggle="modal" data-target="#popup{{$posts->id_postagem }}">
+                            <a class="dropdown-item" href="" data-toggle="modal" onclick="modal({{ $posts->id_postagem }})" data-target="#popup{{$posts->id_postagem }}">
                               <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
                                 <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>

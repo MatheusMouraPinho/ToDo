@@ -124,7 +124,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                         </div>
                                     </div>
                                     <!-- Fim Modal -->
-                                    <td><a type="button" data-toggle="modal" data-target="#post<?php echo $id_post ?>">
+                                    <td><a type="button" data-toggle="modal" onclick="modal(<?php echo $id_post ;?>)" data-target="#post<?php echo $id_post ?>">
                                         <img width="30px" src="{{asset('img/lupe.png')}}">
                                     </a></td>
                                     @include('layouts.post')

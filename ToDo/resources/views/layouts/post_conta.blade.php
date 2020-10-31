@@ -1,39 +1,3 @@
-<?php
-
-$user = Auth::user()->id;
-
-if(NULL !== Session::get('filtro_coment')){$_SESSION['filtro_coment'] = Session::get('filtro_coment');}
-if(isset($_SESSION['filtro_coment'])){$filtro_coment = $_SESSION['filtro_coment'];}
-if(!isset($filtro_coment)){$filtro_coment = "data_comentarios";}
-
-
-if(NULL !== Session::get('selected')){$_SESSION['selected'] = Session::get('selected');}
-if(isset($_SESSION['selected'])){$selected = $_SESSION['selected'];}
-if(!isset($selected)){$selected = "1";}
-
-
-$comments = [
-            'comentarios' => DB::table('comentarios')
-                                ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
-                                ->where('comentarios.id_mencionado', '=', null, 'and')
-                                ->where('comentarios.id_avaliacao', '=', null)
-                                ->join('usuarios', 'comentarios.id_usuarios', '=', 'usuarios.id')
-                                ->select('comentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'usuarios.*')
-                                ->orderBy($filtro_coment, 'desc')
-                                ->get(),
-
-
-            'reply_coment' => DB::table('comentarios')
-                                ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
-                                ->where('comentarios.id_mencionado', '!=', null)
-                                ->leftJoin('usuarios as users', 'comentarios.id_usuarios', '=', 'users.id')
-                                ->select('comentarios.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'users.*')                               
-                                ->orderBy($filtro_coment, 'desc')
-                                ->get(),
-];
-
-
-?>
 <!-- Área de detalhes de ideias postadas -->
 
 <div class="painel-dados">
@@ -297,7 +261,13 @@ $comments = [
                                 Apagar
                               </a>
                             @else
-                            <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#den_comen{{$comments['comentarios'][$f]->id_comentarios}}">Denunciar</a>
+                            <a class="dropdown-item" href="#" style="cursor: pointer" data-toggle="modal" data-target="#den_comen{{$comments['comentarios'][$f]->id_comentarios}}">
+                              <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-exclamation-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                              </svg>&nbsp;
+                              Denunciar
+                            </a>
                             @endif
                           </div>
                         </div> 
@@ -326,37 +296,6 @@ $comments = [
                         @else
                           <span class="underline data-coment_foot"><?='(editado) '. Helper::tempo_corrido($comments['comentarios'][$f]->data_comentarios)?></span>
                         @endif
-
-                        <!--  Modal de edição de comentários -->
-                          <div class="painel-dados">
-                            <div class="modal fade id" id="popup{{$comments['comentarios'][$f]->id_comentarios}}_edit1" role="dialog">
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                  </div>
-                                  <div class="modal-body"> 
-                                    <form action="{{ route('edit.coment') }}" method="POST"> 
-                                      @csrf                   
-                                      <div class="div-edit">
-                                        <label style="vertical-align: top" for="editcomentario" class="bold subedit">Descrição:</label>
-                                        <textarea name="editcomentario" id="edit_desc" cols="60" rows="1" required maxlength="255">{{$comments['comentarios'][$f]->conteudo_comentarios }}</textarea>
-                                        <input type="hidden" name="id_coment" value="{{ $comments['comentarios'][$f]->id_comentarios }}">
-                                        <input type="hidden" value="{{$posts->id_postagem}}" name="id_postagem">
-                                      </div>
-                                    
-
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                      <button data-toggle="modal" data-target="#hiddenDiv" type="submit" class="btn btn-primary">Salvar Alterações</button>
-                                    </div> 
-                                  </form> 
-
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
                   
                         <div id="comentarios">
                           <form action="{{ route('comentario') }}" method="POST">
@@ -371,72 +310,7 @@ $comments = [
                       </div>
                       
                     </div> 
-
-                    <!-- Modal denunciar comentario -->
-                    <div class="modal fade id" id="den_comen{{$comments['comentarios'][$f]->id_comentarios}}" role="dialog">
-                      <div class="modal-dialog modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                          <form action="{{url('/denunciar_comentario')}}" method="POST">
-                              @csrf
-                              <div class="modal-body">
-                                  <h3><p>Denunciar Comentario por:</p></h3><br>
-                                  <h6>
-                                      <label class="radio-custom">Conteúdo Inadequado
-                                          <input type="radio" id="radio1" type="radio" name="option" value="3" required>
-                                          <span class="checkmark"></span>
-                                      </label>
-                                      <label class="radio-custom">Spam
-                                          <input type="radio" id="radio2" type="radio" name="option" value="1" required>
-                                          <span class="checkmark"></span>
-                                      </label>
-                                      <label class="radio-custom">Copia
-                                          <input type="radio" id="radio3" type="radio" name="option" value="2" required>
-                                          <span class="checkmark"></span>
-                                      </label>
-                                  </h6>
-                                  <input type="hidden" value="{{$posts->id_postagem}}" name="id_postagem">
-                                  <div class="modal-footer">
-                                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                      <input name="id_comentario" type="hidden" value="{{$comments['comentarios'][$f]->id_comentarios}}">
-                                      <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
-                                      <button type="submit" class="btn btn-primary">Confirmar</button>
-                                  </div> 
-                              </div>
-                          </form>
-                      </div>
-                  </div>
-                  <!-- FIM Modal denunciar comentario -->
                     
-                    <!--  Modal para apagar comentários -->
-                  <div class="painel-dados">
-                    <div class="modal fade id" id="popup{{$comments['comentarios'][$f]->id_comentarios}}_apagar2" role="dialog">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                              <span aria-hidden="true">&times;</span>
-                              </button>
-                          </div>
-                          <div class="modal-body"> 
-                            <p>Deseja realmente apagar este comentário?</p>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                              <form action="{{route('apagar-coment')}}" method="POST">
-                                @csrf
-                                <input name="id_comentario" type="hidden" value="{{ $comments['comentarios'][$f]->id_comentarios }}">
-                                <input type="hidden" value="{{$posts->id_postagem}}" name="id_postagem">
-                                <button type="submit" class="btn btn-primary">Confirmar</button>
-                              </form>
-                            </div> 
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>         
                   @endif
                   @for($g=0; $g<sizeof($comments['reply_coment']); $g++)
                     @if($comments['reply_coment'][$g]->id_postagem === $posts->id_postagem && $comments['comentarios'][$f]->id_comentarios === $comments['reply_coment'][$g]->id_comentarios_ref)
@@ -555,97 +429,6 @@ $comments = [
                         </div>
 
                       </div>
-
-                      <!-- Modal denunciar comentario Reply -->
-                      <div class="modal fade id" id="den_comen_reply{{$comments['reply_coment'][$g]->id_comentarios }}" role="dialog">
-                        <div class="modal-dialog modal-content">
-                            <div class="modal-header"></div>
-                            <form action="/denunciar_comentario" method="POST">
-                                @csrf
-                                <div class="modal-body">
-                                    <h3><p>Denunciar Comentario por:</p></h3><br>
-                                    <h6>
-                                        <label class="radio-custom">Conteúdo Inadequado
-                                            <input type="radio" id="radio1" type="radio" name="option" value="3" required>
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-custom">Spam
-                                            <input type="radio" id="radio3" type="radio" name="option" value="1" required>
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-custom">Copia
-                                            <input type="radio" id="radio3" type="radio" name="option" value="2" required>
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </h6>
-                                    <input type="hidden" value="{{$posts->id_postagem}}" name="id_postagem">
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                        <input name="id_comentario" type="hidden" value="{{$comments['reply_coment'][$g]->id_comentarios }}">
-                                        <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
-                                        <input data-toggle="modal" type="submit" class="btn btn-primary" value="Confirmar">
-                                    </div> 
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- FIM Modal denunciar comentario reply -->
-
-                      <!--  Modal de edição de respostas de comentários -->
-                      <div class="painel-dados">
-                        <div class="modal fade id" id="popup{{$comments['reply_coment'][$g]->id_comentarios}}_edit" role="dialog">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              </div>
-                              <div class="modal-body"> 
-                                <form action="{{ route('edit.coment') }}" method="POST"> 
-                                  @csrf                   
-                                  <div class="div-edit">
-                                    <label style="vertical-align: top" for="editcomentario" class="bold subedit">Descrição:</label>
-                                    <textarea name="editcomentario" id="edit_desc" cols="60" rows="1" required maxlength="255">{{$comments['reply_coment'][$g]->conteudo_comentarios }}</textarea>
-                                    <input type="hidden" name="id_coment" value="{{ $comments['reply_coment'][$g]->id_comentarios }}">
-                                    <input type="hidden" value="{{$posts->id_postagem}}" name="id_postagem">
-                                  </div>
-                                
-
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                      <button data-toggle="modal" data-target="#hiddenDiv" type="submit" class="btn btn-primary">Salvar Alterações</button>
-                                  
-                                </div> 
-                              </form> 
-
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!--  Modal para apagar subcomentários -->
-                      <div class="painel-dados">
-                        <div class="modal fade id" id="popup{{$comments['reply_coment'][$g]->id_comentarios}}_apagar1" role="dialog">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                              </div>
-                              <div class="modal-body"> 
-                                <p>Deseja realmente apagar este comentário?</p>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                  <form action="{{route('apagar-coment')}}" method="POST">
-                                    @csrf
-                                    <input name="id_comentario" type="hidden" value="{{ $comments['reply_coment'][$g]->id_comentarios }}">
-                                    <input data-toggle="modal" type="submit" class="btn btn-primary dropright" value="Apagar comentário">
-                                    <input type="hidden" value="{{$posts->id_postagem}}" name="id_postagem">
-                                  </form>
-                                </div> 
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                       
                     @endif
                   @endfor
@@ -668,6 +451,9 @@ $comments = [
     </div>
   </div>
   <?php $i = $i + 1?>
+
+  
+
   <!-- Fim área de detalhes de ideias postadas-->
 
 <!-- Popup de visualização de imagens -->
@@ -743,11 +529,235 @@ $comments = [
 </div>
 <!-- Fim Popup de visualização de imagens3 -->
 
+@for($v=0; $v < sizeof($comments['comentarios']); $v++)
+  @if($comments['comentarios'][$v]->id == $user)
+  <!--  Modal para apagar comentários -->
+  <div class="painel-dados">
+    <div class="modal fade id" id="popup{{$comments['comentarios'][$v]->id_comentarios}}_apagar2" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body"> 
+            <p>Deseja realmente apagar este comentário?</p>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+              <form action="{{route('apagar-coment')}}" method="POST">
+                @csrf
+                <input name="id_comentario" type="hidden" value="{{ $comments['comentarios'][$v]->id_comentarios }}">
+                <input type="hidden" value="{{$comments['comentarios'][$v]->id_postagem}}" name="id_postagem">
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+              </form>
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>      
+  
+  <!--  Modal de edição de comentários -->
+  <div class="painel-dados">
+    <div class="modal fade id" id="popup{{$comments['comentarios'][$v]->id_comentarios}}_edit1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body"> 
+            <form action="{{ route('edit.coment') }}" method="POST"> 
+              @csrf                   
+              <div class="div-edit">
+                <label style="vertical-align: top" for="editcomentario" class="bold subedit">Descrição:</label>
+                <textarea name="editcomentario" id="edit_desc" cols="60" rows="1" required maxlength="255">{{$comments['comentarios'][$v]->conteudo_comentarios }}</textarea>
+                <input type="hidden" name="id_coment" value="{{ $comments['comentarios'][$v]->id_comentarios }}">
+                <input type="hidden" value="{{$comments['comentarios'][$v]->id_postagem}}" name="id_postagem">
+              </div>
+            
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+              <button data-toggle="modal" type="submit" class="btn btn-primary">Salvar Alterações</button>
+            </div> 
+          </form> 
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Fim modal de edição de comentarios -->
+  
+  @elseif($comments['comentarios'][$v]->id != $user)
+  <!-- Modal denunciar comentario -->
+  <div class="modal fade id" id="den_comen{{$comments['comentarios'][$v]->id_comentarios}}" role="dialog">
+    <div class="modal-dialog modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+        <form action="{{url('/denunciar_comentario')}}" method="POST">
+            @csrf
+            <div class="modal-body">
+                <h3><p>Denunciar Comentario por:</p></h3><br>
+                <h6>
+                    <label class="radio-custom">Conteúdo Inadequado
+                        <input type="radio" id="radio1" type="radio" name="option" value="3" required>
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="radio-custom">Spam
+                        <input type="radio" id="radio2" type="radio" name="option" value="1" required>
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="radio-custom">Copia
+                        <input type="radio" id="radio3" type="radio" name="option" value="2" required>
+                        <span class="checkmark"></span>
+                    </label>
+                </h6>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <input name="id_comentario" type="hidden" value="{{$comments['comentarios'][$v]->id_comentarios}}">
+                    <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                </div> 
+            </div>
+        </form>
+    </div>
+  </div>
+  <!-- FIM Modal denunciar comentario -->
+  @endif
+
+  @endfor  
+  
+  @for($r=0; $r<sizeof($comments['reply_coment']); $r++)
+
+    @if($comments['reply_coment'][$r]->id == $user)
+      <!--  Modal de edição de respostas de comentários -->
+      <div class="painel-dados">
+        <div class="modal fade id" id="popup{{$comments['reply_coment'][$r]->id_comentarios}}_edit" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body"> 
+                <form action="{{ route('edit.coment') }}" method="POST"> 
+                  @csrf                   
+                  <div class="div-edit">
+                    <label style="vertical-align: top" for="editcomentario" class="bold subedit">Descrição:</label>
+                    <textarea name="editcomentario" id="edit_desc" cols="60" rows="1" required maxlength="255">{{$comments['reply_coment'][$r]->conteudo_comentarios }}</textarea>
+                    <input type="hidden" name="id_coment" value="{{ $comments['reply_coment'][$r]->id_comentarios }}">
+                    <input type="hidden" value="{{$comments['reply_coment'][$r]->id_postagem}}" name="id_postagem">
+                  </div>
+                
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                      <button data-toggle="modal" data-target="#hiddenDiv" type="submit" class="btn btn-primary">Salvar Alterações</button>
+                  
+                </div> 
+              </form> 
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--  Fim modal de edição de respostas de comentários -->
+
+      <!--  Modal para apagar subcomentários -->
+      <div class="painel-dados">
+        <div class="modal fade id" id="popup{{$comments['reply_coment'][$r]->id_comentarios}}_apagar1" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+              </div>
+              <div class="modal-body"> 
+                <p>Deseja realmente apagar este comentário?</p>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                  <form action="{{route('apagar-coment')}}" method="POST">
+                    @csrf
+                    <input name="id_comentario" type="hidden" value="{{ $comments['reply_coment'][$r]->id_comentarios }}">
+                    <input data-toggle="modal" type="submit" class="btn btn-primary dropright" value="Apagar comentário">
+                    <input type="hidden" value="{{$comments['reply_coment'][$r]->id_postagem}}" name="id_postagem">
+                  </form>
+                </div> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--  Modal para apagar subcomentários -->
+    
+      @elseif($comments['reply_coment'][$r]->id != $user)
+      <!-- Modal denunciar comentario Reply -->
+      <div class="modal fade id" id="den_comen_reply{{$comments['reply_coment'][$r]->id_comentarios }}" role="dialog">
+        <div class="modal-dialog modal-content">
+            <div class="modal-header"></div>
+            <form action="/denunciar_comentario" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <h3><p>Denunciar Comentario por:</p></h3><br>
+                    <h6>
+                        <label class="radio-custom">Conteúdo Inadequado
+                            <input type="radio" id="radio1" type="radio" name="option" value="3" required>
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="radio-custom">Spam
+                            <input type="radio" id="radio3" type="radio" name="option" value="1" required>
+                            <span class="checkmark"></span>
+                        </label>
+                        <label class="radio-custom">Copia
+                            <input type="radio" id="radio3" type="radio" name="option" value="2" required>
+                            <span class="checkmark"></span>
+                        </label>
+                    </h6>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <input name="id_comentario" type="hidden" value="{{$comments['reply_coment'][$r]->id_comentarios }}">
+                        <input name="id_usuario" type="hidden" value="<?php echo $user;?>">
+                        <input data-toggle="modal" type="submit" class="btn btn-primary" value="Confirmar">
+                    </div> 
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- FIM Modal denunciar comentario reply -->
+    @endif
+  @endfor
+
 @if(!empty(Session::get('id_postagem')))
   <script>
-    var id_post = "<?php echo Session::get('id_postagem')?>"
-    $(function() {
-        $('#popup'+id_post).modal('show');
-    });
+      var id_post = "<?php echo Session::get('id_postagem') ?>";
+      $(function() {
+          $('#popup'+id_post).modal('show')
+          $('.modal')
+          .on({
+              'show.bs.modal': function() {
+                  var idx = $('.modal:visible').length;
+                  $(this).css('z-index', 1040 + (10 * idx));
+              },
+              'shown.bs.modal': function() {
+                  var idx = ($('.modal:visible').length) - 1; // raise backdrop after animation.
+                  $('.modal-backdrop').not('.stacked')
+                  .css('z-index', 1039 + (10 * idx))
+                  .addClass('stacked');
+              },
+              'hidden.bs.modal': function() {
+                  if ($('.modal:visible').length > 0) {
+                      // restore the modal-open class to the body element, so that scrolling works
+                      // properly after de-stacking a modal.
+                      setTimeout(function() {
+                          $(document.body).addClass('modal-open');
+                      }, 0);
+                  }
+              }
+          });
+      })
+      
   </script>
 @endif
