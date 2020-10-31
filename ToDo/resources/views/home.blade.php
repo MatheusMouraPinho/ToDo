@@ -203,13 +203,24 @@ $smartphone = true;
 $nome_file2 = "ToDo/storage/app/public/posts/" .'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg';
 $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.png';
 ?>
-    <nav class="" id="scroll<?php echo $scroll?>"></nav>
     <div class="card-home">
         <div class="usu-home">
             <?php if($rows['img_usuarios'] == NULL){?>
-                <img class="img-home" src="{{asset('img/semuser.png')}}">
+                <form id="perfil_img" action="{{url('perfil')}}" method="GET">
+                    @csrf
+                    <input type="hidden" name="id_usuario" value="<?php echo $rows['id']?>">
+                    <a href="javascript:$('#perfil_img').submit();">
+                        <img class="img-home" src="{{asset('img/semuser.png')}}">
+                    </a>
+                </form>
             <?php }else{?>
-                <img class="img-home" src="{{asset('/ToDo/storage/app/public/users/'.$rows['img_usuarios'])}}">
+                <form id="perfil_img" action="{{url('perfil')}}" method="GET">
+                    @csrf
+                    <input type="hidden" name="id_usuario" value="<?php echo $rows['id']?>">
+                    <a href="javascript:$('#perfil_img').submit();">
+                        <img class="img-home" src="{{asset('/ToDo/storage/app/public/users/'.$rows['img_usuarios'])}}">
+                    </a>
+                </form>
             <?php }?>
             <f1>&nbsp; Postado por</f1>
             <f2>

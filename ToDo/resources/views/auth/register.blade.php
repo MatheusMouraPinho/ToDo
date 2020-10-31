@@ -73,22 +73,7 @@
                                 <input id="senha-confirm" type="password" class="form-control" name="senha_confirmation" required autocomplete="new-senha" placeholder="Confirmar Senha">
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="Radio" class="col-md-4 col-form-label text-md-right">Você é um:</label>
-                            <div class="col-md-6">
-                                <div class="form-check form-check-inline escolha">
-                                    <input class="form-check-input" type="radio" name="nivel" id="Radio" value="1" required>
-                                    <label class="form-check-label" for="inlineRadio1">Usuário</label>
-                                </div>
-                                <div class="form-check form-check-inline escolha">
-                                    <input class="form-check-input" type="radio" name="nivel" id="Radio" value="2" required>
-                                    <label class="form-check-label" for="inlineRadio2">Avaliador</label>
-                                </div>
-                            </div>
-
-                        </div>
-
+                        <br>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-lg btn-primaria btn-bloqueado">

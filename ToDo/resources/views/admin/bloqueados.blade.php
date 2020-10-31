@@ -10,7 +10,7 @@ $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 $notific = Session::get('notific');
 $usu = Session::get('usu');
 
-$sql = "SELECT * FROM usuarios";
+$sql = "SELECT * FROM bloqueados";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
@@ -20,7 +20,7 @@ $num_pagina = ceil($total_pesquisa/$quantidade);
 
 $inicio = ($quantidade*$pagina)-$quantidade;
 
-$sql = "SELECT * FROM usuarios ORDER BY data_cadastro DESC LIMIT $inicio, $quantidade ";
+$sql = "SELECT * FROM bloqueados ORDER BY data_bloqueio DESC LIMIT $inicio, $quantidade ";
 $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
 $pagina_anterior = $pagina - 1; //paginação
@@ -63,21 +63,107 @@ if ($total_pesquisa > 0 ){ //se tiver rows
             <div class="table-responsive">
                 <table class="table" id="table_admin" width="100%" cellspacing="0">
                     <caption class="aredonda"></caption>
-                    <tbody>  
-                        <tr>
-                            <td rowspan="10">
-                                <div style="padding-top:20px">
-                                    <svg width="60%" height="60%" viewBox="0 0 16 16" class="bi bi-clock-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-                                    </svg>
-                                    <p style="margin-top:35px" ><h4><b>Work In Progress</h4></b></p>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <?php if(isset($check)){ ?>
+                        <thead>
+                            <tr class="custom">
+                                <th>Data de Bloqueio</th>
+                                <th>Email</th>
+                                <th>Motivo</th>
+                                <th>Opções</th>
+                            </tr>
+                        </thead>
+                        <?php while($rows = mysqli_fetch_assoc($result2)){?>
+                            <tbody>
+                                <tr class="linha">
+                                    <td class="ajuste1"><?php echo date('d/m/Y', strtotime($rows['data_bloqueio'])). " às ". date('H:i', strtotime($rows['data_bloqueio'])); ?></td>
+                                    <td class="ajuste3"><?php echo $rows['email']; ?></td>
+                                    <!-- Modal visualizar -->
+                                    <div class="modal fade" id="post<?php echo $rows['id'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header-custom">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="{{url('alterar')}}" method="POST">
+                                                @csrf
+                                                <div class="modal-body">
+                                                    <p class="text-center"><h5>Motivo do bloqueio: <b></b></h5></p>
+                                                    <br>
+                                                    <textarea style="resize: none" cols="60" rows="6" readonly><?php echo $rows['motivo_bloqueio'] ?></textarea>
+                                                </div>
+                                                <div class="modal-footer-custom">
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                                                </div>
+                                            </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Fim Modal visualizar -->
+                                    <td><a type="button" data-toggle="modal" data-target="#post<?php echo $rows['id'] ?>">
+                                        <img width="30px" src="{{asset('img/lupe.png')}}">
+                                    </a></td>
+                                    <!-- Modal Opções --> 
+                                    <div class="modal fade" id="modal<?php echo $rows['id'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header-custom">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="{{url('option4')}}" method="POST">
+                                                @csrf
+                                                <div class="modal-body">
+                                                    <p><h4>Opções:</h4></p>
+                                                    <br>
+                                                    <h6>
+                                                        <label class="radio-custom">WIP
+                                                            <input type="radio" id="radio1" type="radio" name="option" value="aceita" required>
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                        <label class="radio-custom">WIP
+                                                            <input type="radio" id="radio2" type="radio" name="option" value="recusada" required>
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                    </h6>
+                                                </div>
+                                                <div class="modal-footer-custom">
+                                                    <input type='hidden' name="id" value="<?php echo "WIP" ?>"/>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                                                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- Fim Modal Opções -->
+                                    <td><a type="button" data-toggle="modal" data-target="#modal<?php echo $rows['id'] ?>">
+                                            <img width="33px" src="{{asset('img/options.png')}}">
+                                    </a></td>
+                                </tr>
+                            </tbody>
+                        <?php }?>
+                    <?php }else{?>
+                        <tbody>  
+                            <tr>
+                                <td rowspan="10">
+                                    <div style="padding-top:20px">
+                                        <svg width="60%" height="60%" viewBox="0 0 16 16" class="bi bi-clock-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                                        </svg>
+                                        <p style="margin-top:35px" ><h4><b>Nenhuma solicitação no momento</h4></b></p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    <?php } ?>
                 </table>
             </div>
             <br>
+            <?php if(isset($check)){ ?>
+                @include('admin/layout/page')
+            <?php } ?>
         </div>
     </div>
 </div>

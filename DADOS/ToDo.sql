@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 29-Out-2020 às 02:57
+-- Tempo de geração: 01-Nov-2020 às 00:37
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.10
 
@@ -109,6 +109,26 @@ CREATE TABLE `avaliacao_postagem` (
   `media_avaliacao` double NOT NULL,
   `id_avaliador` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `bloqueados`
+--
+
+CREATE TABLE `bloqueados` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `motivo_bloqueio` varchar(255) NOT NULL,
+  `data_bloqueio` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `bloqueados`
+--
+
+INSERT INTO `bloqueados` (`id`, `email`, `motivo_bloqueio`, `data_bloqueio`) VALUES
+(1, 'teste@teste.com', 'aaaa', '2020-10-31 23:18:17');
 
 -- --------------------------------------------------------
 
@@ -1010,6 +1030,13 @@ CREATE TABLE `solicitacoes` (
   `data_solicitacao` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `solicitacoes`
+--
+
+INSERT INTO `solicitacoes` (`id_solicitacao`, `tipo_solicitacao`, `usuario_solicitacao`, `conteudo_solicitacao`, `data_solicitacao`) VALUES
+(15, 2, 128, 'fewfw', '2020-10-31 22:35:00');
+
 -- --------------------------------------------------------
 
 --
@@ -1028,7 +1055,8 @@ CREATE TABLE `tipo_solicitacoes` (
 INSERT INTO `tipo_solicitacoes` (`id_tipo_solicitacao`, `nome_tipo_solicitacao`) VALUES
 (1, 'Alterar RGM/CPF'),
 (2, 'Alterar Acesso'),
-(3, 'Deletar a conta');
+(3, 'Deletar a conta'),
+(4, 'Outros');
 
 -- --------------------------------------------------------
 
@@ -1059,7 +1087,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `usuario`, `email`, `registro`, `senha`, `nivel`, `email_verified_at`, `id_area`, `id_instituicao`, `id_regiao_cidade`, `img_usuarios`, `telefone_usuario`, `img_capa`, `data_cadastro`, `id_regiao_estado`) VALUES
-(128, 'Matheus Moura', 'Matheusmpinho@Outlook.com', '20867000', '$2y$10$I7h/qi.AzqnPx5E2rbcshOCJxr98DkA9OuorMdSKgsWHqhA0wjzhe', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, 0x3132386d6174686575732d6d6f7572612e6a706567, '2020-10-03 02:19:16', NULL),
+(128, 'Matheus Moura', 'Matheusmpinho@Outlook.com', '20867000', '$2y$10$I7h/qi.AzqnPx5E2rbcshOCJxr98DkA9OuorMdSKgsWHqhA0wjzhe', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-03 02:19:16', NULL),
 (129, 'Jonathan Dias', 'jonathangoncalves.dias2001@gmail.com', '22132066', '$2y$10$ySjdFDsV9NTzugT2.SYHUe47tNYsQhjGHjLOvTrC7RUSsy3GBLc92', 3, '2020-10-02 03:00:00', 2, 3, 236, NULL, NULL, NULL, '2020-10-03 02:19:16', 18),
 (130, 'Vinicius Vieira', 'vinicius_vieira_pereira@hotmail.com', '20541929', '$2y$10$.fAi./fsqoOj/dCe/ubcXuA0l7jKfTdRnYVvV/5JMDZaHSQdJ3H7m', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-03 02:19:16', NULL),
 (131, 'Mauricio Freire', 'mauriciofreire520@gmail.com', '20530625', '$2y$10$kWsQWU/6Q1bletW3G0xnUuN/9zo19TAwoH7qBfzow5rXlnSQ20BPS', 3, '2020-10-02 03:00:00', NULL, NULL, NULL, NULL, NULL, NULL, '2020-10-03 02:19:16', NULL);
@@ -1095,6 +1123,12 @@ ALTER TABLE `avaliacao_postagem`
   ADD KEY `id_postagem` (`id_postagem`),
   ADD KEY `id_usuario` (`id_usuario`),
   ADD KEY `id_avaliador` (`id_avaliador`);
+
+--
+-- Índices para tabela `bloqueados`
+--
+ALTER TABLE `bloqueados`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices para tabela `categoria_postagem`
@@ -1264,6 +1298,12 @@ ALTER TABLE `avaliacao_postagem`
   MODIFY `id_avaliacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de tabela `bloqueados`
+--
+ALTER TABLE `bloqueados`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de tabela `categoria_postagem`
 --
 ALTER TABLE `categoria_postagem`
@@ -1273,25 +1313,25 @@ ALTER TABLE `categoria_postagem`
 -- AUTO_INCREMENT de tabela `check_denuncia`
 --
 ALTER TABLE `check_denuncia`
-  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de tabela `check_denuncia_comentarios`
 --
 ALTER TABLE `check_denuncia_comentarios`
-  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id_comentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id_comentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT de tabela `img_postagem`
 --
 ALTER TABLE `img_postagem`
-  MODIFY `id_img` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_img` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de tabela `instituicao_ensino`
@@ -1321,13 +1361,13 @@ ALTER TABLE `motivo_denuncia`
 -- AUTO_INCREMENT de tabela `nivel_acesso`
 --
 ALTER TABLE `nivel_acesso`
-  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `postagens`
 --
 ALTER TABLE `postagens`
-  MODIFY `id_postagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id_postagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT de tabela `regiao_cidade`
@@ -1351,19 +1391,19 @@ ALTER TABLE `situacao_postagem`
 -- AUTO_INCREMENT de tabela `solicitacoes`
 --
 ALTER TABLE `solicitacoes`
-  MODIFY `id_solicitacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_solicitacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de tabela `tipo_solicitacoes`
 --
 ALTER TABLE `tipo_solicitacoes`
-  MODIFY `id_tipo_solicitacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_tipo_solicitacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
 -- Restrições para despejos de tabelas

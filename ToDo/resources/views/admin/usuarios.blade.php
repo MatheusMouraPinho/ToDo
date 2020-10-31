@@ -103,7 +103,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                     <form action="{{url('alterar')}}" method="POST">
                                         @csrf
                                         <div class="modal-body">
-                                            <p class="text-center"><h5>Alterar o dados de <b><?php echo $nome ?></b></h5></p>
+                                            <p class="text-center"><h5>Alterar os dados de <b><?php echo $nome ?></b></h5></p>
                                             <br>
                                             <input name="nome" type="hidden" value="<?php echo $nome; ?>"/>
                                             <input type='hidden' name="alterar" value="<?php echo $id_usuario ?>"/>
@@ -118,7 +118,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                             <br><br>
                                             <a data-dismiss="modal" data-toggle="modal" data-target="#del_usu<?php echo $id_usuario;?>" style="text-decoration:underline;color:red;cursor:pointer;">Deletar usuário</a>
                                         </div>
-                                        <div class="modal-footer-custom grey">
+                                        <div class="modal-footer-custom">
                                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                             <button type="submit" class="btn btn-primary">Salvar mudanças</button>
                                         </div>
@@ -131,7 +131,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <div class="modal fade id" id="del_usu<?php echo $id_usuario; ?>" role="dialog">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <div class="modal-header-custom">
+                                    <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                                             <span aria-hidden="true">&times;</span>
                                         </button>

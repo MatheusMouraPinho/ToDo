@@ -48,16 +48,15 @@ class User extends Authenticatable implements MustVerifyEmail
     return $this->senha;
     }
 
+    const BLOCK = '4';
     const ADMIN = '3';
-    const AVALIADOR = '2';
     const USUARIO = '1';
 
     public function admin()    {        
-        return $this->nivel == self::ADMIN;  //função pra definir adm
+        return $this->nivel == self::ADMIN;  //função define num adm
     }
 
-    public function Avaliador()    {        
-        return $this->nivel == self::AVALIADOR;  //ainda não utilizado
+    public function bloqueado()    {        
+        return $this->nivel == self::BLOCK;  //função define num block
     }
-
 }

@@ -100,7 +100,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                                     <br>
                                                     <textarea style="resize: none" cols="60" rows="6" readonly><?php echo $rows['conteudo_solicitacao'] ?></textarea>
                                                 </div>
-                                                <div class="modal-footer-custom grey">
+                                                <div class="modal-footer-custom">
                                                     <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
                                                 </div>
                                             </form>
@@ -123,7 +123,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                             <form action="{{url('option3')}}" method="POST">
                                                 @csrf
                                                 <div class="modal-body">
-                                                    <p><h4>Opções:</h4></p>
+                                                    <p><h4>Opções de Notificação:</h4></p>
                                                     <br>
                                                     <h6>
                                                         <label class="radio-custom">Aceitar solicitação
@@ -136,11 +136,10 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                                         </label>
                                                     </h6>
                                                 </div>
-                                                <div class="modal-footer-custom grey">
+                                                <div class="modal-footer-custom">
                                                     <input type='hidden' name="id_soli" value="<?php echo $rows['id_solicitacao']; ?>"/>
                                                     <input type='hidden' name="usu" value="<?php echo $rows['usuario']; ?>"/>
                                                     <input type='hidden' name="mail" value="<?php echo $rows['email']; ?>"/>
-                                                    <input type='hidden' name="url" value="{{env('APP_URL')}}"/>
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                                                     <button type="submit" class="btn btn-primary">Confirmar</button>
                                                 </div>

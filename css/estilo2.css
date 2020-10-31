@@ -352,10 +352,11 @@ f2{
 .img-home{
   margin-top: 5px;
   margin-left: 5px;
-  border: 1px solid black;
+  border: 1px solid rgb(182, 182, 182);
   border-radius: 50%;
-  width: 33px;
-  height: 33px;
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
 }
 .temporario{
   position: absolute;

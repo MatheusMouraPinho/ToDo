@@ -57,7 +57,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
             <svg width="1.1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-exclamation-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
             </svg>&nbsp
-            <b>Denuncias de Comentarios</b>
+            <b>Denúncias de Comentarios</b>
         </div>
         <div class="espaco2"></div>
         <div class="container col-11 limit-table">
@@ -100,7 +100,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                                     <br>
                                                     <textarea style="resize: none" cols="60" rows="6" readonly><?php echo $rows['conteudo_comentarios'] ?></textarea>
                                                 </div>
-                                                <div class="modal-footer-custom grey">
+                                                <div class="modal-footer-custom">
                                                     <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
                                                 </div>
                                             </form>
@@ -136,7 +136,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                                         </label>
                                                     </h6>
                                                 </div>
-                                                <div class="modal-footer-custom grey">
+                                                <div class="modal-footer-custom">
                                                     <input type='hidden' name="id_comentario" value="<?php echo $rows['id_comentario']; ?>"/>
                                                     <input type='hidden' name="id_denuncia" value="<?php echo $rows['id_denunciacomentario']; ?>"/>
                                                     <input type='hidden' name="autor_coment" value="<?php echo $nome_autor; ?>"/>
