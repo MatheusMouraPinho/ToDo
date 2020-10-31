@@ -732,16 +732,9 @@ input[type='file'] {
   border: 2px inset #ffffff;
   overflow: hidden;
   max-width: 100%;
-  -moz-transition: all 0.3s;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+  object-fit: cover;
 }
 
-.img:hover {
-  -moz-transform: scale(1.1);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
 
 .block {
   display: block;
@@ -752,14 +745,16 @@ input[type='file'] {
   height: 150px;
   border-radius: 50%;
   border: 2px inset #ffff;
+  object-fit: cover;
 }
 
 .img-dados-coment {
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  border: 1px solid black;
+  border: 1px solid rgb(182, 182, 182);
   margin: 0px 0px 4px 3px;
+  object-fit: cover;
 }
 
 .div_pass {
