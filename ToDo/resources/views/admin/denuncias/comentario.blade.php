@@ -126,11 +126,11 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                                     <p><h4>Opções:</h4></p>
                                                     <br>
                                                     <h6>
-                                                        <label class="radio-custom">Remover denúncias
+                                                        <label class="radio-custom">Remover denúncias.
                                                             <input type="radio" id="radio1" type="radio" name="option" value="rem_den" required>
                                                             <span class="checkmark"></span>
                                                         </label>
-                                                        <label class="radio-custom">Deletar Comentário
+                                                        <label class="radio-custom">Deletar Comentário.
                                                             <input type="radio" id="radio2" type="radio" name="option" value="del_comen" required>
                                                             <span class="checkmark"></span>
                                                         </label>
@@ -161,7 +161,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                         <svg width="60%" height="60%" viewBox="0 0 16 16" class="bi bi-clock-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
                                         </svg>
-                                        <p style="margin-top:35px" ><h4><b>Nenhuma denúncia disponível para apuração</h4></b></p>
+                                        <p style="margin-top:35px" ><h4><b>Nenhuma denúncia disponível para apuração.</h4></b></p>
                                     </div>
                                 </td>
                             </tr>
@@ -171,9 +171,9 @@ if ($total_pesquisa > 0 ){ //se tiver rows
             </div>
         </div> 
         <br>
-        <?php if(isset($check)){ ?>
+        <?php if($total_pesquisa > 8){ ?>
             @include('admin/layout/page')
-        <?php }?>
+        <?php }else{ ?> <div class="espaco2"></div> <?php } ?>
     </div>
 </div>
 <!-- Modal notificação -->

@@ -45,11 +45,26 @@
   }
 }
 /* Area Adm */
+.text-motivo{
+  margin-top: 3px;
+  margin-left: 50px;
+  resize: none;
+  width: 250px;
+  height: 80px;
+  border-radius: 5px;
+  font-size: 15;
+  border: 1px solid black;
+  box-shadow: 4px 4px 6px #999;
+  margin-bottom: 20px;
+}
+.reduce{
+  transform: scale(0.8);
+}
 .espaco{
   padding: 12px;
 }
 .espaco2{
-  padding: 55px;
+  padding: 50px;
 }
 .titulo-admin{
   margin-top: 20px;
@@ -128,6 +143,9 @@ td.ajuste2{
 }
 td.ajuste3{
   min-width: 155px; 
+  word-break: break-word;
+}
+.encaixar{
   word-break: break-word;
 }
 tr.linha{
@@ -1271,7 +1289,6 @@ f2{
     display: block;
     width: 100%;
   }
-
   .aviso-img {
     top: 35px;
     left: 50%;
@@ -1279,13 +1296,16 @@ f2{
     height: 120px;
     margin-left: -60px ;
   }
-  
   .aviso-text {
     text-align: center;
     top: 65px;
     left: 0;
     right: 0;
     font-size: 20px;
+  }
+  .text-motivo{
+    margin-left: 35px;
+    width: 200px;
   }
 }
 
@@ -1314,6 +1334,10 @@ f2{
   .destaque-container{
     margin-left:226px;
   }
+  .text-motivo{
+    margin-left: 38px;
+    width: 200px;
+  }
 }
 @media screen and (min-width: 376px) and (max-width: 425px) {
   .title-home{
@@ -1330,6 +1354,10 @@ f2{
   }
   .destaque-container{
     margin-left:270px;
+  }
+  .text-motivo{
+    margin-left: 40px;
+    width: 220px;
   }
 }
 
@@ -1357,12 +1385,8 @@ f2{
   .descricao_cria{
     margin-top: 40px;
     margin-left: 35px;
-    resize: none;
     width: 400px;
     height: 150px;
-    border-radius: 5px;
-    border: 1px solid black;
-    box-shadow: 4px 4px 6px #999;
   }
   .desc_cria{
     position: absolute;
@@ -1443,11 +1467,8 @@ f2{
     margin-top: 40px;
     left: 50%;
     margin-left: -135px ;
-    resize: none;
     width: 270px;
     height: 120px;
-    border-radius: 5px;
-    border: 1px solid black;
     box-shadow: 3px 3px 6px #999;
   }
   .desc_cria{

@@ -110,13 +110,13 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                             <label for="tipo" class="bold subdados">RGM/CPF: </label>
                                             <input type="text" class="Bselect" name="registro" value="{{ $rows['registro'] }}">
                                             <br><br>
-                                            <label for="tipo" class="bold subdados">Tipo: </label>
+                                            <label for="tipo" class="bold subdados">Tipo de acesso: </label>
                                             <select name="tipo" class="Bselect" class="btn btn-primary">
                                                 <option value="" disabled selected> Selecionar tipo </option>
                                                 <option>Usuario</option><option>Avaliador</option><option>Admin</option>
                                             </select>
                                             <br><br>
-                                            <a data-dismiss="modal" data-toggle="modal" data-target="#del_usu<?php echo $id_usuario;?>" style="text-decoration:underline;color:red;cursor:pointer;">Deletar usuário</a>
+                                            <a data-dismiss="modal" data-toggle="modal" data-target="#del_usu<?php echo $id_usuario;?>" style="text-decoration:underline;color:red;cursor:pointer;">Gerenciar exclusão</a>
                                         </div>
                                         <div class="modal-footer-custom">
                                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -127,7 +127,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                             </div>
                         </div>
                         <!-- Fim Modal alterar -->
-                        <!-- Modal deletar usuario -->
+                        <!-- Modal exclusão usuario -->
                         <div class="modal fade id" id="del_usu<?php echo $id_usuario; ?>" role="dialog">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -137,10 +137,20 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h5><p>Deseja realmente deletar <b><?php echo $nome ?></b>?</p><h5><br>
                                         <form action="{{url('del_usu')}}" method="POST">
                                             @csrf
+                                            <h5>Opções da exclusão de <b><?php echo $nome ?></b>:</p><h5><br>
+                                            <label class="radio-custom reduce">Excluir usuário.
+                                                <input type="radio" id="radio1" type="radio" name="option" value="del" required>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="radio-custom reduce">Excluir usuário e banir email.
+                                                <input type="radio" id="radio2" type="radio" name="option" value="ban<?php echo $id_usuario; ?>" required>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <textarea style="display:none;" class="text-motivo" type="text" placeholder="Descreva o motivo do banimento." name="motivo" id="motivo<?php echo $id_usuario; ?>"></textarea>
                                             <div class="modal-footer">
+                                                <input name="id" type="hidden" value="<?php echo $id_usuario; ?>"/>
                                                 <input name="nome" type="hidden" value="<?php echo $nome; ?>"/>
                                                 <input name="email" type="hidden" value="<?php echo $mail; ?>"/>
                                                 <input name="del_usu" type="hidden" value="<?php echo $id_usuario; ?>"/>
@@ -152,7 +162,19 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                 </div>
                             </div>
                         </div>
-                        <!-- FIM Modal deletar usuario -->
+                        <!-- FIM Modal exclusão usuario -->
+                        <script>
+                            $("input[type='radio']").change(function(){
+                                if($(this).val()=="ban<?php echo $id_usuario; ?>")
+                                {
+                                    $("#motivo<?php echo $id_usuario; ?>").show();
+                                }
+                                else
+                                {
+                                    $("#motivo<?php echo $id_usuario; ?>").hide(); 
+                                }
+                            });
+                        </script>
                         <tbody class="pisca">
                             <tr class="linha">
                                 <td class="ajuste3"><?php echo $rows['usuario']; ?></td>
@@ -176,7 +198,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                         <svg width="60%" height="60%" viewBox="0 0 16 16" class="bi bi-clock-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
                                         </svg>
-                                        <p style="margin-top:35px" ><h4><b>Nenhum usuario Encontrado</h4></b></p>
+                                        <p style="margin-top:35px" ><h4><b>Nenhum usuario Encontrado.</h4></b></p>
                                     </div>
                                 </td>
                             </tr>
@@ -186,9 +208,9 @@ if ($total_pesquisa > 0 ){ //se tiver rows
             </div>
         </div>
         <br>
-        <?php if(isset($check)){ ?>
+        <?php if($total_pesquisa > 8){ ?>
             @include('admin/layout/page')
-        <?php }?>
+        <?php }else{ ?> <div class="espaco2"></div> <?php } ?>
     </div>
 </div>
 <!-- Modal notificação -->
@@ -197,7 +219,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
         <div class="modal-content">
             <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
             <div class="modal-body">
-                    <h5><?php if($notific == 1){ echo "Os dados de <b>". $usu ."</b> foram alterados."; }else{echo "Usuario <b>". $usu ."</b> Deletado";}?></h5><br>
+                    <h5><?php if($notific == 1){ echo "Os dados de <b>". $usu ."</b> foram alterados."; }elseif($notific == 2){echo "Usuario <b>". $usu ."</b> foi deletado.";}else{echo "Usuario <b>". $usu ."</b> foi banido e deletado.";}?></h5><br>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
                 </div> 
@@ -220,5 +242,17 @@ $("#menu-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
 });
+
+$("input[type='radio']").change(function(){
+    if($(this).val()=="ban<?php echo $id_usuario; ?>")
+    {
+        $("#motivo<?php echo $id_usuario; ?>").show();
+    }
+    else
+    {
+        $("#motivo<?php echo $id_usuario; ?>").hide(); 
+    }
+});
 </script>
+
 @endsection

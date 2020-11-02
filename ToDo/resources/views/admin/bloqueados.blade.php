@@ -8,7 +8,7 @@ mysqli_set_charset($conn, 'utf8');
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
 $notific = Session::get('notific');
-$usu = Session::get('usu');
+$mail = Session::get('mail');
 
 $sql = "SELECT * FROM bloqueados";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
@@ -56,7 +56,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
         <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-shield-fill-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M8 .5c-.662 0-1.77.249-2.813.525a61.11 61.11 0 0 0-2.772.815 1.454 1.454 0 0 0-1.003 1.184c-.573 4.197.756 7.307 2.368 9.365a11.192 11.192 0 0 0 2.417 2.3c.371.256.715.451 1.007.586.27.124.558.225.796.225s.527-.101.796-.225c.292-.135.636-.33 1.007-.586a11.191 11.191 0 0 0 2.418-2.3c1.611-2.058 2.94-5.168 2.367-9.365a1.454 1.454 0 0 0-1.003-1.184 61.09 61.09 0 0 0-2.772-.815C9.77.749 8.663.5 8 .5zM6.854 6.146a.5.5 0 1 0-.708.708L7.293 8 6.146 9.146a.5.5 0 1 0 .708.708L8 8.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 8l1.147-1.146a.5.5 0 0 0-.708-.708L8 7.293 6.854 6.146z"/>
         </svg>&nbsp
-            <b>Usuários bloqueados</b>
+            <b>Emails bloqueados</b>
         </div>
         <div class="espaco2"></div>
         <div class="container col-11 limit-table">
@@ -116,21 +116,22 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                             <form action="{{url('option4')}}" method="POST">
                                                 @csrf
                                                 <div class="modal-body">
-                                                    <p><h4>Opções:</h4></p>
+                                                    <p><h4>Remover Banimento:</h4></p>
                                                     <br>
                                                     <h6>
-                                                        <label class="radio-custom">WIP
-                                                            <input type="radio" id="radio1" type="radio" name="option" value="aceita" required>
+                                                        <label class="radio-custom">Remover e notificar.
+                                                            <input type="radio" id="radio1" type="radio" name="option" value="notif" required>
                                                             <span class="checkmark"></span>
                                                         </label>
-                                                        <label class="radio-custom">WIP
-                                                            <input type="radio" id="radio2" type="radio" name="option" value="recusada" required>
+                                                        <label class="radio-custom">Remover somente.
+                                                            <input type="radio" id="radio2" type="radio" name="option" value="no" required>
                                                             <span class="checkmark"></span>
                                                         </label>
                                                     </h6>
                                                 </div>
                                                 <div class="modal-footer-custom">
-                                                    <input type='hidden' name="id" value="<?php echo "WIP" ?>"/>
+                                                    <input type='hidden' name="id" value="<?php echo $rows['id']; ?>"/>
+                                                    <input type='hidden' name="mail" value="<?php echo $rows['email']; ?>"/>
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                                                     <button type="submit" class="btn btn-primary">Confirmar</button>
                                                 </div>
@@ -152,7 +153,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                         <svg width="60%" height="60%" viewBox="0 0 16 16" class="bi bi-clock-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
                                         </svg>
-                                        <p style="margin-top:35px" ><h4><b>Nenhuma solicitação no momento</h4></b></p>
+                                        <p style="margin-top:35px" ><h4><b>Nenhuma email bloqueado.</h4></b></p>
                                     </div>
                                 </td>
                             </tr>
@@ -161,12 +162,36 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                 </table>
             </div>
             <br>
-            <?php if(isset($check)){ ?>
+            <?php if($total_pesquisa > 8){ ?>
                 @include('admin/layout/page')
-            <?php } ?>
+            <?php }else{ ?> <div class="espaco2"></div> <?php } ?>
         </div>
     </div>
 </div>
+
+<!-- Modal notificação -->
+<div class="modal fade id" id="notific" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
+            <div class="modal-body">
+                    <h5><?php if($notific == 1){ echo "O email <b><span class='encaixar'>". $mail . "</span></b> foi desbloqueado e notificado."; }else{echo "O email <b><span class='encaixar'>". $mail ."</span></b> foi desbloqueado.";}?></h5><br>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FIM Modal notificação -->
+<?php
+if(isset($notific)){ ?>
+    <script>
+        $(function(){
+            $("#notific").modal('show');
+        });
+    </script>
+<?php } ?>
 
 <script>
 $("#menu-toggle").click(function(e) {

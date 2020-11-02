@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Config;
 
 class RegisterController extends Controller
 {
@@ -49,6 +50,13 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $db_config = Config::get('database.connections.'.Config::get('database.default'));
+        $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
+        mysqli_set_charset($conn, 'utf8');
+    
+        $sql = "DELETE FROM usuarios WHERE email_verified_at is NULL AND data_cadastro < (NOW() - INTERVAL 3 HOUR)";
+        mysqli_query($conn, $sql);
+        
         return Validator::make($data, [
             'usuario' => ['required', 'string', 'max:50', 'unique:usuarios'],
             'registro' => ['required', 'string', 'min:8', 'max:11', 'unique:usuarios'],

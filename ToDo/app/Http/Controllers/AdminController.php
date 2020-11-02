@@ -9,6 +9,7 @@ use intval;
 use Mail;
 use App\Mail\solicitacao_aceita;
 use App\Mail\solicitacao_recusada;
+use App\Mail\desbloqueio;
 use Config;
 use Storage;
 
@@ -150,10 +151,24 @@ class AdminController extends Controller
         $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
         mysqli_set_charset($conn, 'utf8');
 
+        $id_usu =  $_POST ['id'];
         $id_sql = $_POST ['del_usu'];
         $usu = $_POST ['nome'];
         $mail = $_POST ['email'];
-        $notific = 2;
+
+        if($_POST['option'] == 'del'){
+            $notific = 2;
+        }elseif($_POST['option'] == 'ban'. $id_usu){
+            $notific = 3;
+            $motivo = $_POST ['motivo'];
+            if($motivo == NULL){
+                $motivo = "motivo não adicionado.";
+            }
+            $sql = "INSERT INTO bloqueados (email, motivo_bloqueio, data_bloqueio) VALUES ('$mail', '$motivo', CURRENT_TIMESTAMP() )";
+            mysqli_query($conn, $sql);
+        }else{
+            return redirect()->back();
+        }
         
         $sql = "DELETE FROM check_denuncia WHERE id_usuario = $id_sql";
         mysqli_query($conn, $sql);
@@ -444,6 +459,39 @@ class AdminController extends Controller
             mysqli_query($conn, $sql);
 
             return redirect()->back()->with(['notific' =>  $notific])->with(['nom' => $nom]);
+        }
+    }
+
+    public function option4(){  //bloqueios
+        if($_POST['option'] == 'notif'){
+            $db_config = Config::get('database.connections.'.Config::get('database.default'));
+            $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
+            mysqli_set_charset($conn, 'utf8');
+
+            $id = $_POST ['id'];
+            $mail = $_POST ['mail'];
+            $notific = 1;
+
+            Mail::to($mail)->send(new desbloqueio());
+
+            $sql = "DELETE FROM bloqueados WHERE id = $id";
+            mysqli_query($conn, $sql);
+
+            return redirect()->back()->with(['notific' =>  $notific])->with(['mail' => $mail]);
+        }
+        if($_POST['option'] == 'no'){
+            $db_config = Config::get('database.connections.'.Config::get('database.default'));
+            $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
+            mysqli_set_charset($conn, 'utf8');
+            
+            $id = $_POST ['id'];
+            $mail = $_POST ['mail'];
+            $notific = 2;
+
+            $sql = "DELETE FROM bloqueados WHERE id = $id";
+            mysqli_query($conn, $sql);
+
+            return redirect()->back()->with(['notific' =>  $notific])->with(['mail' => $mail]);
         }
     }
         
