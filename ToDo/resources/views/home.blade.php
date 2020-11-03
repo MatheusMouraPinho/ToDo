@@ -354,7 +354,7 @@ $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows
     </div>
     <!-- FIM Modal denunciar postagem -->
 <?php $s++; } ?>
-<?php if ($total_pesquisa > 1){?>
+<?php if ($total_pesquisa >= 1){?>
     <nav class="text-center">
         <ul class="pagination">
             <li class="page-item">

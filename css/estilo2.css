@@ -245,7 +245,42 @@ tr.linha{
   margin-top: 1px;
   margin-left: 475px;
 }
-/* home */
+/* home/outros */
+.min{
+  min-height: 65vh;
+}
+.nav_icon{
+  width: 125px;
+}
+.nav_nome{
+  margin-left: 4px;
+  margin-right: 4px;
+}
+.nav_img{
+  border: 1px solid rgb(182, 182, 182);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+}
+.navbar_drop{
+  border: none;
+  background: none;
+}
+@media screen and (max-width: 555px) {
+  .nav_icon{
+    width: 110px;
+  }
+  .nav_nome{
+    display: none;
+  }
+  .ajuste_drop{
+    left: -80px;
+  }
+  .nav_img{
+    margin-right: 4px;
+  }
+}
 .result-pesquisa{
   margin-left: 20px;
 }
@@ -464,9 +499,6 @@ f2{
   border-radius: 30px;
   border-color: black;
   box-shadow: 2px 2px 6px grey;
-}
-.ajuste-drop{
-  left: -35px;
 }
 .ajuste-drop3{
   left: -50px;

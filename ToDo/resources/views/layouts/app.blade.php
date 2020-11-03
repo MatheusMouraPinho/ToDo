@@ -6,6 +6,15 @@ Artisan::call('cache:clear');
 $nivel = Auth::user()->nivel; 
 $id_user = Auth::user()->id;
 $denuncia = Session::get('denuncia');
+
+$db_config = Config::get('database.connections.'.Config::get('database.default'));
+$conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
+mysqli_set_charset($conn, 'utf8');
+
+$user = Auth::user()->id;
+
+$sql = "SELECT * FROM usuarios WHERE id = $user ";
+$resultado = mysqli_query($conn, $sql);
 ?>
 
 <!doctype html>
@@ -43,13 +52,33 @@ $denuncia = Session::get('denuncia');
   <nav class="navbar navbar-light cor">
     <ul class="navbar-nav" style="cursor: pointer">
       <li>
-        <a href="{{ url('home') }}"> <img width="112px" src="{{asset('img/ToDo.png')}}"> </a>
+        <a href="{{ url('home') }}"> <img class="nav_icon" src="{{asset('img/ToDo.png')}}"> </a>
       </li>
     </ul>
     <ul class="nav ml-auto" style="cursor: pointer">
-      <li style="margin-right:22px" class="nav-item dropdown">
-        <a id="navbarDropdown" role="button" data-toggle="dropdown"> <img src="{{asset('img/op-icon.png')}}" width="90px"> </a>
-        <div class="dropdown-menu ajuste-drop" aria-labelledby="navbarDropdown">
+      <li class="nav-item dropdown">
+        <?php if($row = mysqli_fetch_assoc($resultado)){
+          $nome_completo = $row['usuario'];
+          $words = explode(" ", $nome_completo);
+          if(isset($words[1])){
+            $nome_resum = substr($words[0], 0)  ." ". substr($words[1], 0);
+          }else{
+            $nome_resum = $row['usuario'];
+          }
+        ?>
+          <button class="navbar_drop" id="navbarDropdown" role="button" data-toggle="dropdown">
+            <?php if($row['img_usuarios'] == NULL){?>
+              <img class="nav_img" src="{{asset('img/semuser.png')}}">
+            <?php }else{?>
+              <img class="nav_img" src="{{asset('/ToDo/storage/app/public/users/'.$row['img_usuarios'])}}">
+            <?php }?>
+            <span class="nav_nome"><?php echo mb_strimwidth($nome_resum, 0, 22, "...") ; ?></span>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+            </svg>
+          </button>
+        <?php } ?>
+        <div class="dropdown-menu ajuste_drop" aria-labelledby="navbarDropdown">
           <?php if(3 == $nivel){?>
             <a class="dropdown-item" style="margin-bottom:6px" href="{{ url('admin/historico') }}">
               <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-clipboard-data" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -99,128 +128,158 @@ $denuncia = Session::get('denuncia');
     <!-- FIM filtro SmartPhone  -->
 
     <div class="espaco"></div>
-    @yield('content') <!-- Puxa a pagina aqui -->
-    
+    <div class="min">
+      @yield('content') <!-- Puxa a pagina aqui -->
+    </div>
     <!-- Footer -->
     <div class="espaco-footer"></div>
-    <footer class="layout-footer">
-      <div class="container text-center text-md-left mt-5">
-        <div class="row mt-3">
-          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-5">
-            <h6 class="text-uppercase font-weight-bold"><ff>Desenvolvimento</ff></h6>
-            <hr class="accent-2 mb-4 mt-0 d-inline-block mx-auto white" style="width: 160px;">
-            <p>Site desenvolvido por <br> alunos da Universidade <br> Módulo - Campus <br> Módulo Caraguatatuba, <br> orientado pelo professor<br> Fabio Lippi.
-            </p>
-          </div>
-          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4" style="padding-right:20px">
-            <h6 class="text-uppercase font-weight-bold"><ff>RGM</ff></h6>
-            <hr class="accent-2 mb-4 mt-0 d-inline-block mx-auto white" style="width: 40px;">
-              <p>20867000</p>
-              <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto white" style="width: 80px;">
-              <p>20541929</p>
-              <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto white" style="width: 80px;">
-              <p>22132066</p>
-              <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto white" style="width: 80px;">
-              <p>20530625</p>
-          </div>
-          <div class="col-md-3 col-lg-2 col-xl-3 mx-auto mb-4" style="padding-right:10px">
-            <h6 class="text-uppercase font-weight-bold"><ff>Integrantes</ff></h6>
-            <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto white" style="width: 120px;">
-              <p>Matheus Moura Pinho</p>
-              <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto white" style="width: 150px;">
-              <p>Vinicius Vieira Pereira</p>
-              <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto white" style="width: 150px;">
-              <p>Jonathan Gonçalves Dias</p>
-              <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto white" style="width: 150px;">
-              <p>Mauricio Freire da Silva</p>
-          </div>
-          <div class="col-md-4 col-lg-3 col-xl-4 mx-auto mb-md-0 mb-4">
-            <h6 class="text-uppercase font-weight-bold"><ff>Contatos</ff></h6>
-            <hr class="accent-2 mb-4 mt-0 d-inline-block mx-auto white" style="width: 90px;">
-              <p>Matheusmpinho@outlook.com</p>
-              <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto white" style="width: 200px;">
-              <p>vinicius_vieira_pereira@hotmail.com</p>
-              <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto white" style="width: 200px;">
-              <p>jonathangoncalves.dias2001@gmail.com</p>
-              <hr class="accent-2 mb-3 mt-0 d-inline-block mx-auto white" style="width: 200px;">
-              <p>mauriciofreire520@gmail.com</p>
+    <footer class="page-footer font-small indigo layout-footer">
+      <div class="container">
+      <div class="row text-center d-flex justify-content-center pt-5 mb-3">
+        <div class="col-md-2 mb-3">
+          <h6 class="text-uppercase font-weight-bold">
+            <a href="#pagina">Sobre nós</a>
+          </h6>
+        </div>
+        <div class="col-md-3 mb-3">
+          <h6 class="text-uppercase font-weight-bold">
+            <a href="" data-toggle="modal" data-target="#modal_termo" >Termos de uso</a>
+          </h6>
+        </div>
+        <div class="col-md-3 mb-3">
+          <h6 class="text-uppercase font-weight-bold">
+            <a href="" data-toggle="modal" data-target="#modal_politi" >Política de privacidade</a>
+          </h6>
+        </div>
+        <div class="col-md-2 mb-3">
+          <h6 class="text-uppercase font-weight-bold">
+            <a href="" data-toggle="modal" data-target="#modal_contato" >contatos</a>
+          </h6>
+        </div>
+        </div>
+        <hr class="rgba-white-light" style="margin: 0 15%;">
+        <div class="text-center d-flex justify-content-center pt-5">
+          <div class="col-md-3">
+            <h6 class="text-uppercase font-weight-bold">
+              O que é ToDo ideias?
+            </h6>
           </div>
         </div>
+      </div>
+      <div class="d-flex text-center justify-content-center mb-md-3 mb-1">
+        <div class="col-md-8 col-12 mt-4">
+          <p style="line-height: 1.7rem">
+            ToDo Ideias é um site voltado para a coleta, armazenamento e gestão de ideias de forma a se tornar em um repositório, onde qualquer pessoa poderá registrar
+            uma ideia. Considera-se “ideia" qualquer proposta que venha a surgir de uma inovação, oportunidade, necessidade ou problema.
+            Tem como objetivo coletar, armazenar e gerenciar propostas de projetos para desenvolvimento, Permitir que alunos e professores exponham suas ideias,
+            permitir votações e comentários das ideias de modo que o sistema fará o ranqueamento das ideias com melhores avaliações
+            e permitir aos docentes a visão das melhores ideias de forma a contribuir para o conhecimento e a definição dos projetos a serem desenvolvidos pelos alunos.
+          </p>
+        </div>
+      </div>
+      <div class="copyright">
+          <div class="footer-copyright text-center py-3">© 2020 ToDoIdeias.gq All Rights Reserved</div>
       </div>
     </footer>
-    <div class="copyright">
-        <div class="footer-copyright text-center py-3">© 2020 ToDoIdeias.gq All Rights Reserved</div>
-    </div>
     <!-- FIM Footer -->
-    <!--Modal Criação post-->
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modalideia" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-            <span aria-hidden="true">&times;</span>
-            </button>
+  </div>
+    
+  <!--Modal Criação post-->
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modalideia" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{{url('cria')}}" method="POST" enctype="multipart/form-data">
+          @csrf
+          <div class="modal-body fundo">
+            <div class="espaço_cria">
+              <div class="titulo_cria">
+                <b style="font-size:18px;">Titulo:</b>
+                <input class="custom_input espaço-input" type="text" name="titulo" placeholder="Titulo da ideia" maxlength="45" required>
+              </div>
+              <div class="categoria_cria">
+                <b style="font-size:18px;"> Categoria:</b>
+                <select class="custom_input espaço-input" type="text" name="categoria" required> 
+                  <option value="" disabled selected> Selecionar categoria </option>
+                  <option value="1"> Web, Mobile & Software </option>
+                  <option value="2"> Design & Criação </option>
+                  <option value="3"> Engenharia & Arquitetura </option>
+                  <option value="4"> Marketing </option>
+                  <option value="5"> Outros </option>
+                </select>
+              </div>
+            </div>
+            <div class="desc_cria"><b>Descrição:</b></div>
+            <textarea class="descricao_cria" type="text" placeholder="Descreva sua ideia"  name="descricao" onkeyup="limite_textarea(this.value)" id="texto" required></textarea>
+            <br>
+            <div class="cont_desc"><span id="cont">20.000</span> Caracteres restantes </div><br>
+            <br>
+            <div class="espaço_cria2">
+              <div class="alinhamento-img">
+                <label class="form-control-range">
+                  <input type="file" name="img_post" id="file" accept="image/jpeg, image/png" multiple onchange="javascript:update_file1()"/>
+                  <a name="img_post" class="img_cria">Adicionar Imagem</a>
+                  <div class="file-name" id="file-name">Arquivo: Vazio</div>
+                </label>
+              </div>
+              <div class="alinhamento-img2">
+                <label class="form-control-range">
+                  <input type="file" name="img_post2" id="file2" accept="image/jpeg, image/png" multiple onchange="javascript:update_file2()"/>
+                  <a name="img_post" class="img_cria">Adicionar Imagem Capa</a>
+                  <div class="file-name" id="file-name2">Arquivo: Sem capa</div>
+                </label>
+              </div>
+              <div class="alinhamento-img3">
+                <label class="form-control-range">
+                  <input type="file" name="img_post3" id="file3" accept="image/jpeg, image/png" multiple onchange="javascript:update_file3()"/>
+                  <a name="img_post" class="img_cria">Adicionar Imagem</a>
+                  <div class="file-name" id="file-name3">Arquivo: Vazio</div>
+                </label>
+              </div>
+            </div>
           </div>
-          <form action="{{url('cria')}}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="modal-body fundo">
-              <div class="espaço_cria">
-                <div class="titulo_cria">
-                  <b style="font-size:18px;">Titulo:</b>
-                  <input class="custom_input espaço-input" type="text" name="titulo" placeholder="Titulo da ideia" maxlength="45" required>
-                </div>
-                <div class="categoria_cria">
-                  <b style="font-size:18px;"> Categoria:</b>
-                  <select class="custom_input espaço-input" type="text" name="categoria" required> 
-                    <option value="" disabled selected> Selecionar categoria </option>
-                    <option value="1"> Web, Mobile & Software </option>
-                    <option value="2"> Design & Criação </option>
-                    <option value="3"> Engenharia & Arquitetura </option>
-                    <option value="4"> Marketing </option>
-                    <option value="5"> Outros </option>
-                  </select>
-                </div>
-              </div>
-              <div class="desc_cria"><b>Descrição:</b></div>
-              <textarea class="descricao_cria" type="text" placeholder="Descreva sua ideia"  name="descricao" onkeyup="limite_textarea(this.value)" id="texto" required></textarea>
-              <br>
-              <div class="cont_desc"><span id="cont">20.000</span> Caracteres restantes </div><br>
-              <br>
-              <div class="espaço_cria2">
-                <div class="alinhamento-img">
-                  <label class="form-control-range">
-                    <input type="file" name="img_post" id="file" accept="image/jpeg, image/png" multiple onchange="javascript:update_file1()"/>
-                    <a name="img_post" class="img_cria">Adicionar Imagem</a>
-                    <div class="file-name" id="file-name">Arquivo: Vazio</div>
-                  </label>
-                </div>
-                <div class="alinhamento-img2">
-                  <label class="form-control-range">
-                    <input type="file" name="img_post2" id="file2" accept="image/jpeg, image/png" multiple onchange="javascript:update_file2()"/>
-                    <a name="img_post" class="img_cria">Adicionar Imagem Capa</a>
-                    <div class="file-name" id="file-name2">Arquivo: Sem capa</div>
-                  </label>
-                </div>
-                <div class="alinhamento-img3">
-                  <label class="form-control-range">
-                    <input type="file" name="img_post3" id="file3" accept="image/jpeg, image/png" multiple onchange="javascript:update_file3()"/>
-                    <a name="img_post" class="img_cria">Adicionar Imagem</a>
-                    <div class="file-name" id="file-name3">Arquivo: Vazio</div>
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer-custom" style="border-top: 1px solid #ccc">
-              <input type='hidden' name="id_usuario" value="<?php echo $id_user ?>"/>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-              <button type="submit" class="btn btn-primary">Enviar ideia</button><br>
-            </div>
-          </form>
+          <div class="modal-footer-custom" style="border-top: 1px solid #ccc">
+            <input type='hidden' name="id_usuario" value="<?php echo $id_user ?>"/>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary">Enviar ideia</button><br>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- FIM Modal Criação post-->
+  <!--Modal contatos-->
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modal_contato" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body fundo">
+          <div class="text-center justify-content-center pt-3">
+            <b style="font-size:20px;"> Desenvolvedores </b>
+          </div>
+          <div class="text-center justify-content-center pt-4">
+            <b> Matheus Moura Pinho </b> - <a href="mailto:Matheusmpinho@outlook.com"> Matheusmpinho@outlook.com</a> <br><br>
+            <b> Jonathan Gonçalves Dias </b> - <a href="mailto:jonathangoncalves.dias2001@gmail.com"> jonathangoncalves.dias2001@gmail.com</a> <br><br>
+            <b> Vinicius Vieira Pereira </b> - <a href="mailto:vinicius_vieira_pereira@hotmail.com"> vinicius_vieira_pereira@hotmail.com</a> <br><br>
+            <b> Mauricio Freire da Silva </b> - <a href="mailto:mauriciofreire520@gmail.com"> mauriciofreire520@gmail.com <br><br>
+          </div>
+        </div>
+        <div class="modal-footer-custom" style="border-top: 1px solid #ccc">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
         </div>
       </div>
     </div>
-    <!-- FIM Modal Criação post-->
   </div>
+  <!-- FIM Modal contatos-->
+
   <script>
     function update_file1() {
       var input = document.getElementById('file'); //define o id do input
