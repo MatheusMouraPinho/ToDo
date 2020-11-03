@@ -269,7 +269,7 @@ $resultado = mysqli_query($conn, $sql);
             <b> Matheus Moura Pinho </b> - <a href="mailto:Matheusmpinho@outlook.com"> Matheusmpinho@outlook.com</a> <br><br>
             <b> Jonathan Gonçalves Dias </b> - <a href="mailto:jonathangoncalves.dias2001@gmail.com"> jonathangoncalves.dias2001@gmail.com</a> <br><br>
             <b> Vinicius Vieira Pereira </b> - <a href="mailto:vinicius_vieira_pereira@hotmail.com"> vinicius_vieira_pereira@hotmail.com</a> <br><br>
-            <b> Mauricio Freire da Silva </b> - <a href="mailto:mauriciofreire520@gmail.com"> mauriciofreire520@gmail.com <br><br>
+            <b> Mauricio Freire da Silva </b> - <a href="mailto:mauriciofreire520@gmail.com"> mauriciofreire520@gmail.com</a> <br><br>
           </div>
         </div>
         <div class="modal-footer-custom" style="border-top: 1px solid #ccc">
@@ -306,7 +306,7 @@ $resultado = mysqli_query($conn, $sql);
       <div class="modal-content">
         <div class="modal-header" style="color:white;"> <b>Aviso</b> </div>
         <div class="modal-body">
-                <h4><?php if($denuncia == 1){ echo "<b> Denuncia efetuada </b>"; }else{echo "<b> Esta postagem ja foi denúnciada </b>";}?></h4><br>
+                <h4><?php if($denuncia == 1){ echo "<b> Denuncia efetuada. </b>"; }else{echo "<b> Esta postagem ja foi denúnciada. </b>";}?></h4><br>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
             </div> 
