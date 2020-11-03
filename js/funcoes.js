@@ -240,6 +240,25 @@ function modal(id) {
         });
 };
 
+function show_modal(ele) {
+    var id_modal = document.getElementById('img_modal');
+    let imgs = document.querySelector('#'+ele);
+    let modalImg = document.querySelector('#img_post1');
+    let btClose = document.querySelector('.btnClose');
+    let srcVal = "";
+
+    
+    srcVal = imgs.getAttribute('src');
+    modalImg.setAttribute('src', srcVal);
+    id_modal.classList.toggle('modal_active');   
+
+}
+
+function hide_modal() {
+    var id_modal = document.getElementById('img_modal');
+    id_modal.classList.toggle('modal_active');
+}
+
 
 
 

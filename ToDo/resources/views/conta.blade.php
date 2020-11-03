@@ -59,7 +59,7 @@ $comments = [
           @if($dados['img_capa'] === null)
             <img id="img_capa" src="{{asset('img/fundo_azul.jpg')}}">
           @else
-            <img id="img_capa" src="{{url('/ToDo/storage/app/public/users_capa/'.Auth::user()->img_capa)}}">
+            <img id="img_capa" src="{{url('ToDo/storage/app/public/users_capa/'.Auth::user()->img_capa)}}">
           @endif
         </div>
 
@@ -70,7 +70,7 @@ $comments = [
               @if($dados['img_perfil'] === null)
                 <img width="150px" class="img-dados" src="{{asset('img/semuser.png')}}">
               @else
-                <img  alt="{{ Auth::user()->img_usuarios }}" name="img_usuarios" class="img-dados" src="{{url('/ToDo/storage/app/public/users/'.Auth::user()->img_usuarios)}}">
+                <img  alt="{{ Auth::user()->img_usuarios }}" name="img_usuarios" class="img-dados" src="{{url('ToDo/storage/app/public/users/'.Auth::user()->img_usuarios)}}">
               @endif
 
             <h3 style="font-weight: bold;">{{ $dados['nome'] }}</h3>
@@ -374,7 +374,7 @@ $comments = [
                               </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <label class="d-block">
-                                  <input name="img_usuarios" type="file" style="display: none; cursor:pointer" accept="image/jpeg, image/png" onchange="this.form.submit()">
+                                  <input name="img_usuarios" type="file" style="display: none; cursor:pointer" accept="image/*" onchange="this.form.submit()">
                                   <a name="img_usuarios" class="dropdown-item">
                                     <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-file-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                       <path fill-rule="evenodd" d="M12 1H4a1 1 0 0 0-1 1v10.755S4 11 8 11s5 1.755 5 1.755V2a1 1 0 0 0-1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
@@ -384,7 +384,7 @@ $comments = [
                                   </a>
                                 </label>
                                 <label class="d-block">
-                                  <input name="img_capa" type="file" style="display: none; cursor: pointer;" accept="image/jpeg, image/png" onchange="this.form.submit()">
+                                  <input name="img_capa" type="file" style="display: none; cursor: pointer;" accept="image/*" onchange="this.form.submit()">
                                   <a name="img_capa" class="dropdown-item">
                                     <svg width="1.2em" height="1.2em" viewBox="0 0 17 16" class="bi bi-image" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                       <path fill-rule="evenodd" d="M14.002 2h-12a1 1 0 0 0-1 1v9l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094L15.002 9.5V3a1 1 0 0 0-1-1zm-12-1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm4 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>

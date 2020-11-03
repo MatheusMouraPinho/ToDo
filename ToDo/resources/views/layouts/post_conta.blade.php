@@ -30,16 +30,9 @@
               </span>
               <p class="popup_coment" id="categoria">{{$dados['posts'][$i]->categoria_postagem}}</p>
             </div>
-            <?php
-              $nome_file = "ToDo/storage/app/public/posts/".'1'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.jpeg';
-              $nome_file_png = "ToDo/storage/app/public/posts/".'1'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.png';
-              $nome_file2 = "ToDo/storage/app/public/posts/".'2'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.jpeg';
-              $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.png';
-              $nome_file3 = "ToDo/storage/app/public/posts/".'3'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.jpeg';
-              $nome_file_png3 = "ToDo/storage/app/public/posts/".'3'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.png';
-            ?>
-            @for($t=0; $t<sizeof($post['img_post']); $t++)
-              @if($post['img_post'][$t]->id_postagem === $posts->id_postagem)
+
+            @for($a=0; $a<sizeof($post['img_post']); $a++)
+              @if($post['img_post'][$a]->id_postagem == $posts->id_postagem)
                 <div class="popup_img">
                   <span class="popup_sub bold">
                     <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-link-45deg" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -49,25 +42,25 @@
                     Imagens:
                   </span>
                   <div class="div_imgs">
-                    @if(file_exists($nome_file))
-                      <img class="popup_imgs" id="img_post" data-toggle="modal" data-target="#img1<?php echo $posts->id_postagem ?>" src="{{url('/ToDo/storage/app/public/posts/'.'1'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.jpeg')}}">
-                    @elseif(file_exists($nome_file_png))
-                      <img class="popup_imgs" id="img_post" data-toggle="modal" data-target="#img1<?php echo $posts->id_postagem ?>" src="{{url('/ToDo/storage/app/public/posts/'.'1'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.png')}}">
-                    @endif
-                    @if(file_exists($nome_file2))
-                      <img class="popup_imgs" id="img_post" data-toggle="modal" data-target="#img2<?php echo $posts->id_postagem ?>" src="{{url('/ToDo/storage/app/public/posts/'.'2'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.jpeg')}}">
-                    @elseif(file_exists($nome_file_png2))
-                      <img class="popup_imgs" id="img_post" data-toggle="modal" data-target="#img2<?php echo $posts->id_postagem ?>" src="{{url('/ToDo/storage/app/public/posts/'.'2'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.png')}}">
-                    @endif
-                    @if(file_exists($nome_file3))
-                      <img class="popup_imgs" id="img_post" data-toggle="modal" data-target="#img3<?php echo $posts->id_postagem ?>" src="{{url('/ToDo/storage/app/public/posts/'.'3'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.jpeg')}}">
-                    @elseif(file_exists($nome_file_png3))
-                      <img class="popup_imgs" id="img_post" data-toggle="modal" data-target="#img3<?php echo $posts->id_postagem ?>" src="{{url('/ToDo/storage/app/public/posts/'.'3'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.png')}}">
-                    @endif
-                  </div>
+                    @for($t=0; $t<sizeof($post['img_post']); $t++)
+                      @if($post['img_post'][$t]->id_postagem === $posts->id_postagem)
+                        @if(Str::substr($post['img_post'][$t]->img_post, 30, 1) == 1)
+                          <img class="popup_imgs" id="<?php echo 'img1'.$posts->id_postagem ?>" onclick="show_modal('img1'+<?php echo $posts->id_postagem ?>)" src="{{url($post['img_post'][$t]->img_post)}}">
+                        @endif
+                        @if(Str::substr($post['img_post'][$t]->img_post, 30, 1) == 2)
+                          <img class="popup_imgs" id="<?php echo 'img2'.$posts->id_postagem ?>" onclick="show_modal('img2'+<?php echo $posts->id_postagem ?>)" src="{{url($post['img_post'][$t]->img_post)}}">
+                        @endif
+                        @if(Str::substr($post['img_post'][$t]->img_post, 30, 1) == 3)
+                          <img class="popup_imgs" id="<?php echo 'img3'.$posts->id_postagem ?>" onclick="show_modal('img3'+<?php echo $posts->id_postagem ?>)" src="{{url($post['img_post'][$t]->img_post)}}">
+                        @endif
+                      @endif
+                    @endfor 
+                  </div> 
                 </div>
+                <?php break; ?>
               @endif
             @endfor
+              
             <div class="popup_aval">
               <span class="popup_sub bold">
                 <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-award" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -452,88 +445,22 @@
   </div>
   <?php $i = $i + 1?>
 
-  
-
   <!-- Fim área de detalhes de ideias postadas-->
 
 <!-- Popup de visualização de imagens -->
-<div class="popup_img_post">
-    <div class="modal modal_img fade" id="img1<?php echo $posts->id_postagem ?>" role="dialog">
-        <button type="button" class="close btn_fechar" data-dismiss="modal">&times;</button>
-        <div class="modal-dialog">
-            <div class="modal-content modal_content">
-                <div class="modal-body">
-                    <button type="button" class="close btn_fechar_body" data-dismiss="modal">&times;</button>
-                    <?php 
-                        $nome_file = "ToDo/storage/app/public/posts/".'1'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.jpeg';
-                        $nome_file_png = "ToDo/storage/app/public/posts/".'1'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.png';  
-                    ?>
-                    @if(file_exists($nome_file))
-                        <img id="img_post1" src="{{url('/ToDo/storage/app/public/posts/'.'1'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.jpeg')}}">
-                    @elseif(file_exists($nome_file_png))
-                        <img id="img_post1" src="{{url('/ToDo/storage/app/public/posts/'.'1'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.png')}}">
-                    @endif
-                </div>
-            </div>
-        </div>
+  <div class="modal_imgs" id="img_modal">
+    <div class="modal_content">
+      <button type="button" class="close btnClose" onclick="hide_modal()" data-dismiss="modal">&times;</button>
+      <img id="img_post1" class="modal_img" src="">
     </div>
-</div>
+  </div>
 <!-- Fim Popup de visualização de imagens -->
 
-  <!-- Popup de visualização de imagens2 -->
-<div class="popup_img_post">
-    <div class="modal modal_img fade" id="img2<?php echo $posts->id_postagem ?>" role="dialog">
-        <button type="button" class="close btn_fechar" data-dismiss="modal">&times;</button>
-        <div class="modal-dialog">
-            <div class="modal-content modal_content">
-                <div class="modal-body">
-                    <button type="button" class="close btn_fechar_body" data-dismiss="modal">&times;</button>
-
-                    <?php 
-                        $nome_file2 = "ToDo/storage/app/public/posts/".'2'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.jpeg';
-                        $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.png';  
-                    ?>
-                    @if(file_exists($nome_file2))
-                        <img id="img_post1" src="{{url('/ToDo/storage/app/public/posts/'.'2'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.jpeg')}}">
-                    @elseif(file_exists($nome_file_png2))
-                        <img id="img_post1" src="{{url('/ToDo/storage/app/public/posts/'.'2'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.png')}}">
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Fim Popup de visualização de imagens2 -->
-
-<!-- Popup de visualização de imagens3 -->
-<div class="popup_img_post">
-    <div class="modal modal_img fade" id="img3<?php echo $posts->id_postagem ?>" role="dialog">
-        <button type="button" class="close btn_fechar" data-dismiss="modal">&times;</button>
-        <div class="modal-dialog">
-            <div class="modal-content modal_content">
-                <div class="modal-body">
-                    <button type="button" class="close btn_fechar_body" data-dismiss="modal">&times;</button>
-                    <?php 
-                        $nome_file3 = "ToDo/storage/app/public/posts/".'3'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.jpeg';
-                        $nome_file_png3 = "ToDo/storage/app/public/posts/".'3'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.png';  
-                    ?>
-                    @if(file_exists($nome_file3))
-                        <img id="img_post1" src="{{url('/ToDo/storage/app/public/posts/'.'3'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.jpeg')}}">
-                    @elseif(file_exists($nome_file_png3))
-                        <img id="img_post1" src="{{url('/ToDo/storage/app/public/posts/'.'3'.$posts->id_postagem.Str::kebab($posts->titulo_postagem).'.png')}}">
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Fim Popup de visualização de imagens3 -->
-
 @for($v=0; $v < sizeof($comments['comentarios']); $v++)
-  @if($comments['comentarios'][$v]->id == $user)
+  @if($comments['comentarios'][$v]->id == $user && $comments['comentarios'][$v]->id_postagem == $posts->id_postagem)
   <!--  Modal para apagar comentários -->
   <div class="painel-dados">
-    <div class="modal fade id" id="popup{{$comments['comentarios'][$v]->id_comentarios}}_apagar2" role="dialog">
+    <div class="modal fade id " id="popup{{$comments['comentarios'][$v]->id_comentarios}}_apagar2" role="dialog" style="background-color: rgb(0, 0, 0, .7);">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -560,7 +487,7 @@
   
   <!--  Modal de edição de comentários -->
   <div class="painel-dados">
-    <div class="modal fade id" id="popup{{$comments['comentarios'][$v]->id_comentarios}}_edit1" role="dialog">
+    <div class="modal fade id" id="popup{{$comments['comentarios'][$v]->id_comentarios}}_edit1" role="dialog" style="background-color: rgb(0, 0, 0, .7);">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -590,9 +517,9 @@
   </div>
   <!-- Fim modal de edição de comentarios -->
   
-  @elseif($comments['comentarios'][$v]->id != $user)
+  @elseif($comments['comentarios'][$v]->id != $user && $comments['comentarios'][$v]->id_postagem == $posts->id_postagem)
   <!-- Modal denunciar comentario -->
-  <div class="modal fade id" id="den_comen{{$comments['comentarios'][$v]->id_comentarios}}" role="dialog">
+  <div class="modal fade id" id="den_comen{{$comments['comentarios'][$v]->id_comentarios}}" role="dialog" style="background-color: rgb(0, 0, 0, .7);">
     <div class="modal-dialog modal-content">
       <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
@@ -634,10 +561,10 @@
   
   @for($r=0; $r<sizeof($comments['reply_coment']); $r++)
 
-    @if($comments['reply_coment'][$r]->id == $user)
+    @if($comments['reply_coment'][$r]->id == $user && $comments['reply_coment'][$r]->id_postagem == $posts->id_postagem)
       <!--  Modal de edição de respostas de comentários -->
       <div class="painel-dados">
-        <div class="modal fade id" id="popup{{$comments['reply_coment'][$r]->id_comentarios}}_edit" role="dialog">
+        <div class="modal fade id" id="popup{{$comments['reply_coment'][$r]->id_comentarios}}_edit" role="dialog" style="background-color: rgb(0, 0, 0, .7);">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -670,7 +597,7 @@
 
       <!--  Modal para apagar subcomentários -->
       <div class="painel-dados">
-        <div class="modal fade id" id="popup{{$comments['reply_coment'][$r]->id_comentarios}}_apagar1" role="dialog">
+        <div class="modal fade id" id="popup{{$comments['reply_coment'][$r]->id_comentarios}}_apagar1" role="dialog" style="background-color: rgb(0, 0, 0, .7);">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -693,9 +620,9 @@
       </div>
       <!--  Modal para apagar subcomentários -->
     
-      @elseif($comments['reply_coment'][$r]->id != $user)
+      @elseif($comments['reply_coment'][$r]->id != $user && $comments['reply_coment'][$r]->id_postagem == $posts->id_postagem)
       <!-- Modal denunciar comentario Reply -->
-      <div class="modal fade id" id="den_comen_reply{{$comments['reply_coment'][$r]->id_comentarios }}" role="dialog">
+      <div class="modal fade id" id="den_comen_reply{{$comments['reply_coment'][$r]->id_comentarios }}" role="dialog" style="background-color: rgb(0, 0, 0, .7);">
         <div class="modal-dialog modal-content">
             <div class="modal-header"></div>
             <form action="/denunciar_comentario" method="POST">

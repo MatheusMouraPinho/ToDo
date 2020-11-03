@@ -59,7 +59,7 @@ class HomeController extends Controller
 
             'img_post' => DB::table('img_postagem')
                                 ->leftJoin('postagens', 'postagens.id_postagem', '=', 'img_postagem.id_img')
-                                ->select('img_postagem.id_postagem')
+                                ->select('img_postagem.id_postagem', 'img_postagem.img_post')
                                 ->distinct()
                                 ->get()
         ];
@@ -239,26 +239,26 @@ class HomeController extends Controller
         }
         
         if($_FILES['img_post']['error'] == 0){
-            $img = addslashes(file_get_contents($_FILES['img_post']['tmp_name']));
             $img_post = DB::table('postagens')
                         ->where('id_postagem', $id_postagem)
-                        ->get();            
-            $sql = "INSERT INTO img_postagem (id_postagem, img_post) VALUES ('$id_postagem', '$img')";            
+                        ->get();  
+            $extenstion = $request->img_post->extension();          
+            $Filename = 'ToDo/storage/app/public/posts/'.'1'.$img_post[0]->id_postagem.Str::kebab($img_post[0]->titulo_postagem).'.'.$extenstion;
+            $sql = "INSERT INTO img_postagem (id_postagem, img_post) VALUES ('$id_postagem', '$Filename')";            
             mysqli_query($conn, $sql);
-
             $codFile = '1'.$img_post[0]->id_postagem.Str::kebab($img_post[0]->titulo_postagem);
-            $extenstion = $request->img_post->extension();
             $nameFile = "{$codFile}.{$extenstion}";
             
             $upload = $request->img_post->storeAs('posts', $nameFile);
 
         }
         if($_FILES['img_post2']['error'] == 0){
-            $img2 = addslashes(file_get_contents($_FILES['img_post2']['tmp_name']));
             $img_post = DB::table('postagens')
                         ->where('id_postagem', $id_postagem)
                         ->get();
-            $sql = "INSERT INTO img_postagem (id_postagem, img_post) VALUES ('$id_postagem', '$img2')";
+            $extenstion = $request->img_post2->extension();
+            $Filename2 = 'ToDo/storage/app/public/posts/'.'2'.$img_post[0]->id_postagem.Str::kebab($img_post[0]->titulo_postagem).'.'.$extenstion;
+            $sql = "INSERT INTO img_postagem (id_postagem, img_post) VALUES ('$id_postagem', '$Filename2')";
             mysqli_query($conn, $sql);
 
             $codFile = '2'.$img_post[0]->id_postagem.Str::kebab($img_post[0]->titulo_postagem);
@@ -268,11 +268,12 @@ class HomeController extends Controller
             $upload = $request->img_post2->storeAs('posts', $nameFile);
         }
         if($_FILES['img_post3']['error'] == 0){
-            $img3 = addslashes(file_get_contents($_FILES['img_post3']['tmp_name']));
             $img_post = DB::table('postagens')
                         ->where('id_postagem', $id_postagem)
                         ->get();
-            $sql = "INSERT INTO img_postagem (id_postagem, img_post) VALUES ('$id_postagem', '$img3')";
+            $extenstion = $request->img_post3->extension();
+            $Filename3 = 'ToDo/storage/app/public/posts/'.'3'.$img_post[0]->id_postagem.Str::kebab($img_post[0]->titulo_postagem).'.'.$extenstion;
+            $sql = "INSERT INTO img_postagem (id_postagem, img_post) VALUES ('$id_postagem', '$Filename3')";
             mysqli_query($conn, $sql);
 
             $codFile = '3'.$img_post[0]->id_postagem.Str::kebab($img_post[0]->titulo_postagem);
