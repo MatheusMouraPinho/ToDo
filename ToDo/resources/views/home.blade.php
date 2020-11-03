@@ -200,8 +200,15 @@ $smartphone = true;
 <?php }?>
 
 <?php while($rows = mysqli_fetch_assoc($result2)){ $situation = $rows['id_situacao_postagem']; $id_post = $rows['id_postagem']; $user_post = $rows['id_usuarios']; $name = $rows['usuario']; $scroll = $s +1;
-$nome_file2 = "ToDo/storage/app/public/posts/" .'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg';
-$nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.png';
+
+    $cont = 0;
+    for($q=0; $q<sizeof($post['img_post']); $q++){
+        if($post['img_post'][$q]->id_postagem == $id_post) {
+            if(Str::substr($post['img_post'][$q]->img_post, 30, 1) == 2) {
+                $cont = $cont + 1;
+            }
+        }
+    }
 ?>
     <div class="card-home">
         <div class="usu-home">
@@ -253,8 +260,8 @@ $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows
                 <?php } ?>
             </div>
         </div>
-        <div class="<?php if(file_exists($nome_file2)){echo "title-home";}elseif(file_exists($nome_file_png2)){echo "title-home";}else{echo "title-home2";} ?>"><b><?php echo mb_strtoupper($rows['titulo_postagem']); ?></b></div>
-        <div class="desc-home"><textarea readonly class="<?php if(file_exists($nome_file2)){echo "text-desc";}elseif(file_exists($nome_file_png2)){echo "text-desc";}else{echo "text-desc2";} ?>"><?php echo mb_strimwidth($rows['descricao_postagem'], 0, 500, "..."); ?></textarea></div>
+        <div class="<?php if($cont > 0) {echo "title-home";}else{echo "title-home2";} ?>"><b><?php echo mb_strtoupper($rows['titulo_postagem']); ?></b></div>
+        <div class="desc-home"><textarea readonly class="<?php if($cont>0){echo "text-desc";}else{echo "text-desc2";} ?>"><?php echo mb_strimwidth($rows['descricao_postagem'], 0, 500, "..."); ?></textarea></div>
         
         <?php $resultados = Helper::verifica_like_post($id_post)?>
         @if($resultados == 0)
@@ -275,15 +282,20 @@ $nome_file_png2 = "ToDo/storage/app/public/posts/".'2'.$id_post.Str::kebab($rows
             <div class="result-situation-home"><?php if ($situation == 1) { echo number_format((float)$rows['media'], 2, '.', '');}else{ echo "N/A";} ?></div>
         </div>
         <div class="visualizar-home"> <a style="text-decoration:underline" type="button"  data-toggle="modal" onclick="modal(<?php echo $id_post ;?>)" data-target="#post<?php echo $id_post ?>">Visualizar</a> </div>
-        @if(file_exists($nome_file2))
-            <div class="destaque-container">
-                <img class="destaque-home" data-toggle="modal" data-target="#img2<?php echo $id_post ?>" src="{{url('/ToDo/storage/app/public/posts/'.'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.jpeg')}}">
-            </div>
-        @elseif(file_exists($nome_file_png2))
-            <div class="destaque-container">
-                <img class="destaque-home" style="cursor: pointer" data-toggle="modal" data-target="#img2<?php echo $id_post ?>" src="{{url('/ToDo/storage/app/public/posts/'.'2'.$id_post.Str::kebab($rows['titulo_postagem']).'.png')}}">
+        @for($a=0; $a<sizeof($post['img_post']); $a++)
+            @if($post['img_post'][$a]->id_postagem == $id_post)
+                <div class="destaque-container">
+                    @for($m=0; $m<sizeof($post['img_post']); $m++)
+                        @if($post['img_post'][$m]->id_postagem == $id_post)
+                            @if(Str::substr($post['img_post'][$m]->img_post, 30, 1) == 2)
+                                <img class="destaque-home" id="<?php echo 'img4'.$id_post ?>" onclick="show_modal('img4'+<?php echo $id_post ?>)" src="{{url($post['img_post'][$m]->img_post)}}">
+                            @endif
+                        @endif
+                    @endfor
                 </div>
-        @endif
+                <?php break; ?>
+            @endif
+        @endfor
     </div>
     @include('layouts.post')
     <!-- Modal deletar postagem -->

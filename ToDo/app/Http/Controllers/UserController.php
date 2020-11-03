@@ -119,7 +119,7 @@ class UserController extends Controller
 
             'img_post' => DB::table('img_postagem')
                             ->leftJoin('postagens', 'postagens.id_postagem', '=', 'img_postagem.id_img')
-                            ->select('img_postagem.id_postagem')
+                            ->select('img_postagem.id_postagem', 'img_postagem.img_post')
                             ->distinct()
                             ->get()
         ];
@@ -231,7 +231,7 @@ class UserController extends Controller
 
                 'img_post' => DB::table('img_postagem')
                                     ->leftJoin('postagens', 'postagens.id_postagem', '=', 'img_postagem.id_img')
-                                    ->select('img_postagem.id_postagem')
+                                    ->select('img_postagem.id_postagem', 'img_postagem.img_post')
                                     ->distinct()
                                     ->get()
             ];
@@ -320,21 +320,20 @@ class UserController extends Controller
     */
 
 
-        $data['img_usuarios'] = $user->img_usuarios;
+        
         if($request->hasFile('img_usuarios') && $request->file('img_usuarios')->isValid()) {
-            if($user->img_usuarios)
-                $name = $user->img_usuarios;
-            else
-                $name = $user->id.Str::kebab($user->usuario);
+
+            $name = $user->id.Str::kebab($user->usuario);
             
             $extenstion = $request->img_usuarios->extension();
             $nameFile = "{$name}.{$extenstion}";
 
-            $data['img_usuarios'] = $nameFile;
+            Storage::disk('public')->delete('users/'.$name.'.'.$extenstion);
 
+            $fileName = $name.'.'.$extenstion;
+
+            $data['img_usuarios'] = $fileName;
             $upload = $request->img_usuarios->storeAs('users', $nameFile);
-
-            Storage::disk('public')->delete('users/'.Auth::user()->img_usuarios);
 
             if(!$upload)
                 return redirect()
@@ -342,21 +341,20 @@ class UserController extends Controller
                                 ->with('error', 'Erro ao fazer upload de imagem');
         }
 
-        $data['img_capa'] = $user->img_capa;
+        
         if($request->hasFile('img_capa') && $request->file('img_capa')->isValid()) {
-            if($user->img_capa)
-                $name = $user->img_capa;
-            else
-                $name = $user->id.Str::kebab($user->usuario);
+            $name = $user->id.Str::kebab($user->usuario);
             
             $extenstion = $request->img_capa->extension();
             $nameFile = "{$name}.{$extenstion}";
 
-            $data['img_capa'] = $nameFile;
+            Storage::disk('public')->delete('users_capa/'.$name.'.'.$extenstion);
 
+            $fileName = $name.'.'.$extenstion;
+
+            $data['img_capa'] = $fileName;
+            
             $upload = $request->img_capa->storeAs('users_capa', $nameFile);
-
-            Storage::disk('public')->delete('users_capa/'.Auth::user()->img_capa);
 
             if(!$upload)
                 return redirect()

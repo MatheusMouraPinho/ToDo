@@ -537,6 +537,8 @@ p {
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   margin-right: 10px;
+  cursor: pointer;
+  object-fit: cover;
 }
 
 .popup_imgs:hover {
@@ -1069,6 +1071,55 @@ input[type='file'] {
   padding-left: 3px;
 }
 
+.modal_img {
+  width: 65vw;
+}
+
+.modal_imgs {
+  width: 100vw;
+  height: 100%;
+  background-color: rgb(0, 0, 0, .7);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  visibility: hidden;
+  z-index: 1055;
+  overflow: hidden;
+  outline: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#img_post1 {
+  width: 65vw;
+  height: 40vw;
+  margin: 0;
+  object-fit: cover;
+}
+
+.btnClose {
+  color: #fff;
+  background-color: #000;
+  position: absolute;
+  top: 10px;
+  right: 40px;
+  padding: 5px 10px;
+  font-size: 45px;
+  border: 1px solid #fff;
+}
+
+.modal_content {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+
+}
+
+.modal_active {
+  visibility: visible;
+}
+
 @media (max-width: 992px) {
   #popup_cont_desc {
     width: 90%;
@@ -1229,7 +1280,6 @@ input[type='file'] {
   }
 
   .center_media {
-    align-self: ;
     width: 100%;
   }
 
@@ -1296,13 +1346,6 @@ input[type='file'] {
   position: fixed;
 }
 
-.modal_content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
 #img_post {
   cursor: pointer;
 }
@@ -1312,13 +1355,7 @@ input[type='file'] {
   outline: 0;
 }
 
-#img_post1 {
-  width: 60vw;
-  height: 40vw;
-  border: 1px solid black;
-  border-radius: 10px;
-  margin: 0;
-}
+
 
 .btn_fechar_body {
   visibility: hidden;
@@ -1326,9 +1363,8 @@ input[type='file'] {
 
 @media(max-width: 1000px){
   #img_post1 {
-    height: 100vw;
-    width: 90vw;
-    margin: 0;
+    width: 600px;
+    height: 400px;
   }
 
   .btn_fechar_body {
@@ -1441,6 +1477,11 @@ input[type='file'] {
     max-width: 120px;
   }
 
+  #img_post1 {
+    width: 450px;
+    height: 300px;
+  }
+
 }
 
 .bola {
@@ -1529,6 +1570,16 @@ input[type='file'] {
 @media(max-width: 400px) {
   #popup_cont_desc {
     width: 85%;
+  }
+
+  .btnClose {
+    top: 120px;
+    right: 10px;
+  }
+
+  #img_post1 {
+    width: 85vw;
+    height: 55vw;
   }
 
   .subdados {
@@ -1687,6 +1738,16 @@ input[type='file'] {
   th, td {
     max-width: 90px;
     min-width: 40px;
+  }
+
+  #img_post1 {
+    width: 370px;
+    height: 220px;
+  }
+
+  .btnClose {
+    top: 10px;
+    right: 10px;
   }
 }
 
