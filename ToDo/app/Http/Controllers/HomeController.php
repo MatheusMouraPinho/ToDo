@@ -33,6 +33,11 @@ class HomeController extends Controller
         Auth::logout();
         return redirect('/');
     }
+
+    public function sobre()
+    {   
+        return view('sobre');
+    }
       
     public function home()
     {

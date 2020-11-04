@@ -138,7 +138,7 @@ $resultado = mysqli_query($conn, $sql);
       <div class="row text-center d-flex justify-content-center pt-5 mb-3">
         <div class="col-md-2 mb-3">
           <h6 class="text-uppercase font-weight-bold">
-            <a href="#pagina">Sobre nós</a>
+            <a href="{{ url('sobre') }}">Sobre nós</a>
           </h6>
         </div>
         <div class="col-md-3 mb-3">
@@ -171,9 +171,9 @@ $resultado = mysqli_query($conn, $sql);
           <p style="line-height: 1.7rem">
             ToDo Ideias é um site voltado para a coleta, armazenamento e gestão de ideias de forma a se tornar em um repositório, onde qualquer pessoa poderá registrar
             uma ideia. Considera-se “ideia" qualquer proposta que venha a surgir de uma inovação, oportunidade, necessidade ou problema.
-            Tem como objetivo coletar, armazenar e gerenciar propostas de projetos para desenvolvimento, Permitir que alunos e professores exponham suas ideias,
+            Tem como objetivo coletar, armazenar e gerenciar propostas de projetos para desenvolvimento, permitir que todos os usuários exponham suas ideias,
             permitir votações e comentários das ideias de modo que o sistema fará o ranqueamento das ideias com melhores avaliações
-            e permitir aos docentes a visão das melhores ideias de forma a contribuir para o conhecimento e a definição dos projetos a serem desenvolvidos pelos alunos.
+            permitindo aos docentes a visão das melhores ideias de forma a contribuir para o conhecimento e a definição dos projetos a serem desenvolvidos pelos alunos.
           </p>
         </div>
       </div>
@@ -252,6 +252,44 @@ $resultado = mysqli_query($conn, $sql);
     </div>
   </div>
   <!-- FIM Modal Criação post-->
+  <!--Modal termos de uso-->
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modal_termo" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body fundo">
+          <div class="text-center" style="padding:50px;"><H5><b>WORK IN PROGESS</b></h5></div>
+        </div>
+        <div class="modal-footer-custom" style="border-top: 1px solid #ccc">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIM Modal termos de uso-->
+  <!--Modal politica de privacidade-->
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modal_politi" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body fundo">
+          <div class="text-center" style="padding:50px;"><H5><b>WORK IN PROGESS</b></h5></div>
+        </div>
+        <div class="modal-footer-custom" style="border-top: 1px solid #ccc">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIM Modal politica de privacidade-->
   <!--Modal contatos-->
   <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modal_contato" aria-hidden="true">
     <div class="modal-dialog modal-lg">

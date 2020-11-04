@@ -79,6 +79,8 @@ Route::group(['middleware' => ['auth', 'verified']], function() { //grupo middle
 
     Route::post('/buscar_cidades', 'UserController@buscar_cidades');
 
+    Route::get('/sobre', 'HomeController@sobre');
+
 });
 
 Route::group(['middleware' => ['auth', 'verified', 'admin']], function() {

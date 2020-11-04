@@ -14,7 +14,7 @@ class avaliador //classe que é puxada no kernel depois
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->Avaliador()) {   //função do User.php
+        if(auth()->user()->avaliador()) {   //função do User.php
             return $next($request);
         }
         return redirect('home');
