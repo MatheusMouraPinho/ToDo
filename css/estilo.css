@@ -540,6 +540,7 @@ p {
   margin-right: 10px;
   cursor: pointer;
   object-fit: cover;
+  margin-bottom: 10px;
 }
 
 .popup_imgs:hover {
