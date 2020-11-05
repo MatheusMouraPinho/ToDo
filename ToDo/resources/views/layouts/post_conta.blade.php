@@ -450,8 +450,8 @@
 <!-- Popup de visualização de imagens -->
   <div class="modal_imgs" id="img_modal">
     <div class="modal_content">
-      <button type="button" class="close btnClose" onclick="hide_modal()" data-dismiss="modal">&times;</button>
-      <img id="img_post1" class="modal_img" src="">
+      <button type="button" class="close btnClose" onclick="hide_modal(); getWidth()" data-dismiss="modal">&times;</button>
+      <img id="img_post1" class="modal_img" src="" onclick="">
     </div>
   </div>
 <!-- Fim Popup de visualização de imagens -->

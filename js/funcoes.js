@@ -250,13 +250,20 @@ function show_modal(ele) {
     
     srcVal = imgs.getAttribute('src');
     modalImg.setAttribute('src', srcVal);
-    id_modal.classList.toggle('modal_active');   
-
+    id_modal.classList.toggle('modal_active');
 }
 
 function hide_modal() {
     var id_modal = document.getElementById('img_modal');
     id_modal.classList.toggle('modal_active');
+}
+
+function getWidth() {
+    var img = document.getElementById("img_post1");
+
+    console.log(img.height,           img.width);
+    console.log(img.naturalHeight,    img.naturalWidth);
+    console.log($("#img_post1").height(),  $("#img_post1").width());
 }
 
 

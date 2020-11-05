@@ -527,7 +527,8 @@ p {
 }
 
 .popup_imgs {
-  width: 120px;
+  width: auto;
+  max-width: 150px;
   height: 90px;
   border-bottom: 2px solid #3490dc;
   border-radius: 3px;
@@ -549,7 +550,9 @@ p {
 
 @media (max-width: 540px) {
   .popup_imgs {
-    width: 100px;
+    margin-bottom: 10px;
+    width: auto;
+    max-width: 150px;
   }
 }
 
@@ -626,7 +629,7 @@ p {
   display: inline-block;
   border: none;
   border-bottom: 2px solid #3490dc;
-  width: 40%;
+  width: 55%;
   text-align: center;
   margin-left: 25px;
   margin-top: 10px;
@@ -1091,8 +1094,10 @@ input[type='file'] {
 }
 
 #img_post1 {
-  width: 65vw;
-  height: 40vw;
+  width: auto;
+  max-width: 90%;
+  max-height: 80%;
+  height: auto;
   margin: 0;
   object-fit: cover;
 }
@@ -1363,8 +1368,10 @@ input[type='file'] {
 
 @media(max-width: 1000px){
   #img_post1 {
-    width: 600px;
-    height: 400px;
+    width: auto;
+    max-width: 95%;
+    max-height: 80%;
+    height: auto;
   }
 
   .btn_fechar_body {
@@ -1478,8 +1485,10 @@ input[type='file'] {
   }
 
   #img_post1 {
-    width: 450px;
-    height: 300px;
+    width: auto;
+    max-width: 95%;
+    max-height: 90%;
+    height: auto;
   }
 
 }
@@ -1573,13 +1582,15 @@ input[type='file'] {
   }
 
   .btnClose {
-    top: 120px;
+    top: 5px;
     right: 10px;
   }
 
   #img_post1 {
-    width: 85vw;
-    height: 55vw;
+    width: auto;
+    max-width: 98%;
+    max-height: 82%;
+    height: auto;
   }
 
   .subdados {
@@ -1741,8 +1752,10 @@ input[type='file'] {
   }
 
   #img_post1 {
-    width: 370px;
-    height: 220px;
+    width: auto;
+    max-width: 98%;
+    max-height: 85%;
+    height: auto;
   }
 
   .btnClose {
