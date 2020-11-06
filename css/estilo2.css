@@ -384,15 +384,10 @@ tr.linha{
 .img-like{
   width:29px; 
 }
-.destaque-container {
-  position: absolute;
-  text-align: center;
-}
 .destaque-home{
-  max-width: 100%;
-  max-height: 100%;
-  border: solid 1px blue;
+  position: absolute;
   cursor: pointer;
+  object-fit: scale-down;
 }
 .situation-home{
   position: absolute;
@@ -771,11 +766,11 @@ f2{
     margin-left: 18px;
     margin-Top: 146px;
   }
-  .destaque-container {
-    margin-left:855px;
-    margin-Top: 58px;
-    width: 160px;
-    height: 100px;
+  .destaque-home {
+    margin-left: 840px;
+    margin-Top: 56px;
+    width: 175px;
+    height: 110px;
   }
   .visualizar-home{
     margin-left: 71px;
@@ -808,7 +803,7 @@ f2{
   }
   .text-desc{
     margin-top: 5px;
-    width: 740px;
+    width: 730px;
   }
   .text-desc2{
     margin-top: 8px;
@@ -822,7 +817,7 @@ f2{
     margin-top: 47px;
     margin-left: 67px;
     font-size: 23px;
-    max-width: 740px;
+    max-width: 730px;
   }
   .title-home2{
     margin-top: 47px;
@@ -863,11 +858,11 @@ f2{
     margin-left: 18px;
     margin-Top: 146px;
   }
-  .destaque-container {
-    margin-left:690px;
+  .destaque-home {
+    margin-left:672px;
     margin-Top: 58px;
-    width: 140px;
-    height: 100px;
+    width: 150px;
+    height: 105px;
   }
   .visualizar-home{
     margin-left: 71px;
@@ -901,7 +896,7 @@ f2{
   }
   .text-desc{
     margin-top: 5px;
-    width: 600px;
+    width: 580px;
   }
   .text-desc2{
     width: 730px;
@@ -914,7 +909,7 @@ f2{
     margin-top: 47px;
     margin-left: 67px;
     font-size: 23px;
-    max-width: 590px;
+    max-width: 580px;
   }
   .title-home2{
     margin-top: 47px;
@@ -976,11 +971,11 @@ f2{
     margin-left: 18px;
     margin-Top: 146px;
   }
-  .destaque-container {
-    margin-left:580px;
+  .destaque-home {
+    margin-left:560px;
     margin-Top: 58px;
-    width: 120px;
-    height: 100px;
+    width: 140px;
+    height: 105px;
   }
   .visualizar-home{
     margin-left: 71px;
@@ -1014,7 +1009,7 @@ f2{
   }
   .text-desc{
     margin-top: 5px;
-    width: 490px;
+    width: 465px;
   }
   .text-desc2{
     width: 610px;
@@ -1027,7 +1022,7 @@ f2{
     margin-top: 47px;
     margin-left: 67px;
     font-size: 23px;
-    max-width: 480px;
+    max-width: 465px;
   }
   .title-home2{
     margin-top: 47px;
@@ -1099,10 +1094,10 @@ f2{
     margin-left: 25.5px;
     font-size: 14px;
   }
-  .destaque-container {
-    margin-left:400px;
+  .destaque-home {
+    margin-left: 380px;
     margin-Top: 58px;
-    width: 120px;
+    width: 135px;
     height: 100px;
   }
   .visualizar-home{
@@ -1122,7 +1117,7 @@ f2{
     font-size: 14px;
   }
   .text-desc{
-    width: 370px;
+    width: 345px;
   }
   .text-desc2{
     width: 480px;
@@ -1206,17 +1201,11 @@ f2{
     margin-left: 25.5px;
     font-size: 14px;
   }
-  .destaque-container {
-    margin-left:286px;
+  .destaque-home {
+    margin-left:278px;
     margin-Top: 60px;
-    width: 100px;
+    width: 115px;
     height: 100px;
-  }
-  .destaque-home{
-    width: auto;
-    max-width: 100px;
-    height: auto;
-    max-height: 100px;
   }
   .visualizar-home{
     margin-left: 320px;
@@ -1235,7 +1224,7 @@ f2{
     font-size: 13px;
   }
   .text-desc{
-    width: 260px;
+    width: 245px;
   }
   .text-desc2{
     width: 360px;
@@ -1316,7 +1305,7 @@ f2{
   .text-desc2{
     height: 66px;
   }
-  .destaque-container{
+  .destaque-home{
     margin-left:200px;
     margin-Top: 60px;
     width: 100px;
@@ -1448,7 +1437,7 @@ f2{
   .text-desc2{
     width: 310px;
   }
-  .destaque-container{
+  .destaque-home{
     margin-left:226px;
   }
   .text-motivo{
@@ -1469,7 +1458,7 @@ f2{
   .text-desc2{
     width: 360px;
   }
-  .destaque-container{
+  .destaque-home{
     margin-left:270px;
   }
   .text-motivo{

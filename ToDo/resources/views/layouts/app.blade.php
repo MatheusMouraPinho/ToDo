@@ -69,12 +69,12 @@ $resultado = mysqli_query($conn, $sql);
         ?>
           <button class="navbar_drop" id="navbarDropdown" role="button" data-toggle="dropdown">
             <?php if($row['img_usuarios'] == NULL){?>
-              <img class="nav_img" src="{{asset('img/semuser.png')}}">
+              <img class="nav_img" style="border-color:black" src="{{asset('img/semuser.png')}}">
             <?php }else{?>
               <img class="nav_img" src="{{asset('/ToDo/storage/app/public/users/'.$row['img_usuarios'])}}">
             <?php }?>
             <span class="nav_nome"><?php echo mb_strimwidth($nome_resum, 0, 22, "...") ; ?></span>
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="current color" xmlns="http://www.w3.org/2000/svg">
               <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
             </svg>
           </button>
