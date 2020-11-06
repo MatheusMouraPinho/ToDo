@@ -14,7 +14,7 @@ $denun2 = mysqli_fetch_array($rs2);
 
 $denun = $denun1[0] + $denun2[0];
 
-$sql = "SELECT COUNT(id_solicitacao) FROM solicitacoes";
+$sql = "SELECT COUNT(id_solicitacao) FROM solicitacoes WHERE status_solicitacao = 3";
 $rs1 = mysqli_query($conn, $sql);
 $soli = mysqli_fetch_array($rs1);
 

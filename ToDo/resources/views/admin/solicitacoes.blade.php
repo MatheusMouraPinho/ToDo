@@ -13,7 +13,7 @@ $nom = Session::get('nom');
 $notific = Session::get('notific');
 $usu = Session::get('usu');
 
-$sql = "SELECT * FROM solicitacoes";
+$sql = "SELECT * FROM solicitacoes WHERE status_solicitacao = 3";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
@@ -23,7 +23,7 @@ $num_pagina = ceil($total_pesquisa/$quantidade);
 
 $inicio = ($quantidade*$pagina)-$quantidade;
 
-$sql = "SELECT * FROM solicitacoes LEFT JOIN usuarios ON (usuario_solicitacao = usuarios.id) LEFT JOIN tipo_solicitacoes ON (tipo_solicitacao = tipo_solicitacoes.id_tipo_solicitacao) ORDER BY data_solicitacao DESC LIMIT $inicio, $quantidade ";
+$sql = "SELECT * FROM solicitacoes LEFT JOIN usuarios ON (usuario_solicitacao = usuarios.id) LEFT JOIN tipo_solicitacoes ON (tipo_solicitacao = tipo_solicitacoes.id_tipo_solicitacao) WHERE status_solicitacao = 3 ORDER BY data_solicitacao DESC LIMIT $inicio, $quantidade ";
 $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
 $pagina_anterior = $pagina - 1; //paginação
@@ -73,7 +73,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                 <th>Nome do usuario</th>
                                 <th>RGM/CPF</th>
                                 <th>Tipo</th>
-                                <th>Pedido</th>
+                                <th>Detalhes</th>
                                 <th>Opções</th>
                             </tr>
                         </thead>
@@ -96,7 +96,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                             <form action="{{url('alterar')}}" method="POST">
                                                 @csrf
                                                 <div class="modal-body">
-                                                    <p class="text-center"><h5>Pedido da solicitação <b></b></h5></p>
+                                                    <p class="text-center"><h5>Detalhes da solicitação <b></b></h5></p>
                                                     <br>
                                                     <textarea style="resize: none" cols="60" rows="6" readonly><?php echo $rows['conteudo_solicitacao'] ?></textarea>
                                                 </div>

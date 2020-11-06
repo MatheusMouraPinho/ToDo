@@ -437,7 +437,7 @@ class AdminController extends Controller
 
             Mail::to($mail)->send(new solicitacao_aceita());
 
-            $sql = "DELETE FROM solicitacoes WHERE id_solicitacao = $id_soli";
+            $sql = "UPDATE solicitacoes SET status_solicitacao = 1 WHERE id_solicitacao = $id_soli";
             mysqli_query($conn, $sql);
 
             return redirect()->back()->with(['notific' =>  $notific])->with(['nom' => $nom]);
@@ -454,7 +454,7 @@ class AdminController extends Controller
 
             Mail::to($mail)->send(new solicitacao_recusada());
 
-            $sql = "DELETE FROM solicitacoes WHERE id_solicitacao = $id_soli";
+            $sql = "UPDATE solicitacoes SET status_solicitacao = 2 WHERE id_solicitacao = $id_soli";
             mysqli_query($conn, $sql);
 
             return redirect()->back()->with(['notific' =>  $notific])->with(['nom' => $nom]);
