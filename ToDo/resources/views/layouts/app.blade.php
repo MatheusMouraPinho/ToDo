@@ -362,5 +362,13 @@ if(isset($denuncia)){ ?>
         });
     </script>
 <?php } ?>
+
+<script type="text/javascript">
+if(navigator.appName.indexOf("Internet Explorer")!=-1 || navigator.userAgent.match(/Trident.*rv[ :]*11\./))
+{
+  window.location = "/ToDo/IE";
+}
+</script>
+
 </body>
 </html>

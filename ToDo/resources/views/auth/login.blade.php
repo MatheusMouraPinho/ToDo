@@ -67,3 +67,10 @@
     </div>
 </div>
 @endsection
+
+<script type="text/javascript">
+if(navigator.appName.indexOf("Internet Explorer")!=-1 || navigator.userAgent.match(/Trident.*rv[ :]*11\./))
+{
+  window.location = "/ToDo/IE";
+}
+</script>

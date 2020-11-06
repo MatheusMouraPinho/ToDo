@@ -245,13 +245,13 @@ class AdminController extends Controller
         $result4 = mysqli_query($conn, $query4);
         while($rows = mysqli_fetch_assoc($result4)){
             $id = $rows['id_postagem'];
-            $titulo = $rows['titulo_postagem'];
-            storage::disk('public')->delete("posts/1$id$titulo.png");
-            storage::disk('public')->delete("posts/2$id$titulo.png");
-            storage::disk('public')->delete("posts/3$id$titulo.png");
-            storage::disk('public')->delete("posts/1$id$titulo.jpg");
-            storage::disk('public')->delete("posts/2$id$titulo.jpg");
-            storage::disk('public')->delete("posts/3$id$titulo.jpg");
+            
+            $sql = "SELECT * FROM img_postagem WHERE id_postagem = $id";
+            $result = mysqli_query($conn, $sql);
+            while($rows = mysqli_fetch_assoc($result)){
+                $file_img = $rows['img_post'];
+                unlink("$file_img");
+            }
         }
 
         $query = "SELECT * FROM postagens WHERE id_usuarios = $id_sql";
@@ -271,6 +271,9 @@ class AdminController extends Controller
         }
 
         $sql = "DELETE FROM postagens WHERE id_usuarios = $id_sql";
+        mysqli_query($conn, $sql);
+
+        $sql = "DELETE FROM solicitacoes WHERE usuario_solicitacao = $id_sql";
         mysqli_query($conn, $sql);
         
         $sql = "DELETE FROM usuarios WHERE id = $id_sql";
@@ -358,17 +361,11 @@ class AdminController extends Controller
             $sql = "DELETE FROM avaliacao_postagem WHERE id_postagem = $id_post";
             mysqli_query($conn, $sql);
             
-            $query4 = "SELECT * FROM postagens WHERE id_postagem = $id_post";
-            $result4 = mysqli_query($conn, $query4);
-            while($rows = mysqli_fetch_assoc($result4)){
-                $id = $rows['id_postagem'];
-                $titulo = $rows['titulo_postagem'];
-                storage::disk('public')->delete("posts/1$id$titulo.png");
-                storage::disk('public')->delete("posts/2$id$titulo.png");
-                storage::disk('public')->delete("posts/3$id$titulo.png");
-                storage::disk('public')->delete("posts/1$id$titulo.jpg");
-                storage::disk('public')->delete("posts/2$id$titulo.jpg");
-                storage::disk('public')->delete("posts/3$id$titulo.jpg");
+            $sql = "SELECT * FROM img_postagem WHERE id_postagem = $id_post";
+            $result = mysqli_query($conn, $sql);
+            while($rows = mysqli_fetch_assoc($result)){
+                $file_img = $rows['img_post'];
+                unlink("$file_img");
             }
 
             $sql = "DELETE FROM img_postagem WHERE id_postagem = $id_post";

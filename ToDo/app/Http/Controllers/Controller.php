@@ -15,5 +15,9 @@ class Controller extends BaseController
     {   
         return view('auth.mobile');
     }
+    public function IE()
+    {   
+        return view('auth.IE');
+    }
 }
 

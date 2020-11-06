@@ -27,7 +27,9 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/mobile', 'Controller@mobile'); 
+Route::get('/mobile', 'Controller@mobile');
+
+Route::get('/IE', 'Controller@IE');
 
 Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 

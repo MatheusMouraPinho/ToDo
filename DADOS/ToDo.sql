@@ -33,7 +33,7 @@ USE `repositorio_de_ideias`;
 CREATE TABLE `area_estudo` (
   `id_area` int NOT NULL,
   `nome_area` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `area_estudo`
@@ -108,7 +108,7 @@ CREATE TABLE `avaliacao_postagem` (
   `potencial_avaliacao` double NOT NULL,
   `media_avaliacao` double NOT NULL,
   `id_avaliador` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -121,7 +121,7 @@ CREATE TABLE `bloqueados` (
   `email` varchar(255) NOT NULL,
   `motivo_bloqueio` varchar(255) NOT NULL,
   `data_bloqueio` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `bloqueados`
@@ -139,7 +139,7 @@ INSERT INTO `bloqueados` (`id`, `email`, `motivo_bloqueio`, `data_bloqueio`) VAL
 CREATE TABLE `categoria_postagem` (
   `id_categoria` int NOT NULL,
   `categoria_postagem` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `categoria_postagem`
@@ -162,7 +162,7 @@ CREATE TABLE `check_denuncia` (
   `id_denuncia` int NOT NULL,
   `id_postagem` int DEFAULT NULL,
   `id_usuario` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -174,7 +174,7 @@ CREATE TABLE `check_denuncia_comentarios` (
   `id_denuncia` int NOT NULL,
   `id_comentario` int DEFAULT NULL,
   `id_usuario` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -193,7 +193,7 @@ CREATE TABLE `comentarios` (
   `edit_comentarios` datetime DEFAULT NULL,
   `id_mencionado` int DEFAULT NULL,
   `id_comentarios_ref` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -206,7 +206,7 @@ CREATE TABLE `denuncias` (
   `id_postagem` int DEFAULT NULL,
   `id_motivo` int DEFAULT NULL,
   `quantidade` int NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -219,7 +219,7 @@ CREATE TABLE `denuncias_comentarios` (
   `id_comentario` int DEFAULT NULL,
   `id_motivo` int DEFAULT NULL,
   `quantidade` int NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -231,7 +231,7 @@ CREATE TABLE `img_postagem` (
   `id_img` int NOT NULL,
   `id_postagem` int NOT NULL,
   `img_post` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -243,7 +243,7 @@ CREATE TABLE `instituicao_ensino` (
   `id_instituicao` int NOT NULL,
   `nome_instituicao` varchar(100) NOT NULL,
   `sigla_instituicao` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `instituicao_ensino`
@@ -273,7 +273,7 @@ CREATE TABLE `like_comentarios` (
   `id_likes` int NOT NULL,
   `id_comentarios` int NOT NULL,
   `id_usuarios` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -285,7 +285,7 @@ CREATE TABLE `like_postagens` (
   `id_like` int NOT NULL,
   `id_postagens` int NOT NULL,
   `id_usuarios` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -296,7 +296,7 @@ CREATE TABLE `like_postagens` (
 CREATE TABLE `motivo_denuncia` (
   `id_motivo_denuncia` int NOT NULL,
   `nome_motivo` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `motivo_denuncia`
@@ -316,7 +316,7 @@ INSERT INTO `motivo_denuncia` (`id_motivo_denuncia`, `nome_motivo`) VALUES
 CREATE TABLE `nivel_acesso` (
   `id_nivel` int NOT NULL,
   `nivel` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `nivel_acesso`
@@ -337,7 +337,7 @@ CREATE TABLE `password_resets` (
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -355,7 +355,7 @@ CREATE TABLE `postagens` (
   `likes_postagem` int NOT NULL DEFAULT '0',
   `data_postagem` datetime NOT NULL,
   `media` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -367,7 +367,7 @@ CREATE TABLE `regiao_cidade` (
   `id_regiao_cidade` int NOT NULL,
   `id_estado` int NOT NULL,
   `nome_cidade` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `regiao_cidade`
@@ -962,7 +962,7 @@ CREATE TABLE `regiao_estado` (
   `id_regiao_estado` int NOT NULL,
   `nome_estado` varchar(50) NOT NULL,
   `uf_regiao_estado` varchar(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `regiao_estado`
@@ -1006,7 +1006,7 @@ INSERT INTO `regiao_estado` (`id_regiao_estado`, `nome_estado`, `uf_regiao_estad
 CREATE TABLE `situacao_postagem` (
   `id_situacao_postagem` int NOT NULL,
   `situacao_postagem` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `situacao_postagem`
@@ -1028,7 +1028,7 @@ CREATE TABLE `solicitacoes` (
   `usuario_solicitacao` int DEFAULT NULL,
   `conteudo_solicitacao` varchar(255) DEFAULT NULL,
   `data_solicitacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `solicitacoes`
@@ -1046,7 +1046,7 @@ INSERT INTO `solicitacoes` (`id_solicitacao`, `tipo_solicitacao`, `usuario_solic
 CREATE TABLE `tipo_solicitacoes` (
   `id_tipo_solicitacao` int NOT NULL,
   `nome_tipo_solicitacao` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `tipo_solicitacoes`
@@ -1080,7 +1080,7 @@ CREATE TABLE `usuarios` (
   `img_capa` varchar(255) DEFAULT NULL,
   `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_regiao_estado` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `usuarios`
@@ -1103,7 +1103,7 @@ CREATE TABLE `verifica` (
   `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Índices para tabelas despejadas

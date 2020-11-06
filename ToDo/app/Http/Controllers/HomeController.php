@@ -298,7 +298,6 @@ class HomeController extends Controller
         mysqli_set_charset($conn, 'utf8');
 
         $id = $_POST['id_postagem'];
-        $filename = $_POST['filename'];
 
         $sql = "DELETE FROM check_denuncia WHERE id_postagem = $id";
         mysqli_query($conn, $sql);
@@ -336,12 +335,12 @@ class HomeController extends Controller
         $sql = "DELETE FROM avaliacao_postagem WHERE id_postagem = $id";
         mysqli_query($conn, $sql);
 
-        storage::disk('public')->delete("posts/1$filename.png");
-        storage::disk('public')->delete("posts/2$filename.png");
-        storage::disk('public')->delete("posts/3$filename.png");
-        storage::disk('public')->delete("posts/1$filename.jpg");
-        storage::disk('public')->delete("posts/2$filename.jpg");
-        storage::disk('public')->delete("posts/3$filename.jpg");
+        $sql = "SELECT * FROM img_postagem WHERE id_postagem = $id";
+        $result = mysqli_query($conn, $sql);
+        while($rows = mysqli_fetch_assoc($result)){
+            $file_img = $rows['img_post'];
+            unlink("$file_img");
+        }
 
         $sql = "DELETE FROM img_postagem WHERE id_postagem = $id";
         mysqli_query($conn, $sql);
