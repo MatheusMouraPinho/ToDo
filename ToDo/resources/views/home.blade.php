@@ -199,7 +199,7 @@ $smartphone = true;
     </div>
 <?php }?>
 
-<?php while($rows = mysqli_fetch_assoc($result2)){ $situation = $rows['id_situacao_postagem']; $id_post = $rows['id_postagem']; $user_post = $rows['id_usuarios']; $name = $rows['usuario']; $scroll = $s +1;
+<?php while($rows = mysqli_fetch_assoc($result2)){ $situation = $rows['id_situacao_postagem']; $id_post = $rows['id_postagem']; $user_post = $rows['id_usuarios']; $name = $rows['usuario'];
 
     $cont = 0;
     for($q=0; $q<sizeof($post['img_post']); $q++){
@@ -213,18 +213,18 @@ $smartphone = true;
     <div class="card-home">
         <div class="usu-home">
             <?php if($rows['img_usuarios'] == NULL){?>
-                <form id="perfil_img" action="{{url('perfil')}}" method="GET">
+                <form id="perfil_img<?php echo $rows['id']?>" action="{{url('perfil')}}" method="GET">
                     @csrf
                     <input type="hidden" name="id_usuario" value="<?php echo $rows['id']?>">
-                    <a href="javascript:$('#perfil_img').submit();">
+                    <a href="javascript:$('#perfil_img<?php echo $rows['id']?>').submit();">
                         <img class="img-home" src="{{asset('img/semuser.png')}}">
                     </a>
                 </form>
             <?php }else{?>
-                <form id="perfil_img" action="{{url('perfil')}}" method="GET">
+                <form id="perfil_img<?php echo $rows['id']?>" action="{{url('perfil')}}" method="GET">
                     @csrf
                     <input type="hidden" name="id_usuario" value="<?php echo $rows['id']?>">
-                    <a href="javascript:$('#perfil_img').submit();">
+                    <a href="javascript:$('#perfil_img<?php echo $rows['id']?>').submit();">
                         <img class="img-home" src="{{asset('/ToDo/storage/app/public/users/'.$rows['img_usuarios'])}}">
                     </a>
                 </form>
