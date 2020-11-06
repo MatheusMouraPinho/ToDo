@@ -1045,6 +1045,15 @@ f2{
   }
 }
 
+@media screen and (max-width: 767px) {
+  .text-desc{
+    height: 66.5px;
+  }
+  .text-desc2{
+    height: 66.5px;
+  }
+}
+
 /* IPAD/tablet (Low-med) Res */
 @media screen and (min-width: 559px) and (max-width: 767px) {
   .card-home{
@@ -1298,12 +1307,6 @@ f2{
   }
   td.ajuste1{
     max-width: 200px; 
-  }
-  .text-desc{
-    height: 66px;
-  }
-  .text-desc2{
-    height: 66px;
   }
   .destaque-home{
     margin-left:200px;
