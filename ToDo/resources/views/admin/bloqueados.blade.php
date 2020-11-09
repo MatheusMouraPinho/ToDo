@@ -68,8 +68,8 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                             <tr class="custom">
                                 <th>Data de Bloqueio</th>
                                 <th>Email</th>
-                                <th>Motivo</th>
-                                <th>Opções</th>
+                                <th style="min-width:80px">Motivo</th>
+                                <th style="min-width:80px">Opções</th>
                             </tr>
                         </thead>
                         <?php while($rows = mysqli_fetch_assoc($result2)){?>
@@ -91,7 +91,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                                 <div class="modal-body">
                                                     <p class="text-center"><h5>Motivo do bloqueio: <b></b></h5></p>
                                                     <br>
-                                                    <textarea style="resize: none" cols="60" rows="6" readonly><?php echo $rows['motivo_bloqueio'] ?></textarea>
+                                                    <textarea class="form-control textarea-estilo" style="resize:none;background-color:white;" style="resize: none" cols="60" rows="6" readonly><?php echo $rows['motivo_bloqueio'] ?></textarea>
                                                 </div>
                                                 <div class="modal-footer-custom">
                                                     <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>

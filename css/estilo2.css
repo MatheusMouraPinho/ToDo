@@ -129,6 +129,11 @@
   }
 }
 /* Area Adm */
+.textarea-estilo{
+  background-color:white;
+  border:1px solid black;
+  box-shadow: 1px 1px 5px #999;
+}
 .text-motivo{
   margin-top: 3px;
   margin-left: 50px;

@@ -69,9 +69,9 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                             <tr class="custom">
                                 <th>Autor do comentário</th>
                                 <th>Motivo</th>
-                                <th>Quantidade</th>
-                                <th>Visualizar comentário</th>
-                                <th>Opções</th>
+                                <th style="min-width:120px">Quantidade</th>
+                                <th style="min-width:100px">Visualizar comentário</th>
+                                <th style="min-width:80px">Opções</th>
                             </tr>
                         </thead>
                         <?php while($rows = mysqli_fetch_assoc($result)){ $nome_autor = $rows['usuario'];?>
@@ -98,7 +98,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                                 <div class="modal-body">
                                                     <p class="text-center"><h5>Conteúdo do Comentário de <b><?php echo $rows['usuario'] ?></b></h5></p>
                                                     <br>
-                                                    <textarea style="resize: none" cols="60" rows="6" readonly><?php echo $rows['conteudo_comentarios'] ?></textarea>
+                                                    <textarea class="form-control textarea-estilo" style="resize:none;background-color:white;" style="resize: none" cols="60" rows="6" readonly><?php echo $rows['conteudo_comentarios'] ?></textarea>
                                                 </div>
                                                 <div class="modal-footer-custom">
                                                     <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>

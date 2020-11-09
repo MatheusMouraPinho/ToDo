@@ -70,9 +70,9 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                             <tr class="custom">
                                 <th>Nome da ideia</th>
                                 <th>Motivo</th>
-                                <th>Quantidade</th>
-                                <th>Visualizar ideia</th>
-                                <th>Opções</th>
+                                <th style="min-width:120px">Quantidade</th>
+                                <th style="min-width:100px">Visualizar ideia</th>
+                                <th style="min-width:80px">Opções</th>
                             </tr>
                         </thead>
                         <?php while($rows = mysqli_fetch_assoc($result)){ $id_denuncia = $rows['id_denuncia'];
