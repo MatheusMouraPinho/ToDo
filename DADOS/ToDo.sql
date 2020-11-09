@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06-Nov-2020 às 23:13
+-- Tempo de geração: 09-Nov-2020 às 22:05
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.10
 
@@ -195,6 +195,13 @@ CREATE TABLE `comentarios` (
   `id_comentarios_ref` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `comentarios`
+--
+
+INSERT INTO `comentarios` (`id_comentarios`, `id_avaliacao`, `id_usuarios`, `id_postagem`, `conteudo_comentarios`, `data_comentarios`, `likes_comentarios`, `edit_comentarios`, `id_mencionado`, `id_comentarios_ref`) VALUES
+(111, NULL, 128, 94, 'fjfrj', '2020-11-09 09:45:16', 0, NULL, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -232,6 +239,13 @@ CREATE TABLE `img_postagem` (
   `id_postagem` int(11) NOT NULL,
   `img_post` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `img_postagem`
+--
+
+INSERT INTO `img_postagem` (`id_img`, `id_postagem`, `img_post`) VALUES
+(19, 94, 'ToDo/storage/app/public/posts/294testandoooooooooooooooooooooooooooooo.png');
 
 -- --------------------------------------------------------
 
@@ -330,6 +344,28 @@ INSERT INTO `nivel_acesso` (`id_nivel`, `nivel`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `notificacoes`
+--
+
+CREATE TABLE `notificacoes` (
+  `id_notificacao` int(11) NOT NULL,
+  `titulo_notificacao` varchar(255) NOT NULL,
+  `conteudo_notificacao` varchar(255) NOT NULL,
+  `usuario_notificacao` int(11) NOT NULL,
+  `data_notificacao` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `notificacoes`
+--
+
+INSERT INTO `notificacoes` (`id_notificacao`, `titulo_notificacao`, `conteudo_notificacao`, `usuario_notificacao`, `data_notificacao`) VALUES
+(5, 'Solicitação aceita', 'Sua solicitação de alteração de RGM/CPF foi aceita\r\n', 128, '2020-11-08 13:37:32'),
+(6, 'Ideia Avaliada', 'Sua ideia TESTE Foi avaliada por Fabio lippi', 128, '2020-11-09 13:37:32');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `password_resets`
 --
 
@@ -356,6 +392,15 @@ CREATE TABLE `postagens` (
   `data_postagem` datetime NOT NULL,
   `media` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `postagens`
+--
+
+INSERT INTO `postagens` (`id_postagem`, `id_usuarios`, `id_situacao_postagem`, `id_categoria`, `titulo_postagem`, `descricao_postagem`, `likes_postagem`, `data_postagem`, `media`) VALUES
+(89, 129, 2, 1, '5yjj', 'yh55yj', 0, '2020-11-06 21:33:20', NULL),
+(94, 128, 2, 2, 'testandoooooooooooooooooooooooooooooo', 'gnóstico.(7) O primeiro estudo de prevalência de FM após a definição dos critérios pelo ACR - e o único que não seguiu a nova classificação - foi o de Makela e Heliovaara(8), em 1991. O estudo foi realizado com a população finlandesa, entre os anos de 1977 e 1980, e os dados foram coletados por uma clínica móvel de pesquisa em saúde da população, que selecionou 8 mil pessoas elegíveis. Destes, 7217 participaram da primeira avaliação e 3434 aceitaram participar do exame físico dos tender points. Como na época não havia consenso sobre quais pontos avaliar, seis regiões foram examinadas: músculo trapézio, ombro, cotovelo, punho, joelho e tendão do tríceps da perna, bilateralmente. O diagnóstico positivo para FM foi dado a partir da combinação de dois de seis itens de sintomas (obtidos dos questionários) com pelo menos quatro tender points ou três sintomas e dois tender points, sendo que, em ambos os casos, a dor deveria estar presente por ao menos três meses. Com esta metodologia, foram encontrados 54 sujeitos com FM, indicando uma prevalência de 1,57%. Naturalmente, esta prevalência é questionável pelos critérios diagnósticos utilizados. No entanto, os resultados não diferem muito de alguns trabalhos realizados posteriormente. Na seqüência, Prescott et al(9) avaliaram a prevalência de FM na população adulta da Dinamarca. Os indivíduos eram provenientes de uma pesquisa nacional sobre saúde, com faixa etária entre 18 e 79 anos e residentes em Copenhagen, totalizando 1595 indivíduos. Destes, 1219 participaram da primeira entrevista, realizada por meio da aplicação de um questionário abordando questões a respeito dos locais de dor e sua duração. Os indivíduos com respostas correspondentes à dor crônica e difusa, segundo os critérios do ACR, foram convidados para o exame clínico - 123 pessoas, das quais 76 (62%) aceitaram a participação e somente 65 estiveram presentes. Os pesquisadores encontraram oito pacientes com FM, todos do gênero feminino, indicando uma prevalência de 0,66%. Tanto os autores quanto a comunidade científica(10) julgaram esta prevalência subestimada, o que foi atribuído à dificuldade na classificação dos tender points positivos, já que esta depende da sensação de dor do paciente (subjetiva) e da interpretação desta sensação pelo avaliador. No que diz respeito à metodologia, o estudo de Wolfe et al(4) parece ser o mais próximo dos critérios propostos em 1990. Este fato pode ser atribuído à familiaridade dos pesquisadores com a classificação, uma vez que fizeram parte do estudo multicêntrico de 1990. A população avaliada foi proveniente de um levantamento randômico de uma lista de endereços de residentes em Wichita, Kansas, EUA. As 3006 pessoas contatadas responderam a um questionário enviado por correio e foram classificadas de acordo com o tempo e localização da dor. Uma subamostra, composta por 391 indivíduos, completou a avaliação que consistia em questionários de ansiedade, depressão e capacidade funcional, além da avaliação dos tender points – realizada através de dígito-pressão e dolorimetria em alguns tender points. A prevalência média foi de 2% para a população geral, sendo 3,4% mulheres e 0,5% homens. White et al(7) encontraram resultados semelhantes aos de Wolfe et al(10) na população adulta canadense não-institucionalizada da cidade de Londres, Ontario. Em levantamento telefônico, 19,5 mil números foram selecionados e, ao final do primeiro contato, 3395 entrevistas foram completadas. Os indivíduos com dor crônica e difusa, segundo critérios do ACR, foram convidados a participar de uma avaliação, incluindo questionários e exame dos tender points. Ao final desta segunda fase, 176 haviam sido avaliados, com confirmação do diagnóstico em 100 destes casos, sendo 86 mulheres e 14 homens, resultando em uma prevalência de 2,7%. Considerando os indivíduos não avaliados com um possível quadro de FM, esta prevalência sobe para 3,3%. Considerando que a FM é a segunda causa mais freqüente nos consultórios de reumatologistas(11), é natural que os estudos epidemiológicos de doenças reumáticas também identifiquem a prevalência desta síndrome. Nestes estudos, o objetivo passa a ser estimar a prevalência das desordens reumatológicas mais comuns na população geral. Neste sentido, o Programa Orientado para a Comunidade que visa o controle de doenças reumáticas (COPCORD) foi um instrumento unânime nos estudos na Espanha, no Brasil, no México e em Bangladesh. Na Espanha, a amostra nacional constituiu-se de 2998 indivíduos extraídos das 19 comunidades autônomas do país, com idade maior ou igual a 20 anos e selecionados de forma aleatória. Ao contato, realizado através de carta, 2192 responderam. Todos foram convidados a participar do exame clínico feito por reumatologistas nos postos de saúde. Utilizando os critérios do ACR, a FM foi a quartaconsiderando estes critérios, apresenta FM e, portanto, quantificar indivíduos que possam ter a qualidade de vida comprometida. Embora os critérios do ACR tenham proporcionado a classificação da síndrome, não há um consenso sobre qual a prevalência de FM na população. Alguns autores sugerem que tal diferença seja resultado das distintas estratégias utilizadas para detecção dos casos de pacientes com FM e dos diferentes critérios aplicados para tal diagnóstico.(7) O primeiro estudo de prevalência de FM após a definição dos critérios pelo ACR - e o único que não seguiu a nova classificação - foi o de Makela e Heliovaara(8), em 1991. O estudo foi realizado com a população finlandesa, entre os anos de 1977 e 1980, e os dados foram coletados por uma clínica móvel de pesquisa em saúde da população, que selecionou 8 mil pessoas elegíveis. Destes, 7217 participaram da primeira avaliação e 3434 aceitaram participar do exame físico dos tender points. Como na época não havia consenso sobre quais pontos avaliar, seis regiões foram examinadas: músculo trapézio, ombro, cotovelo, punho, joelho e tendão do tríceps da perna, bilateralmente. O diagnóstico positivo para FM foi dado a partir da combinação de dois de seis itens de sintomas (obtidos dos questionários) com pelo menos quatro tender points ou três sintomas e dois', 0, '2020-11-08 01:56:19', NULL),
+(95, 128, 2, 1, 'Testando', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque placerat leo diam, sed tempus est efficitur eu. Phasellus aliquet sem sed condimentum semper. Praesent malesuada accumsan odio sed sollicitudin. Morbi ornare lorem ac arcu ultrices, non vulputate elit rhoncus. Ut tellus augue, lacinia et ante quis, dignissim efficitur diam. Nullam elementum urna quis tempor auctor. In eget elit eget dui sagittis ultrices et et ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae eleifend est. Quisque venenatis egestas ex et dapibus. Proin vestibulum eros non risus mollis elementum. Integer ornare nunc quis felis dictum, sit amet interdum ante imperdiet. Suspendisse et augue at orci rutrum dapibus.', 0, '2020-11-09 18:21:58', NULL);
 
 -- --------------------------------------------------------
 
@@ -1028,7 +1073,7 @@ CREATE TABLE `solicitacoes` (
   `usuario_solicitacao` int(11) DEFAULT NULL,
   `conteudo_solicitacao` varchar(255) DEFAULT NULL,
   `data_solicitacao` timestamp NULL DEFAULT current_timestamp(),
-  `status_solicitacao` int(11) DEFAULT NULL
+  `status_solicitacao` int(11) DEFAULT 3
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -1234,6 +1279,13 @@ ALTER TABLE `nivel_acesso`
   ADD PRIMARY KEY (`id_nivel`);
 
 --
+-- Índices para tabela `notificacoes`
+--
+ALTER TABLE `notificacoes`
+  ADD PRIMARY KEY (`id_notificacao`),
+  ADD KEY `usuario_notificacao` (`usuario_notificacao`);
+
+--
 -- Índices para tabela `password_resets`
 --
 ALTER TABLE `password_resets`
@@ -1346,13 +1398,13 @@ ALTER TABLE `check_denuncia_comentarios`
 -- AUTO_INCREMENT de tabela `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id_comentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id_comentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT de tabela `img_postagem`
 --
 ALTER TABLE `img_postagem`
-  MODIFY `id_img` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_img` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de tabela `instituicao_ensino`
@@ -1385,10 +1437,16 @@ ALTER TABLE `nivel_acesso`
   MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de tabela `notificacoes`
+--
+ALTER TABLE `notificacoes`
+  MODIFY `id_notificacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT de tabela `postagens`
 --
 ALTER TABLE `postagens`
-  MODIFY `id_postagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id_postagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT de tabela `regiao_cidade`
@@ -1501,6 +1559,12 @@ ALTER TABLE `like_postagens`
   ADD CONSTRAINT `like_postagens_ibfk_1` FOREIGN KEY (`id_usuarios`) REFERENCES `usuarios` (`id`),
   ADD CONSTRAINT `like_postagens_ibfk_2` FOREIGN KEY (`id_usuarios`) REFERENCES `usuarios` (`id`),
   ADD CONSTRAINT `like_postagens_ibfk_3` FOREIGN KEY (`id_postagens`) REFERENCES `postagens` (`id_postagem`);
+
+--
+-- Limitadores para a tabela `notificacoes`
+--
+ALTER TABLE `notificacoes`
+  ADD CONSTRAINT `notificacoes_ibfk_1` FOREIGN KEY (`usuario_notificacao`) REFERENCES `usuarios` (`id`);
 
 --
 -- Limitadores para a tabela `postagens`
