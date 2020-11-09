@@ -280,7 +280,7 @@
   padding: 10px;
   display: inline-block;
   margin-bottom: 0px;
-  margin-top: 160px;
+  margin-top: 150px;
 }
 
 .divisao-conta {
@@ -330,9 +330,16 @@
 #area_ideias {
   vertical-align: top;
   display: inline-block;
+  width: 100%;
+}
+
+#content_user {
+  vertical-align: top;
+  display: inline-block;
   margin-left: 30px;
   margin-top: 270px;
-  width: 55%;
+  width: 51%;
+  margin-right: 5px;
 }
 
 .margin {
@@ -346,7 +353,7 @@
 
 #h1conta {
   position: relative;
-  width: 200px;
+  width: 300px;
   text-align: left;
   margin-left: 0px;
   margin-right: auto;
@@ -363,7 +370,7 @@ textarea:focus, input:focus{
 }
 
 #table_conta {
-  width: 90%;
+  width: 97%;
   border-bottom: #3490dc 3px solid;
   margin-left: 15px;
   margin-right: auto;
@@ -372,8 +379,15 @@ textarea:focus, input:focus{
   overflow: scroll;
 }
 
+.btn_ideia {
+  position: relative;
+  float: right;
+  clear: both;
+  margin-bottom: 10px;
+}
+
 .scroll_table {
-  max-height: 400px;
+  max-height: 350px;
   overflow-y: auto;
 }
 
@@ -394,7 +408,7 @@ th, td {
   font-size: 1.1em;
   padding: 10px;
   max-width: 150px;
-  min-width: 140px;
+  min-width: 70px;
 }
 
 caption {
@@ -416,10 +430,6 @@ caption {
   width: 100%;
 }
 
-input {
-  width: 220px;
-  margin-right: 5px;
-}
 button {
   margin: 5px;
 }
@@ -747,10 +757,10 @@ input[type='file'] {
 }
 
 .img-dados {
-  width: 150px;
-  height: 150px;
+  width: 170px;
+  height: 170px;
   border-radius: 50%;
-  border: 2px inset #ffff;
+  border: 4px inset #ffff;
   object-fit: cover;
 }
 
@@ -1435,6 +1445,14 @@ input[type='file'] {
     margin-right: auto;;
     padding-bottom: 20px;
   }
+
+  #content_user {
+    display: block;
+    margin-left: 0px;
+    margin-top: 0px;
+    width: 100%;
+  }
+
   #area_capa {
     width: 100%;
     height: 270px;
@@ -1505,13 +1523,21 @@ input[type='file'] {
   margin-left: 10px;
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   #area_principal {
     width: 85%;
     margin-left: auto;
     margin-right: auto;;
     padding-bottom: 20px;
   }
+
+  #content_user {
+    display: block;
+    margin-left: 0px;
+    margin-top: 0px;
+    width: 100%;
+  }
+
   #area_capa {
     width: 100%;
     height: 270px;
@@ -1767,9 +1793,9 @@ input[type='file'] {
 
 @media (min-width: 1024px) and (max-width: 1366px) {
   #area_principal {
-    width: 85%;
+    width: 88%;
     margin-left: auto;
-    margin-right: auto;;
+    margin-right: auto;
     padding-bottom: 20px;
   }
   #area_capa {
@@ -1779,7 +1805,7 @@ input[type='file'] {
     margin: 0px;
   }
   #area-dados {
-    width: 45%;
+    width: 43%;
   }
 
   .divisao-conta {
@@ -1793,8 +1819,7 @@ input[type='file'] {
     vertical-align: top;
     display: inline-block;
     margin-left: 0px;
-    margin-top: 270px;
-    width: 53%;
+    width: 100%;
     
   }
 
@@ -1805,7 +1830,7 @@ input[type='file'] {
   }
 
   #table_conta {
-    width: 90%;
+    width: 95%;
     margin-left: 15px;
     margin-right: auto;
   }

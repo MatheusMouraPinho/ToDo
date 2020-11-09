@@ -199,6 +199,7 @@ $comments = [
       <!-- Área de ideias do usuario -->
 
       <!-- Início da tabela de ideias -->
+      <div id="content_user">
         @if(empty($dados['posts'][0]))
 
           <div id="area_ideias">
@@ -227,14 +228,14 @@ $comments = [
         @else
           <div id="area_ideias">
             <div class="container my-4">
-              <h2 id="h1conta">Minhas Ideias</h2>
+              <h2 id="h1conta">Ideias Postadas</h2>
             </div>
 
             <div class="scroll_table">
               <table id="table_conta" style="font-size: 1.1em">
                 <thead class="sticky-top">
                   <tr>
-                    <th>Nome da Ideia</th>
+                    <th style="min-width: 100px">Título</th>
                     <th>Data</th>
                     <th>Situação</th>
                     <th>Detalhes</th>
@@ -528,6 +529,7 @@ $comments = [
           </div>
       </div>
         @endif
+      </div>
 
       <!-- Fim área de ideias do usuario -->
 @endsection

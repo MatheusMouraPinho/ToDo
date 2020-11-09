@@ -59,14 +59,6 @@ class UserController extends Controller
 
             'img_capa' => Auth::user()->img_capa,
 
-            'posts' => DB::table('postagens')
-                    ->join('categoria_postagem','categoria_postagem.id_categoria', '=', 'postagens.id_categoria' )
-                    ->join('situacao_postagem','situacao_postagem.id_situacao_postagem', '=', 'postagens.id_situacao_postagem' )
-                    ->where('id_usuarios', $user_id)
-                    ->select('categoria_postagem.*', 'postagens.*', 'situacao_postagem.*')
-                    ->orderBy('postagens.id_postagem', 'asc')
-                    ->get(),
-
             'date' => DB::table('postagens')
                     ->where('id_usuarios', $user_id)
                     ->pluck('data_postagem'),
@@ -94,7 +86,8 @@ class UserController extends Controller
                         ->orderBy('nome_area', 'asc')
                         ->get(),
 
-            'img_post' => DB::table('img_postagem')
+            'img_post' => DB::table('img_postagem'),
+
         ];
         
 
@@ -243,7 +236,6 @@ class UserController extends Controller
 
         return view('perfil', compact('dados', 'post'));
     }
-   
 
     /**
      * Show the form for creating a new resource.
@@ -442,5 +434,72 @@ class UserController extends Controller
         ];
 
         echo json_encode($buscando);
+    }
+
+    public function solicitacao(Request $request) {
+        $data = $request->all();
+
+        $insert = DB::insert('insert into solicitacoes (
+            tipo_solicitacao,
+            usuario_solicitacao,
+            conteudo_solicitacao,
+            status_solicitacao
+        ) values (?, ?, ?, ?)', [$data['motivo'], $data['id_usuario'], $data['conteudo_solicitacao'], 3]);
+
+        if(!$insert){
+            return redirect()
+                    ->route('conta')
+                    ->with('error', 'Erro ao enviar solicitação!');
+        } else {
+            return redirect()
+                    ->route('conta')
+                    ->with('success', 'Solicitação enviada com sucesso!');
+        }
+    }
+
+    public function order_post() {
+        if(isset($_POST['ordenar_post'])){
+            if($_POST['ordenar_post'] == 'Recentes') {
+                $filtro_post = 'data_postagem';
+                $selected_post = '1';
+
+            } elseif ($_POST['ordenar_post'] == 'Populares') {
+                $filtro_post = 'likes_postagem';
+                $selected_post = '2'; 
+            } elseif ($_POST['ordenar_post'] == 'Avaliados') {
+                $filtro_post = '1';
+                $selected_post = '3'; 
+            }elseif ($_POST['ordenar_post'] == 'Pendentes') {
+                $filtro_post = '2';
+                $selected_post = '4'; 
+            }
+        }
+
+        
+        
+        return back()->with(compact('filtro_post', 'selected_post'));
+    }
+
+    public function order_solicitacao() {
+        if(isset($_POST['ordenar_solicit'])){
+            if($_POST['ordenar_solicit'] == 'Recentes') {
+                $filtro_solicit = 'data_solicitacao';
+                $selected_solicit = '1';
+
+            } elseif ($_POST['ordenar_solicit'] == 'Aprovadas') {
+                $filtro_solicit = '1';
+                $selected_solicit = '2'; 
+            } elseif ($_POST['ordenar_solicit'] == 'Reprovadas') {
+                $filtro_solicit = '2';
+                $selected_solicit = '3'; 
+            }elseif ($_POST['ordenar_solicit'] == 'Pendentes') {
+                $filtro_solicit = '3';
+                $selected_solicit = '4'; 
+            }
+        }
+
+        
+        
+        return back()->with(compact('filtro_solicit', 'selected_solicit'));
     }
 }

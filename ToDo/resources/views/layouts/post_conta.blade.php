@@ -28,7 +28,7 @@
                 </svg>&nbsp;
                 Categoria:
               </span>
-              <p class="popup_coment" id="categoria">{{$dados['posts'][$i]->categoria_postagem}}</p>
+              <p class="popup_coment" id="categoria">{{$posts->categoria_postagem}}</p>
             </div>
 
             @for($a=0; $a<sizeof($post['img_post']); $a++)

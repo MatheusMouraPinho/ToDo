@@ -83,6 +83,12 @@ Route::group(['middleware' => ['auth', 'verified']], function() { //grupo middle
 
     Route::get('/sobre', 'HomeController@sobre');
 
+    Route::post('/solicitacao', 'UserController@solicitacao');
+
+    Route::post('/ordenar_post', 'UserController@order_post')->name('order_post');
+
+    Route::post('/ordenar_solicitacao', 'UserController@order_solicitacao')->name('order_solicit');
+
 });
 
 Route::group(['middleware' => ['auth', 'verified', 'admin']], function() {

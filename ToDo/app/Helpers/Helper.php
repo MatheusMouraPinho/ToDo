@@ -3,6 +3,7 @@
 namespace App\Helpers;
 use Auth;
 use DB;
+use Session;
 
 class Helper
 {
@@ -71,5 +72,102 @@ class Helper
         array_push($post_id, $id_post);
         
         return $post_id;
+    }
+
+    public static function ordenar_post()
+    {
+        if(NULL !== Session::get('filtro_post')){$_SESSION['filtro_post'] = Session::get('filtro_post');}
+        if(isset($_SESSION['filtro_post'])){$filtro_post = $_SESSION['filtro_post'];}
+        if(!isset($filtro_post)){$filtro_post = "data_postagem";}
+
+        
+
+        if(NULL !== Session::get('selected_post')){$_SESSION['selected_post'] = Session::get('selected_post');}
+        if(!isset($_SESSION['selected_post'])){$_SESSION['selected_post'] = '1';}
+        
+
+        $user_id = Auth::user()->id;
+
+        if($_SESSION['selected_post'] == '4') {
+            $post = DB::table('postagens')
+            ->join('categoria_postagem','categoria_postagem.id_categoria', '=', 'postagens.id_categoria' )
+            ->join('situacao_postagem','situacao_postagem.id_situacao_postagem', '=', 'postagens.id_situacao_postagem' )
+            ->where('id_usuarios', $user_id)
+            ->where('postagens.id_situacao_postagem', $filtro_post)
+            ->select('categoria_postagem.*', 'postagens.*', 'situacao_postagem.*')
+            ->orderBy('data_postagem', 'desc')
+            ->get();
+        } elseif($_SESSION['selected_post'] == '3') {
+            $post = DB::table('postagens')
+            ->join('categoria_postagem','categoria_postagem.id_categoria', '=', 'postagens.id_categoria' )
+            ->join('situacao_postagem','situacao_postagem.id_situacao_postagem', '=', 'postagens.id_situacao_postagem' )
+            ->where('id_usuarios', $user_id)
+            ->where('postagens.id_situacao_postagem', $filtro_post)
+            ->select('categoria_postagem.*', 'postagens.*', 'situacao_postagem.*')
+            ->orderBy('data_postagem', 'desc')
+            ->get();
+        } else {
+            $post = DB::table('postagens')
+                    ->join('categoria_postagem','categoria_postagem.id_categoria', '=', 'postagens.id_categoria' )
+                    ->join('situacao_postagem','situacao_postagem.id_situacao_postagem', '=', 'postagens.id_situacao_postagem' )
+                    ->where('id_usuarios', $user_id)
+                    ->select('categoria_postagem.*', 'postagens.*', 'situacao_postagem.*')
+                    ->orderBy($filtro_post, 'desc')
+                    ->get();
+        }
+        return $post;
+    }
+
+    public static function ordenar_solicit()
+    {
+        if(NULL !== Session::get('filtro_solicit')){$_SESSION['filtro_solicit'] = Session::get('filtro_solicit');}
+        if(isset($_SESSION['filtro_solicit'])){$filtro_solicit = $_SESSION['filtro_solicit'];}
+        if(!isset($filtro_solicit)){$filtro_solicit = "data_solicitacao";}
+
+        
+
+        if(NULL !== Session::get('selected_solicit')){$_SESSION['selected_solicit'] = Session::get('selected_solicit');}
+        if(!isset($_SESSION['selected_solicit'])){$_SESSION['selected_solicit'] = '1';}
+        
+
+        $user_id = Auth::user()->id;
+
+        if($_SESSION['selected_solicit'] == '4') {
+            $solicit = DB::table('solicitacoes')
+            ->where('usuario_solicitacao', $user_id)
+            ->join('tipo_solicitacoes', 'solicitacoes.tipo_solicitacao', '=', 'tipo_solicitacoes.id_tipo_solicitacao')
+            ->join('status_solicitacoes', 'solicitacoes.status_solicitacao', '=', 'status_solicitacoes.id_status')
+            ->where('solicitacoes.status_solicitacao', $filtro_solicit)
+            ->select('solicitacoes.*', 'tipo_solicitacoes.nome_tipo_solicitacao', 'status_solicitacoes.nome_status')
+            ->get();
+
+        } elseif($_SESSION['selected_solicit'] == '3') {
+            $solicit = DB::table('solicitacoes')
+            ->where('usuario_solicitacao', $user_id)
+            ->join('tipo_solicitacoes', 'solicitacoes.tipo_solicitacao', '=', 'tipo_solicitacoes.id_tipo_solicitacao')
+            ->join('status_solicitacoes', 'solicitacoes.status_solicitacao', '=', 'status_solicitacoes.id_status')
+            ->where('solicitacoes.status_solicitacao', $filtro_solicit)
+            ->select('solicitacoes.*', 'tipo_solicitacoes.nome_tipo_solicitacao', 'status_solicitacoes.nome_status')
+            ->get();
+
+        }elseif($_SESSION['selected_solicit'] == '2') {
+            $solicit = DB::table('solicitacoes')
+            ->where('usuario_solicitacao', $user_id)
+            ->join('tipo_solicitacoes', 'solicitacoes.tipo_solicitacao', '=', 'tipo_solicitacoes.id_tipo_solicitacao')
+            ->join('status_solicitacoes', 'solicitacoes.status_solicitacao', '=', 'status_solicitacoes.id_status')
+            ->where('solicitacoes.status_solicitacao', $filtro_solicit)
+            ->select('solicitacoes.*', 'tipo_solicitacoes.nome_tipo_solicitacao', 'status_solicitacoes.nome_status')
+            ->get();
+
+        } else {
+            $solicit = DB::table('solicitacoes')
+            ->where('usuario_solicitacao', $user_id)
+            ->join('tipo_solicitacoes', 'solicitacoes.tipo_solicitacao', '=', 'tipo_solicitacoes.id_tipo_solicitacao')
+            ->join('status_solicitacoes', 'solicitacoes.status_solicitacao', '=', 'status_solicitacoes.id_status')
+            ->select('solicitacoes.*', 'tipo_solicitacoes.nome_tipo_solicitacao', 'status_solicitacoes.nome_status')
+            ->orderBy($filtro_solicit, 'desc')
+            ->get();
+        }
+        return $solicit;
     }
 }

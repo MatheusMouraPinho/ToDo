@@ -15,7 +15,6 @@ if(NULL !== Session::get('selected')){$_SESSION['selected'] = Session::get('sele
 if(isset($_SESSION['selected'])){$selected = $_SESSION['selected'];}
 if(!isset($selected)){$selected = "1";}
 
-
 $comments = [
             'comentarios' => DB::table('comentarios')
                                 ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
@@ -35,6 +34,9 @@ $comments = [
                                 ->orderBy($filtro_coment, 'desc')
                                 ->get(),
 ];
+
+$posts = Helper::ordenar_post();
+$solicit = Helper::ordenar_solicit();
 
 ?>
 @section('content')
@@ -213,129 +215,336 @@ $comments = [
       <!--||Fim área de dados||-->
 
           <div class="divisao-conta"></div>
+        
+          <div id="content_user">
+            <ul class="nav nav-tabs mt-4 font-weight-bolder justify-content-start ml-auto mr-auto" style="font-size: 1.4em; width: 95%" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="ideias-tab" data-toggle="tab" href="#ideias" role="tab" aria-controls="ideias" aria-selected="true">Ideias</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" id="solicitacoes-tab" data-toggle="tab" href="#solicitacoes" role="tab" aria-controls="solicitacoes" aria-selected="false">Solicitações</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="ideias" role="tabpanel" aria-labelledby="ideias-tab">
 
-      <!-- Área de ideias do usuario -->
-
-      <!-- Início da tabela de ideias -->
-        @if(empty($dados['posts'][0]))
-
-          <div id="area_ideias">
-            <div class="container my-4">
-              <h2 id="h1conta">Minhas Ideias</h2>
-            </div>
-            
-            <table id="table_conta">
-              <thead>
-                <tr>
-                  <th>Situação</th>
-                </tr>
-              </thead>
-              <tbody>  
-                <tr>
-                  <td rowspan="10">
-                    <div class="centralizar">
-                      <p class="font-italic">Não foi criada nenhuma ideia</p>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-        @else
-          <div id="area_ideias">
-            <div class="container my-4">
-              <h2 id="h1conta">Minhas Ideias</h2>
-            </div>
-
-            <div class="scroll_table">
-              <table id="table_conta" class="">
-                <thead class="sticky-top">
-                  <tr>
-                    <th>Nome da Ideia</th>
-                    <th>Data</th>
-                    <th>Situação</th>
-                    <th>Detalhes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php $i = 0?>            
-                  @foreach($dados['posts'] as $posts)
-                    <tr>
-                      <td class="abreviar">{{ $posts->titulo_postagem }}</td>
-                      <td>{{ date('d/m/Y', strtotime($posts->data_postagem)) }}</td>
-                      <td>{{ $posts->situacao_postagem }}</td>
-                      <td>
-                        <div class="btn-group dropdown">
-                          <button class="btn btn-primary dropdown-toggle" type="button" style="background-color: #3490dc" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-list" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-                            </svg>
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="" data-toggle="modal" onclick="modal({{ $posts->id_postagem }})" data-target="#popup{{$posts->id_postagem }}">
-                              <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-                                <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                
+                  <div class="container mt-2 pl-3 w-100">
+                      <div class="d-inline-block w-50">
+                        <form action="{{ route('order_post') }}" method="POST">
+                          @csrf
+                            <p class="font-weight-bold m-0 p-1">
+                              <svg width="1.6em" height="1.6em" viewBox="0 0 16 16" class="bi bi-filter-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
                               </svg>&nbsp;
-                              Visualizar postagem
-                            </a>
-                            <a class="dropdown-item" href="" data-toggle="modal" data-target="#del-post{{$posts->id_postagem}}">
-                              <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                              </svg>&nbsp;
-                              Apagar postagem
-                            </a>
-                          </div>
-                        </div>
-                        
-                      </td>
-                      </tr> 
-                    
-                      @include('layouts.post_conta')
-
-                      <!-- Modal deletar postagem -->
-                      <div class="modal fade id" id="del-post{{$posts->id_postagem}}" role="dialog">
-                        <div class="modal-dialog modal-content">
-                            <div class="modal-header"></div>
-                            <div class="modal-body">
-                            <h5><b><p>Deseja realmente apagar essa Postagem?</p></b><h5>
-                                <div class="modal-footer">
-                                    <form action="{{url('apagar_post')}}" method="POST">
-                                        @csrf
-                                        <input name="id_postagem" type="hidden" value="{{$posts->id_postagem}}">
-                                        <input type="hidden" name="identificador" value="1">
-                                        <input type="hidden" name="filename" value="<?php echo $posts->id_postagem. $posts->titulo_postagem; ?>">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary">Confirmar</button>
-                                    </form>
-                                </div> 
-                            </div>
-                        </div>
+                              Ordenar por:
+                            </p>
+                            <select name="ordenar_post" onchange="this.form.submit()" class="custom-select bg-transparent" title="Selecione uma opção">
+                              @if($_SESSION['selected_post'] === '1')
+                                <option value="Recentes">Recentes</option>
+                                <option value="Populares">Populares</option>
+                                <option value="Avaliados">Avaliados</option>
+                                <option value="Pendentes">Pendentes</option>
+                              @elseif($_SESSION['selected_post'] == '2')
+                                <option value="Populares">Populares</option>
+                                <option value="Recentes">Recentes</option>
+                                <option value="Avaliados">Avaliados</option>
+                                <option value="Pendentes">Pendentes</option>
+                              @elseif($_SESSION['selected_post'] == '3')
+                                <option value="Avaliados">Avaliados</option>
+                                <option value="Recentes">Recentes</option>
+                                <option value="Populares">Populares</option>
+                                <option value="Pendentes">Pendentes</option>
+                              @elseif($_SESSION['selected_post'] == '4')
+                                <option value="Pendentes">Pendentes</option>
+                                <option value="Recentes">Recentes</option>
+                                <option value="Populares">Populares</option>
+                                <option value="Avaliados">Avaliados</option>
+                              @endif
+                            </select>
+                        </form>
                       </div>
-                      <!-- FIM Modal deletar postagem -->
+                    <button class="btn btn-light ml-0" style="width: 30%" data-toggle="modal" data-target="#modalideia"><span style="font-size: 1.4em">+</span> Criar Ideia</button>
+                  </div>
+                
+                <!-- Área de ideias do usuario -->
+                @if(empty($posts[0]))
+                  <div id="area_ideias">
 
-                  @endforeach
-                </tbody>
-              </table>
+                    <!-- Início da tabela de ideias -->
+                    <table id="table_conta">
+                      <thead>
+                        <tr>
+                          <th>Situação</th>
+                        </tr>
+                      </thead>
+                      <tbody>  
+                        <tr>
+                          <td rowspan="10">
+                            <div class="centralizar">
+                              <p class="font-italic">Não foi criada nenhuma ideia</p>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+        
+                @else
+                  <div id="area_ideias">
+        
+                    <div class="scroll_table">
+                      <table id="table_conta">
+                        <thead class="sticky-top">
+                          <tr>
+                            <th>Título</th>
+                            <th>Data</th>
+                            <th>Situação</th>
+                            <th>Opções</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php $i = 0?>            
+                          @foreach($posts as $posts)
+                            <tr>
+                              <td class="abreviar">{{ $posts->titulo_postagem }}</td>
+                              <td>{{ date('d/m/Y', strtotime($posts->data_postagem)) }}</td>
+                              <td>{{ $posts->situacao_postagem }}</td>
+                              <td>
+                                <div class="btn-group dropdown">
+                                  <button class="btn btn-primary dropdown-toggle" type="button" style="background-color: #3490dc" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-list" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                      <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                                    </svg>
+                                  </button>
+                                  <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="" data-toggle="modal" onclick="modal({{ $posts->id_postagem }})" data-target="#popup{{$posts->id_postagem }}">
+                                      <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                                      </svg>&nbsp;
+                                      Visualizar postagem
+                                    </a>
+                                    <a class="dropdown-item" href="" data-toggle="modal" data-target="#del-post{{$posts->id_postagem}}">
+                                      <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                      </svg>&nbsp;
+                                      Apagar postagem
+                                    </a>
+                                  </div>
+                                </div>
+                                
+                              </td>
+                              </tr> 
+                            
+                              @include('layouts.post_conta')
+        
+                              <!-- Modal deletar postagem -->
+                              <div class="modal fade id" id="del-post{{$posts->id_postagem}}" role="dialog">
+                                <div class="modal-dialog modal-content">
+                                    <div class="modal-header"></div>
+                                    <div class="modal-body">
+                                    <h5><b><p>Deseja realmente apagar essa Postagem?</p></b><h5>
+                                        <div class="modal-footer">
+                                            <form action="{{url('apagar_post')}}" method="POST">
+                                                @csrf
+                                                <input name="id_postagem" type="hidden" value="{{$posts->id_postagem}}">
+                                                <input type="hidden" name="identificador" value="1">
+                                                <input type="hidden" name="filename" value="<?php echo $posts->id_postagem. $posts->titulo_postagem; ?>">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary">Confirmar</button>
+                                            </form>
+                                        </div> 
+                                    </div>
+                                </div>
+                              </div>
+                              <!-- FIM Modal deletar postagem -->
+        
+                          @endforeach
+                        </tbody>
+                      </table>
+        
+                      
+        
+                    </div>
+                    <!-- Fim da tabela de ideias -->
+        
+                    {{-- <div class="" style="padding: 8px">
+                      <p id="contagem-ideias">
+                        {{ $dados['posts']->links() }}
+                      </p>
+                    </div> --}}
+                  </div>
+                @endif
+        
+              <!-- Fim área de ideias do usuario -->
 
-              
+              </div>
+              <div class="tab-pane fade" id="solicitacoes" role="tabpanel" aria-labelledby="solicitacoes-tab">
 
+                <div class="container mt-2">
+                  <div class="d-inline-block w-50">
+                    <form action="{{ route('order_solicit') }}" method="POST">
+                      @csrf
+                        <p class="font-weight-bold m-0 p-1">
+                          <svg width="1.6em" height="1.6em" viewBox="0 0 16 16" class="bi bi-filter-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                          </svg>&nbsp;
+                          Ordenar por:
+                        </p>
+                        <select name="ordenar_solicit" onchange="this.form.submit()" class="custom-select bg-transparent" title="Selecione uma opção">
+                          @if($_SESSION['selected_solicit'] === '1')
+                            <option value="Recentes">Recentes</option>
+                            <option value="Aprovadas">Aprovadas</option>
+                            <option value="Reprovadas">Reprovadas</option>
+                            <option value="Pendentes">Pendentes</option>
+                          @elseif($_SESSION['selected_solicit'] == '2')
+                            <option value="Aprovadas">Aprovadas</option>
+                            <option value="Recentes">Recentes</option>
+                            <option value="Reprovadas">Reprovadas</option>
+                            <option value="Pendentes">Pendentes</option>
+                          @elseif($_SESSION['selected_solicit'] == '3')
+                            <option value="Reprovadas">Reprovadas</option>
+                            <option value="Recentes">Recentes</option>
+                            <option value="Aprovadas">Aprovadas</option>
+                            <option value="Pendentes">Pendentes</option>
+                          @elseif($_SESSION['selected_solicit'] == '4')
+                            <option value="Pendentes">Pendentes</option>
+                            <option value="Recentes">Recentes</option>
+                            <option value="Aprovadas">Aprovadas</option>
+                            <option value="Reprovadas">Reprovadas</option>
+                          @endif
+                        </select>
+                    </form>
+                  </div>
+                  <button class="btn btn-light" data-toggle="modal" data-target="#new_solicitacao"><span style="font-size: 1.4em">+</span> Nova Solicitação</button>
+                </div>
+
+                <!-- Área de solicitações do usuário -->
+
+                @if(empty($solicit[0]))
+                  <div id="area_ideias">
+
+                    <div class="scroll_table">
+                    <!-- Início da tabela de solicitações -->
+                    <table id="table_conta">
+                      <thead>
+                        <tr>
+                          <th>Situação</th>
+                        </tr>
+                      </thead>
+                      <tbody>  
+                        <tr>
+                          <td rowspan="10">
+                            <div class="centralizar">
+                              <p class="font-italic">Não foi enviada nenhuma solicitação</p>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <!-- Fim da tabela de solicitações -->
+                  </div>
+
+                @else
+                  <div id="area_ideias">
+
+                    
+
+                    <div class="scroll_table">
+                      <table id="table_conta">
+                        <thead class="sticky-top">
+                          <tr>
+                            <th>Tipo de pedido</th>
+                            <th>Data</th>
+                            <th>Situação</th>
+                            <th>Detalhes</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach($solicit as $solicitacoes)
+                            <tr>
+                              <td class="abreviar">{{ $solicitacoes->nome_tipo_solicitacao }}</td>
+                              <td>{{ date('d/m/Y', strtotime($solicitacoes->data_solicitacao)) }}</td>
+                              <td>{{ $solicitacoes->nome_status }}</td>
+                              <td><a href="" data-toggle="modal" data-target="#solicitacao{{ $solicitacoes->id_solicitacao }}">Visualizar</a></td>
+                            </tr> 
+
+                            <!-- Modal para visualizar solicitação -->
+                            <div class="modal fade id" id="solicitacao{{$solicitacoes->id_solicitacao}}" role="dialog">
+                              <div class="modal-dialog modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Pedido</h5>
+                                </div>
+                                <div class="modal-body">
+                                  <p id="edit_desc">{{ $solicitacoes->conteudo_solicitacao }}</p>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                </div> 
+                              </div>
+                            </div>
+                            <!-- FIM Modal para visualizar solicitação -->
+                          @endforeach
+                        </tbody>
+                      </table>
+                      
+
+                    </div>
+                    <!-- Fim da tabela de ideias -->
+                  </div>
+                  @endif
+
+                <!-- Fim área de solicitações do usuário -->
+
+              </div>
             </div>
-            <!-- Fim da tabela de ideias -->
-
-            {{-- <div class="" style="padding: 8px">
-              <p id="contagem-ideias">
-                {{ $dados['posts']->links() }}
-              </p>
-            </div> --}}
           </div>
-        @endif
-
-      <!-- Fim área de ideias do usuario -->
 
       <!-- Área de edição de dados do usuário -->
+
+      <!-- Modal de solicitação -->
+      <div class="modal fade" id="new_solicitacao" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Solicitação</h5>
+            </div>
+            <form action="{{ url('solicitacao') }}" method="POST">
+              @csrf
+              <div class="modal-body">
+                <div class="container w-100 mb-3 p-0">
+                  <p class="font-weight-bold m-0 p-1">
+                    <svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-sliders" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"/>
+                    </svg>&nbsp;
+                    Tipo de Solicitação:
+                  </p>
+                  <select name="motivo" class="custom-select bg-transparent" title="Selecione uma opção" required>
+                    <option value="">Selecione uma opção</option>
+                    <option value="1">Alterar RGM/CPF</option>
+                    <option value="2">Alterar Acesso</option>
+                    <option value="3">Deletar Conta</option>
+                    <option value="4">Outros</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="conteudo_solicitacao">Descrição:</label>
+                  <textarea class="form-control" name="conteudo_solicitacao" id="conteudo_solicitacao" rows="3" required></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <input type="hidden" name="id_usuario" value="{{ $user }}">
+                <input type="button" class="btn btn-secondary" value="Cancelar" data-dismiss="modal">
+                <input type="submit" class="btn btn-primary" value="Enviar">
+              </div>
+            </form>
+
+          </div>                
+        </div>
+      </div>
+      <!-- FIM Modal de solicitação -->
           
       <div class="painel-dados">
         <div class="modal fade id" id="popup{{$dados['id']}}" role="dialog">
@@ -374,7 +583,7 @@ $comments = [
                               </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <label class="d-block">
-                                  <input name="img_usuarios" id="img_usuarios" type="file" style="display: none; cursor:pointer" accept="image/*">
+                                  <input name="img_usuarios" onchange="this.form.submit()" id="img_usuarios" type="file" style="display: none; cursor:pointer" accept="image/*">
                                   <a name="img_usuarios" id="img_usuarios" class="dropdown-item">
                                     <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-file-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                       <path fill-rule="evenodd" d="M12 1H4a1 1 0 0 0-1 1v10.755S4 11 8 11s5 1.755 5 1.755V2a1 1 0 0 0-1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
@@ -384,7 +593,7 @@ $comments = [
                                   </a>
                                 </label>
                                 <label class="d-block">
-                                  <input name="img_capa" type="file" style="display: none; cursor: pointer;" accept="image/*">
+                                  <input name="img_capa" onchange="this.form.submit()" type="file" style="display: none; cursor: pointer;" accept="image/*">
                                   <a name="img_capa" class="dropdown-item">
                                     <svg width="1.2em" height="1.2em" viewBox="0 0 17 16" class="bi bi-image" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                       <path fill-rule="evenodd" d="M14.002 2h-12a1 1 0 0 0-1 1v9l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094L15.002 9.5V3a1 1 0 0 0-1-1zm-12-1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm4 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
