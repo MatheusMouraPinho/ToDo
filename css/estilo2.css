@@ -330,6 +330,37 @@ tr.linha{
   margin-left: 475px;
 }
 /* home/outros */
+.card-notificacao{
+  display: flex;
+  background-color: #ffffff;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid grey;
+}
+.notificacao{
+  margin-top: 7px;
+  margin-right: 20px;
+}
+@media screen and (max-width: 555px) {
+  .notificacao{
+    margin-right: 6px;
+  }
+}
+.bell{
+  position: absolute;
+  margin-left: -10px;
+  margin-right: 5px;
+  top: -6px;
+}
+.texto_notificacao{
+  white-space: pre-wrap; 
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;    
+  font-size: 12px;
+}
 .min{
   min-height: 65vh;
 }
@@ -338,8 +369,14 @@ tr.linha{
 }
 .nav_nome{
   margin-left: 4px;
-  margin-right: 4px;
+  margin-right: 3px;
 }
+@media screen and (min-width: 555px){
+  .ajuste_drop{
+    left: 10px;
+  }
+}
+
 .nav_img{
   border: 1px solid rgb(182, 182, 182);
   border-radius: 50%;
@@ -461,11 +498,6 @@ f2{
 }
 .option-home{
   position: absolute;
-  padding-top: 1.5px;
-}
-.img-option{
-  width: 30px;
-  height: 30px;
 }
 .aviso-home {
   background-color: #ffffff;
@@ -507,9 +539,11 @@ f2{
   margin-right: auto;
   box-shadow: 4px 5px 6px grey;
 }
-.ajuste-link{
-  padding-top: 4px;
-  padding-left: 26px;
+
+.ajuste-link:hover, .ajuste-link:visited, .ajuste-link:link, .ajuste-link:active{
+  padding-top: 4.5px;
+  padding-left: 26.5px;
+  text-decoration: none;
 }
 .selecionar-op{
   color: #000000;
@@ -581,9 +615,10 @@ f2{
   box-shadow: 1px 1px 6px grey;
 }
 .ajuste-drop3{
-  left: -50px;
-  margin-top: 5px;
-  margin-right: 20px;
+  left: -60px;
+  margin-top: 12px;
+  margin-right: 5px;
+  margin-left: none;
 }
 .ajuste-drop4{
   left: -50px;
@@ -753,6 +788,9 @@ f2{
   .card-home{
     width: 1050px;
   }
+  .card-notificacao{
+    width: 1050px;
+  }
   .aviso-home {
     width: 1050px;
   }
@@ -826,8 +864,8 @@ f2{
     max-width: 860px;
   }
   .option-home{
-    padding-top: 1.5px;
-    margin-left: 1020px;
+    margin-top: 8px;
+    margin-left: 1026px;
   }
   .usu-home{
     width: 30px;
@@ -843,6 +881,9 @@ f2{
  /* PC (Low) Res  */
 @media screen and (min-width: 1000px) and (max-width: 1200px) {
   .card-home{
+    width: 850px;
+  }
+  .card-notificacao{
     width: 850px;
   }
   .aviso-home {
@@ -918,8 +959,8 @@ f2{
     max-width: 700px;
   }
   .option-home{
-    padding-top: 1.5px;
-    margin-left: 820px;
+    margin-top: 8px;
+    margin-left: 826px;
   }
   .usu-home{
     width: 30px;
@@ -956,6 +997,9 @@ f2{
 /* IPAD/tablet (Med-high) Res */
 @media screen and (min-width: 768px) and (max-width: 999px) {
   .card-home{
+    width: 720px;
+  }
+  .card-notificacao{
     width: 720px;
   }
   .aviso-home {
@@ -1031,8 +1075,8 @@ f2{
     max-width: 580px;
   }
   .option-home{
-    padding-top: 1.5px;
-    margin-left: 690px;
+    margin-top: 8px;
+    margin-left: 696px;
   }
   .usu-home{
     width: 30px;
@@ -1047,16 +1091,19 @@ f2{
 
 @media screen and (max-width: 767px) {
   .text-desc{
-    height: 66.5px;
+    height: 66px;
   }
   .text-desc2{
-    height: 66.5px;
+    height: 66px;
   }
 }
 
 /* IPAD/tablet (Low-med) Res */
 @media screen and (min-width: 559px) and (max-width: 767px) {
   .card-home{
+    width: 540px;
+  }
+  .card-notificacao{
     width: 540px;
   }
   .aviso-home {
@@ -1149,8 +1196,8 @@ f2{
     max-width: 440px;
   }
   .option-home{
-    padding-top: 1.5px;
-    margin-left: 510px;
+    margin-top: 8px;
+    margin-left: 516px;
   }
   .usu-home{
     width: 30px;
@@ -1166,6 +1213,9 @@ f2{
 /* smartphone/tablet */
 @media screen and (min-width: 426px) and (max-width: 558px) {
   .card-home{
+    width: 410px;
+  }
+  .card-notificacao{
     width: 410px;
   }
   .aviso-home {
@@ -1256,8 +1306,8 @@ f2{
     max-width: 330px;
   }
   .option-home{
-    padding-top: 1.5px;
-    margin-left: 380px;
+    margin-top: 8px;
+    margin-left: 386px;
   }
   .usu-home{
     width: 30px;
@@ -1309,7 +1359,7 @@ f2{
     max-width: 200px; 
   }
   .destaque-home{
-    margin-left:200px;
+    margin-left: 200px;
     margin-Top: 60px;
     width: 100px;
     height: 100px;
@@ -1363,8 +1413,8 @@ f2{
     max-width: 270px;
   }
   .option-home{
-    padding-top: 1.5px;
-    margin-left: 90%;
+    margin-top: 8px;
+    margin-left: 92%;
   }
   .ajuste-drop2{
     left: -300px;
@@ -1380,6 +1430,11 @@ f2{
     display: none;
   }  
   .card-home{
+    width: 100%;
+    overflow-x: hidden;
+    box-shadow: 3px 3px 5px grey;
+  }
+  .card-notificacao{
     width: 100%;
     overflow-x: hidden;
     box-shadow: 3px 3px 5px grey;
@@ -1435,7 +1490,7 @@ f2{
     max-width: 300px;
   }
   .text-desc{
-    width: 205px;
+    width: 190px;
   }
   .text-desc2{
     width: 310px;

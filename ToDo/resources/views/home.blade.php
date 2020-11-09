@@ -80,9 +80,9 @@ $smartphone = true;
                         <?php echo $setup3;?> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <?php if($avalia != "1"){?><button class="dropdown-item" name="avalia" value="1">Avaliados</button><?php }?>
-                        <?php if($avalia != "2"){?><button class="dropdown-item" name="avalia" value="2">Pendentes</button><?php }?>
-                        <?php if($avalia != "1 OR 2"){?><button class="dropdown-item" name="avalia" value="3">Todos</button><?php }?>
+                        <?php if($avalia != "1"){?><button class="dropdown-item" style="margin-left: 0px" name="avalia" value="1">Avaliados</button><?php }?>
+                        <?php if($avalia != "2"){?><button class="dropdown-item" style="margin-left: 0px" name="avalia" value="2">Pendentes</button><?php }?>
+                        <?php if($avalia != "1 OR 2"){?><button class="dropdown-item" style="margin-left: 0px" name="avalia" value="3">Todos</button><?php }?>
                     </div>
                 </div>
                 <div class="dropdown">
@@ -90,12 +90,12 @@ $smartphone = true;
                         <?php echo $setup2 ;?> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <?php if($tipo != "1"){?><button class="dropdown-item" name="tipo" value="1">Web, Mobile & Software</button><?php }?>
-                        <?php if($tipo != "2"){?><button class="dropdown-item" name="tipo" value="2">Design & Criação</button><?php }?>
-                        <?php if($tipo != "3"){?><button class="dropdown-item" name="tipo" value="3">Engenharia & Arquitetura</button><?php }?>
-                        <?php if($tipo != "4"){?><button class="dropdown-item" name="tipo" value="4">Marketing</button><?php }?>
-                        <?php if($tipo != "5"){?><button class="dropdown-item" name="tipo" value="5">Outros</button><?php }?>
-                        <?php if($tipo != "1 OR 2 OR 3 OR 4 OR 5"){?><button class="dropdown-item" name="tipo" value="todas">Todas as categorias</button><?php }?>
+                        <?php if($tipo != "1"){?><button class="dropdown-item" style="margin-left: 0px" name="tipo" value="1">Web, Mobile & Software</button><?php }?>
+                        <?php if($tipo != "2"){?><button class="dropdown-item" style="margin-left: 0px" name="tipo" value="2">Design & Criação</button><?php }?>
+                        <?php if($tipo != "3"){?><button class="dropdown-item" style="margin-left: 0px" name="tipo" value="3">Engenharia & Arquitetura</button><?php }?>
+                        <?php if($tipo != "4"){?><button class="dropdown-item" style="margin-left: 0px" name="tipo" value="4">Marketing</button><?php }?>
+                        <?php if($tipo != "5"){?><button class="dropdown-item" style="margin-left: 0px" name="tipo" value="5">Outros</button><?php }?>
+                        <?php if($tipo != "1 OR 2 OR 3 OR 4 OR 5"){?><button class="dropdown-item" style="margin-left: 0px" name="tipo" value="todas">Todas as categorias</button><?php }?>
                     </div>
                 </div>
                 <div class="dropdown">
@@ -103,16 +103,25 @@ $smartphone = true;
                         <?php echo $setup; ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <?php if($setup != "Ultima Semana"){?><button class="dropdown-item" name="periodo" value="1">Última Semana</button><?php }?>
-                        <?php if($setup != "Ultimo Mês"){?><button class="dropdown-item" name="periodo" value="2">Último Mês</button><?php }?>
-                        <?php if($setup != "Ultimo Ano"){?><button class="dropdown-item" name="periodo" value="3">Último Ano</button><?php }?>
-                        <?php if($setup != "Periodo"){?><button class="dropdown-item" name="periodo" value="4">Todas as postagens</button><?php }?>
+                        <?php if($setup != "Ultima Semana"){?><button class="dropdown-item" style="margin-left: 0px" name="periodo" value="1">Última Semana</button><?php }?>
+                        <?php if($setup != "Ultimo Mês"){?><button class="dropdown-item" style="margin-left: 0px" name="periodo" value="2">Último Mês</button><?php }?>
+                        <?php if($setup != "Ultimo Ano"){?><button class="dropdown-item" style="margin-left: 0px" name="periodo" value="3">Último Ano</button><?php }?>
+                        <?php if($setup != "Periodo"){?><button class="dropdown-item" style="margin-left: 0px" name="periodo" value="4">Todas as postagens</button><?php }?>
                     </div>
                 </div>
                 <div class="dropdown">
-                    <a id="navbarDropdown" role="button" style="cursor: pointer" data-toggle="dropdown"><img style="padding-top:5px" width="38px" src="{{asset('img/option.png')}}"></a>
+                    <a id="navbarDropdown" role="button" style="cursor: pointer" data-toggle="dropdown">
+                        <svg style="margin-left:4px;margin-top:13px" width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-three-dots-vertical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        </svg>
+                    </a>
                     <div class="dropdown-menu ajuste-drop3">
-                    <a class="dropdown-item" href="{{url('reset')}}"><img width="33px"src="{{asset('img/reset.png')}}">Limpar</a>
+                        <a class="dropdown-item" href="{{url('reset')}}">
+                            <svg width="1.1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-arrow-counterclockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+                                <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+                            </svg> &nbsp<b>Limpar</b>
+                        </a>
                     </div>
                 </div>
             </div>  
@@ -128,9 +137,9 @@ $smartphone = true;
                         <?php if($filtro == "media"){?> <img width="20px" style="margin-top:-3px;" src="{{asset('img/avaliacao.png')}}"> <?php echo "<t1>Mais avaliados</t1>"; }elseif($filtro == "likes_postagem"){?><img width="20px" style="margin-top:-2px;" src="{{asset('img/like.png')}}"><?php  echo "Populares"; } elseif($filtro == "data_postagem"){?> <img width="18px" style="margin-top:-2px;" src="{{asset('img/new.png')}}"> <?php echo "Novos";}else{echo $filtro;}?> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <?php if($filtro != "data_postagem"){?><button class="dropdown-item" name="filtro" value="novos"><img width="21px" style="margin-top:-2px;" src="{{asset('img/new.png')}}"> Novos</button><?php }?>
-                        <?php if($filtro != "likes_postagem"){?><button class="dropdown-item" name="filtro" value="popu"><img width="23px" style="margin-top:-2px;" src="{{asset('img/like.png')}}"> Populares</button><?php }?>
-                        <?php if($filtro != "media"){?><button class="dropdown-item" name="filtro" value="melh"><img width="22px" style="margin-top:-3px;" src="{{asset('img/avaliacao.png')}}"> Mais avaliados</button><?php }?>
+                        <?php if($filtro != "data_postagem"){?><button class="dropdown-item" style="margin-left: 0px" name="filtro" value="novos"><img width="21px" style="margin-top:-2px;" src="{{asset('img/new.png')}}"> Novos</button><?php }?>
+                        <?php if($filtro != "likes_postagem"){?><button class="dropdown-item" style="margin-left: 0px" name="filtro" value="popu"><img width="23px" style="margin-top:-2px;" src="{{asset('img/like.png')}}"> Populares</button><?php }?>
+                        <?php if($filtro != "media"){?><button class="dropdown-item" name="filtro" style="margin-left: 0px" value="melh"><img width="22px" style="margin-top:-3px;" src="{{asset('img/avaliacao.png')}}"> Mais avaliados</button><?php }?>
                     </div>
                 </div>
                 <div class="dropdown">
@@ -138,9 +147,9 @@ $smartphone = true;
                         <?php echo $setup3;?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <?php if($avalia != "1"){?><button class="dropdown-item" name="avalia" value="1">Avaliados</button><?php }?>
-                        <?php if($avalia != "2"){?><button class="dropdown-item" name="avalia" value="2">Pendentes</button><?php }?>
-                        <?php if($avalia != "1 OR 2"){?><button class="dropdown-item" name="avalia" value="3">Todos</button><?php }?>
+                        <?php if($avalia != "1"){?><button class="dropdown-item" style="margin-left: 0px" name="avalia" value="1">Avaliados</button><?php }?>
+                        <?php if($avalia != "2"){?><button class="dropdown-item" style="margin-left: 0px" name="avalia" value="2">Pendentes</button><?php }?>
+                        <?php if($avalia != "1 OR 2"){?><button class="dropdown-item" style="margin-left: 0px" name="avalia" value="3">Todos</button><?php }?>
                     </div>
                 </div>
                 <div class="dropdown">
@@ -148,12 +157,12 @@ $smartphone = true;
                         <?php echo $setup2;?> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <?php if($tipo != "1"){?><button class="dropdown-item" name="tipo" value="1">Web, Mobile & Software</button><?php }?>
-                        <?php if($tipo != "2"){?><button class="dropdown-item" name="tipo" value="2">Design & Criação</button><?php }?>
-                        <?php if($tipo != "3"){?><button class="dropdown-item" name="tipo" value="3">Engenharia & Arquitetura</button><?php }?>
-                        <?php if($tipo != "4"){?><button class="dropdown-item" name="tipo" value="4">Marketing</button><?php }?>
-                        <?php if($tipo != "5"){?><button class="dropdown-item" name="tipo" value="5">Outros</button><?php }?>
-                        <?php if($tipo != "1 OR 2 OR 3 OR 4 OR 5"){?><button class="dropdown-item" name="tipo" value="todas">Todas as categorias</button><?php }?>
+                        <?php if($tipo != "1"){?><button class="dropdown-item" style="margin-left: 0px" name="tipo" value="1">Web, Mobile & Software</button><?php }?>
+                        <?php if($tipo != "2"){?><button class="dropdown-item" style="margin-left: 0px" name="tipo" value="2">Design & Criação</button><?php }?>
+                        <?php if($tipo != "3"){?><button class="dropdown-item" style="margin-left: 0px" name="tipo" value="3">Engenharia & Arquitetura</button><?php }?>
+                        <?php if($tipo != "4"){?><button class="dropdown-item" style="margin-left: 0px" name="tipo" value="4">Marketing</button><?php }?>
+                        <?php if($tipo != "5"){?><button class="dropdown-item" style="margin-left: 0px" name="tipo" value="5">Outros</button><?php }?>
+                        <?php if($tipo != "1 OR 2 OR 3 OR 4 OR 5"){?><button class="dropdown-item" style="margin-left: 0px" name="tipo" value="todas">Todas as categorias</button><?php }?>
                     </div>
                 </div>
                 <div class="dropdown">
@@ -161,14 +170,18 @@ $smartphone = true;
                         <?php echo $setup; ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <?php if($setup != "Ultima Semana"){?><button class="dropdown-item" name="periodo" value="1">Última Semana</button><?php }?>
-                        <?php if($setup != "Ultimo Mês"){?><button class="dropdown-item" name="periodo" value="2">Último Mês</button><?php }?>
-                        <?php if($setup != "Ultimo Ano"){?><button class="dropdown-item" name="periodo" value="3">Último Ano</button><?php }?>
-                        <?php if($setup != "Periodo"){?><button class="dropdown-item" name="periodo" value="4">Todas as postagens</button><?php }?>
+                        <?php if($setup != "Ultima Semana"){?><button class="dropdown-item" style="margin-left: 0px" name="periodo" value="1">Última Semana</button><?php }?>
+                        <?php if($setup != "Ultimo Mês"){?><button class="dropdown-item" style="margin-left: 0px" name="periodo" value="2">Último Mês</button><?php }?>
+                        <?php if($setup != "Ultimo Ano"){?><button class="dropdown-item" style="margin-left: 0px" name="periodo" value="3">Último Ano</button><?php }?>
+                        <?php if($setup != "Periodo"){?><button class="dropdown-item" style="margin-left: 0px" name="periodo" value="4">Todas as postagens</button><?php }?>
                     </div>
                 </div>
                 <div class="dropdown">
-                    <a id="navbarDropdown" role="button" style="cursor: pointer" data-toggle="dropdown"><img style="padding-top:11px" width="26px" src="{{asset('img/option.png')}}"></a>
+                    <a id="navbarDropdown" role="button" style="cursor: pointer" data-toggle="dropdown">
+                        <svg style="margin-left:4px;margin-top:13px" width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-three-dots-vertical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        </svg>
+                    </a>
                     <div class="dropdown-menu ajuste-drop3">
                         <a class="dropdown-item" href="{{url('reset')}}"><img width="33px"src="{{asset('img/reset.png')}}">Limpar</a>
                     </div>
@@ -239,7 +252,11 @@ $smartphone = true;
             </f2>
         </div>
         <div class="option-home dropdown">
-            <a id="navbarDropdown" role="button" style="cursor: pointer" data-toggle="dropdown"><img class="img-option" src="{{asset('img/option.png')}}"></a>
+            <a id="navbarDropdown" role="button" style="cursor: pointer" data-toggle="dropdown">
+                <svg src="{{asset('img/option.png')}}" width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-three-dots-vertical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                </svg>
+            </a>
             <div class="dropdown-menu ajuste-drop4">
                 <?php if($rows['id_usuarios'] == Auth::user()->id){?>
                     <a class="dropdown-item" style="cursor: pointer"  data-toggle="modal" data-target="#del-post<?php echo $rows['id_postagem'];?>">
@@ -485,7 +502,7 @@ $smartphone = true;
                             <option class="op" value="3">Último Ano</option>
                             <option class="op" value="4">Todas as postagens</option>
                         </select>
-                        <a class="ajuste-link selecionar-op" href="{{url('reset')}}"><s3>Limpar</s3></a>
+                        <a class="ajuste-link selecionar-op btn-danger" href="{{url('reset')}}"><s3>Limpar</s3></a>
                     </div>
                 </div>
                 <div class="modal-footer">

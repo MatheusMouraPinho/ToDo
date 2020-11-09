@@ -15,6 +15,13 @@ $user = Auth::user()->id;
 
 $sql = "SELECT * FROM usuarios WHERE id = $user ";
 $resultado = mysqli_query($conn, $sql);
+
+$sql22 = "SELECT COUNT(id_notificacao) FROM notificacoes WHERE usuario_notificacao = $user ";
+$res22 = mysqli_query($conn, $sql22);
+$notificacao = mysqli_fetch_array($res22);
+
+$sql23 = "SELECT * FROM notificacoes WHERE usuario_notificacao = $user ";
+$res23 = mysqli_query($conn, $sql23);
 ?>
 
 <!doctype html>
@@ -37,7 +44,6 @@ $resultado = mysqli_query($conn, $sql);
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
   
-
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -57,6 +63,37 @@ $resultado = mysqli_query($conn, $sql);
       </li>
     </ul>
     <ul class="nav ml-auto" style="cursor: pointer">
+      <li class="nav-item dropdown notificacao">
+        <button class="navbar_drop no-border-button" id="navbarDropdown" role="button" data-toggle="dropdown">
+          <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-bell-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+          </svg>
+          <?php if($notificacao[0] > 0 ){ ?>
+            <span class="notifi bell">
+              <?php echo $notificacao[0]; ?>
+            </span>
+          <?php } ?>
+          <span class="nav_nome" style="margin-left:5px;"><?php echo "Notificações"; ?></span>
+          <svg width="0.9em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="current color" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+          </svg>
+        </button>
+        <div class="dropdown-menu" style="left:-80px" aria-labelledby="navbarDropdown">
+          <?php while($row = mysqli_fetch_assoc($res23)){ ?>
+            <div class="dropdown-item" style="cursor:default;margin-bottom:6px;">
+              <span style="font-size:14px;"><b><?php echo $row['titulo_notificacao']; ?></b></span><br>
+              <span class="texto_notificacao"><?php echo $row['conteudo_notificacao']; ?></span>
+            </div>
+          <?php } ?>
+          <?php if($notificacao[0] > 0 ){ ?>
+            <div class="dropdown-divider"></div>
+            <a href="{{ url('notificacoes') }}" class="dropdown-item text-center"><b>Todas as Notificações</b></a>
+          <?php } ?>
+          <?php if($notificacao[0] < 1 ){ ?>
+            <a class="dropdown-item"> &nbsp <b>WORK IN PROGRESS</b>&nbsp&nbsp</a>
+          <?php } ?>
+        </div>
+      </li>
       <li class="nav-item dropdown">
         <?php if($row = mysqli_fetch_assoc($resultado)){
           $nome_completo = $row['usuario'];
@@ -67,14 +104,14 @@ $resultado = mysqli_query($conn, $sql);
             $nome_resum = $row['usuario'];
           }
         ?>
-          <button class="navbar_drop" id="navbarDropdown" role="button" data-toggle="dropdown">
+          <button class="navbar_drop no-border-button" id="navbarDropdown" role="button" data-toggle="dropdown">
             <?php if($row['img_usuarios'] == NULL){?>
               <img class="nav_img" style="border-color:black" src="{{asset('img/semuser.png')}}">
             <?php }else{?>
               <img class="nav_img" src="{{asset('/ToDo/storage/app/public/users/'.$row['img_usuarios'])}}">
             <?php }?>
             <span class="nav_nome"><?php echo mb_strimwidth($nome_resum, 0, 22, "...") ; ?></span>
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="current color" xmlns="http://www.w3.org/2000/svg">
+            <svg width="0.9em" height="0.9em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="current color" xmlns="http://www.w3.org/2000/svg">
               <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
             </svg>
           </button>

@@ -461,4 +461,23 @@ class HomeController extends Controller
 
         }
     }
+
+    public function notificacoes()
+    {   
+        return view('notificacoes');
+    }
+
+    public function remov_notificacoes()
+    {   
+        $db_config = Config::get('database.connections.'.Config::get('database.default'));
+        $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
+        mysqli_set_charset($conn, 'utf8');
+
+        $user = Auth::user()->id;
+        
+        $sql = "DELETE FROM notificacoes WHERE usuario_notificacao = $user";
+        mysqli_query($conn, $sql);
+
+        return back();
+    }
 }
