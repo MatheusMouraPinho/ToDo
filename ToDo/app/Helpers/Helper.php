@@ -27,10 +27,10 @@ class Helper
         $years = round($diff / 29030400);
         
         if ($seconds <= 60) return"Agora mesmo";
-        else if ($minutes <= 60) return $minutes==1 ?'1min':$minutes.'min';
-        else if ($hours <= 24) return $hours==1 ?'1h':$hours.'h';
-        else if ($days <= 7) return $days==1 ?'1d':$days.'d';
-        else if ($weeks <= 4) return $weeks==1 ?'1 semana':$weeks.' semanas';
+        else if ($minutes <= 60) return $minutes==1 ?'1 min':$minutes.' min';
+        else if ($hours <= 24) return $hours==1 ?'1 hr':$hours.' hrs';
+        else if ($days <= 7) return $days==1 ?'1 dia':$days.' dias';
+        else if ($weeks <= 4) return $weeks==1 ?'1 sem':$weeks.' sem';
         else if ($months <= 12) return $months == 1 ?'1 mês':$months.' meses';
         else return $years == 1 ? '1 ano':$years.' anos';
     }

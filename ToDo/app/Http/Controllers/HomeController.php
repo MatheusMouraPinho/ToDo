@@ -480,4 +480,16 @@ class HomeController extends Controller
 
         return back();
     }
+
+    public function wipe_recentes()
+    {   
+        $db_config = Config::get('database.connections.'.Config::get('database.default'));
+        $conn = mysqli_connect($db_config["host"], $db_config["username"], $db_config["password"], $db_config["database"]);
+        mysqli_set_charset($conn, 'utf8');
+
+        $user = Auth::user()->id;
+        
+        $sql = "UPDATE notificacoes SET visu_notificacao = 1 WHERE usuario_notificacao = $user AND visu_notificacao = 0";
+        mysqli_query($conn, $sql);
+    }
 }

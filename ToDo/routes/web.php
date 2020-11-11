@@ -93,6 +93,8 @@ Route::group(['middleware' => ['auth', 'verified']], function() { //grupo middle
 
     Route::post('/remov_notificacoes', 'HomeController@remov_notificacoes');
 
+    Route::get('/wipe_recentes', 'HomeController@wipe_recentes');
+
 });
 
 Route::group(['middleware' => ['auth', 'verified', 'admin']], function() {

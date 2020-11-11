@@ -283,16 +283,24 @@ $smartphone = true;
         <?php $resultados = Helper::verifica_like_post($id_post)?>
         @if($resultados == 0)
         <div class="like_home">
-            <span style="cursor:pointer;" id="btn_like" class="fa-thumbs-o-up fa" onclick="like_post(this)" data-id="<?php echo $id_post ;?>"></span> 
-            <span class="like_count" id="<?php echo $id_post ;?>"><?php echo $rows['likes_postagem']; ?></span>
+            <span style="cursor:pointer;" id="btn_like" class="fa-thumbs-o-up fa" onclick="like_post(this)" data-id="<?php echo $id_post ;?>"></span>
+            <?php if($rows['likes_postagem'] >= 999){?>
+                <span class="like_conta"><?php echo "999+"; ?></span>
+            <?php }else{ ?>
+                <span class="like_count" id="<?php echo $id_post ;?>"><?php echo $rows['likes_postagem']; ?></span>
+            <?php } ?>
         </div>
         @else 
         <div class="like_home">
             <span style="cursor:pointer;" id="btn_like" class="fa-thumbs-up fa" onclick="like_post(this)" data-id="<?php echo $id_post ;?>"></span>
-            <span class="like_count" id="<?php echo $id_post ;?>"><?php echo $rows['likes_postagem']; ?></span>
+            <?php if($rows['likes_postagem'] >= 999){?>
+                <span class="like_conta"><?php echo "999+"; ?></span>
+            <?php }else{ ?>
+                <span class="like_count" id="<?php echo $id_post ;?>"><?php echo $rows['likes_postagem']; ?></span>
+            <?php } ?>
         </div>
         @endif
-        
+
         <div class="data-home"><f2><?php echo date('d/m/Y', strtotime($rows['data_postagem'])); ?></f2></div>
         <div class="situation-home">
             <img class="img-ava" src="{{asset('img/avaliacao.png')}}"></img>
@@ -381,47 +389,55 @@ $smartphone = true;
     </div>
     <!-- FIM Modal denunciar postagem -->
 <?php $s++; } ?>
-<?php if ($total_pesquisa >= 1){?>
-    <nav class="text-center">
+<?php if ($total_pesquisa > 1){?>
+    <nav class="text-center" style="margin-top:30px">
         <ul class="pagination">
             <li class="page-item">
                 <?php
                 if($pagina_anterior != 0){ ?>
-                    <a class="page-link" href="?pagina=<?php echo "1"; ?>" aria-label="Primeiro">
-                        <i class="fa fa-angle-double-left" style="font-size:15px"></i>
+                    <a class="page-link" href="?pagina=<?php echo $pagina_anterior ?>" aria-label="Primeiro">
+                        <i class="fa fa-angle-left" style="font-size:15px"></i>
                     </a>
                 <?php }else{ ?>
                     <a class="page-link" aria-label="Primeiro">
-                        <i class="fa fa-angle-double-left" style="font-size:15px"></i>
+                        <i class="fa fa-angle-left" style="font-size:15px"></i>
                     </a>
                 <?php }  ?>
             </li>
             <?php $pagina_ant = $pagina - 1; ?>
             <?php $pagina_atual = $pagina; ?>
             <?php $pagina_pos = $pagina + 1; ?>
-
+            
+            <?php if($pagina_anterior  - 2 > 0){ ?> 
+                <li class="page-item"><a class="page-link" href="?pagina=<?php echo "1"; ?>"><?php echo "1"; ?></a></li>
+                <li class="page-item"><a class="page-link" style="pointer-events: none;">...</a></li>
+            <?php } ?>
             <?php if($pagina_anterior - 1 > 0){ ?>
                 <li class="page-item"><a class="page-link" href="?pagina=<?php echo $pagina_ant - 1; ?>"><?php echo $pagina_ant - 1; ?></a></li>
             <?php }?>
             <?php if($pagina_anterior != 0){ ?>
                 <li class="page-item"><a class="page-link" href="?pagina=<?php echo $pagina_ant; ?>"><?php echo $pagina_ant; ?></a></li>
             <?php }?>
-            <li class="page-item"><a style="color:black"class="page-link"><?php echo $pagina_atual; ?></a></li>
+            <li class="page-item"><a style="color:black"class="page-link"><?php echo "<b>" . $pagina_atual . "</b>"; ?></a></li>
             <?php if($pagina_posterior <= $num_pagina){ ?>
                 <li class="page-item"><a class="page-link" href="?pagina=<?php echo $pagina_pos; ?>"><?php echo $pagina_pos; ?></a></li>
             <?php } ?>
             <?php if($pagina_posterior + 1 <= $num_pagina){ ?>
                 <li class="page-item"><a class="page-link" href="?pagina=<?php echo $pagina_pos + 1; ?>"><?php echo $pagina_pos + 1; ?></a></li>
             <?php } ?>
+            <?php if($pagina_posterior + 2 <= $num_pagina){ ?>
+                <li class="page-item"><a class="page-link" style="pointer-events: none;">...</a></li> 
+                <li class="page-item"><a class="page-link" href="?pagina=<?php echo $num_pagina; ?>"><?php echo $num_pagina; ?></a></li>
+            <?php } ?>
             <li>
                 <?php
                 if($pagina_posterior <= $num_pagina){ ?>
-                    <a class="page-link" href="?pagina=<?php echo $num_pagina; ?>" aria-label="Ultimo">
-                        <i class="fa fa-angle-double-right" style="font-size:15px"></i>
+                    <a class="page-link" href="?pagina=<?php echo $pagina_posterior; ?>" aria-label="Ultimo">
+                        <i class="fa fa-angle-right" style="font-size:16px"></i>
                     </a>
                 <?php }else{ ?>
                     <a class="page-link" aria-label="Ultimo">
-                        <i class="fa fa-angle-double-right" style="font-size:15px"></i>
+                        <i class="fa fa-angle-right" style="font-size:16px"></i>
                     </a>
                 <?php }  ?>
             </li>

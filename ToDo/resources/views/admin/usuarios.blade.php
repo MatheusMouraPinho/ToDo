@@ -208,7 +208,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
             </div>
         </div>
         <br>
-        <?php if($total_pesquisa > 8){ ?>
+        <?php if($total_pesquisa > 1){ ?>
             @include('admin/layout/page')
         <?php }else{ ?> <div class="espaco2"></div> <?php } ?>
     </div>

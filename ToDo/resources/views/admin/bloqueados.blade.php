@@ -91,7 +91,9 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                                 <div class="modal-body">
                                                     <p class="text-center"><h5>Motivo do bloqueio: <b></b></h5></p>
                                                     <br>
-                                                    <textarea class="form-control textarea-estilo" style="resize:none;background-color:white;" style="resize: none" cols="60" rows="6" readonly><?php echo $rows['motivo_bloqueio'] ?></textarea>
+                                                    <div class="container">
+                                                        <textarea class="form-control textarea-modal" style="background-color:white;box-shadow: 1px 1px 5px #999;" rows="6" readonly><?php echo $rows['motivo_bloqueio'] ?></textarea>
+                                                    </div>
                                                 </div>
                                                 <div class="modal-footer-custom">
                                                     <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
@@ -162,7 +164,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                 </table>
             </div>
             <br>
-            <?php if($total_pesquisa > 8){ ?>
+            <?php if($total_pesquisa > 1){ ?>
                 @include('admin/layout/page')
             <?php }else{ ?> <div class="espaco2"></div> <?php } ?>
         </div>

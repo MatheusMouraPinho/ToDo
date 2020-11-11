@@ -16,11 +16,11 @@ $user = Auth::user()->id;
 $sql = "SELECT * FROM usuarios WHERE id = $user ";
 $resultado = mysqli_query($conn, $sql);
 
-$sql22 = "SELECT COUNT(id_notificacao) FROM notificacoes WHERE usuario_notificacao = $user ";
+$sql22 = "SELECT COUNT(id_notificacao) FROM notificacoes WHERE usuario_notificacao = $user AND visu_notificacao = 0 ";
 $res22 = mysqli_query($conn, $sql22);
 $notificacao = mysqli_fetch_array($res22);
 
-$sql23 = "SELECT * FROM notificacoes WHERE usuario_notificacao = $user ";
+$sql23 = "SELECT * FROM notificacoes WHERE usuario_notificacao = $user AND visu_notificacao = 0 LIMIT 10";
 $res23 = mysqli_query($conn, $sql23);
 ?>
 
@@ -64,12 +64,12 @@ $res23 = mysqli_query($conn, $sql23);
     </ul>
     <ul class="nav ml-auto" style="cursor: pointer">
       <li class="nav-item dropdown notificacao">
-        <button class="navbar_drop no-border-button" id="navbarDropdown" role="button" data-toggle="dropdown">
+        <button class="navbar_drop no-border-button" onclick="wipe_notif()" role="button" data-toggle="dropdown">
           <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-bell-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
           </svg>
           <?php if($notificacao[0] > 0 ){ ?>
-            <span class="notifi bell">
+            <span id="notificacoes" class="notifi bell">
               <?php echo $notificacao[0]; ?>
             </span>
           <?php } ?>
@@ -78,20 +78,26 @@ $res23 = mysqli_query($conn, $sql23);
             <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
           </svg>
         </button>
-        <div class="dropdown-menu" style="left:-80px" aria-labelledby="navbarDropdown">
+        <div class="dropdown-menu ajuste_notifi" aria-labelledby="notificações">
+          <?php if($notificacao[0] < 1 ){ ?>
+            <div class="dropdown-item" style="cursor:default;margin-bottom:6px;background-color:white;">
+              <span style="font-size:14px;"><b>Não visualizadas:</b></span><br>
+              <span class="texto_notificacao">Nenhuma notificação</span>
+            </div>
+          <?php }else{ ?>
+            <div class="dropdown-item" style="cursor:default;margin-bottom:6px;background-color:white;">
+              <span style="font-size:14px;"><b>Não visualizadas:</b></span><br>
+            </div>
+          <?php } ?>
           <?php while($row = mysqli_fetch_assoc($res23)){ ?>
-            <div class="dropdown-item" style="cursor:default;margin-bottom:6px;">
-              <span style="font-size:14px;"><b><?php echo $row['titulo_notificacao']; ?></b></span><br>
+            <hr class="rgba-white-light" style="margin: 0 10%;">
+            <div class="dropdown-item" style="cursor:default;margin-bottom:6px;background-color:white;">
+              <span style="font-size:15px;"><?php echo mb_strimwidth($row['titulo_notificacao'], 0, 23, "...") ; ?></span><br>
               <span class="texto_notificacao"><?php echo $row['conteudo_notificacao']; ?></span>
             </div>
           <?php } ?>
-          <?php if($notificacao[0] > 0 ){ ?>
-            <div class="dropdown-divider"></div>
-            <a href="{{ url('notificacoes') }}" class="dropdown-item text-center"><b>Todas as Notificações</b></a>
-          <?php } ?>
-          <?php if($notificacao[0] < 1 ){ ?>
-            <a class="dropdown-item"> &nbsp <b>WORK IN PROGRESS</b>&nbsp&nbsp</a>
-          <?php } ?>
+          <div class="dropdown-divider"></div>
+          <a href="{{ url('notificacoes') }}" class="dropdown-item text-center" style="color:blue;"><b>Ver todas as notificações</b></a>
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -399,6 +405,16 @@ if(isset($denuncia)){ ?>
         });
     </script>
 <?php } ?>
+
+<script>
+function wipe_notif() {
+  $.ajax({
+    method: "GET",
+    url: "wipe_recentes",
+  });
+  document.getElementById("notificacoes").innerHTML = "";
+}
+</script>
 
 <script type="text/javascript">
 if(navigator.appName.indexOf("Internet Explorer")!=-1 || navigator.userAgent.match(/Trident.*rv[ :]*11\./))
