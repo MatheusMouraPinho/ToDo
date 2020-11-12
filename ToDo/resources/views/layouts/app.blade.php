@@ -97,7 +97,7 @@ $res23 = mysqli_query($conn, $sql23);
             </div>
           <?php } ?>
           <div class="dropdown-divider"></div>
-          <a href="{{ url('notificacoes') }}" class="dropdown-item text-center" style="color:blue;"><b>Ver todas as notificações</b></a>
+          <a href="{{ url('notificacoes') }}" class="dropdown-item text-center" style="color:black;"><b>Ver todas as notificações</b></a>
         </div>
       </li>
       <li class="nav-item dropdown">

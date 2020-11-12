@@ -22,6 +22,10 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    public function username()
+    {
+        return 'email';
+    }
 
     protected function authenticated(Request $request, $user)
     {
@@ -55,10 +59,4 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-
-    public function username() // função do laravel pra trocar email de login que é padrão pro campo "registro"
-    {
-        return 'registro';
-    }
-
 }

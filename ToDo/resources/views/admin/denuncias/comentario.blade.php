@@ -77,7 +77,11 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <?php while($rows = mysqli_fetch_assoc($result)){ $nome_autor = $rows['usuario'];?>
                             <tbody class="texture pisca">
                                 <tr class="linha">
-                                    <td class="ajuste3"><?php echo $rows['usuario']; ?></td>
+                                    <td class="ajuste3">
+                                        <a style="color:black;" href="../../perfil?id_usuario=<?php echo $rows['id'];?>">
+                                            <?php echo $rows['usuario']; ?>
+                                        </a>
+                                    </td>
                                     <td class="ajuste1"><?php echo $rows['nome_motivo']; ?></td>
                                     <td class="ajuste1">
                                         <?php 

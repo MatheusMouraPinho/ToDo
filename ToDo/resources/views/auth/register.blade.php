@@ -29,7 +29,7 @@
                             <label for="registro" class="col-md-4 col-form-label text-md-right"></label>
 
                             <div class="col-md-6">
-                                <input id="registro" type="text" class="form-control @error('registro') is-invalid @enderror" name="registro" value="{{ old('registro') }}" required autocomplete="registro" autofocus placeholder="RGM/CPF">
+                                <input id="registro" type="text" class="form-control @error('registro') is-invalid @enderror" name="registro" value="{{ old('registro') }}" autocomplete="registro" autofocus placeholder="RGM/CPF (opcional)">
 
                                 @error('registro')
                                     <span class="invalid-feedback" role="alert">
@@ -71,6 +71,20 @@
                             <label for="senha-confirm" class="col-md-4 col-form-label text-md-right"></label>
                             <div class="col-md-6">
                                 <input id="senha-confirm" type="password" class="form-control" name="senha_confirmation" required autocomplete="new-senha" placeholder="Confirmar Senha">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="check" class="col-md-4 col-form-label text-md-right"></label>
+
+                            <div class="col-md-6">
+                                <input id="check" type="checkbox" name="check" required> Eu aceito os <a href="#">Termos e condições</a> do site
+
+                                @error('check')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <br>

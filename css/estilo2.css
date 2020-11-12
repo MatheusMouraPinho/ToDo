@@ -549,7 +549,8 @@ f2{
 .aviso-home {
   background-color: #ffffff;
   height: 250px;
-  box-shadow: 4px 5px 6px grey;
+  box-shadow: 3px 3px 5px grey;
+  border-radius: 20px;
   margin: auto;
 }
 .aviso-img {
@@ -811,7 +812,7 @@ f2{
   background-color: rgb(216, 216, 216);
 }
 .Bselect {
-  width: 185px;
+  width: 220px;
   height: 28px;
   margin-left: 5px;
 }
@@ -1254,6 +1255,7 @@ f2{
   .aviso-home {
     display: block;
     width: 100%;
+    border-radius: 0px;
   }
 
   .aviso-img {
@@ -1392,6 +1394,7 @@ f2{
   .aviso-home {
     display: block;
     width: 100%;
+    border-radius: 0px;
   }
   .aviso-img {
     top: 40px;
@@ -1646,6 +1649,7 @@ f2{
   .aviso-home {
     display: block;
     width: 100%;
+    border-radius: 0px;
   }
   .aviso-img {
     top: 35px;

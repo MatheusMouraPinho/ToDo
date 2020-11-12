@@ -127,6 +127,7 @@ class AdminController extends Controller
         $id_sql = $_POST ['alterar'];
         $usu = $_POST ['nome'];
         $registro = $_POST ['registro'];
+        $email = $_POST ['email'];
         $notific = 1;
 
         if(isset($_POST ['tipo'])){
@@ -140,7 +141,10 @@ class AdminController extends Controller
             mysqli_query($conn, $sql);
         }
 
-        $sql = "UPDATE usuarios SET registro = $registro WHERE id = $id_sql";
+        $sql = "UPDATE usuarios SET registro = '$registro' WHERE id = $id_sql";
+        mysqli_query($conn, $sql);
+
+        $sql = "UPDATE usuarios SET email = '$email' WHERE id = $id_sql";
         mysqli_query($conn, $sql);
 
         return redirect()->back()->with(['notific' =>  $notific])->with(['usu' => $usu]);

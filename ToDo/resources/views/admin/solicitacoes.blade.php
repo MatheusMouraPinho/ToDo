@@ -71,7 +71,6 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                             <tr class="custom">
                                 <th>Data da solicitação</th>
                                 <th>Nome do usuario</th>
-                                <th>RGM/CPF</th>
                                 <th>Tipo</th>
                                 <th style="min-width:100px">Detalhes</th>
                                 <th style="min-width:80px">Opções</th>
@@ -81,8 +80,11 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                             <tbody>
                                 <tr class="linha">
                                     <td class="ajuste1"><?php echo date('d/m/Y', strtotime($rows['data_solicitacao'])). " às ". date('H:i', strtotime($rows['data_solicitacao'])); ?></td>
-                                    <td class="ajuste3"><?php echo $rows['usuario']; ?></td>
-                                    <td class="ajuste1"><?php echo $rows['registro']; ?></td>
+                                    <td class="ajuste3">
+                                        <a style="color:black;" href="../perfil?id_usuario=<?php echo $rows['id'];?>">
+                                            <?php echo $rows['usuario']; ?>
+                                        </a>
+                                    </td>
                                     <td class="ajuste1"><?php echo $rows['nome_tipo_solicitacao']; ?></td>
                                     <!-- Modal visualizar -->
                                     <div class="modal fade" id="post<?php echo $rows['id_solicitacao'] ?>" tabindex="-1" role="dialog" aria-hidden="true">

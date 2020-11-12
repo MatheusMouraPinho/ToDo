@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11-Nov-2020 às 22:59
+-- Tempo de geração: 12-Nov-2020 às 21:08
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.10
 
@@ -1046,6 +1046,13 @@ CREATE TABLE `solicitacoes` (
   `status_solicitacao` int(11) DEFAULT 3
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `solicitacoes`
+--
+
+INSERT INTO `solicitacoes` (`id_solicitacao`, `tipo_solicitacao`, `usuario_solicitacao`, `conteudo_solicitacao`, `data_solicitacao`, `status_solicitacao`) VALUES
+(17, 1, 128, 'qdqwdq', '2020-11-12 19:28:48', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -1082,10 +1089,9 @@ CREATE TABLE `tipo_solicitacoes` (
 --
 
 INSERT INTO `tipo_solicitacoes` (`id_tipo_solicitacao`, `nome_tipo_solicitacao`) VALUES
-(1, 'Alterar RGM/CPF'),
-(2, 'Alterar Acesso'),
-(3, 'Deletar a conta'),
-(4, 'Outros');
+(1, 'Alterar Acesso'),
+(2, 'Deletar a conta'),
+(3, 'Outros');
 
 -- --------------------------------------------------------
 
@@ -1097,7 +1103,7 @@ CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `usuario` varchar(50) NOT NULL,
   `email` varchar(200) NOT NULL,
-  `registro` varchar(11) NOT NULL COMMENT 'Esse campo se refere ao RGM/CPF do usuário',
+  `registro` varchar(20) DEFAULT 'Não informado' COMMENT 'Esse campo se refere ao RGM/CPF do usuário',
   `senha` varchar(200) NOT NULL,
   `nivel` int(11) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -1317,7 +1323,6 @@ ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email_usuarios` (`email`),
   ADD UNIQUE KEY `usuario` (`usuario`),
-  ADD UNIQUE KEY `registro_usuarios` (`registro`),
   ADD KEY `id_nivel` (`nivel`),
   ADD KEY `id_area` (`id_area`),
   ADD KEY `id_instituicao` (`id_instituicao`),
@@ -1356,19 +1361,19 @@ ALTER TABLE `categoria_postagem`
 -- AUTO_INCREMENT de tabela `check_denuncia`
 --
 ALTER TABLE `check_denuncia`
-  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de tabela `check_denuncia_comentarios`
 --
 ALTER TABLE `check_denuncia_comentarios`
-  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_denuncia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `comentarios`
 --
 ALTER TABLE `comentarios`
-  MODIFY `id_comentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `id_comentarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT de tabela `img_postagem`
@@ -1416,7 +1421,7 @@ ALTER TABLE `notificacoes`
 -- AUTO_INCREMENT de tabela `postagens`
 --
 ALTER TABLE `postagens`
-  MODIFY `id_postagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id_postagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT de tabela `regiao_cidade`
@@ -1440,7 +1445,7 @@ ALTER TABLE `situacao_postagem`
 -- AUTO_INCREMENT de tabela `solicitacoes`
 --
 ALTER TABLE `solicitacoes`
-  MODIFY `id_solicitacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_solicitacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `status_solicitacoes`
@@ -1458,7 +1463,7 @@ ALTER TABLE `tipo_solicitacoes`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
 
 --
 -- Restrições para despejos de tabelas

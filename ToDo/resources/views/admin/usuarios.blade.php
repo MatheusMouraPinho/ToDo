@@ -32,6 +32,8 @@ $pagina_posterior = $pagina + 1;
 
 $i = 1; //id base tabelas
 
+$active = 0;
+
 if ($total_pesquisa > 0 ){ //se tiver rows
     $check = TRUE;
 }
@@ -85,9 +87,10 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         <thead>
                             <tr class="custom">
                                 <th>Nome</th>
+                                <th>Email</th>
                                 <th>RGM/CPF</th>
                                 <th>Tipo</th>
-                                <th>Alterar</th>
+                                <th style="min-width:80px">Alterar</th>
                             </tr>
                         </thead>
                         <?php while($rows = mysqli_fetch_assoc($result2)){ $setup = $rows['nivel'];$id_usuario = $rows['id'];$nome = $rows['usuario']; $mail = $rows['email'];?>
@@ -107,6 +110,9 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                             <br>
                                             <input name="nome" type="hidden" value="<?php echo $nome; ?>"/>
                                             <input type='hidden' name="alterar" value="<?php echo $id_usuario ?>"/>
+                                            <label for="tipo" class="bold subdados">Email: </label>
+                                            <input type="text" class="Bselect" name="email" value="{{ $rows['email'] }}">
+                                            <br><br>
                                             <label for="tipo" class="bold subdados">RGM/CPF: </label>
                                             <input type="text" class="Bselect" name="registro" value="{{ $rows['registro'] }}">
                                             <br><br>
@@ -177,7 +183,13 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                         </script>
                         <tbody class="pisca">
                             <tr class="linha">
-                                <td class="ajuste3"><?php echo $rows['usuario']; ?></td>
+                                <td class="ajuste3">
+                                    <a style="color:black;" href="../perfil?id_usuario=<?php echo $rows['id'];?>">
+                                        <?php echo $rows['usuario']; ?>
+                                    </a>
+                                </td>
+                                </a>
+                                <td class="ajuste1"><?php echo $rows['email']; ?></td>
                                 <td class="ajuste1"><?php echo $rows['registro']; ?></td>
                                 <td class="ajuste1"><?php   if ($setup == 1) { echo "Usuário";    
                                             }else if ($setup == 2) { echo "Avaliador";
@@ -237,22 +249,25 @@ if(isset($notific)){ ?>
     </script>
 <?php } ?>
 
-<script>
-$("#menu-toggle").click(function(e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
-});
+<?php if ( $total_pesquisa > 0){ ?>
 
-$("input[type='radio']").change(function(){
-    if($(this).val()=="ban<?php echo $id_usuario; ?>")
-    {
-        $("#motivo<?php echo $id_usuario; ?>").show();
-    }
-    else
-    {
-        $("#motivo<?php echo $id_usuario; ?>").hide(); 
-    }
-});
-</script>
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+    $("input[type='radio']").change(function(){
+        if($(this).val()=="ban<?php echo $id_usuario; ?>")
+        {
+            $("#motivo<?php echo $id_usuario; ?>").show();
+        }
+        else
+        {
+            $("#motivo<?php echo $id_usuario; ?>").hide(); 
+        }
+    });
+    </script>
+<?php } ?>
 
 @endsection
