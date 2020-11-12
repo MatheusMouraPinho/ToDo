@@ -43,11 +43,16 @@ $res23 = mysqli_query($conn, $sql23);
   <script type="text/javascript" src="{{ asset('js/funcoes.js') }}"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-  
+	<script src="https://unpkg.com/dropzone"></script>
+	<script src="https://unpkg.com/cropperjs"></script>
+
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
   <link rel="shortcut icon" href="img/img_ToDo.png" type="img/x-icon" />
+  <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
+  <link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
+  
 
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">

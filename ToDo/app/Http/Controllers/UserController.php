@@ -304,57 +304,7 @@ class UserController extends Controller
 
         if($data['id_regiao_estado'] === null)
             unset($data['id_regiao_cidade']);
-    /*
-        if ($data['senha'] != null)
-            $data['senha'] = bcrypt($data['senha']);
-        else 
-            unset($data['senha']);
-    */
 
-
-        
-        if($request->hasFile('img_usuarios') && $request->file('img_usuarios')->isValid()) {
-
-            $name = $user->id.Str::kebab($user->usuario);
-            
-            $extenstion = $request->img_usuarios->extension();
-            $nameFile = "{$name}.{$extenstion}";
-
-            Storage::disk('public')->delete('users/'.$name.'.'.$extenstion);
-
-            $fileName = $name.'.'.$extenstion;
-
-            $data['img_usuarios'] = $fileName;
-            $upload = $request->img_usuarios->storeAs('users', $nameFile);
-
-            if(!$upload)
-                return redirect()
-                                ->back()
-                                ->with('error', 'Erro ao fazer upload de imagem');
-        }
-
-        
-        if($request->hasFile('img_capa') && $request->file('img_capa')->isValid()) {
-            $name = $user->id.Str::kebab($user->usuario);
-            
-            $extenstion = $request->img_capa->extension();
-            $nameFile = "{$name}.{$extenstion}";
-
-            Storage::disk('public')->delete('users_capa/'.$name.'.'.$extenstion);
-
-            $fileName = $name.'.'.$extenstion;
-
-            $data['img_capa'] = $fileName;
-            
-            $upload = $request->img_capa->storeAs('users_capa', $nameFile);
-
-            if(!$upload)
-                return redirect()
-                                ->back()
-                                ->with('error', 'Erro ao fazer upload de imagem');
-        }
-
-        //dd($data);
 
         $update = $user->update($data);
 
@@ -501,5 +451,63 @@ class UserController extends Controller
         
         
         return back()->with(compact('filtro_solicit', 'selected_solicit'));
+    }
+
+    public function cropp_image() {
+        if(isset($_POST['image']))
+        {
+            $data = $_POST['image'];
+
+            $user = Auth::user();
+
+            $name = $user->id.Str::kebab($user->usuario).'.png';
+
+            Storage::disk('public')->delete('users/'.$name);
+
+            $nameFile = "ToDo/storage/app/public/users/$name";
+
+            $fileName = $name;
+
+            $image_array_1 = explode(";", $data);
+
+            $image_array_2 = explode(",", $image_array_1[1]);
+
+            $data = base64_decode($image_array_2[1]);
+
+            $data_uploaded = file_put_contents($nameFile, $data);
+
+            $insert = DB::update('update usuarios set img_usuarios = ? where id = ?', [$name, $user->id]);
+
+            return $nameFile;
+        }
+    }
+
+    public function cropp_image_capa() {
+        if(isset($_POST['image']))
+        {
+            $data = $_POST['image'];
+
+            $user = Auth::user();
+
+            $name = $user->id.Str::kebab($user->usuario).'.png';
+
+            Storage::disk('public')->delete('users_capa/'.$name);
+
+            $nameFile = "ToDo/storage/app/public/users_capa/$name";
+
+            $fileName = $name;
+
+            $image_array_1 = explode(";", $data);
+
+            $image_array_2 = explode(",", $image_array_1[1]);
+
+            $data = base64_decode($image_array_2[1]);
+
+            $data_uploaded = file_put_contents($nameFile, $data);
+
+            $upload = DB::update('update usuarios set img_capa = ? where id = ?', [$name, $user->id]);
+
+            return $nameFile;
+        }
     }
 }

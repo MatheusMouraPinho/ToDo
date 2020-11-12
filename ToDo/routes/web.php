@@ -95,6 +95,9 @@ Route::group(['middleware' => ['auth', 'verified']], function() { //grupo middle
 
     Route::get('/wipe_recentes', 'HomeController@wipe_recentes');
 
+    Route::post('/cropp_image', 'UserController@cropp_image');
+
+    Route::post('/cropp_image_capa', 'UserController@cropp_image_capa');
 });
 
 Route::group(['middleware' => ['auth', 'verified', 'admin']], function() {
