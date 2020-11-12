@@ -70,15 +70,15 @@ $solicit = Helper::ordenar_solicit();
           <div class="card-body text-center">
               
               @if($dados['img_perfil'] === null)
-                <img width="150px" class="img-dados" src="{{asset('img/semuser.png')}}">
+                <img width="150px" class="img-dados" id="img_user" src="{{asset('img/semuser.png')}}">
               @else
-                <img  alt="{{ Auth::user()->img_usuarios }}" name="img_usuarios" class="img-dados" src="{{url('ToDo/storage/app/public/users/'.Auth::user()->img_usuarios)}}">
+                <img  alt="{{ Auth::user()->img_usuarios }}" id="img_user" name="img_usuarios" class="img-dados" src="{{url('ToDo/storage/app/public/users/'.Auth::user()->img_usuarios)}}">
               @endif
 
             <h3 style="font-weight: bold;">{{ $dados['nome'] }}</h3>
             
             <p>{{ $dados['email'] }}</p>
-            <a class="edit_perfil" href="" data-toggle="modal" data-target="#popup{{$dados['id'] }}">
+            <a class="edit_perfil" href="" data-toggle="modal" onclick="modal()" data-target="#popup{{$dados['id'] }}">
               <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
                 <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
@@ -230,7 +230,7 @@ $solicit = Helper::ordenar_solicit();
 
                 
                   <div class="container mt-2 pl-3 w-100">
-                      <div class="d-inline-block w-50">
+                      <div class="div_order">
                         <form action="{{ route('order_post') }}" method="POST">
                           @csrf
                             <p class="font-weight-bold m-0 p-1">
@@ -239,8 +239,8 @@ $solicit = Helper::ordenar_solicit();
                               </svg>&nbsp;
                               Ordenar por:
                             </p>
-                            <select name="ordenar_post" onchange="this.form.submit()" class="custom-select bg-transparent" title="Selecione uma opção">
-                              @if($_SESSION['selected_post'] === '1')
+                            <select name="ordenar_post" onchange="this.form.submit()" class="custom-select select-order bg-transparent" title="Selecione uma opção">
+                              @if($_SESSION['selected_post'] == '1')
                                 <option value="Recentes">Recentes</option>
                                 <option value="Populares">Populares</option>
                                 <option value="Avaliados">Avaliados</option>
@@ -264,7 +264,7 @@ $solicit = Helper::ordenar_solicit();
                             </select>
                         </form>
                       </div>
-                    <button class="btn btn-light ml-0" style="width: 30%" data-toggle="modal" data-target="#modalideia"><span style="font-size: 1.4em">+</span> Criar Ideia</button>
+                    <button class="btn btn-light ml-0 btn_create" data-toggle="modal" data-target="#modalideia"><span style="font-size: 1.4em">+</span> Criar Ideia</button>
                   </div>
                 
                 <!-- Área de ideias do usuario -->
@@ -384,7 +384,7 @@ $solicit = Helper::ordenar_solicit();
               <div class="tab-pane fade" id="solicitacoes" role="tabpanel" aria-labelledby="solicitacoes-tab">
 
                 <div class="container mt-2">
-                  <div class="d-inline-block w-50">
+                  <div class="div_order">
                     <form action="{{ route('order_solicit') }}" method="POST">
                       @csrf
                         <p class="font-weight-bold m-0 p-1">
@@ -393,19 +393,19 @@ $solicit = Helper::ordenar_solicit();
                           </svg>&nbsp;
                           Ordenar por:
                         </p>
-                        <select name="ordenar_solicit" onchange="this.form.submit()" class="custom-select bg-transparent" title="Selecione uma opção">
+                        <select name="ordenar_solicit" onchange="this.form.submit()" class="custom-select select-order bg-transparent" title="Selecione uma opção">
                           @if($_SESSION['selected_solicit'] === '1')
                             <option value="Recentes">Recentes</option>
                             <option value="Aprovadas">Aprovadas</option>
-                            <option value="Reprovadas">Reprovadas</option>
+                            <option value="Recusadas">Recusadas</option>
                             <option value="Pendentes">Pendentes</option>
                           @elseif($_SESSION['selected_solicit'] == '2')
                             <option value="Aprovadas">Aprovadas</option>
                             <option value="Recentes">Recentes</option>
-                            <option value="Reprovadas">Reprovadas</option>
+                            <option value="Recusadas">Recusadas</option>
                             <option value="Pendentes">Pendentes</option>
                           @elseif($_SESSION['selected_solicit'] == '3')
-                            <option value="Reprovadas">Reprovadas</option>
+                            <option value="Recusadas">Recusadas</option>
                             <option value="Recentes">Recentes</option>
                             <option value="Aprovadas">Aprovadas</option>
                             <option value="Pendentes">Pendentes</option>
@@ -413,12 +413,12 @@ $solicit = Helper::ordenar_solicit();
                             <option value="Pendentes">Pendentes</option>
                             <option value="Recentes">Recentes</option>
                             <option value="Aprovadas">Aprovadas</option>
-                            <option value="Reprovadas">Reprovadas</option>
+                            <option value="Recusadas">Recusadas</option>
                           @endif
                         </select>
                     </form>
                   </div>
-                  <button class="btn btn-light" data-toggle="modal" data-target="#new_solicitacao"><span style="font-size: 1.4em">+</span> Nova Solicitação</button>
+                  <button class="btn btn-light btn_create" data-toggle="modal" data-target="#new_solicitacao"><span style="font-size: 1.4em">+</span> Nova Solicitação</button>
                 </div>
 
                 <!-- Área de solicitações do usuário -->
@@ -583,7 +583,7 @@ $solicit = Helper::ordenar_solicit();
                               </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <label class="d-block">
-                                  <input name="img_usuarios" onchange="this.form.submit()" id="img_usuarios" type="file" style="display: none; cursor:pointer" accept="image/*">
+                                  <input name="img_usuarios" id="img_usuarios" type="file" style="display: none; cursor:pointer" accept="image/*">
                                   <a name="img_usuarios" id="img_usuarios" class="dropdown-item">
                                     <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-file-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                       <path fill-rule="evenodd" d="M12 1H4a1 1 0 0 0-1 1v10.755S4 11 8 11s5 1.755 5 1.755V2a1 1 0 0 0-1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/>
@@ -593,7 +593,7 @@ $solicit = Helper::ordenar_solicit();
                                   </a>
                                 </label>
                                 <label class="d-block">
-                                  <input name="img_capa" onchange="this.form.submit()" type="file" style="display: none; cursor: pointer;" accept="image/*">
+                                  <input name="img_capa" type="file" id="imgs_capa" style="display: none; cursor: pointer;" accept="image/*">
                                   <a name="img_capa" class="dropdown-item">
                                     <svg width="1.2em" height="1.2em" viewBox="0 0 17 16" class="bi bi-image" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                       <path fill-rule="evenodd" d="M14.002 2h-12a1 1 0 0 0-1 1v9l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094L15.002 9.5V3a1 1 0 0 0-1-1zm-12-1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm4 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
@@ -769,6 +769,65 @@ $solicit = Helper::ordenar_solicit();
           </div>
         </div>
         <!-- Fim área de edição de dados do usuário -->
+</div>
+
+
+<div class="modal fade" id="modal_cropp_perfil" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" style="background-color: rgb(0, 0, 0, .7);">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cortar Imagem</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="img-container">
+              <div class="row">
+                  <div class="col-md-8 justify-content-center align-content-center align-items-center">
+                      <img src="" class="img_cropp align-items-center align-content-center" id="sample_image" />
+                  </div>
+                  <div class="col-md-4 col-12">
+                      <div class="preview"></div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" id="crop" class="btn btn-primary">Cortar e Enviar</button>
+        </div>
+    </div>
+  </div>
+</div>			
+
+<div class="modal fade" id="modal_cropp_capa" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" style="background-color: rgb(0, 0, 0, .7);">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cortar Imagem</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="img-container">
+              <div class="row">
+                  <div class="col-md-7 col-lg-8">
+                      <img src="" class="img_cropp" id="sample_image_capa" />
+                  </div>
+                  <div class="col-md-5 col-lg-4 col-12">
+                      <div class="preview_capa"></div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" id="crop_capa" class="btn btn-primary">Cortar e Enviar</button>
+        </div>
+    </div>
+  </div>
 </div>
 @endsection
 

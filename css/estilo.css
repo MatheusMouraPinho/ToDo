@@ -379,11 +379,19 @@ textarea:focus, input:focus{
   overflow: scroll;
 }
 
-.btn_ideia {
-  position: relative;
-  float: right;
-  clear: both;
-  margin-bottom: 10px;
+.div_order {
+  display: inline-block;
+  width: 50%;
+}
+
+.select-order {
+  width: 100%;
+}
+
+.btn_create {
+  width: 35%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .scroll_table {
@@ -745,7 +753,7 @@ input[type='file'] {
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  border: 2px inset #ffffff;
+  border: 4px inset #ffffff;
   overflow: hidden;
   max-width: 100%;
   object-fit: cover;
@@ -1136,6 +1144,50 @@ input[type='file'] {
   visibility: visible;
 }
 
+.img-container {
+  max-height: 450px;
+  height: auto;
+  width: 100%;
+}
+
+.img_cropp {
+  max-height: 450px; 
+  height: auto;
+  object-fit: scale-down;
+  width: auto;
+  max-width: 100%;
+  
+}
+
+.image_area {
+  position: relative;
+}
+
+.preview img {
+    display: block;
+    max-width: 100%;
+}
+
+.preview {
+    overflow: hidden;
+    width: 200px; 
+    height: 200px;
+    margin: 10px;
+    border: 3px inset #ccc;
+    border-radius: 50%;
+}
+
+.preview_capa {
+  width: 300px;
+  height: 75px;
+  overflow: hidden;
+  margin: 10px;
+}
+
+.modal-lg{
+    max-width: 1000px !important;
+}
+
 @media (max-width: 992px) {
   #popup_cont_desc {
     width: 90%;
@@ -1510,6 +1562,26 @@ input[type='file'] {
     height: auto;
   }
 
+  .img-container {
+    width: 90%;
+    max-height: 800px;
+  }
+  
+  .img_cropp {
+    position: relative;
+    max-width: 90%;
+    max-height: 500px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .preview_capa {
+    margin: 10px auto 10px auto;
+  }
+
+  .preview {
+    margin: 10px auto 10px auto;
+  }
 }
 
 .bola {
@@ -1585,6 +1657,26 @@ input[type='file'] {
 
   td {
     max-width: 140px;
+  }
+
+  .div_order {
+    display: inline-block;
+    width: 50%;
+    margin-left: 40px;
+  }
+  
+  .select-order {
+    width: 100%;
+  }
+  
+  .btn_create {
+    width: 35%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .preview_capa {
+    width: 90%;
   }
 }
 
@@ -1767,6 +1859,21 @@ input[type='file'] {
     max-width: 70px;
     min-width: 40px;
   }
+
+  .div_order {
+    display: inline-block;
+    width: 100%;
+  }
+
+  .select-order {
+    width: 100%;
+  }
+
+  .btn_create {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 @media (min-width:401px) and (max-width:475px) {
@@ -1788,6 +1895,12 @@ input[type='file'] {
   .btnClose {
     top: 10px;
     right: 10px;
+  }
+
+  .btn_create {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
