@@ -67,42 +67,46 @@ $res23 = mysqli_query($conn, $sql23);
         <a href="{{ url('home') }}"> <img class="nav_icon" src="{{asset('img/ToDo.png')}}"> </a>
       </li>
     </ul>
-    <ul class="nav ml-auto" style="cursor: pointer">
+    <ul class="nav ml-auto">
       <li class="nav-item dropdown notificacao">
-        <button class="navbar_drop no-border-button" onclick="wipe_notif()" role="button" data-toggle="dropdown">
-          <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-bell-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <button class="navbar_drop no-border-button notificacoes" onclick="wipe_notif()" role="button" data-toggle="dropdown">
+          <svg width="1.6em" height="1.6em" viewBox="0 0 16 16" class="bi bi-bell-fill bell" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
           </svg>
           <?php if($notificacao[0] > 0 ){ ?>
-            <span id="notificacoes" class="notifi bell">
+            <span id="notificacoes" class="notifi notifi-bell">
               <?php echo $notificacao[0]; ?>
             </span>
           <?php } ?>
-          <span class="nav_nome" style="margin-left:5px;"><?php echo "Notificações"; ?></span>
           <svg width="0.9em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="current color" xmlns="http://www.w3.org/2000/svg">
             <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
           </svg>
         </button>
         <div class="dropdown-menu ajuste_notifi" aria-labelledby="notificações">
           <?php if($notificacao[0] < 1 ){ ?>
-            <div class="dropdown-item" style="cursor:default;margin-bottom:6px;background-color:white;">
-              <span style="font-size:14px;"><b>Não visualizadas:</b></span><br>
-              <span class="texto_notificacao">Nenhuma notificação</span>
+            <div class="dropdown-item text-center" style="cursor:default;margin-bottom:6px;background-color:white;">
+              <span><b>Recentes</b></span><br>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item text-center" style="cursor:default;margin-bottom:6px;background-color:white;">
+              <span>Nenhuma notificação</span>
             </div>
           <?php }else{ ?>
-            <div class="dropdown-item" style="cursor:default;margin-bottom:6px;background-color:white;">
-              <span style="font-size:14px;"><b>Não visualizadas:</b></span><br>
+            <div class="dropdown-item text-center" style="cursor:default;margin-bottom:6px;background-color:white;">
+              <span><b>Recentes</b></span><br>
             </div>
           <?php } ?>
           <?php while($row = mysqli_fetch_assoc($res23)){ ?>
             <hr class="rgba-white-light" style="margin: 0 10%;">
-            <div class="dropdown-item" style="cursor:default;margin-bottom:6px;background-color:white;">
-              <span style="font-size:15px;"><?php echo mb_strimwidth($row['titulo_notificacao'], 0, 23, "...") ; ?></span><br>
-              <span class="texto_notificacao"><?php echo $row['conteudo_notificacao']; ?></span>
+            <div class="dropdown-item text-center" style="cursor:default;margin-bottom:6px;background-color:white;">
+              <span class="texto_notificacao" style="font-size:14px;"><b><?php echo $row['titulo_notificacao']; ?></b></span><br>
+              <span class="texto_notificacao" style="font-size:12px;"><?php echo $row['conteudo_notificacao']; ?></span>
             </div>
           <?php } ?>
           <div class="dropdown-divider"></div>
-          <a href="{{ url('notificacoes') }}" class="dropdown-item text-center" style="color:black;"><b>Ver todas as notificações</b></a>
+          <div class="dropdown-item text-center" style="background-color:white;">
+            <a href="{{ url('notificacoes') }}" style="color:black;"><b>Ver todas as notificações</b></a>
+          </div>
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -121,8 +125,8 @@ $res23 = mysqli_query($conn, $sql23);
             <?php }else{?>
               <img class="nav_img" src="{{asset('/ToDo/storage/app/public/users/'.$row['img_usuarios'])}}">
             <?php }?>
-            <span class="nav_nome"><?php echo mb_strimwidth($nome_resum, 0, 22, "...") ; ?></span>
-            <svg width="0.9em" height="0.9em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="current color" xmlns="http://www.w3.org/2000/svg">
+            <span class="nav_nome"><b><?php echo mb_strimwidth($nome_resum, 0, 22, "...") ; ?></b></span>
+            <svg width="0.9em" height="0.9em" viewBox="0 0 16 16" class="bi bi-caret-down-fill nav_drop" fill="current color" xmlns="http://www.w3.org/2000/svg">
               <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
             </svg>
           </button>
@@ -415,7 +419,7 @@ if(isset($denuncia)){ ?>
 function wipe_notif() {
   $.ajax({
     method: "GET",
-    url: "wipe_recentes",
+    url: "{{url('wipe_recentes')}}",
   });
   document.getElementById("notificacoes").innerHTML = "";
 }
@@ -424,7 +428,7 @@ function wipe_notif() {
 <script type="text/javascript">
 if(navigator.appName.indexOf("Internet Explorer")!=-1 || navigator.userAgent.match(/Trident.*rv[ :]*11\./))
 {
-  window.location = "/ToDo/IE";
+  window.location = "{{url('IE')}}";
 }
 </script>
 

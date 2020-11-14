@@ -344,11 +344,13 @@ tr.linha{
 }
 /* home/outros */
 .ajuste_notifi{
-  left: -80px;
+  width: 260px;
+  left: -210px;
 }
 @media screen and (max-width: 555px) {
   .ajuste_notifi{
-    left: -160px;
+    width: 210px;
+    left: -165px;
   }
 }
 .card-notificacao{
@@ -356,7 +358,7 @@ tr.linha{
   background-color: #ffffff;
   height: 90px;
   border-radius: 50px;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
   margin-left: auto;
   margin-right: auto;
   box-shadow: 1px 1px 4px grey;
@@ -389,29 +391,46 @@ tr.linha{
     margin-right: 6px;
   }
 }
-.bell{
+.notifi-bell{
   position: absolute;
-  margin-left: -10px;
+  margin-left: -11px;
   margin-right: 5px;
-  top: -6px;
+  margin-top: -6px;
+}
+.notificacoes{
+  margin-right: 6px;
+}
+.notificacoes:hover .bell { 
+  animation: shake 0.5s; 
+}
+@keyframes shake {
+  0% { transform: rotate(0); }
+  15% { transform: rotate(7deg); }
+  30% { transform: rotate(-7deg); }
+  45% { transform: rotate(6deg); }
+  60% { transform: rotate(-6deg); }
+  75% { transform: rotate(4deg); }
+  85% { transform: rotate(-4deg); }
+  92% { transform: rotate(2deg); }
+  100% { transform: rotate(1deg); }
 }
 .texto_notificacao{
   white-space: pre-wrap; 
   white-space: -moz-pre-wrap;
   white-space: -pre-wrap;
   white-space: -o-pre-wrap;
-  word-wrap: break-word;    
-  font-size: 12px;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 .min{
-  min-height: 65vh;
+  min-height: 60vh;
 }
 .nav_icon{
   width: 125px;
 }
 .nav_nome{
-  margin-left: 4px;
-  margin-right: 3px;
+  margin-left: 3px;
+  margin-right: 2px;
 }
 @media screen and (min-width: 555px){
   .ajuste_drop{
@@ -441,7 +460,10 @@ tr.linha{
     left: -80px;
   }
   .nav_img{
-    margin-right: 4px;
+    margin-right: 3px;
+  }
+  .nav_drop{
+    margin-right: 1px;
   }
 }
 .result-pesquisa{
@@ -1533,7 +1555,7 @@ f2{
     margin-left: 15px;
     margin-top: 52px;
     font-size: 14px;
-    max-width: 260px; 
+    max-width: 245px;  
   }
   .option_notificacao{
     margin-left: 87%;
@@ -1682,7 +1704,7 @@ f2{
 
 @media screen and (min-width: 330px) and (max-width: 375px) {
   .conteudo_notificacao{
-    max-width: 280px; 
+    max-width: 260px; 
   }
   .title-home{
     max-width: 180px;
@@ -1691,7 +1713,7 @@ f2{
     max-width: 300px;
   }
   .text-desc{
-    width: 190px;
+    width: 180px;
   }
   .text-desc2{
     width: 310px;
@@ -1706,7 +1728,7 @@ f2{
 }
 @media screen and (min-width: 376px) and (max-width: 425px) {
   .conteudo_notificacao{
-    max-width: 320px; 
+    max-width: 300px; 
   }
   .title-home{
     max-width: 200px;

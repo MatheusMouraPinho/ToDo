@@ -141,9 +141,10 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                                     </h6>
                                                 </div>
                                                 <div class="modal-footer-custom">
+                                                    <input type='hidden' name="id_usu" value="<?php echo $rows['id']; ?>"/>
+                                                    <input type='hidden' name="tipo" value="<?php echo $rows['nome_tipo_solicitacao']; ?>"/>
                                                     <input type='hidden' name="id_soli" value="<?php echo $rows['id_solicitacao']; ?>"/>
                                                     <input type='hidden' name="usu" value="<?php echo $rows['usuario']; ?>"/>
-                                                    <input type='hidden' name="mail" value="<?php echo $rows['email']; ?>"/>
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                                                     <button type="submit" class="btn btn-primary">Confirmar</button>
                                                 </div>

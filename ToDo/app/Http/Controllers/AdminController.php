@@ -147,6 +147,9 @@ class AdminController extends Controller
         $sql = "UPDATE usuarios SET email = '$email' WHERE id = $id_sql";
         mysqli_query($conn, $sql);
 
+        $sql = "INSERT INTO notificacoes (titulo_notificacao, conteudo_notificacao, usuario_notificacao) VALUES ('Dados alterados', 'Seus dados foram alterados por um administrador', '$id_sql') ";
+        mysqli_query($conn, $sql);
+
         return redirect()->back()->with(['notific' =>  $notific])->with(['usu' => $usu]);
 
     }
@@ -327,6 +330,7 @@ class AdminController extends Controller
             $id_den = $_POST ['id_denuncia'];
             $id_post = $_POST ['id_postagem'];
             $nom = $_POST ['nome_post'];
+            $id_usu = $_POST ['id_usu'];
             $notific = 2;
 
             $sql = "DELETE FROM check_denuncia WHERE id_postagem = $id_post";
@@ -380,6 +384,9 @@ class AdminController extends Controller
             
             $sql = "DELETE FROM postagens WHERE id_postagem = $id_post";
             mysqli_query($conn, $sql);
+            
+            $sql = "INSERT INTO notificacoes (titulo_notificacao, conteudo_notificacao, usuario_notificacao) VALUES ('Postagem apagada', 'Sua postagem <b>$nom</b> foi apagada devido a denuncias', '$id_usu') ";
+            mysqli_query($conn, $sql);
 
             return redirect()->back()->with(['notific' =>  $notific])->with(['nom' => $nom]);
         }
@@ -411,6 +418,8 @@ class AdminController extends Controller
             $id_den = $_POST ['id_denuncia'];
             $id_com = $_POST ['id_comentario'];
             $nom = $_POST ['autor_coment'];
+            $id_usu = $_POST ['id_usu'];
+            $id_post = $_POST ['id_post'];
             $notific = 2;
 
             $sql = "DELETE FROM denuncias_comentarios WHERE id_denunciacomentario = $id_den";
@@ -424,6 +433,15 @@ class AdminController extends Controller
 
             $sql = "DELETE FROM comentarios WHERE id_comentarios = $id_com";
             mysqli_query($conn, $sql);
+            
+            $query = "SELECT * FROM postagens WHERE id_postagem = $id_post";
+            $result = mysqli_query($conn, $query);
+            if($rows = mysqli_fetch_assoc($result)){
+                $post = $rows['titulo_postagem'];
+                
+                $sql = "INSERT INTO notificacoes (titulo_notificacao, conteudo_notificacao, usuario_notificacao) VALUES ('Comentario apagado', 'Seu foi apagado na postagem <b>$post</b> devido a denuncias', '$id_usu') ";
+                mysqli_query($conn, $sql);
+            }
 
             return redirect()->back()->with(['notific' =>  $notific])->with(['nom' => $nom]);
         }
@@ -436,10 +454,12 @@ class AdminController extends Controller
 
             $id_soli = $_POST ['id_soli'];
             $nom = $_POST ['usu'];
-            $mail = $_POST ['mail'];
+            $id_usu = $_POST ['id_usu'];
+            $tipo = $_POST ['tipo'];
             $notific = 1;
 
-            Mail::to($mail)->send(new solicitacao_aceita());
+            $sql = "INSERT INTO notificacoes (titulo_notificacao, conteudo_notificacao, usuario_notificacao) VALUES ('Solicitação aceita', 'Sua solicitação <b>$tipo</b> foi aceita', '$id_usu') ";
+            mysqli_query($conn, $sql);
 
             $sql = "UPDATE solicitacoes SET status_solicitacao = 1 WHERE id_solicitacao = $id_soli";
             mysqli_query($conn, $sql);
@@ -453,10 +473,12 @@ class AdminController extends Controller
             
             $id_soli = $_POST ['id_soli'];
             $nom = $_POST ['usu'];
-            $mail = $_POST ['mail'];
+            $id_usu = $_POST ['id_usu'];
+            $tipo = $_POST ['tipo'];
             $notific = 2;
 
-            Mail::to($mail)->send(new solicitacao_recusada());
+            $sql = "INSERT INTO notificacoes (titulo_notificacao, conteudo_notificacao, usuario_notificacao) VALUES ('Solicitação recusada', 'Sua solicitação <b>$tipo</b> foi recusada', '$id_usu') ";
+            mysqli_query($conn, $sql);
 
             $sql = "UPDATE solicitacoes SET status_solicitacao = 2 WHERE id_solicitacao = $id_soli";
             mysqli_query($conn, $sql);

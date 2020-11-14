@@ -114,6 +114,7 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                                                     </h6>
                                                 </div>
                                                 <div class="modal-footer-custom">
+                                                    <input type='hidden' name="id_usu" value="<?php echo $rows['id_usuarios']; ?>"/>
                                                     <input type='hidden' name="id_postagem" value="<?php echo $id_post ?>"/>
                                                     <input type='hidden' name="id_denuncia" value="<?php echo $rows['id_denuncia']; ?>"/>
                                                     <input type='hidden' name="nome_post" value="<?php echo $nome_post ?>"/>

@@ -332,7 +332,7 @@ $smartphone = true;
                 </div>
                 <div class="modal-body">
                     <br>
-                    <h5><b><p>Deseja realmente apagar essa Postagem?</p></b><h5>
+                    <h5><b><p>Deseja apagar essa Postagem?</p></b><h5>
                     <br>
                     <div class="modal-footer">
                         <form action="{{url('apagar_post')}}" method="POST">
