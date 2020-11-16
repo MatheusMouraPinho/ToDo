@@ -7,7 +7,7 @@ mysqli_set_charset($conn, 'utf8');
 $user = Auth::user()->id;
 $pagina = (isset($_GET['pagina']))? $_GET['pagina'] : 1;
 
-$sql = "SELECT * FROM notificacoes ORDER BY data_notificacao DESC";
+$sql = "SELECT * FROM notificacoes WHERE usuario_notificacao = $user ORDER BY data_notificacao DESC";
 $result = mysqli_query($conn, $sql); //pesquisa pra ser usado na conta das rows
 $total_pesquisa = mysqli_num_rows($result); //conta o total de rows
 
@@ -17,7 +17,7 @@ $num_pagina = ceil($total_pesquisa/$quantidade);
 
 $inicio = ($quantidade*$pagina)-$quantidade;
 
-$sql = "SELECT * FROM notificacoes ORDER BY data_notificacao DESC LIMIT $inicio, $quantidade ";
+$sql = "SELECT * FROM notificacoes WHERE usuario_notificacao = $user ORDER BY data_notificacao DESC LIMIT $inicio, $quantidade ";
 $result2 = mysqli_query($conn, $sql); //pesquisa limitada com paginação
 
 $pagina_anterior = $pagina - 1; //paginação
