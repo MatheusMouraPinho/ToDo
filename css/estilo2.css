@@ -1,5 +1,26 @@
+.termos{
+  margin-left: 40px;
+  margin-right: 40px;
+  font-family: Times New Roman or GoudyOlSt BT;
+  font-weight: 400;
+  font-size: 16px;
+}
+.subtitulo{
+  font-size: 22px;
+}
+@media screen and (max-width:555px){
+  .termos{
+    margin-left: 10px;
+    margin-right: 10px;
+    font-family: Times New Roman or GoudyOlSt BT;
+    font-weight: 400;
+    font-size: 14px;
+  }
+  .subtitulo{
+    font-size: 20px;
+  }
+}
 /*sobre nós */
-
 .img-sobre{
   margin-top: 90px;
   width: 310px;

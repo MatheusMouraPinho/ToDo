@@ -439,7 +439,7 @@ class AdminController extends Controller
             if($rows = mysqli_fetch_assoc($result)){
                 $post = $rows['titulo_postagem'];
                 
-                $sql = "INSERT INTO notificacoes (titulo_notificacao, conteudo_notificacao, usuario_notificacao) VALUES ('Comentario apagado', 'Seu foi apagado na postagem <b>$post</b> devido a denuncias', '$id_usu') ";
+                $sql = "INSERT INTO notificacoes (titulo_notificacao, conteudo_notificacao, usuario_notificacao) VALUES ('Comentario apagado', 'Seu comentario foi apagado na postagem <b>$post</b> devido a denuncias', '$id_usu') ";
                 mysqli_query($conn, $sql);
             }
 

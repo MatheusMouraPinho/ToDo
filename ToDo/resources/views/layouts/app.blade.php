@@ -141,7 +141,7 @@ $res23 = mysqli_query($conn, $sql23);
               </svg>&nbsp Painel Admin
             </a>
           <?php }?>
-          <a class="dropdown-item" style="margin-bottom:6px" data-toggle="modal" data-target="#modalideia">
+          <a class="dropdown-item" style="margin-bottom:6px;cursor:pointer;" data-toggle="modal" data-target="#modalideia">
             <svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
             </svg>&nbsp Criar ideia
@@ -189,28 +189,23 @@ $res23 = mysqli_query($conn, $sql23);
     <footer class="page-footer font-small indigo layout-footer">
       <div class="container">
       <div class="row text-center d-flex justify-content-center pt-5 mb-3">
-        <div class="col-md-2 mb-3">
+        <div class="col-md-2 mb-4">
           <h6 class="text-uppercase font-weight-bold">
             <a href="{{ url('sobre') }}">Sobre nós</a>
           </h6>
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="col-md-5 mb-4">
           <h6 class="text-uppercase font-weight-bold">
-            <a href="" data-toggle="modal" data-target="#modal_termo" >Termos de uso</a>
+            <a href="" data-toggle="modal" data-target="#modal_termo" >Termos e condições de uso</a>
           </h6>
         </div>
-        <div class="col-md-3 mb-3">
-          <h6 class="text-uppercase font-weight-bold">
-            <a href="" data-toggle="modal" data-target="#modal_politi" >Política de privacidade</a>
-          </h6>
-        </div>
-        <div class="col-md-2 mb-3">
+        <div class="col-md-2 mb-2">
           <h6 class="text-uppercase font-weight-bold">
             <a href="" data-toggle="modal" data-target="#modal_contato" >contatos</a>
           </h6>
         </div>
         </div>
-        <hr class="rgba-white-light" style="margin: 0 15%;">
+        <hr style="margin: 0 10%;">
         <div class="text-center d-flex justify-content-center pt-5">
           <div class="col-md-3">
             <h6 class="text-uppercase font-weight-bold">
@@ -222,11 +217,11 @@ $res23 = mysqli_query($conn, $sql23);
       <div class="d-flex text-center justify-content-center mb-md-3 mb-1">
         <div class="col-md-8 col-12 mt-4">
           <p style="line-height: 1.7rem">
-            ToDo Ideias é um site voltado para a coleta, armazenamento e gestão de ideias de forma a se tornar em um repositório, onde qualquer pessoa poderá registrar
-            uma ideia. Considera-se “ideia" qualquer proposta que venha a surgir de uma inovação, oportunidade, necessidade ou problema.
-            Tem como objetivo coletar, armazenar e gerenciar propostas de projetos para desenvolvimento, permitir que todos os usuários exponham suas ideias,
-            permitir votações e comentários das ideias de modo que o sistema fará o ranqueamento das ideias com melhores avaliações
-            permitindo aos docentes a visão das melhores ideias de forma a contribuir para o conhecimento e a definição dos projetos a serem desenvolvidos pelos alunos.
+          ToDo Ideias é um site voltado para a área acadêmica que tem como objetivo coletar, armazenar e gerenciar ideias de
+          projetos para desenvolvimento podendo ser qualquer proposta que venha a surgir de uma inovação, oportunidade, necessidade ou
+          problema, que podem ser postadas por qualquer usuario pois o site conta com votações, avaliações e moderação das ideias para
+          que se possa fazer um ranqueamento das melhores ideias permitindo aos usuários uma melhor visão de forma a contribuir para o
+          conhecimento e a definição dos projetos a serem desenvolvidos pelos alunos.
           </p>
         </div>
       </div>
@@ -305,9 +300,9 @@ $res23 = mysqli_query($conn, $sql23);
     </div>
   </div>
   <!-- FIM Modal Criação post-->
-  <!--Modal termos de uso-->
+  <!--Modal termos-->
   <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modal_termo" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
@@ -315,7 +310,7 @@ $res23 = mysqli_query($conn, $sql23);
           </button>
         </div>
         <div class="modal-body fundo">
-          <div class="text-center" style="padding:50px;"><H5><b>WORK IN PROGESS</b></h5></div>
+          @include('layouts/termos')
         </div>
         <div class="modal-footer-custom" style="border-top: 1px solid #ccc">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -324,28 +319,9 @@ $res23 = mysqli_query($conn, $sql23);
     </div>
   </div>
   <!-- FIM Modal termos de uso-->
-  <!--Modal politica de privacidade-->
-  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modal_politi" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-          <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body fundo">
-          <div class="text-center" style="padding:50px;"><H5><b>WORK IN PROGESS</b></h5></div>
-        </div>
-        <div class="modal-footer-custom" style="border-top: 1px solid #ccc">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- FIM Modal politica de privacidade-->
   <!--Modal contatos-->
-  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modal_contato" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+  <div class="modal fade" tabindex="-1" role="dialog" id="modal_contato" aria-hidden="true">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
@@ -354,7 +330,7 @@ $res23 = mysqli_query($conn, $sql23);
         </div>
         <div class="modal-body fundo">
           <div class="text-center justify-content-center pt-3">
-            <b style="font-size:20px;"> Desenvolvedores </b>
+            <b style="font-size:22px;">Contato dos Desenvolvedores </b>
           </div>
           <div class="text-center justify-content-center pt-4">
             <b> Matheus Moura Pinho </b> - <a href="mailto:Matheusmpinho@outlook.com"> Matheusmpinho@outlook.com</a> <br><br>
