@@ -336,7 +336,7 @@ INSERT INTO `nivel_acesso` (`id_nivel`, `nivel`) VALUES
 CREATE TABLE `notificacoes` (
   `id_notificacao` int NOT NULL,
   `titulo_notificacao` varchar(30) NOT NULL,
-  `conteudo_notificacao` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `conteudo_notificacao` varchar(255) NOT NULL,
   `usuario_notificacao` int NOT NULL,
   `data_notificacao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `visu_notificacao` int NOT NULL DEFAULT '0'
