@@ -375,7 +375,7 @@ $(document).ready(function(){
 
 	$('#crop_capa').click(function(){
 		canvas = cropper.getCroppedCanvas({
-			width:1150,
+			width:1300,
 			height:270
         });
 
@@ -408,6 +408,10 @@ $(document).ready(function(){
 		});
 	});
 	
+});
+
+$(document).ready(function(){
+    $('#tooltip').tooltip({title: "Ao marcar essa opção, todos usuários poderão visualizar essa informação", delay: 10}); 
 });
 
 

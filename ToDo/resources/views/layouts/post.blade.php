@@ -2,35 +2,33 @@
 }elseif($rows['id_categoria'] == "4"){$categoria = "Marketing";}elseif($rows['id_categoria'] == "5"){$categoria = "Outros";}else{$categoria = "Sem categoria";}?>
 
 <?php
-    $nivel = Auth::user()->nivel;
-    $id_nivel = 0; 
-    if($nivel >= 2){$id_nivel = 1;}
+$nivel = Auth::user()->nivel;
+$id_nivel = 0; 
+if($nivel >= 2){$id_nivel = 1;}
 
-    if(!isset($_SESSION['post_id'])){$_SESSION['post_id'] = array();}
-    if(NULL !== Session::get('id_postagem_coment')){
-      $id_postagem_coment = Session::get('id_postagem_coment'); 
-      array_push($_SESSION['post_id'], $id_postagem_coment); 
+if(!isset($_SESSION['post_id'])){$_SESSION['post_id'] = array();}
+if(NULL !== Session::get('id_postagem_coment')){
+  $id_postagem_coment = Session::get('id_postagem_coment'); 
+  array_push($_SESSION['post_id'], $id_postagem_coment); 
+}
+
+if(NULL !== Session::get('limit')){$_SESSION['limit'] = Session::get('limit');}
+if(isset($_SESSION['limit'])){$limit = $_SESSION['limit'];}
+
+if(!empty($_SESSION['post_id'])) {
+  for($d=0;$d<sizeof($_SESSION['post_id']);$d++) {
+    $cont = 0;
+    if($_SESSION['post_id'][$d] != $id_post) {
+      $cont+= 1 ;
     }
-    
-    //dd($_SESSION['post_id']);
+  }
+  if($cont == sizeof($_SESSION['post_id'])) {
+    $limit = 5;
+  }
+}
+if(!isset($limit)){$limit = 5;}
 
-    if(NULL !== Session::get('limit')){$_SESSION['limit'] = Session::get('limit');}
-    if(isset($_SESSION['limit'])){$limit = $_SESSION['limit'];}
-
-    if(!empty($_SESSION['post_id'])) {
-      for($d=0;$d<sizeof($_SESSION['post_id']);$d++) {
-        $cont = 0;
-        if($_SESSION['post_id'][$d] != $id_post) {
-          $cont+= 1 ;
-        }
-      }
-      if($cont == sizeof($_SESSION['post_id'])) {
-        $limit = 5;
-      }
-    }
-    if(!isset($limit)){$limit = 5;}
-
-    if(NULL !== Session::get('filtro_coment')){$_SESSION['filtro_coment'] = Session::get('filtro_coment');}
+if(NULL !== Session::get('filtro_coment')){$_SESSION['filtro_coment'] = Session::get('filtro_coment');}
 if(isset($_SESSION['filtro_coment'])){$filtro_coment = $_SESSION['filtro_coment'];}
 if(!isset($filtro_coment)){$filtro_coment = "data_comentarios";}
 
@@ -609,6 +607,8 @@ $comments = [
                 <input type="hidden" name="id_postagem" id="id_postagem1" value="{{ $id_post }}">
                 <?php if(isset($rows['id'])){?><input type="hidden" name="id_usuario" value="{{ $rows['id'] }}"><?php }?>
                 <input type="hidden" name="id_avaliador" value="{{ Auth::user()->id }}">
+                <input type="hidden" name="nome_avaliador" value="{{ Auth::user()->usuario }}">
+                <input type="hidden" name="name_post" value="{{ $rows['titulo_postagem'] }}">
             </div>
             <div class="modal-footer-custom" style="border-top: 1px solid #ccc">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

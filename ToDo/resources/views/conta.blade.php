@@ -6,6 +6,18 @@ use Symfony\Component\Console\Input\Input;
 $nivel = Auth::user()->nivel;
 $user = Auth::user()->id;
 
+if($dados['show_registro'] === 1) {
+  $checked = "checked";
+} else {
+  $checked = null;
+}
+
+if($dados['show_email'] === 1) {
+  $checked_email = "checked";
+} else {
+  $checked_email = null;
+}
+
 if(NULL !== Session::get('filtro_coment')){$_SESSION['filtro_coment'] = Session::get('filtro_coment');}
 if(isset($_SESSION['filtro_coment'])){$filtro_coment = $_SESSION['filtro_coment'];}
 if(!isset($filtro_coment)){$filtro_coment = "data_comentarios";}
@@ -14,6 +26,9 @@ if(!isset($filtro_coment)){$filtro_coment = "data_comentarios";}
 if(NULL !== Session::get('selected')){$_SESSION['selected'] = Session::get('selected');}
 if(isset($_SESSION['selected'])){$selected = $_SESSION['selected'];}
 if(!isset($selected)){$selected = "1";}
+
+if(Session::get('nav_selected') !== NULL){$nav_selected = Session::get('nav_selected');}
+if(!isset($nav_selected)){$nav_selected = 1;}
 
 $comments = [
             'comentarios' => DB::table('comentarios')
@@ -98,7 +113,11 @@ $solicit = Helper::ordenar_solicit();
                     <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" d="M10 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
                     </svg>&nbsp;
-                    RGM/CPF:</span> {{ $dados['rgm'] }}
+                    @if($dados['rgm'] != null)
+                      RGM/CPF:</span> {{ $dados['rgm'] }}
+                    @else
+                      RGM/CPF: </span> <i>Não definido</i>
+                    @endif
                     {{-- <span class="float-right mt-1">
                     <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-info-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
@@ -219,14 +238,14 @@ $solicit = Helper::ordenar_solicit();
           <div id="content_user">
             <ul class="nav nav-tabs mt-4 font-weight-bolder justify-content-start ml-auto mr-auto" style="font-size: 1.4em; width: 95%" id="myTab" role="tablist">
               <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="ideias-tab" data-toggle="tab" href="#ideias" role="tab" aria-controls="ideias" aria-selected="true">Ideias</a>
+                <a class="nav-link <?php if($nav_selected == 1){ echo 'active' ;} ?>" id="ideias-tab" data-toggle="tab" href="#ideias" role="tab" aria-controls="ideias" aria-selected="<?php ($nav_selected == 1) ? 'True' : 'False' ;?>">Ideias</a>
               </li>
               <li class="nav-item" role="presentation">
-                <a class="nav-link" id="solicitacoes-tab" data-toggle="tab" href="#solicitacoes" role="tab" aria-controls="solicitacoes" aria-selected="false">Solicitações</a>
+                <a class="nav-link <?php if($nav_selected == '2'){ echo 'active' ;} ?>" id="solicitacoes-tab" data-toggle="tab" href="#solicitacoes" role="tab" aria-controls="solicitacoes" aria-selected="<?php ($nav_selected == '2') ? 'True' : 'False' ;?>">Solicitações</a>
               </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-              <div class="tab-pane fade show active" id="ideias" role="tabpanel" aria-labelledby="ideias-tab">
+              <div class="tab-pane fade <?php if($nav_selected == 1){ echo 'active show' ;} ?>" id="ideias" role="tabpanel" aria-labelledby="ideias-tab">
 
                 
                   <div class="container mt-2 pl-3 w-100">
@@ -381,7 +400,7 @@ $solicit = Helper::ordenar_solicit();
               <!-- Fim área de ideias do usuario -->
 
               </div>
-              <div class="tab-pane fade" id="solicitacoes" role="tabpanel" aria-labelledby="solicitacoes-tab">
+              <div class="tab-pane fade <?php if($nav_selected == '2'){ echo 'active show' ;} ?>" id="solicitacoes" role="tabpanel" aria-labelledby="solicitacoes-tab">
 
                 <div class="container mt-2">
                   <div class="div_order">
@@ -416,6 +435,7 @@ $solicit = Helper::ordenar_solicit();
                             <option value="Recusadas">Recusadas</option>
                           @endif
                         </select>
+                        <input type="hidden" name="nav_selected" value="2">
                     </form>
                   </div>
                   <button class="btn btn-light btn_create" data-toggle="modal" data-target="#new_solicitacao"><span style="font-size: 1.4em">+</span> Nova Solicitação</button>
@@ -523,10 +543,9 @@ $solicit = Helper::ordenar_solicit();
                   </p>
                   <select name="motivo" class="custom-select bg-transparent" title="Selecione uma opção" required>
                     <option value="">Selecione uma opção</option>
-                    <option value="1">Alterar RGM/CPF</option>
-                    <option value="2">Alterar Acesso</option>
-                    <option value="3">Deletar Conta</option>
-                    <option value="4">Outros</option>
+                    <option value="1">Alterar Acesso</option>
+                    <option value="2">Deletar Conta</option>
+                    <option value="3">Outros</option>
                   </select>
                 </div>
                 <div class="form-group">
@@ -537,6 +556,7 @@ $solicit = Helper::ordenar_solicit();
               <div class="modal-footer">
                 <input type="hidden" name="id_usuario" value="{{ $user }}">
                 <input type="button" class="btn btn-secondary" value="Cancelar" data-dismiss="modal">
+                <input type="hidden" name="nav_selected" value="2">
                 <input type="submit" class="btn btn-primary" value="Enviar">
               </div>
             </form>
@@ -622,8 +642,45 @@ $solicit = Helper::ordenar_solicit();
                               </div>
                             </div>
                           </div>
-                        </div>                      
+                        </div>                
                         <div class="centralizar">
+                          <div class="popup-title">
+                            <label for="registro" class="bold subdados">
+                              <svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-hash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.39 12.648a1.32 1.32 0 0 0-.015.18c0 .305.21.508.5.508.266 0 .492-.172.555-.477l.554-2.703h1.204c.421 0 .617-.234.617-.547 0-.312-.188-.53-.617-.53h-.985l.516-2.524h1.265c.43 0 .618-.227.618-.547 0-.313-.188-.524-.618-.524h-1.046l.476-2.304a1.06 1.06 0 0 0 .016-.164.51.51 0 0 0-.516-.516.54.54 0 0 0-.539.43l-.523 2.554H7.617l.477-2.304c.008-.04.015-.118.015-.164a.512.512 0 0 0-.523-.516.539.539 0 0 0-.531.43L6.53 5.484H5.414c-.43 0-.617.22-.617.532 0 .312.187.539.617.539h.906l-.515 2.523H4.609c-.421 0-.609.219-.609.531 0 .313.188.547.61.547h.976l-.516 2.492c-.008.04-.015.125-.015.18 0 .305.21.508.5.508.265 0 .492-.172.554-.477l.555-2.703h2.242l-.515 2.492zm-1-6.109h2.266l-.515 2.563H6.859l.532-2.563z"/>
+                              </svg>&nbsp;
+                              RGM/CPF:
+                            </label>
+                            <input type="text" class="btn-popup" value="{{ Auth::user()->registro }}" name="registro" placeholder="Ex: 1234567-8">
+                            <div class="show_infos text-left">
+                              <input class="form-check-input" name="show_registro" type="checkbox" value="1" id="show_registro" <?php echo $checked ?>>
+                              <label class="form-check-label" for="show_registro">
+                                Mostrar para todos usuários
+                              </label>
+                              <button type="button" id="tooltip" class="bg-transparent border-0 p-0 m-0">
+                                <svg width="1.1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-question-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033a.237.237 0 0 1-.24-.247C5.35 4.091 6.737 3.5 8.005 3.5c1.396 0 2.672.73 2.672 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.105a.25.25 0 0 1-.25.25h-.81a.25.25 0 0 1-.25-.246l-.004-.217c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.803 0-1.253.478-1.342 1.134-.018.137-.128.25-.266.25h-.825zm2.325 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z"/>
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+
+                          <div class="popup-title">
+                            <label for="registro" class="bold subdados">
+                              <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-envelope" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
+                              </svg>&nbsp;
+                              E-mail:
+                            </label>
+                            <input type="text" class="btn-popup" name="email" value="{{ Auth::user()->email }}" placeholder="" readonly>
+                            <div class="show_infos p-0 text-left">
+                              <input class="form-check-input" name="show_email" type="checkbox" value="1" id="show_email" <?php echo $checked_email ?>>
+                              <label class="form-check-label" for="show_email">
+                                Mostrar para todos usuários
+                              </label>
+                            </div>
+                          </div>
+
                           <div class="popup-title">
                             <label for="usuario" class="bold subdados">
                               <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -632,16 +689,6 @@ $solicit = Helper::ordenar_solicit();
                               Usuário: 
                             </label>
                             <input type="text" class="btn-popup wd-sm-100" maxlength="50" value="{{ Auth::user()->usuario }}" placeholder="Usuário" name="usuario">
-                          </div>
-
-                          <div class="popup-title">
-                            <label for="email" class="bold subdados">
-                              <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-envelope" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
-                              </svg>&nbsp;
-                              E-mail:
-                            </label>
-                            <input type="text" class="btn-popup" value="{{ Auth::user()->email }}" name="email" placeholder="E-mail" readonly>
                           </div>
 
                           <div class="popup-title">
@@ -772,7 +819,7 @@ $solicit = Helper::ordenar_solicit();
 </div>
 
 
-<div class="modal fade" id="modal_cropp_perfil" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" style="background-color: rgb(0, 0, 0, .7);">
+<div class="modal fade" id="modal_cropp_perfil" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" style="background-color: rgb(0, 0, 0, .7);">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -782,12 +829,12 @@ $solicit = Helper::ordenar_solicit();
           </button>
         </div>
         <div class="modal-body">
-          <div class="img-container">
+          <div class="img-container mr-auto ml-auto">
               <div class="row">
-                  <div class="col-md-8 justify-content-center align-content-center align-items-center">
-                      <img src="" class="img_cropp align-items-center align-content-center" id="sample_image" />
+                  <div class="div_cropp mr-auto ml-auto" style="max-height: 300px; max-width: 500px">
+                      <img src="" class="img_cropp" id="sample_image" />
                   </div>
-                  <div class="col-md-4 col-12">
+                  <div class="col-lg-4 col-12 mt-1">
                       <div class="preview"></div>
                   </div>
               </div>
@@ -801,8 +848,8 @@ $solicit = Helper::ordenar_solicit();
   </div>
 </div>			
 
-<div class="modal fade" id="modal_cropp_capa" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true" style="background-color: rgb(0, 0, 0, .7);">
-  <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade" id="modal_cropp_capa" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="modalLabel" aria-hidden="true" style="background-color: rgb(0, 0, 0, .7);">
+  <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Cortar Imagem</h5>
@@ -811,14 +858,16 @@ $solicit = Helper::ordenar_solicit();
           </button>
         </div>
         <div class="modal-body">
-          <div class="img-container">
-              <div class="row">
-                  <div class="col-md-7 col-lg-8">
-                      <img src="" class="img_cropp" id="sample_image_capa" />
-                  </div>
-                  <div class="col-md-5 col-lg-4 col-12">
-                      <div class="preview_capa"></div>
-                  </div>
+          <div class="img-container ml-auto mr-auto">
+              <div class="row align-items-center justify-content-center">
+                <div class="div_cropp">
+                    <img src="" style="border-radius: 10px" class="img_cropp" id="sample_image_capa" />
+                </div>
+              </div>
+              <div class="row align-items-center justify-content-center">
+                <div class="col-12">
+                <div class="preview_capa" style=" @media(max-width: 400px) {max-width: 300px}"></div>
+                </div>
               </div>
           </div>
         </div>

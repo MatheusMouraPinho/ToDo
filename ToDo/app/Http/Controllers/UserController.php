@@ -88,6 +88,14 @@ class UserController extends Controller
 
             'img_post' => DB::table('img_postagem'),
 
+            'show_registro' => DB::table('usuarios')
+                            ->where('id', $user_id)
+                            ->value('show_registro'),
+
+            'show_email' => DB::table('usuarios')
+                            ->where('id', $user_id)
+                            ->value('show_email'),
+
         ];
         
 
@@ -202,7 +210,15 @@ class UserController extends Controller
                             ->orderBy('nome_area', 'asc')
                             ->get(),
 
-                'img_post' => DB::table('img_postagem')
+                'img_post' => DB::table('img_postagem'),
+
+                'show_registro' => DB::table('usuarios')
+                            ->where('id', $dados_usr->id)
+                            ->value('show_registro'),
+
+                'show_email' => DB::table('usuarios')
+                            ->where('id', $dados_usr->id)
+                            ->value('show_email'),
             ];
 
             $post = [                
@@ -292,6 +308,22 @@ class UserController extends Controller
         $user = Auth::user();
 
         $data = $request->all();
+
+        if(isset($data['show_registro'])) {
+          $data['show_registro'] = true;
+        }else {
+            $data['show_registro'] = false;
+        }
+
+        if(isset($data['show_email'])) {
+            $data['show_email'] = true;
+        }else {
+            $data['show_email'] = false;
+        }
+
+        unset($data['senha']);
+        unset($data['img_capa']);
+        unset($data['img_usuarios']);
 
         if($data['id_instituicao'] === null)
             unset($data['id_instituicao']);
@@ -396,6 +428,9 @@ class UserController extends Controller
             status_solicitacao
         ) values (?, ?, ?, ?)', [$data['motivo'], $data['id_usuario'], $data['conteudo_solicitacao'], 3]);
 
+        $nav_selected = $data['nav_selected']; 
+        $success = 'Solicitação enviada com sucesso!';
+
         if(!$insert){
             return redirect()
                     ->route('conta')
@@ -403,7 +438,7 @@ class UserController extends Controller
         } else {
             return redirect()
                     ->route('conta')
-                    ->with('success', 'Solicitação enviada com sucesso!');
+                    ->with(compact('success', 'nav_selected'));
         }
     }
 
@@ -439,7 +474,7 @@ class UserController extends Controller
             } elseif ($_POST['ordenar_solicit'] == 'Aprovadas') {
                 $filtro_solicit = '1';
                 $selected_solicit = '2'; 
-            } elseif ($_POST['ordenar_solicit'] == 'Reprovadas') {
+            } elseif ($_POST['ordenar_solicit'] == 'Recusadas') {
                 $filtro_solicit = '2';
                 $selected_solicit = '3'; 
             }elseif ($_POST['ordenar_solicit'] == 'Pendentes') {
@@ -447,10 +482,9 @@ class UserController extends Controller
                 $selected_solicit = '4'; 
             }
         }
-
+        $nav_selected = $_POST['nav_selected'];        
         
-        
-        return back()->with(compact('filtro_solicit', 'selected_solicit'));
+        return back()->with(compact('filtro_solicit', 'selected_solicit', 'nav_selected'));
     }
 
     public function cropp_image() {

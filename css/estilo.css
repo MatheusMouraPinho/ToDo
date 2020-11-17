@@ -510,6 +510,13 @@ ul {
   text-align: center;
 }
 
+.show_infos {
+  display: inline-block;
+  width: 60%;
+  margin-left: 110px;
+  padding: 0px;
+}
+
 
 .popup_desc {
   width: 100%;
@@ -1145,18 +1152,22 @@ input[type='file'] {
 }
 
 .img-container {
-  max-height: 450px;
+  max-height: 550px;
   height: auto;
-  width: 100%;
+  width: 95%;
+}
+
+.div_cropp {
+  width: 90%;
 }
 
 .img_cropp {
-  max-height: 450px; 
+  max-height: 370px; 
   height: auto;
   object-fit: scale-down;
   width: auto;
   max-width: 100%;
-  
+  border-radius: 10px;
 }
 
 .image_area {
@@ -1172,20 +1183,21 @@ input[type='file'] {
     overflow: hidden;
     width: 200px; 
     height: 200px;
-    margin: 10px;
+    margin: auto auto auto auto;
     border: 3px inset #ccc;
     border-radius: 50%;
+    vertical-align: middle;
+}
+
+.div_preview {
+  width: 100%;
 }
 
 .preview_capa {
-  width: 300px;
-  height: 75px;
+  width: 350px;
+  height: 140px;
   overflow: hidden;
-  margin: 10px;
-}
-
-.modal-lg{
-    max-width: 1000px !important;
+  margin: 10px auto 10px auto;
 }
 
 @media (max-width: 992px) {
@@ -1197,6 +1209,10 @@ input[type='file'] {
     width: auto;
     min-width: 50px;
     max-width: 200px;
+  }
+
+  .img-container {
+    width: 100%;
   }
 }
 
@@ -1564,7 +1580,8 @@ input[type='file'] {
 
   .img-container {
     width: 90%;
-    max-height: 800px;
+    max-height: 500px;
+    height: auto;
   }
   
   .img_cropp {
@@ -1577,6 +1594,7 @@ input[type='file'] {
 
   .preview_capa {
     margin: 10px auto 10px auto;
+    width: 300px;
   }
 
   .preview {
@@ -1676,7 +1694,7 @@ input[type='file'] {
   }
 
   .preview_capa {
-    width: 90%;
+    width: 350px;
   }
 }
 
@@ -1735,6 +1753,13 @@ input[type='file'] {
     margin-left: auto;
     margin-right: auto;
     width: 80%;
+  }
+
+  .show_infos {
+    display: block;
+    width: 67%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .bola {
@@ -1874,6 +1899,19 @@ input[type='file'] {
     margin-left: auto;
     margin-right: auto;
   }
+
+  .img-container {
+    width: 95%;
+  }
+
+  .div_container {
+    width: 100%;
+  }
+
+  .preview_capa {
+    width: auto;
+    max-width: 300px;
+  }
 }
 
 @media (min-width:401px) and (max-width:475px) {
@@ -1901,6 +1939,14 @@ input[type='file'] {
     width: 40%;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .div_container {
+    width: 100%;
+  }
+
+  .preview_capa {
+    width: 270px;
   }
 }
 

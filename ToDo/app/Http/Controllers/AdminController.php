@@ -12,6 +12,7 @@ use App\Mail\solicitacao_recusada;
 use App\Mail\desbloqueio;
 use Config;
 use Storage;
+use Auth;
 
 class AdminController extends Controller
 {
@@ -520,19 +521,23 @@ class AdminController extends Controller
         }
     }
         
-    public function avaliar(Request $request) {       
+    public function avaliar(Request $request) {
         $data = $request->all();
+        $user = Auth::user();
         $datetime = new DateTime();
         $datetime->format('d-m-Y H:i:s');
         $data['data_postagem'] = $datetime;
         $soma = $data['inovacao'] + $data['complexidade'] + $data['potencial'];
         $media = $soma / 3;
+        $id_postagem = $data['id_postagem'];
         if(!empty($data)) {
+            $id_avaliador = $data['id_avaliador'];
+            $id_usuario = $data['id_usuario'];
             $insert = DB::insert('insert into avaliacao_postagem (
                 id_postagem, id_usuario, inovacao_avaliacao, complexidade_avaliacao, potencial_avaliacao, media_avaliacao, id_avaliador
             )  
             values (?, ?, ?, ?, ?, ?, ?)', [
-                $data['id_postagem'], $data['id_usuario'], $data['inovacao'], $data['complexidade'], $data['potencial'], $media, $data['id_avaliador']
+                $data['id_postagem'], $id_usuario, $data['inovacao'], $data['complexidade'], $data['potencial'], $media, $id_avaliador
             ]);
 
             $query = DB::table('avaliacao_postagem')
@@ -543,12 +548,17 @@ class AdminController extends Controller
             $query = intval($query[0]->id_avaliacao);
 
             $insert_coment = DB::insert('insert into comentarios (id_avaliacao, id_usuarios, id_postagem, conteudo_comentarios, data_comentarios)
-            values (?, ?, ?, ?, ?)', [$query, $data['id_avaliador'], $data['id_postagem'], $data['comentarios'], $data['data_postagem']]);
+            values (?, ?, ?, ?, ?)', [$query, $id_avaliador, $data['id_postagem'], $data['comentarios'], $data['data_postagem']]);
 
             $update = DB::update('update postagens set media = ?, id_situacao_postagem = ? where id_postagem = ?', [$media, 1, $data['id_postagem']]);
-        }
 
-        $id_postagem = $data['id_postagem'];
+            $nome_avaliador = $data['nome_avaliador'];
+            $name_post = $data['name_post'];
+
+            $notific = DB::insert("insert into notificacoes (
+                titulo_notificacao, conteudo_notificacao, usuario_notificacao
+            ) values (?, ?, ?)", ['Postagem avaliada', "Sua postagem <b>$name_post</b> foi avaliada por $nome_avaliador", $id_usuario]);
+        }
 
         if(!$insert or !$update ) {
             return redirect()->back()->with('error', 'Erro ao processar avaliação');
