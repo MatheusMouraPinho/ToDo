@@ -377,7 +377,7 @@ tr.linha{
 .card-notificacao{
   display: flex;
   background-color: #ffffff;
-  height: 90px;
+  height: 95px;
   border-radius: 50px;
   margin-bottom: 35px;
   margin-left: auto;
@@ -401,7 +401,7 @@ tr.linha{
   cursor: pointer;
 }
 .scroll-small::-webkit-scrollbar{
-  height: 8px;
+  height: 10px;
 }
 
 .scroll-small::-webkit-scrollbar-track{
@@ -908,12 +908,12 @@ f2{
   }
   .titulo_notificacao{
     margin-left: 45px;
-    margin-top: 12px;
+    margin-top: 11px;
     font-size: 18px;
   }
   .conteudo_notificacao{
     margin-left: 45px;
-    margin-top: 52px;
+    margin-top: 50px;
     font-size: 16px;
     max-width: 640px; 
   }
@@ -1024,12 +1024,12 @@ f2{
   }
   .titulo_notificacao{
     margin-left: 40px;
-    margin-top: 12px;
+    margin-top: 11px;
     font-size: 18px;
   }
   .conteudo_notificacao{
     margin-left: 40px;
-    margin-top: 52px;
+    margin-top: 50px;
     font-size: 16px;
     max-width: 520px; 
   }
@@ -1161,12 +1161,12 @@ f2{
 }
 .titulo_notificacao{
   margin-left: 40px;
-  margin-top: 12px;
+  margin-top: 11px;
   font-size: 18px;
 }
 .conteudo_notificacao{
   margin-left: 40px;
-  margin-top: 52px;
+  margin-top: 50px;
   font-size: 16px;
   max-width: 520px; 
 }
@@ -1286,12 +1286,12 @@ f2{
   }
   .titulo_notificacao{
     margin-left: 30px;
-    margin-top: 12px;
+    margin-top: 11px;
     font-size: 18px;
   }
   .conteudo_notificacao{
     margin-left: 30px;
-    margin-top: 52px;
+    margin-top: 50px;
     font-size: 16px;
     max-width: 390px; 
   }
@@ -1425,12 +1425,12 @@ f2{
   }
   .titulo_notificacao{
     margin-left: 30px;
-    margin-top: 12px;
+    margin-top: 11px;
     font-size: 18px;
   }
   .conteudo_notificacao{
     margin-left: 30px;
-    margin-top: 52px;
+    margin-top: 50px;
     font-size: 14px;
     max-width: 290px; 
   }
@@ -1590,12 +1590,12 @@ f2{
   }
   .titulo_notificacao{
     margin-left: 15px;
-    margin-top: 12px;
+    margin-top: 11px;
     font-size: 18px;
   }
   .conteudo_notificacao{
     margin-left: 15px;
-    margin-top: 52px;
+    margin-top: 50px;
     font-size: 14px;
     max-width: 235px;  
   }
