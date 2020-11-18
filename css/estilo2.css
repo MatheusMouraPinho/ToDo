@@ -422,18 +422,18 @@ tr.linha{
   margin-right: 6px;
 }
 .notificacoes:hover .bell { 
-  animation: shake 0.5s; 
+  animation: shake 0.6s;
 }
 @keyframes shake {
   0% { transform: rotate(0); }
-  15% { transform: rotate(7deg); }
-  30% { transform: rotate(-7deg); }
-  45% { transform: rotate(6deg); }
-  60% { transform: rotate(-6deg); }
-  75% { transform: rotate(4deg); }
-  85% { transform: rotate(-4deg); }
-  92% { transform: rotate(2deg); }
-  100% { transform: rotate(1deg); }
+  15% { transform: rotate(8deg); }
+  30% { transform: rotate(-8deg); }
+  45% { transform: rotate(7deg); }
+  60% { transform: rotate(-7deg); }
+  75% { transform: rotate(5deg); }
+  85% { transform: rotate(-5deg); }
+  92% { transform: rotate(3deg); }
+  100% { transform: rotate(2deg); }
 }
 .texto_notificacao{
   white-space: pre-wrap; 
@@ -683,7 +683,7 @@ f2{
   border-left: 1px solid black;
   box-shadow: 0px 3px 5px grey;
 }
-.btn{
+.btn-edit{
   border-radius: 20px;
   font-weight: bold;
 }

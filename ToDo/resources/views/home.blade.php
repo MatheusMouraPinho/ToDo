@@ -72,11 +72,11 @@ $smartphone = true;
         <form method="POST" action="{{url('filtro')}}">
             @csrf
             <div class="row contorno"> 
-                <button name="filtro" value="novo" <?php if($filtro == "data_postagem"){?> class="btn selecionado" <?php }else{?> class="btn btn-outline-primary-custom" <?php }?>><img width="21px" style="margin-top:-2px;" src="{{asset('img/new.png')}}"> Novos</button> 
-                <button name="filtro" value="popu" <?php if($filtro == "likes_postagem"){?> class="btn selecionado" <?php }else{?> class="btn btn-outline-primary-custom" <?php }?>><img width="23px" style="margin-top:-2px;" src="{{asset('img/like.png')}}">Populares</button> 
-                <button name="filtro" value="melh" <?php if($filtro == "media"){?> class="btn selecionado" <?php }else{?> class="btn btn-outline-primary-custom" <?php }?>><img width="22px" style="margin-top:-2px;" src="{{asset('img/avaliacao.png')}}">Melhores Avaliados</button> 
+                <button name="filtro" value="novo" <?php if($filtro == "data_postagem"){?> class="btn btn-edit selecionado" <?php }else{?> class="btn btn-edit btn-outline-primary-custom" <?php }?>><img width="21px" style="margin-top:-2px;" src="{{asset('img/new.png')}}"> Novos</button> 
+                <button name="filtro" value="popu" <?php if($filtro == "likes_postagem"){?> class="btn btn-edit selecionado" <?php }else{?> class="btn btn-edit btn-outline-primary-custom" <?php }?>><img width="23px" style="margin-top:-2px;" src="{{asset('img/like.png')}}">Populares</button> 
+                <button name="filtro" value="melh" <?php if($filtro == "media"){?> class="btn btn-edit selecionado" <?php }else{?> class="btn btn-edit btn-outline-primary-custom" <?php }?>><img width="22px" style="margin-top:-2px;" src="{{asset('img/avaliacao.png')}}">Melhores Avaliados</button> 
                 <div class="dropdown">
-                    <button class="btn selecionado dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-edit selecionado dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo $setup3;?> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -86,7 +86,7 @@ $smartphone = true;
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn selecionado dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-edit selecionado dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo $setup2 ;?> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -99,7 +99,7 @@ $smartphone = true;
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn selecionado dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-edit selecionado dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo $setup; ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -133,7 +133,7 @@ $smartphone = true;
             @csrf
             <div class="row contorno">
                 <div class="dropdown">
-                    <button class="btn btn btn-outline-primary-custom dropdown-toggle t1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-edit btn-outline-primary-custom dropdown-toggle t1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php if($filtro == "media"){?> <img width="20px" style="margin-top:-3px;" src="{{asset('img/avaliacao.png')}}"> <?php echo "<t1>Mais avaliados</t1>"; }elseif($filtro == "likes_postagem"){?><img width="20px" style="margin-top:-2px;" src="{{asset('img/like.png')}}"><?php  echo "Populares"; } elseif($filtro == "data_postagem"){?> <img width="18px" style="margin-top:-2px;" src="{{asset('img/new.png')}}"> <?php echo "Novos";}else{echo $filtro;}?> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -143,7 +143,7 @@ $smartphone = true;
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle t1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-edit btn-primary dropdown-toggle t1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo $setup3;?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -153,7 +153,7 @@ $smartphone = true;
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle t1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-edit btn-primary dropdown-toggle t1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo $setup2;?> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -166,7 +166,7 @@ $smartphone = true;
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle t1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-edit btn-primary dropdown-toggle t1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo $setup; ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

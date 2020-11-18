@@ -26,6 +26,7 @@ Artisan::call('cache:clear');
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/estilo2.css') }}" rel="stylesheet">
     <link href="{{ asset('css/estiloAuth.css') }}" rel="stylesheet">
 </head>
     <div id="fundo">
@@ -51,3 +52,23 @@ Artisan::call('cache:clear');
 
 </body>
 </html>
+
+<!--Modal termos-->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modal_termo" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body fundo">
+                @include('layouts/termos')
+            </div>
+            <div class="modal-footer-custom" style="border-top: 1px solid #ccc">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FIM Modal termos de uso-->

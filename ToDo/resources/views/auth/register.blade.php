@@ -78,7 +78,7 @@
                             <label for="check" class="col-md-4 col-form-label text-md-right"></label>
 
                             <div class="col-md-6">
-                                <input id="check" type="checkbox" name="check" required> Eu aceito os <a href="#">Termos e condições</a> do site
+                                <input id="check" type="checkbox" name="check" required> Eu aceito os <a href="" data-toggle="modal" data-target="#modal_termo">Termos e condições</a> do site
 
                                 @error('check')
                                     <span class="invalid-feedback" role="alert">
