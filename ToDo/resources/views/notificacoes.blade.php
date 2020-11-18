@@ -35,7 +35,7 @@ $pagina_posterior = $pagina + 1;
         <div class="titulo_notificacao">
             <b><?php echo $rows['titulo_notificacao']; ?></b>
         </div>
-        <div class="conteudo_notificacao">
+        <div class="conteudo_notificacao scroll-small">
             <?php echo $rows['conteudo_notificacao']; ?>
         </div>
         <div class="data_notificacao text-center">
@@ -76,9 +76,9 @@ $pagina_posterior = $pagina + 1;
                     <h5><b><p>Deseja apagar essa Notificação?</p></b><h5>
                     <br>
                     <div class="modal-footer">
-                        <form action="{{url('apagar_post')}}" method="POST">
+                        <form action="{{url('remov_notificacoes')}}" method="POST">
                             @csrf
-                            <input name="id_postagem" type="hidden" value="<?php echo $rows['id_notificacao'];?>">
+                            <input name="id_notifi" type="hidden" value="<?php echo $rows['id_notificacao'];?>">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-primary">Confirmar</button>
                         </form>

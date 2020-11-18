@@ -393,10 +393,31 @@ tr.linha{
 }
 .conteudo_notificacao{
   position: absolute;
-  text-overflow: ellipsis;
   overflow: hidden; 
   white-space: nowrap;
+  overflow: auto;
 }
+.scroll-small{
+  cursor: pointer;
+}
+.scroll-small::-webkit-scrollbar{
+  height: 8px;
+}
+
+.scroll-small::-webkit-scrollbar-track{
+  border: 1px solid black;
+  background: rgb(223, 223, 223);
+  border-radius: 12px;
+
+}
+.scroll-small::-webkit-scrollbar-thumb{
+  border-radius:6px;
+  border: 1px solid black;
+  background: rgb(160, 160, 160);
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+
 .option_notificacao{
   position: absolute;
 }
@@ -894,7 +915,7 @@ f2{
     margin-left: 45px;
     margin-top: 52px;
     font-size: 16px;
-    max-width: 650px; 
+    max-width: 640px; 
   }
   .option_notificacao{
     margin-left: 722px;
@@ -1272,7 +1293,7 @@ f2{
     margin-left: 30px;
     margin-top: 52px;
     font-size: 16px;
-    max-width: 400px; 
+    max-width: 390px; 
   }
   .option_notificacao{
     margin-left: 442px;
@@ -1411,7 +1432,7 @@ f2{
     margin-left: 30px;
     margin-top: 52px;
     font-size: 14px;
-    max-width: 300px; 
+    max-width: 290px; 
   }
   .option_notificacao{
     margin-left: 342px;
@@ -1576,7 +1597,7 @@ f2{
     margin-left: 15px;
     margin-top: 52px;
     font-size: 14px;
-    max-width: 245px;  
+    max-width: 235px;  
   }
   .option_notificacao{
     margin-left: 87%;
@@ -1725,7 +1746,7 @@ f2{
 
 @media screen and (min-width: 330px) and (max-width: 375px) {
   .conteudo_notificacao{
-    max-width: 260px; 
+    max-width: 255px; 
   }
   .title-home{
     max-width: 180px;
@@ -1749,7 +1770,7 @@ f2{
 }
 @media screen and (min-width: 376px) and (max-width: 425px) {
   .conteudo_notificacao{
-    max-width: 300px; 
+    max-width: 290px; 
   }
   .title-home{
     max-width: 200px;

@@ -143,7 +143,7 @@ $smartphone = true;
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-edit btn-primary dropdown-toggle t1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-edit selecionado btn-primary dropdown-toggle t1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo $setup3;?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -153,7 +153,7 @@ $smartphone = true;
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-edit btn-primary dropdown-toggle t1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-edit selecionado btn-primary dropdown-toggle t1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo $setup2;?> 
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -166,7 +166,7 @@ $smartphone = true;
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-edit btn-primary dropdown-toggle t1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-edit selecionado btn-primary dropdown-toggle t1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <?php echo $setup; ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

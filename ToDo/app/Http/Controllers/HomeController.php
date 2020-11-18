@@ -474,8 +474,9 @@ class HomeController extends Controller
         mysqli_set_charset($conn, 'utf8');
 
         $user = Auth::user()->id;
+        $notifi = $_POST ['id_notifi'];
         
-        $sql = "DELETE FROM notificacoes WHERE usuario_notificacao = $user";
+        $sql = "DELETE FROM notificacoes WHERE usuario_notificacao = $user AND id_notificacao = $notifi";
         mysqli_query($conn, $sql);
 
         return back();
