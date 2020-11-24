@@ -314,7 +314,7 @@ $solicit = Helper::ordenar_solicit();
         
                     <div class="scroll_table">
                       <table id="table_conta">
-                        <thead class="sticky-top">
+                        <thead class="">
                           <tr>
                             <th>Título</th>
                             <th>Data</th>

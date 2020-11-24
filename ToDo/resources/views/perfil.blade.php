@@ -15,6 +15,9 @@ if(NULL !== Session::get('selected')){$_SESSION['selected'] = Session::get('sele
 if(isset($_SESSION['selected'])){$selected = $_SESSION['selected'];}
 if(!isset($selected)){$selected = "1";}
 
+if(Session::get('nav_selected_perfil') !== NULL){$nav_selected = Session::get('nav_selected_perfil');}
+if(!isset($nav_selected)){$nav_selected = 1;}
+
 
 $comments = [
             'comentarios' => DB::table('comentarios')
@@ -35,6 +38,9 @@ $comments = [
                                 ->orderBy($filtro_coment, 'desc')
                                 ->get(),
 ];
+
+$posts = Helper::ordenar_post_perfil($dados['id']);
+$solicit = Helper::ordenar_solicit_perfil($dados['id']);
 
 ?>
 
@@ -206,16 +212,32 @@ $comments = [
 
           <div class="divisao-conta"></div>
 
+          <div id="content_user">
+            @if($nivel === 3)
+              <ul class="nav nav-tabs mt-4 font-weight-bolder justify-content-start ml-auto mr-auto mb-3" style="font-size: 1.4em; width: 95%" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link <?php if($nav_selected == 1){ echo 'active' ;} ?>" id="ideias-tab" data-toggle="tab" href="#ideias" role="tab" aria-controls="ideias" aria-selected="<?php ($nav_selected == 1) ? 'True' : 'False' ;?>">Ideias</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link <?php if($nav_selected == '2'){ echo 'active' ;} ?>" id="solicitacoes-tab" data-toggle="tab" href="#solicitacoes" role="tab" aria-controls="solicitacoes" aria-selected="<?php ($nav_selected == '2') ? 'True' : 'False' ;?>">Solicitações</a>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade <?php if($nav_selected == 1){ echo 'active show' ;} ?>" id="ideias" role="tabpanel" aria-labelledby="ideias-tab">
+            @endif
+
       <!-- Área de ideias do usuario -->
 
       <!-- Início da tabela de ideias -->
-      <div id="content_user">
-        @if(empty($dados['posts'][0]))
+        @if(empty($posts[0]))
 
           <div id="area_ideias">
-            <div class="container my-4">
-              <h2 id="h1conta">Minhas Ideias</h2>
-            </div>
+            @if($nivel < 3)
+              <div class="container mt-4 mb-0">
+                <h3 id="h1conta" class="mb-1">Ideias Postadas</h3>
+                <hr class="mb-3 mt-0" style="margin-left: 1px">
+              </div>
+            @endif
             
             <table id="table_conta">
               <thead>
@@ -237,13 +259,54 @@ $comments = [
 
         @else
           <div id="area_ideias">
-            <div class="container my-4">
-              <h2 id="h1conta">Ideias Postadas</h2>
+            @if($nivel < 3)
+              <div class="container ml-1 mt-4 mb-0">
+                <h3 id="h1conta" class="mb-1">Ideias Postadas</h3>
+                <hr class="mb-3 mt-0">
+              </div>
+            @endif
+
+            <div class="container pl-3 w-100 mb-3 mt-0">
+              <div class="div_order">
+                <form action="{{ route('order_post_perfil') }}" method="POST">
+                  @csrf
+                  <p class="font-weight-bold m-0 p-1">
+                    <svg width="1.6em" height="1.6em" viewBox="0 0 16 16" class="bi bi-filter-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                    </svg>&nbsp;
+                    Ordenar por:
+                  </p>
+                  <select name="ordenar_post" onchange="this.form.submit()" class="custom-select select-order bg-transparent" title="Selecione uma opção">
+                    @if($_SESSION['selected_post_perfil'] == '1')
+                      <option value="Recentes">Recentes</option>
+                      <option value="Populares">Populares</option>
+                      <option value="Avaliados">Avaliados</option>
+                      <option value="Pendentes">Pendentes</option>
+                    @elseif($_SESSION['selected_post_perfil'] == '2')
+                      <option value="Populares">Populares</option>
+                      <option value="Recentes">Recentes</option>
+                      <option value="Avaliados">Avaliados</option>
+                      <option value="Pendentes">Pendentes</option>
+                    @elseif($_SESSION['selected_post_perfil'] == '3')
+                      <option value="Avaliados">Avaliados</option>
+                      <option value="Recentes">Recentes</option>
+                      <option value="Populares">Populares</option>
+                      <option value="Pendentes">Pendentes</option>
+                    @elseif($_SESSION['selected_post_perfil'] == '4')
+                      <option value="Pendentes">Pendentes</option>
+                      <option value="Recentes">Recentes</option>
+                      <option value="Populares">Populares</option>
+                      <option value="Avaliados">Avaliados</option>
+                    @endif
+                  </select>
+                  <input type="hidden" name="id_user" value="{{ $dados['id'] }}">
+                </form>
+              </div>
             </div>
 
             <div class="scroll_table">
               <table id="table_conta" style="font-size: 1.1em">
-                <thead class="sticky-top">
+                <thead class="">
                   <tr>
                     <th style="min-width: 100px">Título</th>
                     <th>Data</th>
@@ -253,7 +316,7 @@ $comments = [
                 </thead>
                 <tbody>
                   <?php $i = 0?>            
-                  @foreach($dados['posts'] as $posts)
+                  @foreach($posts as $posts)
                     <tr>
                       <td class="abreviar">{{ $posts->titulo_postagem }}</td>
                       <td>{{ date('d/m/Y', strtotime($posts->data_postagem)) }}</td>
@@ -532,14 +595,136 @@ $comments = [
                   @endforeach
                 </tbody>
               </table>
-
-            </div>
             <!-- Fim da tabela de ideias -->
 
           </div>
-      </div>
+          </div>
         @endif
-      </div>
 
       <!-- Fim área de ideias do usuario -->
+    @if($nivel === 3)  
+      </div>
+    @endif
+    <div class="tab-pane fade <?php if($nav_selected == '2'){ echo 'active show' ;} ?>" id="solicitacoes" role="tabpanel" aria-labelledby="solicitacoes-tab">
+
+      <!-- Área de solicitações do usuário -->
+
+      @if(empty($solicit[0]))
+        <div id="area_ideias">
+
+          <div class="scroll_table">
+          <!-- Início da tabela de solicitações -->
+          <table id="table_conta">
+            <thead>
+              <tr>
+                <th>Situação</th>
+              </tr>
+            </thead>
+            <tbody>  
+              <tr>
+                <td rowspan="10">
+                  <div class="centralizar">
+                    <p class="font-italic">Não foi enviada nenhuma solicitação</p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- Fim da tabela de solicitações -->
+        </div>
+
+      @else
+        <div id="area_ideias">
+
+          <div class="container mb-3">
+            <div class="div_order">
+              <form action="{{ route('order_solicit_perfil') }}" method="POST">
+                @csrf
+                  <p class="font-weight-bold m-0 p-1">
+                    <svg width="1.6em" height="1.6em" viewBox="0 0 16 16" class="bi bi-filter-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                    </svg>&nbsp;
+                    Ordenar por:
+                  </p>
+                  <select name="ordenar_solicit" onchange="this.form.submit()" class="custom-select select-order bg-transparent" title="Selecione uma opção">
+                    @if($_SESSION['selected_solicit_perfil'] === '1')
+                      <option value="Recentes">Recentes</option>
+                      <option value="Aprovadas">Aprovadas</option>
+                      <option value="Recusadas">Recusadas</option>
+                      <option value="Pendentes">Pendentes</option>
+                    @elseif($_SESSION['selected_solicit_perfil'] == '2')
+                      <option value="Aprovadas">Aprovadas</option>
+                      <option value="Recentes">Recentes</option>
+                      <option value="Recusadas">Recusadas</option>
+                      <option value="Pendentes">Pendentes</option>
+                    @elseif($_SESSION['selected_solicit_perfil'] == '3')
+                      <option value="Recusadas">Recusadas</option>
+                      <option value="Recentes">Recentes</option>
+                      <option value="Aprovadas">Aprovadas</option>
+                      <option value="Pendentes">Pendentes</option>
+                    @elseif($_SESSION['selected_solicit_perfil'] == '4')
+                      <option value="Pendentes">Pendentes</option>
+                      <option value="Recentes">Recentes</option>
+                      <option value="Aprovadas">Aprovadas</option>
+                      <option value="Recusadas">Recusadas</option>
+                    @endif
+                  </select>
+                  <input type="hidden" name="nav_selected" value="2">
+                  <input type="hidden" name="id_user" value="{{ $dados['id'] }}">
+              </form>
+            </div>
+          </div>
+
+          <div class="scroll_table">
+            <table id="table_conta">
+              <thead class="sticky-top">
+                <tr>
+                  <th>Tipo de pedido</th>
+                  <th>Data</th>
+                  <th>Situação</th>
+                  <th>Detalhes</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($solicit as $solicitacoes)
+                  <tr>
+                    <td class="abreviar">{{ $solicitacoes->nome_tipo_solicitacao }}</td>
+                    <td>{{ date('d/m/Y', strtotime($solicitacoes->data_solicitacao)) }}</td>
+                    <td>{{ $solicitacoes->nome_status }}</td>
+                    <td><a href="" data-toggle="modal" data-target="#solicitacao{{ $solicitacoes->id_solicitacao }}">Visualizar</a></td>
+                  </tr> 
+
+                  <!-- Modal para visualizar solicitação -->
+                  <div class="modal fade id" id="solicitacao{{$solicitacoes->id_solicitacao}}" role="dialog">
+                    <div class="modal-dialog modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Pedido</h5>
+                      </div>
+                      <div class="modal-body">
+                        <p id="edit_desc">{{ $solicitacoes->conteudo_solicitacao }}</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                      </div> 
+                    </div>
+                  </div>
+                  <!-- FIM Modal para visualizar solicitação -->
+                @endforeach
+              </tbody>
+            </table>
+            
+
+          </div>
+          <!-- Fim da tabela de ideias -->
+        </div>
+        @endif
+
+      <!-- Fim área de solicitações do usuário -->
+
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Área de edição de dados do usuário -->
 @endsection

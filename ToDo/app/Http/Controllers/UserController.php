@@ -176,14 +176,6 @@ class UserController extends Controller
 
                 'img_capa' => $dados_usr->img_capa,
 
-                'posts' => DB::table('postagens')
-                        ->join('categoria_postagem','categoria_postagem.id_categoria', '=', 'postagens.id_categoria' )
-                        ->join('situacao_postagem','situacao_postagem.id_situacao_postagem', '=', 'postagens.id_situacao_postagem' )
-                        ->where('id_usuarios', $dados_usr->id)
-                        ->select('categoria_postagem.*', 'postagens.*', 'situacao_postagem.*')
-                        ->orderBy('postagens.id_postagem', 'asc')
-                        ->get(),
-
                 'date' => DB::table('postagens')
                         ->where('id_usuarios', $dados_usr->id)
                         ->pluck('data_postagem'),
@@ -485,6 +477,49 @@ class UserController extends Controller
         $nav_selected = $_POST['nav_selected'];        
         
         return back()->with(compact('filtro_solicit', 'selected_solicit', 'nav_selected'));
+    }
+
+    public function order_post_perfil() {
+        if(isset($_POST['ordenar_post'])){
+            if($_POST['ordenar_post'] == 'Recentes') {
+                $filtro_post_perfil = 'data_postagem';
+                $selected_post_perfil = '1';
+
+            } elseif ($_POST['ordenar_post'] == 'Populares') {
+                $filtro_post_perfil = 'likes_postagem';
+                $selected_post_perfil = '2'; 
+            } elseif ($_POST['ordenar_post'] == 'Avaliados') {
+                $filtro_post_perfil = '1';
+                $selected_post_perfil = '3'; 
+            }elseif ($_POST['ordenar_post'] == 'Pendentes') {
+                $filtro_post_perfil = '2';
+                $selected_post_perfil = '4'; 
+            }
+        }   
+        
+        return back()->with(compact('filtro_post_perfil', 'selected_post_perfil'));
+    }
+
+    public function order_solicitacao_perfil() {
+        if(isset($_POST['ordenar_solicit'])){
+            if($_POST['ordenar_solicit'] == 'Recentes') {
+                $filtro_solicit_perfil = 'data_solicitacao';
+                $selected_solicit_perfil = '1';
+
+            } elseif ($_POST['ordenar_solicit'] == 'Aprovadas') {
+                $filtro_solicit_perfil = '1';
+                $selected_solicit_perfil = '2'; 
+            } elseif ($_POST['ordenar_solicit'] == 'Recusadas') {
+                $filtro_solicit_perfil = '2';
+                $selected_solicit_perfil = '3'; 
+            }elseif ($_POST['ordenar_solicit'] == 'Pendentes') {
+                $filtro_solicit_perfil = '3';
+                $selected_solicit_perfil = '4'; 
+            }
+        }
+        $nav_selected_perfil = $_POST['nav_selected'];    
+        
+        return back()->with(compact('filtro_solicit_perfil', 'selected_solicit_perfil', 'nav_selected_perfil'));
     }
 
     public function cropp_image() {

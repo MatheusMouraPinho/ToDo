@@ -353,11 +353,12 @@
 
 #h1conta {
   position: relative;
-  width: 300px;
+  width: 205px;
   text-align: left;
   margin-left: 0px;
   margin-right: auto;
   font-weight: bold;
+  /* border-bottom:  2px solid #3490dc; */
 }
 
 textarea:focus, input:focus{
@@ -592,9 +593,10 @@ p {
 .div_notas {
   display: inline-block;
   width: 100%;
-  text-align: right;
   padding: 0px;
-
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .popup_avali {
@@ -1112,7 +1114,7 @@ input[type='file'] {
   top: 0px;
   left: 0px;
   visibility: hidden;
-  z-index: 1055;
+  z-index: 1065;
   overflow: hidden;
   outline: 0;
   overflow-x: hidden;
@@ -1145,6 +1147,25 @@ input[type='file'] {
   justify-content: center;
   height: 100%;
 
+}
+
+.showModal{
+  animation: show .2s;
+  
+transform: scale(1);
+}
+@keyframes show {
+  from{
+    
+transform: scale(0);
+    opacity:0;
+      z-index:1058;
+  } to{
+    
+transform: scale(1);
+    opacity: 1;
+      z-index:1062;
+  }
 }
 
 .modal_active {

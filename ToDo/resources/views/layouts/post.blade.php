@@ -131,15 +131,17 @@ $comments = [
               @if(!empty($post['avaliacao'][0])) <!--  Verifica se a consulta sql de avaliações retorna algum valor  -->
                 @for($c=0; $c<sizeof($post['avaliacao']); $c++) <!-- enquanto a variável c não tiver o valor igualado ao tamanho do array de avaliação, uma avaliação por vez é mostrada -->
                   @if($post['avaliacao'][$c]->id_postagem == $id_post)  <!-- Mas a avaliação só é mostrada caso o id da postagem da avaliação for igual ao da postagem que está sendo visualizada -->
-                    <p class="popup_avali">
-                      <span class="bold d-block">Inovação: </span>{{ $post['avaliacao'][$c]->inovacao_avaliacao }}
-                    </p>
-                    <p class="popup_avali">
-                      <span class="bold d-block">Potencial: </span>{{ $post['avaliacao'][$c]->potencial_avaliacao }}
-                    </p>
-                    <p class="popup_avali">
-                      <span class="bold d-block">Complexidade: </span>{{ $post['avaliacao'][$c]->complexidade_avaliacao }}
-                    </p>
+                    <div class="div_notas">
+                      <p class="popup_avali">
+                        <span class="bold d-block">Inovação</span>{{ $post['avaliacao'][$c]->inovacao_avaliacao }}
+                      </p>
+                      <p class="popup_avali">
+                        <span class="bold d-block">Potencial</span>{{ $post['avaliacao'][$c]->potencial_avaliacao }}
+                      </p>
+                      <p class="popup_avali">
+                        <span class="bold d-block">Complexidade</span>{{ $post['avaliacao'][$c]->complexidade_avaliacao }}
+                      </p>
+                    </div>
                     <div class="popup_coment_aval" id="avaliacao">
                       <div class="header-coment">
                         @if($post['avaliador'][$c]->nivel > 1)
@@ -201,14 +203,14 @@ $comments = [
                 @endfor
                 @if($cont === sizeof($post['avaliacao']))
                   @if($id_nivel == 1 && isset($rows['id']) && $user_post != $user)
-                    <a href="#" class="popup_coment" data-toggle="modal" data-target="#post<?php echo $id_post ?>_avaliar">Avaliar postagem</a>
+                    <button href="#" class="btn btn-block btn-outline-primary mr-auto mt-2 ml-auto" data-toggle="modal" data-target="#post<?php echo $id_post ?>_avaliar">Avaliar postagem</button>
                   @else
                     <p class="popup_coment">Pendente</p>
                   @endif
                 @endif
               @else
                 @if($id_nivel == 1 && isset($rows['id']) && $user_post != $user)
-                  <a href="#" class="popup_coment" data-toggle="modal" data-target="#post<?php echo $id_post ?>_avaliar">Avaliar postagem</a>
+                <button href="#" class="btn btn-block btn-outline-primary mr-auto mt-2 ml-auto" data-toggle="modal" data-target="#post<?php echo $id_post ?>_avaliar">Avaliar postagem</button>
                 @else
                   <p class="popup_coment">Pendente</p>
                 @endif

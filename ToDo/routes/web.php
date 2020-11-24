@@ -89,6 +89,10 @@ Route::group(['middleware' => ['auth', 'verified']], function() { //grupo middle
 
     Route::post('/ordenar_solicitacao', 'UserController@order_solicitacao')->name('order_solicit');
 
+    Route::post('/ordenar_post_perfil', 'UserController@order_post_perfil')->name('order_post_perfil');
+
+    Route::post('/ordenar_solicitacao_perfil', 'UserController@order_solicitacao_perfil')->name('order_solicit_perfil');
+
     Route::get('/notificacoes', 'HomeController@notificacoes');
 
     Route::post('/remov_notificacoes', 'HomeController@remov_notificacoes');
