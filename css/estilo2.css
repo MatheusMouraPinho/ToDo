@@ -474,12 +474,6 @@ tr.linha{
   margin-left: 3px;
   margin-right: 2px;
 }
-@media screen and (min-width: 555px){
-  .ajuste_drop{
-    left: 10px;
-  }
-}
-
 .nav_img{
   border: 1px solid rgb(182, 182, 182);
   border-radius: 50%;
@@ -499,7 +493,7 @@ tr.linha{
     display: none;
   }
   .ajuste_drop{
-    left: -80px;
+    left: -88px;
   }
   .nav_img{
     margin-right: 3px;
@@ -508,6 +502,7 @@ tr.linha{
     margin-right: 1px;
   }
 }
+
 .result-pesquisa{
   margin-left: 20px;
 }

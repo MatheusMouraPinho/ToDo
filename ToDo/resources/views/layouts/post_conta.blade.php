@@ -74,13 +74,13 @@
                   @if($post['avaliacao'][$c]->id_postagem === $posts->id_postagem)
                     <div class="div_notas">
                       <p class="popup_avali">
-                        <span class="bold d-block">Inovação: </span><span style="font-size: 1.1em">{{ $post['avaliacao'][$c]->inovacao_avaliacao }}</span>
+                        <span class="bold d-block">Inovação</span><span style="font-size: 1.1em">{{ $post['avaliacao'][$c]->inovacao_avaliacao }}</span>
                       </p>
                       <p class="popup_avali">
-                        <span class="bold d-block">Potencial: </span><span style="font-size: 1.1em">{{ $post['avaliacao'][$c]->potencial_avaliacao }}</span>
+                        <span class="bold d-block">Potencial</span><span style="font-size: 1.1em">{{ $post['avaliacao'][$c]->potencial_avaliacao }}</span>
                       </p>
                       <p class="popup_avali">
-                        <span class="bold d-block">Complexidade: </span><span style="font-size: 1.1em">{{ $post['avaliacao'][$c]->complexidade_avaliacao }}</span>
+                        <span class="bold d-block">Complexidade</span><span style="font-size: 1.1em">{{ $post['avaliacao'][$c]->complexidade_avaliacao }}</span>
                       </p>
                     </div>
                     <div class="popup_coment_aval" id="avaliacao">
@@ -450,7 +450,7 @@
 <!-- Popup de visualização de imagens -->
   <div class="modal_imgs" id="img_modal">
     <div class="modal_content">
-      <button type="button" class="close btnClose" onclick="hide_modal(); getWidth()" data-dismiss="modal">&times;</button>
+      <button type="button" class="close btnClose" onclick="hide_modal();" data-dismiss="modal">&times;</button>
       <img id="img_post1" class="modal_img" src="" onclick="">
     </div>
   </div>
