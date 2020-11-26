@@ -24,6 +24,12 @@
     align-items: center;
   }
 
+.imglogin{
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
 .card-login{
   position: relative;
   display: block;
@@ -36,6 +42,33 @@
   border-radius: 0.25rem;
 }
 
+/*@media screen and (min-width: 768px) and (max-width: 990px) {
+  .card-login{
+    margin-top: 80px;
+    margin-left: -40px;
+    width: 310px;
+    height: 310px;
+  }
+}
+@media screen and (min-width: 576px) and (max-width: 767px) {
+  .card-login{
+    margin-top: 75px;
+    margin-left: -50px;
+    width: 260px;
+    height: 260px;
+  }
+}
+@media screen and (max-width: 575px) {
+  .card-login{
+    position: relative;
+    margin-top: 40px;
+    width: 260px;
+    height: 260px;
+    left: 50%;
+    margin-left: -145px;
+  }
+}*/
+
 .card-corpo{
   flex: 1 1 auto;
   min-height: 1px;
@@ -43,6 +76,33 @@
   color: #fffafa;
   margin-right: 55px;
 }
+
+/*@media screen and (min-width: 768px) and (max-width: 990px) {
+  .card-corpo{
+    margin-top: 80px;
+    margin-left: -40px;
+    width: 310px;
+    height: 310px;
+  }
+}
+@media screen and (min-width: 576px) and (max-width: 767px) {
+  .card-corpo{
+    margin-top: 75px;
+    margin-left: -50px;
+    width: 260px;
+    height: 260px;
+  }
+}
+@media screen and (max-width: 575px) {
+  .card-corpo{
+    position: relative;
+    margin-top: 40px;
+    width: 260px;
+    height: 260px;
+    left: 50%;
+    margin-left: -145px;
+  }
+}*/
 
 .card-cabeca{
   padding: 0.75rem 1.25rem;
@@ -115,6 +175,33 @@
   border-radius: 0.25rem;
 }
 
+/*@media screen and (min-width: 768px) and (max-width: 990px) {
+  .card{
+    margin-top: 80px;
+    margin-left: -40px;
+    width: 310px;
+    height: 310px;
+  }
+}
+@media screen and (min-width: 576px) and (max-width: 767px) {
+  .card{
+    margin-top: 75px;
+    margin-left: -50px;
+    width: 260px;
+    height: 260px;
+  }
+}
+@media screen and (max-width: 575px) {
+  .card{
+    position: relative;
+    margin-top: 40px;
+    width: 300px;
+    height: 260px;
+    left: 50%;
+    margin-left: -145px;
+  }
+}*/
+
 .card-body {
   flex: 1 1 auto;
   min-height: 1px;
@@ -123,6 +210,32 @@
   margin-right: 55px;
 }
 
+@media screen and (min-width: 768px) and (max-width: 990px) {
+  .card-body{
+    margin-top: 80px;
+    margin-left: -40px;
+    width: 310px;
+    height: 310px;
+  }
+}
+@media screen and (min-width: 576px) and (max-width: 767px) {
+  .card-body{
+    margin-top: 75px;
+    margin-left: -50px;
+    width: 260px;
+    height: 260px;
+  }
+}
+@media screen and (max-width: 575px) {
+  .card-body{
+    position: relative;
+    margin-top: 40px;
+    width: 260px;
+    height: 260px;
+    left: 50%;
+    margin-left: -145px;
+  }
+}
 .card-header {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;

@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card-login">
-                <div class="card-cabeca">Alterar senha</div>
+                <div class="card-cabeca offset-md-4">Alterar senha</div>
 
                 <div class="card-corpo">
                 <form action="/password/reset" method="post">
@@ -14,7 +14,7 @@
                         <input type="hidden" name="token" value="{{ $token }}">
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right" placeholder="E-mail"></label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">Senha</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right" placeholder="Senha">Nova Senha</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
@@ -42,7 +42,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirmar Senha</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right" placeholder="Confirmar Senha"></label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
@@ -52,7 +52,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primaria">
-                                    {{ __('Mudar Senha') }}
+                                    {{ __('Alterar') }}
                                 </button>
                             </div>
                         </div>

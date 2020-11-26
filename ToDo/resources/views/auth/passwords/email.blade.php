@@ -5,9 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card-login">
-                <div class="card-cabeca offset-md-4">Redefinição de Senha</div>
+            <div class=" offset-md-4">
+                    <h1 id="nv">Recuperar senha</h1>
+                </div>
 
-                <div class="card-corpo">
+                <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -18,10 +20,10 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">Email da sua Conta</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right"></label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Digite seu e-mail">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -34,11 +36,12 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primaria">
-                                    Enviar link para redefinir sua senha
+                                    Recuperar
                                 </button>
                             </div>
                         </div>
                     </form>
+                    </a>
                 </div>
             </div>
         </div>

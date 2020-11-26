@@ -31,16 +31,16 @@ Artisan::call('cache:clear');
 </head>
     <div id="fundo">
          <div>
-            <img id="modulo" src="{{asset('img/centro.jpg')}}" >
+            <img id="modulo" src="{{asset('img/fundo.jpg')}}" >
         </div>   
 
-        <div id="logo" style="padding-top:28px">
-            <img height="90px" src="{{asset('img/ToDo.png')}}" >
+        <div id="logo" style="padding-top:28px" >
+         <a href="{{ route('login') }}">  <img height="90px" src="{{asset('img/ToDo.png')}}"> </a>
         </div>  
     </div>
 <body>
     <div id="app" style="padding-top:20px">
-      <!--  layout da tela de login, register, comfirmação de email... -->
+      <!--  layout da tela de login, register, confirmação de email... -->
       
 
         <main class="py-4">

@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card-login">
-                <div class="card-cabeca">Verificação de E-mail</div>
+                <div class="card-cabeca offset-md-4">Verificação de E-mail</div>
 
                 <div class="card-corpo">
                     @if (session('resent'))

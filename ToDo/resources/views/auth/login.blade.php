@@ -39,30 +39,31 @@
                             </div>
 
                             <div class="form-group row mb-0">
-                                <div class="col-md-8 offset-md-4">
+                            <div class="col-md-8 offset-md-4">
+                            
+                                
+                                @if (Route::has('password.request'))
+                                    <a class="btn btn-linkk" href="{{ route('password.request') }}">
+                                        {{ __('Esqueceu Sua Senha?') }}
+                                    </a><br><br>
+                                @endif
                                 <button type="submit" class="btn btn-lg btn-primaria btn-block">
-                                        {{ __('Login') }}
-                                    </button>
-                                    <br><br>
-                                    @if (Route::has('password.request'))
-                                        <a class="btn btn-linkk" href="{{ route('password.request') }}">
-                                            {{ __('Esqueceu Sua Senha?') }}
-                                        </a>
-                                    @endif
-                                </div>
+                                    {{ __('Login') }}
+                                </button>
                             </div>
+                        </div>
                         </form>
                         
                         <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <a class="btn btn-linkk" href="{{ route('register') }}">
-                                    Não Possui Conta?
-                                </a>
-                            </div>
+                        <div class="col-md-8 offset-md-4">
+                            <a>
+                                Não tem uma conta? <a href="{{ route('register') }}">Registre-se </a>
+                            </a>
                         </div>
                     </div>
+                    </div>
                     <div class="col-4">
-                        <img width="100px"src="{{asset('img/art1.png')}}">
+                        <img class="imglogin" src="{{asset('img/Pencil.svg')}}">
                     </div>
                 </div>
             </div>
