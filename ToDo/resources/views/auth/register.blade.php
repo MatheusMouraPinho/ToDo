@@ -1,104 +1,86 @@
 @extends('layouts.LR')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card-login">
-
-
-                <div class="card-corpo">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="usuario" class="col-md-4 col-form-label text-md-right"></label>
-
-                            <div class="col-md-6">
-                                <input id="usuario" type="text" class="form-control @error('usuario') is-invalid @enderror" name="usuario" value="{{ old('usuario') }}" required autocomplete="usuario" autofocus placeholder="Nome">
-
-                                @error('usuario')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="registro" class="col-md-4 col-form-label text-md-right"></label>
-
-                            <div class="col-md-6">
-                                <input id="registro" type="text" class="form-control @error('registro') is-invalid @enderror" name="registro" value="{{ old('registro') }}" autocomplete="registro" autofocus placeholder="RGM/CPF (opcional)">
-
-                                @error('registro')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right"></label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="E-Mail">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="senha" class="col-md-4 col-form-label text-md-right"></label>
-
-                            <div class="col-md-6">
-                                <input id="senha" type="password" class="form-control @error('senha') is-invalid @enderror" name="senha" required autocomplete="new-senha" placeholder="Senha">
-
-                                @error('senha')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="senha-confirm" class="col-md-4 col-form-label text-md-right"></label>
-                            <div class="col-md-6">
-                                <input id="senha-confirm" type="password" class="form-control" name="senha_confirmation" required autocomplete="new-senha" placeholder="Confirmar Senha">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="check" class="col-md-4 col-form-label text-md-right"></label>
-
-                            <div class="col-md-6">
-                                <input id="check" type="checkbox" name="check" required> Eu aceito os <a href="" data-toggle="modal" data-target="#modal_termo">Termos e condições</a> do site
-
-                                @error('check')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <br>
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-lg btn-primaria btn-bloqueado">
-                                    {{ __('Cadastrar') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
+				<form method="POST" action="{{ route('register') }}">
+                @csrf
+                <div class="logo" style="padding-top:28px" >
+                    <a href="{{ route('login') }}">  <img height="90px" src="{{asset('img/ToDo.png')}}"> </a>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+
+					<div class="wrap-input100 validate-input">
+                    <input id="usuario" type="text" class="input100 @error('usuario') is-invalid @enderror" name="usuario" value="{{ old('usuario') }}" required autocomplete="usuario" autofocus placeholder="Nome">
+						<span class="focus-input100-1"></span>
+						<span class="focus-input100-2"></span>
+                        @error('usuario')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+					</div>
+
+                    <div class="wrap-input100 rs1 validate-input">
+                    <input id="registro" type="text" class="input100 @error('registro') is-invalid @enderror" name="registro" value="{{ old('registro') }}" autocomplete="registro" autofocus placeholder="RGM/CPF (opcional)">
+						<span class="focus-input100-1"></span>
+						<span class="focus-input100-2"></span>
+                        @error('registro')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+					</div>
+
+                    <div>
+                        <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                            <input id="email" class="input100 @error('email') is-invalid @enderror" type="text" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
+                            <span class="focus-input100-1"></span>
+                            <span class="focus-input100-2"></span>
+                            @error('email')
+                                 <span class="invalid-feedback" role="alert">
+                                     <strong>{{ $message }}</strong>
+                                </span>
+                             @enderror
+                         </div>
+                    </div>
+
+					<div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
+                    <input id="senha" type="password" class="input100 @error('senha') is-invalid @enderror" name="senha" required autocomplete="new-senha" placeholder="Senha">
+						<span class="focus-input100-1"></span>
+						<span class="focus-input100-2"></span>
+                        @error('senha')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+					</div>
+
+                    <div class="wrap-input100 rs1 validate-input" >
+                    <input id="senha-confirm" type="password" class="input100" name="senha_confirmation" required autocomplete="new-senha" placeholder="Confirmar Senha">
+						<span class="focus-input100-1"></span>
+						<span class="focus-input100-2"></span>
+					</div>
+                    
+                    <div >
+                    <input id="check" type="checkbox" name="check" required> Eu aceito os <a href="" class="txt2 hov1" data-toggle="modal" data-target="#modal_termo">Termos e condições</a> do site
+						
+						
+                        @error('check')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+					</div>
+
+					<div class="container-login100-form-btn m-t-20">
+						<button type="submit" class="login100-form-btn btn btn-lg btn-primaria btn-block">
+                        {{ __('Cadastrar') }}
+						</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+    @endsection

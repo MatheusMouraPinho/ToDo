@@ -28,16 +28,9 @@ Artisan::call('cache:clear');
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/estilo2.css') }}" rel="stylesheet">
     <link href="{{ asset('css/estiloAuth.css') }}" rel="stylesheet">
+    
 </head>
-    <div id="fundo">
-         <div>
-            <img id="modulo" src="{{asset('img/fundo.jpg')}}" >
-        </div>   
 
-        <div id="logo" style="padding-top:28px" >
-         <a href="{{ route('login') }}">  <img height="90px" src="{{asset('img/ToDo.png')}}"> </a>
-        </div>  
-    </div>
 <body>
     <div id="app" style="padding-top:20px">
       <!--  layout da tela de login, register, confirmação de email... -->
@@ -48,7 +41,6 @@ Artisan::call('cache:clear');
         </main>
     </div>
 
-    <footer>© 2020 ToDoIdeias.gq All Rights Reserved</footer>
 
 </body>
 </html>
