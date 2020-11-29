@@ -6,9 +6,10 @@
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
 				<form method="POST" action="{{ route('register') }}">
                 @csrf
-                <div class="logo" style="padding-top:28px" >
+                <div class="logo">
                     <a href="{{ route('login') }}">  <img height="90px" src="{{asset('img/ToDo.png')}}"> </a>
                 </div>
+                <br>
 
 					<div class="wrap-input100 validate-input">
                     <input id="usuario" type="text" class="input100 @error('usuario') is-invalid @enderror" name="usuario" value="{{ old('usuario') }}" required autocomplete="usuario" autofocus placeholder="Nome">
@@ -60,7 +61,8 @@
                     <input id="senha-confirm" type="password" class="input100" name="senha_confirmation" required autocomplete="new-senha" placeholder="Confirmar Senha">
 						<span class="focus-input100-1"></span>
 						<span class="focus-input100-2"></span>
-					</div>
+                    </div>
+                    <br>
                     
                     <div >
                     <input id="check" type="checkbox" name="check" required> Eu aceito os <a href="" class="txt2 hov1" data-toggle="modal" data-target="#modal_termo">Termos e condições</a> do site

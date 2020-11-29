@@ -32,15 +32,8 @@ Artisan::call('cache:clear');
 </head>
 
 <body>
-    <div id="app" style="padding-top:20px">
-      <!--  layout da tela de login, register, confirmação de email... -->
-      
 
-        <main class="py-4">
-            @yield('content') <!-- conteudo que ira ficar aqui-->
-        </main>
-    </div>
-
+@yield('content') <!-- conteudo que ira ficar aqui-->
 
 </body>
 </html>

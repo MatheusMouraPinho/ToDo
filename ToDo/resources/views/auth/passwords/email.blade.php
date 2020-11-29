@@ -10,6 +10,7 @@
                         </div>
                     @endif
 				<form class="login100-form validate-form" method="POST" action="{{ route('password.email') }}">
+                @csrf
                 <div class="login100-form-title p-b-33">Recuperar senha</div>
 
 				    <div class="wrap-input100 rs1 validate-input" data-validate="Password is required">

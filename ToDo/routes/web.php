@@ -31,7 +31,7 @@ Route::get('/mobile', 'Controller@mobile');
 
 Route::get('/IE', 'Controller@IE');
 
-Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
+Route::post('/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/logout', 'HomeController@logout')->middleware('auth');
 

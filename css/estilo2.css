@@ -1,3 +1,13 @@
+@media screen and (min-width:555px){
+  .resumo_site_mobile{
+    display: none;
+  }
+}
+@media screen and (max-width:556px){
+  .resumo_site{
+    display: none;
+  }
+}
 .termos{
   margin-left: 40px;
   margin-right: 40px;

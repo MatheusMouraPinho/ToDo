@@ -216,12 +216,17 @@ $res23 = mysqli_query($conn, $sql23);
       </div>
       <div class="d-flex text-center justify-content-center mb-md-3 mb-1">
         <div class="col-md-8 col-12 mt-4">
-          <p style="line-height: 1.7rem">
+          <p class="resumo_site" style="line-height: 1.7rem">
           ToDo Ideias é um site voltado para a área acadêmica que tem como objetivo coletar, armazenar e gerenciar ideias de
           projetos para desenvolvimento podendo ser qualquer proposta que venha a surgir de uma inovação, oportunidade, necessidade ou
           problema, que podem ser postadas por qualquer usuario pois o site conta com votações, avaliações e moderação das ideias para
           que se possa fazer um ranqueamento das melhores ideias permitindo aos usuários uma melhor visão de forma a contribuir para o
           conhecimento e a definição dos projetos a serem desenvolvidos pelos alunos.
+          </p>
+          <p class="resumo_site_mobile" style="line-height: 1.7rem">
+          ToDo Ideias é um site voltado para a área acadêmica que tem como objetivo coletar, armazenar e gerenciar ideias de
+          projetos para desenvolvimento podendo ser qualquer proposta que venha a surgir de uma inovação, oportunidade, necessidade ou
+          problema.
           </p>
         </div>
       </div>

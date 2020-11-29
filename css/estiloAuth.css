@@ -19,6 +19,8 @@
       height: 100%;
     }
   }
+  
+  /*
   @media screen and (max-width: 575px) {
     .logo{
       position: relative;
@@ -28,6 +30,17 @@
       left: 50%;
       margin-left: -145px;
     }
+  }
+  */
+
+  .logo{
+	position: relative;
+	margin-top: -70px;
+	margin-bottom: -30px;
+	width: 180px;
+	height: 180px;
+	left: 50%;
+	margin-left: -90px;
   }
 
 .card-login{
