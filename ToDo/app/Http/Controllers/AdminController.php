@@ -535,10 +535,25 @@ class AdminController extends Controller
         $datetime = new DateTime();
         $datetime->format('d-m-Y H:i:s');
         $data['data_postagem'] = $datetime;
-        $soma = $data['inovacao'] + $data['complexidade'] + $data['potencial'];
-        $media = $soma / 3;
         $id_postagem = $data['id_postagem'];
-        if(!empty($data)) {
+        if(!is_null($data)) {
+            $soma_avals = DB::table('avaliacao_postagem')->where('id_postagem', $id_postagem)->get();
+            $cont = 0;
+            $soma_total = 0;
+            if(!empty($soma_avals[0])) {
+                foreach($soma_avals as $notas) {
+                    $soma = $notas->inovacao_avaliacao + $notas->complexidade_avaliacao + $notas->potencial_avaliacao;
+                    $soma_total = $soma_total + $soma; 
+                    $cont += 1;
+                }
+            }
+            $soma_geral = $soma_total + $data['inovacao'] + $data['complexidade'] + $data['potencial'];
+            $cont = $cont + 1;
+            if(!empty($soma_avals[0])) {
+                $media = $soma_geral / ($cont * 3);
+            }else {
+                $media = $soma_geral / 3;
+            }
             $id_avaliador = $data['id_avaliador'];
             $id_usuario = $data['id_usuario'];
             $insert = DB::insert('insert into avaliacao_postagem (

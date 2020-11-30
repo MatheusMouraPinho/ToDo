@@ -627,10 +627,10 @@ $count_avaliacoes = Helper::count_avaliacoes($id_post);
                       </svg>&nbsp;
                       Comentário:
                     </label>
-                    <textarea name="comentarios" class="comentarios" cols="80" rows="4" placeholder="Digite seu comentário..." required></textarea>
+                    <textarea name="comentarios" class="comentarios" cols="80" rows="4" maxlength="255" placeholder="Digite seu comentário..." required></textarea>
                 </div>
                 <input type="hidden" name="id_postagem" id="id_postagem1" value="{{ $id_post }}">
-                <?php if(isset($rows['id'])){?><input type="hidden" name="id_usuario" value="{{ $rows['id'] }}"><?php }?>
+                <input type="hidden" name="id_usuario" value="{{ $user_post }}">
                 <input type="hidden" name="id_avaliador" value="{{ Auth::user()->id }}">
                 <input type="hidden" name="nome_avaliador" value="{{ Auth::user()->usuario }}">
                 <input type="hidden" name="name_post" value="{{ $rows['titulo_postagem'] }}">
