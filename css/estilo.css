@@ -226,6 +226,78 @@
   position: relative;
 }
 
+#area_principal_aval {
+  width: 950px;
+  margin-top: 20px;
+  margin-bottom: auto;
+  background-color: #E5E5E5;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+.elipse {
+  background-color: transparent;
+  width: auto;
+  height: 200px;
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text_div {
+  display: inline-block;
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+
+.card_aval {
+  background-color: #D1D1D1;
+  margin: 30px auto 30px auto;
+  height: auto;
+  width: 100%;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.container_aval {
+  display: inline-block;
+  width: 260px;
+  padding: 10px;
+  height: 140px;
+  margin-top: 20px;
+}
+
+.div_spans {
+  vertical-align: top;
+  margin: 0px;
+  position: relative;
+  height: 90%;
+  display: inline-block;
+  width: 180px;
+  font-size: 1.3em;
+}
+
+.body_aval {
+  width: 55%;
+  min-height: 100px;
+  height: auto;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 30px;
+  margin-left: 60px;
+}
+
+.text_media {
+  display: inline-block;
+  text-align: left;
+  margin-bottom: auto;
+  font-size: 1.8em;
+  font-weight: 500;
+  padding: 0px;
+}
+
 #area_capa {
   width: 100%;
   height: 270px;
@@ -343,7 +415,7 @@
 }
 
 .margin {
-  margin-left: 15px;
+  margin-left:20;
 }
 
 #conteudo-dados {
@@ -497,6 +569,26 @@ ul {
   
 }
 
+.btn_show {
+  width: 250px;
+  height: 40px;
+  background-color: #D1D1D1;
+  margin-right: 10px;
+}
+
+.show_aval {
+  color: #3490dc;
+  background-color: transparent;
+  border: none;
+  padding: 0px;
+  font-size: 1.05em;
+  outline: none;
+}
+
+.show_aval:hover {
+  text-decoration: underline;
+}
+
 .popup_cont {
   display: inline-block;
   border: 1px solid black;
@@ -585,9 +677,6 @@ p {
 
 .div_imgs {
   margin: 5px 0px 5px 25px;
-}
-
-.popup_aval {
 }
 
 .div_notas {
@@ -861,7 +950,7 @@ input[type='file'] {
 
 .conteudo-coment {
   position: relative;
-  display: inline;
+  display: inline-block;
   margin: 2px 2px;
   padding: 5px;
   text-align: left;
@@ -1222,6 +1311,12 @@ transform: scale(1);
 }
 
 @media (max-width: 992px) {
+
+  .body_aval {
+    display: inline-block;
+    width: 50%;
+    margin-left: 20px;
+  }
   #popup_cont_desc {
     width: 90%;
   }
@@ -1535,6 +1630,13 @@ transform: scale(1);
     padding-bottom: 20px;
   }
 
+  #area_principal_aval {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;;
+    padding-bottom: 20px;
+  }
+
   #content_user {
     display: block;
     margin-left: 0px;
@@ -1621,6 +1723,21 @@ transform: scale(1);
   .preview {
     margin: 10px auto 10px auto;
   }
+
+  .body_aval {
+    display: block;
+    margin-top: 0px;
+    margin-left: 0px;
+    width: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .container_aval {
+    display: block;
+    width: 100%;
+    height: 140px;
+  }
 }
 
 .bola {
@@ -1636,6 +1753,13 @@ transform: scale(1);
 
 @media (min-width: 768px) and (max-width: 1023px) {
   #area_principal {
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;;
+    padding-bottom: 20px;
+  }
+
+  #area_principal_aval {
     width: 85%;
     margin-left: auto;
     margin-right: auto;;
@@ -1735,6 +1859,7 @@ transform: scale(1);
 }
 
 @media(max-width: 400px) {
+
   #popup_cont_desc {
     width: 85%;
   }
@@ -1933,6 +2058,24 @@ transform: scale(1);
     width: auto;
     max-width: 300px;
   }
+
+  .btn_show {
+    width: 100%;
+    padding: 0px;
+    margin-left: 5px;
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .body_aval {
+    min-height: 100px;
+    height: auto;
+    display: block;
+    margin-top: 0px;
+    margin-left: 0px;
+    width: 100%;
+  }
 }
 
 @media (min-width:401px) and (max-width:475px) {
@@ -1969,6 +2112,23 @@ transform: scale(1);
   .preview_capa {
     width: 270px;
   }
+
+  .btn_show {
+    width: 100%;
+    padding: 0px;
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .body_aval {
+    min-height: 100px;
+    height: auto;
+    display: block;
+    margin-top: 0px;
+    margin-left: 0px;
+    width: 100%;
+  }
 }
 
 @media (min-width: 1024px) and (max-width: 1366px) {
@@ -1978,6 +2138,14 @@ transform: scale(1);
     margin-right: auto;
     padding-bottom: 20px;
   }
+
+  #area_principal_aval {
+    width: 88%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 20px;
+  }
+
   #area_capa {
     width: 100%;
     height: 270px;

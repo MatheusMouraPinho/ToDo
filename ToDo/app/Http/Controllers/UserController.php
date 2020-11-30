@@ -8,7 +8,6 @@ use DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
-
 class UserController extends Controller
 {
     
@@ -67,6 +66,7 @@ class UserController extends Controller
                         ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
                         ->where('id_usuario', $user_id)
                         ->join('usuarios', 'usuarios.id', '=', 'avaliacao_postagem.id_avaliador')
+                        ->orderBy('id_avaliacao', 'desc')
                         ->select('usuarios.*')
                         ->get(),
 
@@ -106,6 +106,7 @@ class UserController extends Controller
                             ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
                             ->where('postagens.id_usuarios', $user_id)
                             ->join('comentarios', 'comentarios.id_avaliacao', 'avaliacao_postagem.id_avaliacao')
+                            ->orderBy('avaliacao_postagem.id_avaliacao', 'desc')
                             ->select('avaliacao_postagem.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'comentarios.*')
                             ->get(),
 
@@ -122,6 +123,10 @@ class UserController extends Controller
                             ->leftJoin('postagens', 'postagens.id_postagem', '=', 'img_postagem.id_img')
                             ->select('img_postagem.id_postagem', 'img_postagem.img_post')
                             ->distinct()
+                            ->get(),
+
+            'avaliou' => DB::table('avaliacao_postagem')
+                            ->where('id_avaliador', $user_id)
                             ->get()
         ];
 
@@ -134,6 +139,7 @@ class UserController extends Controller
 
     public function perfil() {
         $_SESSION['id_usuario'] = $_GET['id_usuario'];
+        $user_id = Auth::user()->id;
         $id_usuario = $_SESSION['id_usuario'];
         $dados_user = DB::table('usuarios')
                     ->where('id', $id_usuario)
@@ -184,6 +190,7 @@ class UserController extends Controller
                             ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
                             ->where('id_usuario', $dados_usr->id)
                             ->join('usuarios', 'usuarios.id', '=', 'avaliacao_postagem.id_avaliador')
+                            ->orderBy('id_avaliacao', 'desc')
                             ->select('usuarios.*')
                             ->get(),
 
@@ -218,6 +225,7 @@ class UserController extends Controller
                                 ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
                                 ->where('id_usuario', $dados_usr->id)
                                 ->join('comentarios', 'comentarios.id_avaliacao', 'avaliacao_postagem.id_avaliacao')
+                                ->orderBy('avaliacao_postagem.id_avaliacao', 'desc')
                                 ->select('avaliacao_postagem.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'comentarios.*')
                                 ->get(),
 
@@ -234,7 +242,12 @@ class UserController extends Controller
                                     ->leftJoin('postagens', 'postagens.id_postagem', '=', 'img_postagem.id_img')
                                     ->select('img_postagem.id_postagem', 'img_postagem.img_post')
                                     ->distinct()
+                                    ->get(),
+
+                'avaliou' => DB::table('avaliacao_postagem')
+                                    ->where('id_avaliador', $user_id)
                                     ->get()
+
             ];
         }
 
@@ -578,5 +591,64 @@ class UserController extends Controller
 
             return $nameFile;
         }
+    }
+
+    public function avaliacoes(Request $request) {
+        
+        if ( $_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_SERVER['QUERY_STRING']))
+        {            
+            $data = $request->all();
+            $id_post =  $data['id_post'];
+        }else {
+            $id_post = $_GET['id_post'];
+        }
+            $user_id = Auth::user()->id;
+
+            $avaliacao = DB::table('avaliacao_postagem')
+                ->where('avaliacao_postagem.id_postagem', $id_post)
+                ->join('comentarios', 'comentarios.id_avaliacao', 'avaliacao_postagem.id_avaliacao')
+                ->orderBy('comentarios.data_comentarios', 'desc')
+                ->paginate(5);
+
+            $count_aval = DB::table('avaliacao_postagem')
+                    ->where('id_postagem', $id_post)
+                    ->count();
+
+            $postagem = DB::table('postagens')
+            ->join('usuarios', 'usuarios.id', 'postagens.id_usuarios')
+            ->where('id_postagem', $id_post)
+            ->get();
+
+            $img_post = DB::table('img_postagem')
+                    ->join('postagens', 'postagens.id_postagem', 'img_postagem.id_postagem')
+                    ->where('img_postagem.id_postagem', $id_post)
+                    ->get();
+
+            $media = DB::table('postagens')
+                    ->where('id_postagem', $id_post)
+                    ->select('media')
+                    ->get();
+
+            $avaliou = DB::table('avaliacao_postagem')
+                    ->where('id_avaliador', $user_id)
+                    ->get();
+
+            $mencionado = DB::table('comentarios')
+                        ->leftJoin('usuarios as user', 'comentarios.id_mencionado', '=', 'user.id') 
+                        ->join('postagens', 'postagens.id_postagem', '=', 'comentarios.id_postagem')
+                        ->where('postagens.id_usuarios', $user_id, 'and')
+                        ->where('comentarios.id_mencionado', '!=', null)
+                        ->select('comentarios.id_comentarios','postagens.id_usuarios', 'postagens.id_postagem', 'user.*')                               
+                        ->orderBy('data_comentarios', 'asc')
+                        ->get();
+
+            $avaliador =  DB::table('avaliacao_postagem')
+                    ->join('usuarios', 'usuarios.id', '=', 'avaliacao_postagem.id_avaliador')
+                    ->where('id_postagem', $id_post)
+                    ->select('usuarios.*')
+                    ->orderBy('id_avaliacao', 'desc')
+                    ->get();
+
+            return view('avaliacoes', compact('avaliou', 'count_aval','mencionado', 'media', 'avaliacao', 'avaliador', 'id_post', 'img_post', 'postagem'));
     }
 }

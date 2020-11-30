@@ -1,3 +1,7 @@
+<?php 
+  $count_avaliacoes = Helper::count_avaliacoes($posts->id_postagem);
+?>
+
 <!-- Área de detalhes de ideias postadas -->
 
 <div class="painel-dados">
@@ -128,19 +132,40 @@
                           <span class="underline data-coment_foot" style="margin-right: 10px">{{ Helper::tempo_corrido($post['avaliacao'][$c]->data_comentarios)}}</span>
                       </div>
                     </div>
-                  @endif
-
-                  <!-- Verifica se a avaliação está pendente ou não -->
-                  <?php $cont = 0;?>
-                  @for($d=0;$d<sizeof($post['avaliacao']);$d++)
-                    @if($post['avaliacao'][$d]->id_postagem !== $posts->id_postagem)
-                      <?php 
-                        $cont+= 1 ;
-                      ?>
+                    @if($count_avaliacoes >= 2)
+                      <form action="{{ route('get_avaliacoes') }}" method="get">
+                        @csrf
+                        <input type="hidden" name="id_avaliador" value="{{ $dados['avaliador'][$c]->id }}">
+                        <input type="hidden" name="id_post" value="{{ $posts->id_postagem }}">
+                        <button type="submit" class="show_aval m-0 ml-1" style="">Ver todas avaliações</a>
+                      </form>
                     @endif
-                  @endfor
+                    @if($nivel >= 2)
+                      <?php $cont_aval = 0; ?>
+                      @for($s=0; $s<sizeof($post['avaliou']); $s++)
+                        @if($post['avaliou'][$s]->id_postagem == $posts->id_postagem)
+                          <?php $cont_aval += 1; ?>
+                        @endif
+                      @endfor
+                      @if($cont_aval === 0 && $user_post != $user)
+                        <button href="#" class="btn btn-block btn-outline-primary mr-auto mt-2 ml-auto" data-toggle="modal" data-target="#post<?php echo $posts->id_postagem ?>_avaliar">Avaliar postagem</button>
+                      @endif
+                    @endif
+                    <?php break; ?>
+                  @endif
                 @endfor
-                @if($cont === sizeof($post['avaliacao']))
+
+                <!-- Verifica se a avaliação está pendente ou não -->
+                <?php $cont = 0;?>
+                @for($d=0;$d<sizeof($post['avaliacao']);$d++)
+                  @if($post['avaliacao'][$d]->id_postagem !== $posts->id_postagem)
+                    <?php 
+                      $cont+= 1 ;
+                    ?>
+                  @endif
+                @endfor
+
+                @if($cont == sizeof($post['avaliacao']))
                   <p class="popup_coment">Pendente</p>
                 @endif
               @else
@@ -431,7 +456,7 @@
                 
             <div class="modal-footer mt-2"> 
               <p class="data-post">
-                Postado em {{date('d/m/Y', strtotime($posts->data_postagem))}} às  {{date('H:i:s', strtotime($posts->data_postagem))}} horas
+                Postado em {{date('d/m/Y', strtotime($posts->data_postagem))}} às  {{date('H:i:s', strtotime($posts->data_postagem))}} horas por <?php echo $dados['nome']; ?>
               </p>
               <div class="popup-like">
                 <img width="30px" src="{{ asset('img/like.png') }}">

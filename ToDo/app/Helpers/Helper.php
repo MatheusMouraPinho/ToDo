@@ -261,4 +261,12 @@ class Helper
         }
         return $solicit;
     }
+
+    public static function count_avaliacoes($id_post) {
+        $count = DB::table('avaliacao_postagem')
+                    ->where('id_postagem', $id_post)
+                    ->count();
+
+        return $count;
+    }
 }

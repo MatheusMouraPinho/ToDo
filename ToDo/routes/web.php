@@ -102,6 +102,10 @@ Route::group(['middleware' => ['auth', 'verified']], function() { //grupo middle
     Route::post('/cropp_image', 'UserController@cropp_image');
 
     Route::post('/cropp_image_capa', 'UserController@cropp_image_capa');
+
+    Route::get('/avaliacoes', 'UserController@avaliacoes')->name('get_avaliacoes');
+
+    Route::get('/page_avaliacoes', 'UserController@page_avaliacoes')->name('page_avaliacoes');
 });
 
 Route::group(['middleware' => ['auth', 'verified', 'admin']], function() {

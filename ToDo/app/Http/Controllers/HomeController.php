@@ -41,10 +41,12 @@ class HomeController extends Controller
       
     public function home()
     {
+        $user_id = Auth::user()->id;
         $post = [ 
             'avaliador' => DB::table('postagens')
                             ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
                             ->join('usuarios', 'usuarios.id', '=', 'avaliacao_postagem.id_avaliador')
+                            ->orderBy('id_avaliacao', 'desc')
                             ->select('usuarios.*')
                             ->get(),
             
@@ -52,6 +54,7 @@ class HomeController extends Controller
                             ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
                             ->join('comentarios', 'comentarios.id_avaliacao', 'avaliacao_postagem.id_avaliacao')
                             ->select('avaliacao_postagem.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'comentarios.*')
+                            ->orderBy('avaliacao_postagem.id_avaliacao', 'desc')
                             ->get(),
 
             'mencionado' => DB::table('comentarios')
@@ -66,6 +69,10 @@ class HomeController extends Controller
                                 ->leftJoin('postagens', 'postagens.id_postagem', '=', 'img_postagem.id_img')
                                 ->select('img_postagem.id_postagem', 'img_postagem.img_post')
                                 ->distinct()
+                                ->get(),
+
+            'avaliou' => DB::table('avaliacao_postagem')
+                                ->where('id_avaliador', $user_id)
                                 ->get()
         ];
 

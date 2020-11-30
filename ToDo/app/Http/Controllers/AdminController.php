@@ -32,17 +32,21 @@ class AdminController extends Controller
 
     public function admin3()
     {
+        $user_id = Auth::user()->id;  
+
         $post = [ 
             'avaliador' => DB::table('postagens')
                             ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
                             ->join('usuarios', 'usuarios.id', '=', 'avaliacao_postagem.id_avaliador')
                             ->select('usuarios.*')
+                            ->orderBy('id_avaliacao', 'desc')
                             ->get(),
             
             'avaliacao' => DB::table('postagens')
                             ->join('avaliacao_postagem', 'postagens.id_postagem', '=', 'avaliacao_postagem.id_postagem')
                             ->join('comentarios', 'comentarios.id_avaliacao', 'avaliacao_postagem.id_avaliacao')
                             ->select('avaliacao_postagem.*', 'postagens.id_usuarios', 'postagens.id_postagem', 'comentarios.*')
+                            ->orderBy('comentarios.data_comentarios', 'desc')
                             ->get(),
             
             'comentarios' => DB::table('comentarios')
@@ -76,6 +80,10 @@ class AdminController extends Controller
                                 ->leftJoin('postagens', 'postagens.id_postagem', '=', 'img_postagem.id_img')
                                 ->select('img_postagem.id_postagem', 'img_postagem.img_post')
                                 ->distinct()
+                                ->get(), 
+
+            'avaliou' => DB::table('avaliacao_postagem')
+                                ->where('id_avaliador', $user_id)
                                 ->get()
         ];
 
@@ -543,6 +551,8 @@ class AdminController extends Controller
             $query = DB::table('avaliacao_postagem')
                             ->where('id_postagem', $data['id_postagem'])
                             ->select('id_avaliacao')
+                            ->orderBy('id_avaliacao', 'desc')
+                            ->limit(1)
                             ->get();
 
             $query = intval($query[0]->id_avaliacao);

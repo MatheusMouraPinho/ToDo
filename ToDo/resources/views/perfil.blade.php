@@ -317,6 +317,7 @@ $solicit = Helper::ordenar_solicit_perfil($dados['id']);
                 <tbody>
                   <?php $i = 0?>            
                   @foreach($posts as $posts)
+                    <?php $user_post = $posts->id_usuarios; ?>
                     <tr>
                       <td class="abreviar">{{ $posts->titulo_postagem }}</td>
                       <td>{{ date('d/m/Y', strtotime($posts->data_postagem)) }}</td>

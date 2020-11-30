@@ -76,8 +76,9 @@ if ($total_pesquisa > 0 ){ //se tiver rows
                             </tr>
                         </thead>
                         <?php while($rows = mysqli_fetch_assoc($result)){ $id_denuncia = $rows['id_denuncia'];
-                            $nome_post = $rows['titulo_postagem']; $id_post = $rows['id_postagem'];
-
+                            $nome_post = $rows['titulo_postagem']; $id_post = $rows['id_postagem']; $user_post = $rows['id_usuarios']; 
+                            $query = DB::table('usuarios')->where('id', $user_post)->get();
+                            $name = $query[0]->usuario;
                         ?>
                             <tbody class="texture pisca">
                                 <tr class="linha">

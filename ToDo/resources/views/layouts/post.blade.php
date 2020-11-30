@@ -56,6 +56,10 @@ $comments = [
                                 ->orderBy($filtro_coment, 'desc')
                                 ->get(),
 ];
+
+$count_avaliacoes = Helper::count_avaliacoes($id_post);
+
+#dd($post['avaliou']);
 ?>
 
 <!-- Área de detalhes de ideias postadas -->
@@ -145,13 +149,13 @@ $comments = [
                     <div class="popup_coment_aval" id="avaliacao">
                       <div class="header-coment">
                         @if($post['avaliador'][$c]->nivel > 1)
-                            <div class="p-1 w-50 show_selo">
-                              <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zm4.854-7.85a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-                              </svg>
-                              <span>Avaliador</span>
-                            </div>
-                          @endif
+                          <div class="p-1 w-50 show_selo">
+                            <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-person-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zm4.854-7.85a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                            </svg>
+                            <span>Avaliador</span>
+                          </div>
+                        @endif
                         @if($post['avaliador'][$c]->img_usuarios === null)
                             <img class="img-dados-coment" src="{{asset('img/semuser.png')}}">
                           @else
@@ -188,9 +192,29 @@ $comments = [
                           <span class="underline data-coment_foot" style="margin-right: 10px">{{ Helper::tempo_corrido($post['avaliacao'][$c]->data_comentarios)}}</span>
                       </div>
                     </div>
+                    @if($count_avaliacoes >= 2)
+                      <form action="{{ route('get_avaliacoes') }}" method="get">
+                        @csrf
+                        <input type="hidden" name="id_avaliador" value="{{ $post['avaliador'][$c]->id }}">
+                        <input type="hidden" name="id_post" value="{{ $id_post }}">
+                        <button type="submit" class="show_aval" style="">Ver todas avaliações</a>
+                      </form>
+                    @endif
+                    @if($nivel >= 2)
+                      <?php $cont_aval = 0; ?>
+                      @for($s=0; $s<sizeof($post['avaliou']); $s++)
+                        @if($post['avaliou'][$s]->id_postagem == $id_post)
+                          <?php $cont_aval += 1; ?>
+                        @endif
+                      @endfor
+                      @if($cont_aval === 0 && $user_post != $user)
+                        <button href="#" class="btn btn-block btn-outline-primary mr-auto mt-2 ml-auto" data-toggle="modal" data-target="#post<?php echo $id_post ?>_avaliar">Avaliar postagem</button>
+                      @endif
+                    @endif
+                    <?php break; ?>
                   @endif
-
-                  <!-- Verifica se a avaliação está pendente ou não -->
+                @endfor
+                <!-- Verifica se a avaliação está pendente ou não -->
                   <!-- Quando o for rodar todas as vezes e tbm todos questionamentos do if, e o cont não for igual ao tamanho de quantidade de avaliações , quer dizer q existe alguma avaliação que pertence a postagem atual, e portanto não está pendente -->
                   <?php $cont = 0;?>
                   @for($d=0;$d<sizeof($post['avaliacao']);$d++)
@@ -200,7 +224,6 @@ $comments = [
                       ?>
                     @endif
                   @endfor
-                @endfor
                 @if($cont === sizeof($post['avaliacao']))
                   @if($id_nivel == 1 && isset($rows['id']) && $user_post != $user)
                     <button href="#" class="btn btn-block btn-outline-primary mr-auto mt-2 ml-auto" data-toggle="modal" data-target="#post<?php echo $id_post ?>_avaliar">Avaliar postagem</button>
@@ -520,7 +543,7 @@ $comments = [
             </div>         
             <div class="modal-footer" style="margin-top: 10px"> 
               <p class="data-post">
-                Postado em <?php echo date('d/m/Y', strtotime($rows['data_postagem'])); ?> às  <?php echo date('H:i', strtotime($rows['data_postagem'])); ?> horas
+                Postado em <?php echo date('d/m/Y', strtotime($rows['data_postagem'])); ?> às  <?php echo date('H:i', strtotime($rows['data_postagem'])); ?> horas por <?php echo $name; ?>
               </p>     
               <div class="popup-like">
                 <img width="30px" src="{{ asset('img/like.png') }}">
