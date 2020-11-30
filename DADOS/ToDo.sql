@@ -1317,7 +1317,6 @@ ALTER TABLE `tipo_solicitacoes`
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email_usuarios` (`email`),
-  ADD UNIQUE KEY `usuario` (`usuario`),
   ADD KEY `id_nivel` (`nivel`),
   ADD KEY `id_area` (`id_area`),
   ADD KEY `id_instituicao` (`id_instituicao`),

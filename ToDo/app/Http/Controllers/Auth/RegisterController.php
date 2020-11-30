@@ -58,8 +58,8 @@ class RegisterController extends Controller
         mysqli_query($conn, $sql);
         
         return Validator::make($data, [
-            'usuario' => ['required', 'string', 'max:50', 'unique:usuarios'],
-            'registro' => ['nullable', 'numeric', 'min:8', 'max:11'],
+            'usuario' => ['required', 'string', 'max:50'],
+            'registro' => ['nullable', 'string', 'min:8', 'max:11'],
             'email' => ['required', 'string', 'email', 'max:50', 'unique:usuarios', 'unique:bloqueados'],
             'senha' => ['required', 'string', 'min:6', 'confirmed'],
             'check' => ['required'],
