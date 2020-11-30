@@ -241,7 +241,7 @@ class HomeController extends Controller
         $descri = $_POST['descricao'];
         $categoria = $_POST['categoria'];
 
-        $sql = "INSERT INTO postagens (id_usuarios, id_situacao_postagem, id_categoria, titulo_postagem, descricao_postagem, data_postagem) VALUES ('$id', 2, '$categoria', '$title', '$descri', NOW())";
+        $sql = "INSERT INTO postagens (id_usuarios, id_situacao_postagem, id_categoria, titulo_postagem, descricao_postagem, data_postagem) VALUES ('$id', 2, '$categoria', '$title', '$descri', CURRENT_TIMESTAMP )";
         mysqli_query($conn, $sql);
 
         $sql = "SELECT * FROM postagens WHERE id_usuarios = $id ORDER BY id_postagem DESC";
