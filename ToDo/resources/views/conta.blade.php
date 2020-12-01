@@ -551,7 +551,7 @@ $solicit = Helper::ordenar_solicit();
                 </div>
                 <div class="form-group">
                   <label for="conteudo_solicitacao">Descrição:</label>
-                  <textarea class="form-control" name="conteudo_solicitacao" id="conteudo_solicitacao" rows="3" required></textarea>
+                  <textarea class="form-control" name="conteudo_solicitacao" id="conteudo_solicitacao" rows="3" maxlength="255" required></textarea>
                 </div>
               </div>
               <div class="modal-footer">
