@@ -31,3 +31,5 @@ npm install && npm run dev
 composer require appzcoder/crud-generator --dev
 
 ----------------------------------------------------------------------------------------------------------------------------------------
+
+Utilizar Xampp na Versão 7.4.16 pois a 8.0.3 não funciona
